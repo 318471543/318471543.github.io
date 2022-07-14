@@ -488,7 +488,15 @@
 
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/875/">欧拉函数</a></p>
 <p><strong>进阶题单：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/33540/E">西楼暮，一帘疏雨</a></p>
-<h2 id="排列"><a href="#排列" class="headerlink" title="排列"></a>排列</h2><p><strong>定义：</strong>设（a<sub>1</sub>,a<sub>2</sub>,…,a<sub>n</sub>）是{1,2,…,n}的一个全排列，若对任意的i∈{1,2,…,n}都有a<sub>i</sub>  &amp;ne; i，则称（a<sub>1</sub>,a<sub>2</sub>,…,a<sub>n</sub>）是{1,2,…,n}的错位排列。</p>
+<h2 id="结论总结"><a href="#结论总结" class="headerlink" title="结论总结"></a>结论总结</h2><h3 id="模数范围"><a href="#模数范围" class="headerlink" title="模数范围"></a>模数范围</h3><blockquote>
+    一个数n，如果对mod(1 &le; mod &le; n)取模的话，得到的模数x范围为：[0，(x - 1) / 2]。</blockquote>
+
+<blockquote>
+      相反，如果想要得到模数为x的数，原数n必须大于等于2 * x + 1。
+</blockquote>
+
+<p><strong>推荐题单：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1617/problem/C">C. Paprika and Permutation</a></p>
+<h3 id="排列"><a href="#排列" class="headerlink" title="排列"></a>排列</h3><p>  <strong>定义：</strong>设（a<sub>1</sub>,a<sub>2</sub>,…,a<sub>n</sub>）是{1,2,…,n}的一个全排列，若对任意的i∈{1,2,…,n}都有a<sub>i</sub>  &amp;ne; i，则称（a<sub>1</sub>,a<sub>2</sub>,…,a<sub>n</sub>）是{1,2,…,n}的错位排列。</p>
 <p><mark>错排公式：</mark></p>
 <p>f [ 0 ] &#x3D; 1 , f [ 1 ] &#x3D; 0 , f [ 2 ] &#x3D; 1</p>
 <p>f[ n ] &#x3D; ( n − 1 ) ∗ ( f [ n − 1 ] + f [ n − 2 ] )</p>
