@@ -502,7 +502,8 @@
 
 <h2 id="矩阵快速幂"><a href="#矩阵快速幂" class="headerlink" title="矩阵快速幂"></a>矩阵快速幂</h2><p><strong>模板题：</strong></p>
 <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1962">斐波那契数列</a></p>
-<p><strong>下面是推导过程：</strong><br>$$<br>F_n &#x3D; \left[<br> \begin{matrix}<br>   f_{n} &amp; f_{n+1} \<br>  \end{matrix}<br>  \right]<br>$$</p>
+<p><strong>下面是推导过程：</strong></p>
+<p>$$<br>F_n &#x3D; \left[<br> \begin{matrix}<br>   f_{n} &amp; f_{n+1} \<br>  \end{matrix}<br>  \right]<br>$$</p>
 <p>$$<br>F_{n+1} &#x3D; \left[<br> \begin{matrix}<br>   f_{n+1} &amp; f_{n+2} \<br>  \end{matrix}<br>  \right]<br>$$</p>
 <p>$$<br>令 F_{n} * A &#x3D; F_{n+1}<br>$$</p>
 <p>$$<br>即\left[<br> \begin{matrix}<br>   f_{n} &amp; f_{n+1} \<br>  \end{matrix}<br>  \right]<br>  \left[<br> \begin{matrix}<br>   0 &amp; 1 \<br>   1 &amp; 1 \<br>  \end{matrix}<br>  \right]<br>   &#x3D; \left[<br> \begin{matrix}<br>   f_{n+1} &amp; f_{n+2} \<br>  \end{matrix}<br>  \right]<br>$$</p>
