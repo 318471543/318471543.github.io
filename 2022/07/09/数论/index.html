@@ -516,6 +516,81 @@
 <p>$$<br>即\left[<br> \begin{matrix}<br>   f_{n} &amp; f_{n+1} &amp; S_{n}\<br>  \end{matrix}<br>  \right]<br>  \left[<br> \begin{matrix}<br>   0 &amp; 1 &amp; 0\<br>   1 &amp; 1 &amp; 1\<br>   0 &amp; 0 &amp; 1<br>  \end{matrix}<br>  \right]<br>   &#x3D; \left[<br> \begin{matrix}<br>   f_{n+1} &amp; f_{n+2} &amp; S_{n+1}\<br>  \end{matrix}<br>  \right]<br>$$</p>
 <p>$$<br>故 F_{n} &#x3D; F_1 * A^{n-1}<br>$$</p>
 <p>$$<br>A &#x3D; \left[<br> \begin{matrix}<br>   0 &amp; 1 &amp; 0\<br>   1 &amp; 1 &amp; 1\<br>   0 &amp; 0 &amp; 1<br>  \end{matrix}<br>  \right]<br>$$</p>
+<h2 id="数论分块"><a href="#数论分块" class="headerlink" title="数论分块"></a>数论分块</h2><p><strong>一、寻找规律</strong></p>
+<p>当n &#x3D; 20：</p>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+<th>15</th>
+<th>16</th>
+<th>17</th>
+<th>18</th>
+<th>19</th>
+<th>20</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>20</td>
+<td>10</td>
+<td>6</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<p>明显，存在很多个区间，使得某个区间内（区间长度可能为1），有连续的 $\frac{n}{i} $ 数值相同。</p>
+<p><strong>二、给出结论</strong></p>
+<blockquote>
+    假如说一个区间的左端点是L，那么它的右端点是n / n / L。
+</blockquote>
+
+<p>例如：当L &#x3D; 7时，n &#x2F; L &#x3D; 20 &#x2F; 7 &#x3D; 2，n &#x2F; (n &#x2F; L) &#x3D; 20 &#x2F; 2 &#x3D; 10符合。</p>
+<p><strong>三、给出证明</strong></p>
+<p><mark>证明该式子 $\lfloor \frac{n}{i} \rfloor$ 最多只有 2$\sqrt{n}$ 个取值</mark><br>分段讨论：</p>
+<ul>
+<li>当 i&lt;&#x3D; $\sqrt{n}$ 时，因为 i 是 1 到 $\sqrt{n}$ 的整数，所以最多只有 $\sqrt{n}$ 个不同的$\sqrt{\frac{n}{i}}$ 值。</li>
+<li>当 i &gt; $\sqrt{n}$ 时，$\sqrt{\frac{n}{i}}$ &lt;&#x3D; $\sqrt{n}$，又因为式子取整了，所以式子只能取1 到 $\sqrt{n}$ 的整数，故最多也只有 $\sqrt{n}$ 个不同的 $\sqrt{\frac{n}{i}}$ 值。</li>
+</ul>
+<p>综上所述， $\lfloor \frac{n}{i} \rfloor$ 最多只有 2$\sqrt{n}$ 个取值</p>
+<p><strong>四、记住结论，拓展应用</strong></p>
+<p>$$ \sum_{i&#x3D;1}^{n} \lfloor \frac{n}{i} \rfloor $$</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> l = <span class="number">1</span>,r;l &lt;= n;l = r + <span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">    r = n / (n / l);</span><br><span class="line">    sum += (r - l + <span class="number">1</span>) * (n / l);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>$$ \sum_{i&#x3D;1}^{n} \lfloor \frac{n}{i} \rfloor * i $$</p>
+<p>在一段区间内的 n &#x2F; i 的值是相同的，而在区间内对 i 的求和是一个明确了左端点和右端点的等差数列求和，代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> l = <span class="number">1</span>,r;l &lt;= n;l = r + <span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">    r = n / (n / l);</span><br><span class="line">    sum += (r - l + <span class="number">1</span>) * (n / l) * (l + r) / <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/201/">余数之和</a></p>
 <h2 id="康托展开"><a href="#康托展开" class="headerlink" title="康托展开"></a>康托展开</h2><h3 id="康托展开-1"><a href="#康托展开-1" class="headerlink" title="康托展开"></a>康托展开</h3><p>  把一个集合产生的全排列按照字典序排序，第X个排列的计算公式如下：</p>
 <blockquote>
     X = a[n] * (n - 1)! + a[n - 1] * (n - 2)! + ... + a[2] * 1! + a[1] * 0!
