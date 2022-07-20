@@ -5,12 +5,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="数据结构, 重生之幻影">
-    <meta name="description" content="KMP模板题：KMP字符串
+    <meta name="description" content="KMPKMP模板题：KMP字符串
 题目描述
 给定一个模式串 S，以及一个模板串 P，所有字符串中只包含大小写英文字母以及阿拉伯数字。
 模板串 P 在模式串 S 中多次作为子串出现。
-求出模板串 P 在模式串 S 中所有出现的位置的起始下标。
-输入">
+求出模板串 P 在模式串 S 中所有出现的位置的起始下标。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -479,7 +478,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="KMP"><a href="#KMP" class="headerlink" title="KMP"></a>KMP</h2><p>模板题：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/833/">KMP字符串</a></p>
+                <h2 id="KMP"><a href="#KMP" class="headerlink" title="KMP"></a>KMP</h2><h3 id="KMP-1"><a href="#KMP-1" class="headerlink" title="KMP"></a>KMP</h3><p>模板题：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/833/">KMP字符串</a></p>
 <p><strong>题目描述</strong></p>
 <p>给定一个模式串 S，以及一个模板串 P，所有字符串中只包含大小写英文字母以及阿拉伯数字。</p>
 <p>模板串 P 在模式串 S 中多次作为子串出现。</p>
@@ -502,6 +501,9 @@
 <p><mark>代码：</mark></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1e5</span>+<span class="number">10</span>,M = <span class="number">1e6</span>+<span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> n,m;</span><br><span class="line"><span class="type">char</span> p[N],s[M];</span><br><span class="line"><span class="type">int</span> ne[N];<span class="comment">//最长相等前后缀长度</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span><span class="comment">//下面两个过程基本是类似的</span></span></span><br><span class="line"><span class="function"></span>&#123;<span class="comment">//p为小的模板串，n为其大小;s为大的模式串，m为其大小</span></span><br><span class="line">    cin &gt;&gt; n &gt;&gt; p + <span class="number">1</span> &gt;&gt; m &gt;&gt; s + <span class="number">1</span>;<span class="comment">//字符串输入是从下标1开始的</span></span><br><span class="line">    <span class="comment">//求next的过程</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>,j = <span class="number">0</span>;i &lt;= n;i++)</span><br><span class="line">    &#123;<span class="comment">//i = 2原因是next[1]不用算</span></span><br><span class="line">        <span class="keyword">while</span>(j &amp;&amp; p[i]!=p[j+<span class="number">1</span>])    j = ne[j];</span><br><span class="line">        <span class="keyword">if</span>(p[i]==p[j+<span class="number">1</span>])    j++;</span><br><span class="line">        ne[i] = j;<span class="comment">//因为字符串下标从1开始，这个j就非常好用</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//KMP匹配过程</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>,j = <span class="number">0</span>;i &lt;= m;i++)</span><br><span class="line">    &#123;<span class="comment">//下面循环退出条件:j变为0(退无可退)或是匹配成功</span></span><br><span class="line">        <span class="keyword">while</span>(j &amp;&amp; s[i]!=p[j+<span class="number">1</span>])    j = ne[j];<span class="comment">//当不匹配，将j移动到ne[j]，“移动最小距离”</span></span><br><span class="line">        <span class="keyword">if</span>(s[i]==p[j+<span class="number">1</span>])    j++;</span><br><span class="line">        <span class="keyword">if</span>(j==n)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,i-n);<span class="comment">//这一个比较好理解</span></span><br><span class="line">            j = ne[j];<span class="comment">//匹配成功后继续移动到最小距离</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
+<h3 id="EX-KMP"><a href="#EX-KMP" class="headerlink" title="EX-KMP"></a>EX-KMP</h3><p><mark>Z函数：</mark>求一个字符串str以第 i 位开始的后缀与str的最长公共前缀（lcp）</p>
+<p>使用z[i]表示第i位开始的后缀与str的最长公共前缀</p>
+<p><mark>扩展KMP：</mark>给两个字符串str1、str2，求出str1的每一个后缀与str2的最长公共前缀，时间复杂度：O（n）</p>
 <h2 id="字符串哈希"><a href="#字符串哈希" class="headerlink" title="字符串哈希"></a>字符串哈希</h2><h2 id="Manacher算法"><a href="#Manacher算法" class="headerlink" title="Manacher算法"></a>Manacher算法</h2><p>模板题：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/3190/">Manacher算法</a></p>
 <p><strong>题目描述</strong></p>
 <p>给定一个长度为 n 的由小写字母构成的字符串，求它的最长回文子串的长度是多少。</p>
