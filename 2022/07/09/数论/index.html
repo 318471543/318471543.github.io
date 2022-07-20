@@ -591,6 +591,7 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> l = <span class="number">1</span>,r;l &lt;= n;l = r + <span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">    r = n / (n / l);</span><br><span class="line">    sum += (r - l + <span class="number">1</span>) * (n / l) * (l + r) / <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/201/">余数之和</a></p>
+<p><strong>进阶题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1706/problem/D2">Chopping Carrots (Hard Version)</a></p>
 <h2 id="康托展开"><a href="#康托展开" class="headerlink" title="康托展开"></a>康托展开</h2><h3 id="康托展开-1"><a href="#康托展开-1" class="headerlink" title="康托展开"></a>康托展开</h3><p>  把一个集合产生的全排列按照字典序排序，第X个排列的计算公式如下：</p>
 <blockquote>
     X = a[n] * (n - 1)! + a[n - 1] * (n - 2)! + ... + a[2] * 1! + a[1] * 0!
