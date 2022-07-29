@@ -639,6 +639,8 @@
 <p>f[ n ] &#x3D; ( n − 1 ) ∗ ( f [ n − 1 ] + f [ n − 2 ] )</p>
 <p><strong>例题推荐：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4071">排列计数</a></p>
 <h2 id="常识"><a href="#常识" class="headerlink" title="常识"></a>常识</h2><h3 id="向上取整转换为向下取整："><a href="#向上取整转换为向下取整：" class="headerlink" title="向上取整转换为向下取整："></a>向上取整转换为向下取整：</h3><p> $\lceil \frac{L}{P} \rceil$  &#x3D;  $\lfloor \frac{L + P - 1}{P} \rfloor$</p>
+<h3 id="线性回归方程"><a href="#线性回归方程" class="headerlink" title="线性回归方程"></a>线性回归方程</h3><p>线性回归：假设有一堆点（$x_i,y_i$），求一条直线 $y^{‘} &#x3D; Ax + B$ 使得 $\sum_{i&#x3D;1}^{n}(y_{i} - y_{‘}(x_i))^{2}$ 最小。</p>
+<p>令$\overline{x}$ &#x3D; $\frac{\sum_{i &#x3D; 1}^{n}x_i}{n}$，令$\overline{y}$ &#x3D; $\frac{\sum_{i &#x3D; 1}^{n}y_i}{n}$，则：<br>$$<br>A &#x3D;\frac{\sum_{i&#x3D;1}^{n}(x_i-\overline{x})(y_i-\overline{y})}{\sum_{i&#x3D;1}^{n}(x_i-\overline{x})^2} &#x3D; \frac{\sum_{i&#x3D;1}^{n}x_iy_i-n\overline{x}\overline{y}}{\sum_{i&#x3D;1}^{n}x_i^2-n(\overline{x})^2}\<br>B &#x3D; \overline{y} - A\overline{x}\<br>$$</p>
 
                 
             </div>
