@@ -7,7 +7,10 @@
     <meta name="keywords" content="博客搭建记, 重生带我走">
     <meta name="description" content="搭建过程跟着B站的教学视频简单的搭建了一下，这里将教学视频推荐给大家：
 保姆级Hexo+github搭建个人博客
-搭建经历搭建心得">
+搭建经历搭建心得hexo部署指南1、一般修改完文章或使用其他功能后，可通过如下指令上传：
+12hexo ghexo d
+
+立刻">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -482,7 +485,16 @@
             <div id="articleContent">
                 <h2 id="搭建过程"><a href="#搭建过程" class="headerlink" title="搭建过程"></a>搭建过程</h2><p>跟着B站的教学视频简单的搭建了一下，这里将教学视频推荐给大家：</p>
 <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1mU4y1j72n?p=1&vd_source=3d7e149b792ef13210101958098b6da2">保姆级Hexo+github搭建个人博客</a></p>
-<h2 id="搭建经历"><a href="#搭建经历" class="headerlink" title="搭建经历"></a>搭建经历</h2><h2 id="搭建心得"><a href="#搭建心得" class="headerlink" title="搭建心得"></a>搭建心得</h2>
+<h2 id="搭建经历"><a href="#搭建经历" class="headerlink" title="搭建经历"></a>搭建经历</h2><h2 id="搭建心得"><a href="#搭建心得" class="headerlink" title="搭建心得"></a>搭建心得</h2><h2 id="hexo部署指南"><a href="#hexo部署指南" class="headerlink" title="hexo部署指南"></a>hexo部署指南</h2><p>1、一般修改完文章或使用其他功能后，可通过如下指令上传：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+
+<p>立刻查看静态效果的话可以使用如下指令：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
+<p>2、当部署出现Spawn failed报错时，可以参考下面的方法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">进入站点根目录</span><br><span class="line">cd E:/hexo</span><br><span class="line"> </span><br><span class="line">删除git提交内容文件夹</span><br><span class="line">rm -rf .deploy_git/</span><br><span class="line"> </span><br><span class="line">执行</span><br><span class="line">git config --global core.autocrlf <span class="literal">false</span></span><br><span class="line"> </span><br><span class="line">最后</span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
+
+
                 
             </div>
             <hr/>
