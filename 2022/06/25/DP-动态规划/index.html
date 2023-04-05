@@ -806,19 +806,20 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> pos, <span class="type">int</span> pre, <span class="type">int</span> lead, <span class="type">int</span> limit)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!pos) &#123;</span><br><span class="line">        边界条件</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!limit &amp;&amp; !lead &amp;&amp; f[pos][pre] != <span class="number">-1</span>) <span class="keyword">return</span> f[pos][pre];</span><br><span class="line">    <span class="type">int</span> res = <span class="number">0</span>, up = limit ? a[pos] : 无限制位;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt;= up; i ++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (不合法条件) <span class="keyword">continue</span>;</span><br><span class="line">        res += <span class="built_in">dfs</span>(pos - <span class="number">1</span>, 未定参数, lead &amp;&amp; !i, limit &amp;&amp; i == up);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> limit ? res : (lead ? res : dp[pos][sum] = res);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">dp</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(f, <span class="number">-1</span>, <span class="keyword">sizeof</span> f);</span><br><span class="line">    <span class="type">int</span> len = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (x) a[++ len] = x % 进制, x /= 进制;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">dfs</span>(len, 未定参数, <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cin &gt;&gt; l &gt;&gt; r;</span><br><span class="line">    cout &lt;&lt; <span class="built_in">dp</span>(r) - <span class="built_in">dp</span>(l - <span class="number">1</span>) &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>dp函数：</p>
+<p><mark>dp函数：</mark></p>
 <p>​			每次初始化f数组为-1，长度len &#x3D; 0。</p>
 <p>​			a$_i$：每个数位具体数字。</p>
-<p>dfs函数：</p>
+<p><mark>dfs函数：</mark></p>
 <p>​			变量res记录答案，初始化一般为0。</p>
 <p>​			变量up表示能枚举的最高位数。</p>
-<p>​			采用记忆化搜索的方式：<mark>if(!limit &amp;&amp; !lead &amp;&amp; f[pos] [pre] !&#x3D; -1)	return f[pos] [pre];</mark>&#x2F;&#x2F;只有无限制、无前导零才可以，不然都是未搜索完的情况。</p>
+<p>​			采用记忆化搜索的方式：if(!limit &amp;&amp; !lead &amp;&amp; f[pos] [pre] !&#x3D; -1)	return f[pos] [pre];&#x2F;&#x2F;只有无限制、无前导零才可以，不然都是未搜索完的情况。</p>
 <p>​			如果最后还有限制，那么返回res，否则返回f[pos] [pre]。</p>
-<p>基本参数：假设数字x位数为a$_1$..a$_n$</p>
-<p>必填参数：</p>
+<p><mark>基本参数：</mark></p>
+<p>​				假设数字x位数为a$_1$..a$_n$</p>
+<p><mark>必填参数：</mark></p>
 <p>​				pos：表示数字的位数</p>
 <p>​				limit：可以填数的限制（无限制的话（limit &#x3D; 0）0 ~ 9随便填，否则只能填到a$i$）</p>
-<p>可选参数：</p>
+<p><mark>可选参数：</mark></p>
 <p>​				pre：表示上一个数是多少</p>
 <p>​				lead：前导零是否存在，lead &#x3D; 1表示存在前导零，否则不存在。</p>
 <p>​				sum：搜索到当前所有数字之和。</p>
