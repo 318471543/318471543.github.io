@@ -494,6 +494,8 @@
 <p>2、当部署出现Spawn failed报错时，可以参考下面的方法：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">进入站点根目录</span><br><span class="line">cd E:/hexo</span><br><span class="line"> </span><br><span class="line">删除git提交内容文件夹</span><br><span class="line">rm -rf .deploy_git/</span><br><span class="line"> </span><br><span class="line">执行</span><br><span class="line">git config --global core.autocrlf <span class="literal">false</span></span><br><span class="line"> </span><br><span class="line">最后</span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
 
+<h2 id="常识"><a href="#常识" class="headerlink" title="常识"></a>常识</h2><h3 id="计算空间大小"><a href="#计算空间大小" class="headerlink" title="计算空间大小"></a>计算空间大小</h3><p>1e6个chat为1M</p>
+<p>1e6个int为4M</p>
 <h2 id="在这里写个对拍！"><a href="#在这里写个对拍！" class="headerlink" title="在这里写个对拍！"></a>在这里写个对拍！</h2><p><strong>参考题目链接：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2/">01背包问题</a></p>
 <blockquote>
 <p>首先，正解和暴力解法仍需正常写，不必加任何与文件输入输出流相关的代码。</p>
