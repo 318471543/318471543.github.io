@@ -6,10 +6,13 @@
     <meta charset="utf-8">
     <meta name="keywords" content="数据结构, 重生带我走">
     <meta name="description" content="前缀和一维前缀和
-核心代码：for(int i &amp;#x3D; 1; i&amp;lt;&amp;#x3D;n;i++)     s[i] &amp;#x3D; s[i-1]+ a[i];
-求区间[l,r]的和：s[r] - s[l - 1]。
+求区间[l,r]之间的和：$s[r] - s[l - 1]$
 
-二维前缀和模板题：">
+核心代码：
+1for(int i = 1; i&amp;lt;=n;i++)     s[i] = s[i-1]+ a[i];
+
+一维异或和
+求区间 $[l,r]$ ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -483,9 +486,17 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="前缀和"><a href="#前缀和" class="headerlink" title="前缀和"></a>前缀和</h2><h3 id="一维前缀和"><a href="#一维前缀和" class="headerlink" title="一维前缀和"></a>一维前缀和</h3><blockquote>
-<p>核心代码：for(int i &#x3D; 1; i&lt;&#x3D;n;i++)     s[i] &#x3D; s[i-1]+ a[i];</p>
-<p>求区间[l,r]的和：s[r] - s[l - 1]。</p>
+<p>求区间[l,r]之间的和：$s[r] - s[l - 1]$</p>
 </blockquote>
+<p><mark>核心代码：</mark></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i&lt;=n;i++)     s[i] = s[i<span class="number">-1</span>]+ a[i];</span><br></pre></td></tr></table></figure>
+
+<h3 id="一维异或和"><a href="#一维异或和" class="headerlink" title="一维异或和"></a>一维异或和</h3><blockquote>
+<p>求区间 $[l,r]$ 之间的异或和：$s[r]$ ^ $s[l - 1]$</p>
+</blockquote>
+<p><mark>核心代码：</mark></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>;i &lt;= n;i++)	sum[i] = sum[i - <span class="number">1</span>] ^ a[i];</span><br></pre></td></tr></table></figure>
+
 <h3 id="二维前缀和"><a href="#二维前缀和" class="headerlink" title="二维前缀和"></a>二维前缀和</h3><p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/798/">子矩阵的和</a></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1010</span>;</span><br><span class="line"><span class="type">int</span> a[N][N],s[N][N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n,m,q;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d%d%d&quot;</span>,&amp;n,&amp;m,&amp;q);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= m; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;a[i][j]);</span><br><span class="line">            s[i][j] = s[i - <span class="number">1</span>][j] + s[i][j - <span class="number">1</span>] - s[i - <span class="number">1</span>][j - <span class="number">1</span>] + a[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (q--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> x1,y1,x2,y2;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d%d%d%d&quot;</span>,&amp;x1,&amp;y1,&amp;x2,&amp;y2);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,s[x2][y2] - s[x1 - <span class="number">1</span>][y2] - s[x2][y1 - <span class="number">1</span>] + s[x1 - <span class="number">1</span>][y1 - <span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -568,27 +579,11 @@
 <td>O(n)</td>
 </tr>
 </tbody></table>
-<h3 id="KMP-1"><a href="#KMP-1" class="headerlink" title="KMP"></a>KMP</h3><p>模板题：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/833/">KMP字符串</a></p>
-<p><strong>题目描述</strong></p>
-<p>给定一个模式串 S，以及一个模板串 P，所有字符串中只包含大小写英文字母以及阿拉伯数字。</p>
-<p>模板串 P 在模式串 S 中多次作为子串出现。</p>
-<p>求出模板串 P 在模式串 S 中所有出现的位置的起始下标。</p>
-<p>输入格式</p>
-<p>第一行输入整数 N，表示字符串 P 的长度。</p>
-<p>第二行输入字符串 P。</p>
-<p>第三行输入整数 M，表示字符串 S 的长度。</p>
-<p>第四行输入字符串 S。</p>
-<p><strong>输出格式</strong></p>
-<p>共一行，输出所有出现位置的起始下标（下标从 0 开始计数），整数之间用空格隔开。</p>
-<p><strong>数据范围</strong></p>
-<p>1 ≤ N ≤ 10<sup>5</sup><br>1 ≤ M ≤ 10<sup>6</sup></p>
-<p><strong>输入样例：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">aba</span><br><span class="line">5</span><br><span class="line">ababa</span><br></pre></td></tr></table></figure>
-
-<p><strong>输出样例：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 2</span><br></pre></td></tr></table></figure>
-
-<p><mark>代码：</mark></p>
+<h3 id="KMP-1"><a href="#KMP-1" class="headerlink" title="KMP"></a>KMP</h3><blockquote>
+<p><strong>KMP算法</strong>是可以在<strong>文本串s</strong>中快速查找<strong>模式串p</strong>的一种算法。</p>
+</blockquote>
+<p><mark>模板题：</mark><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/833/">KMP字符串</a></p>
+<p><mark>模板代码：</mark></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1e5</span>+<span class="number">10</span>,M = <span class="number">1e6</span>+<span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> n,m;</span><br><span class="line"><span class="type">char</span> p[N],s[M];</span><br><span class="line"><span class="type">int</span> ne[N];<span class="comment">//最长相等前后缀长度</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span><span class="comment">//下面两个过程基本是类似的</span></span></span><br><span class="line"><span class="function"></span>&#123;<span class="comment">//p为小的模板串，n为其大小;s为大的模式串，m为其大小</span></span><br><span class="line">    cin &gt;&gt; n &gt;&gt; p + <span class="number">1</span> &gt;&gt; m &gt;&gt; s + <span class="number">1</span>;<span class="comment">//字符串输入是从下标1开始的</span></span><br><span class="line">    <span class="comment">//求next的过程</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>,j = <span class="number">0</span>;i &lt;= n;i++)</span><br><span class="line">    &#123;<span class="comment">//i = 2原因是next[1]不用算</span></span><br><span class="line">        <span class="keyword">while</span>(j &amp;&amp; p[i]!=p[j+<span class="number">1</span>])    j = ne[j];</span><br><span class="line">        <span class="keyword">if</span>(p[i]==p[j+<span class="number">1</span>])    j++;</span><br><span class="line">        ne[i] = j;<span class="comment">//因为字符串下标从1开始，这个j就非常好用</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//KMP匹配过程</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>,j = <span class="number">0</span>;i &lt;= m;i++)</span><br><span class="line">    &#123;<span class="comment">//下面循环退出条件:j变为0(退无可退)或是匹配成功</span></span><br><span class="line">        <span class="keyword">while</span>(j &amp;&amp; s[i]!=p[j+<span class="number">1</span>])    j = ne[j];<span class="comment">//当不匹配，将j移动到ne[j]，“移动最小距离”</span></span><br><span class="line">        <span class="keyword">if</span>(s[i]==p[j+<span class="number">1</span>])    j++;</span><br><span class="line">        <span class="keyword">if</span>(j==n)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,i-n);<span class="comment">//这一个比较好理解</span></span><br><span class="line">            j = ne[j];<span class="comment">//匹配成功后继续移动到最小距离</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h3 id="EX-KMP"><a href="#EX-KMP" class="headerlink" title="EX-KMP"></a>EX-KMP</h3><p><mark>Z函数：</mark>求一个字符串str以第 i 位开始的后缀与str的最长公共前缀（lcp）</p>
