@@ -8,9 +8,10 @@
     <meta name="description" content="搭建过程跟着B站的教学视频简单的搭建了一下，这里将教学视频推荐给大家：
 保姆级Hexo+github搭建个人博客
 搭建经历搭建心得hexo部署指南1、一般修改完文章或使用其他功能后，可通过如下指令上传：
-12hexo ghexo d
+hexo g
+hexo d
 
-立刻">
+立刻查">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -489,17 +490,68 @@
                 <h2 id="搭建过程"><a href="#搭建过程" class="headerlink" title="搭建过程"></a>搭建过程</h2><p>跟着B站的教学视频简单的搭建了一下，这里将教学视频推荐给大家：</p>
 <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1mU4y1j72n?p=1&vd_source=3d7e149b792ef13210101958098b6da2">保姆级Hexo+github搭建个人博客</a></p>
 <h2 id="搭建经历"><a href="#搭建经历" class="headerlink" title="搭建经历"></a>搭建经历</h2><h2 id="搭建心得"><a href="#搭建心得" class="headerlink" title="搭建心得"></a>搭建心得</h2><h2 id="hexo部署指南"><a href="#hexo部署指南" class="headerlink" title="hexo部署指南"></a>hexo部署指南</h2><p>1、一般修改完文章或使用其他功能后，可通过如下指令上传：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">hexo g
+hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>立刻查看静态效果的话可以使用如下指令：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">hexo s<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>2、当部署出现Spawn failed报错时，可以参考下面的方法：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">进入站点根目录</span><br><span class="line">cd E:/hexo</span><br><span class="line"> </span><br><span class="line">删除git提交内容文件夹</span><br><span class="line">rm -rf .deploy_git/</span><br><span class="line"> </span><br><span class="line">执行</span><br><span class="line">git config --global core.autocrlf <span class="literal">false</span></span><br><span class="line"> </span><br><span class="line">最后</span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">进入站点根目录
+cd E:&#x2F;hexo
+ 
+删除git提交内容文件夹
+rm -rf .deploy_git&#x2F;
+ 
+执行
+git config --global core.autocrlf false
+ 
+最后
+hexo clean &amp;&amp; hexo g &amp;&amp; hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p>3、常见问题指南</p>
+<p>参考了博客：<a target="_blank" rel="noopener" href="https://zhangxiaocai.cn/posts/a53a9069.html">Matery主题新手常见问题</a>，终于解决了代码块的问题！</p>
+<ul>
+<li>改代码不生效<ul>
+<li>如果修改了  <code>_config.yml</code> 文件，调试前一定要执行 <code>hexo clean</code> 命令！</li>
+</ul>
+</li>
+</ul>
 <h2 id="常识"><a href="#常识" class="headerlink" title="常识"></a>常识</h2><h3 id="计算空间大小"><a href="#计算空间大小" class="headerlink" title="计算空间大小"></a>计算空间大小</h3><p>1e6个chat为1M</p>
 <p>1e6个int为4M</p>
-<h2 id="C-个人通用模板"><a href="#C-个人通用模板" class="headerlink" title="C++个人通用模板"></a>C++个人通用模板</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;<span class="comment">//__int128_t</span></span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt; pii;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> IOS ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> lowbit(x)   ((x)&amp;(-x))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> fi first</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> se second</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pb push_back</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function"><span class="type">bool</span> <span class="title">chkMax</span><span class="params">(T &amp;x, T y)</span> </span>&#123; <span class="keyword">return</span> (y &gt; x) ? x = y, <span class="number">1</span> : <span class="number">0</span>; &#125;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function"><span class="type">bool</span> <span class="title">chkMin</span><span class="params">(T &amp;x, T y)</span> </span>&#123; <span class="keyword">return</span> (y &lt; x) ? x = y, <span class="number">1</span> : <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function"><span class="type">void</span> <span class="keyword">inline</span> <span class="title">read</span><span class="params">(T &amp;x)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> f = <span class="number">1</span>; x = <span class="number">0</span>; <span class="type">char</span> c = <span class="built_in">getchar</span>();</span><br><span class="line">    <span class="keyword">while</span> (c &lt; <span class="string">&#x27;0&#x27;</span> || c &gt; <span class="string">&#x27;9&#x27;</span>) &#123; <span class="keyword">if</span> (c == <span class="string">&#x27;-&#x27;</span>) f = <span class="number">-1</span>; c = <span class="built_in">getchar</span>(); &#125;</span><br><span class="line">    <span class="keyword">while</span> (c &lt;= <span class="string">&#x27;9&#x27;</span> &amp;&amp; c &gt;= <span class="string">&#x27;0&#x27;</span>) x = (x &lt;&lt; <span class="number">1</span>) + (x &lt;&lt; <span class="number">3</span>) + (c ^ <span class="number">48</span>), c = <span class="built_in">getchar</span>();</span><br><span class="line">    x *= f;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="type">void</span> <span class="keyword">inline</span> <span class="title">write</span><span class="params">(T x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(x &lt; <span class="number">0</span>) <span class="built_in">putchar</span>(<span class="string">&#x27;-&#x27;</span>), x = -x;</span><br><span class="line">	<span class="keyword">if</span>(x &gt; <span class="number">9</span>)   <span class="built_in">write</span>(x / <span class="number">10</span>);</span><br><span class="line">	<span class="built_in">putchar</span>(x % <span class="number">10</span> + <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>)-&gt;<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="C-个人通用模板"><a href="#C-个人通用模板" class="headerlink" title="C++个人通用模板"></a>C++个人通用模板</h2><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;&#x2F;&#x2F;__int128_t
+typedef pair&lt;int,int&gt; pii;
+
+#define IOS ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr)
+#define lowbit(x)   ((x)&amp;(-x))
+#define fi first
+#define se second
+#define pb push_back
+
+template &lt;typename T&gt; bool chkMax(T &amp;x, T y) &#123; return (y &gt; x) ? x &#x3D; y, 1 : 0; &#125;
+template &lt;typename T&gt; bool chkMin(T &amp;x, T y) &#123; return (y &lt; x) ? x &#x3D; y, 1 : 0; &#125;
+
+template &lt;typename T&gt; void inline read(T &amp;x) &#123;
+    int f &#x3D; 1; x &#x3D; 0; char c &#x3D; getchar();
+    while (c &lt; &#39;0&#39; || c &gt; &#39;9&#39;) &#123; if (c &#x3D;&#x3D; &#39;-&#39;) f &#x3D; -1; c &#x3D; getchar(); &#125;
+    while (c &lt;&#x3D; &#39;9&#39; &amp;&amp; c &gt;&#x3D; &#39;0&#39;) x &#x3D; (x &lt;&lt; 1) + (x &lt;&lt; 3) + (c ^ 48), c &#x3D; getchar();
+    x *&#x3D; f;
+&#125;
+template&lt;typename T&gt; void inline write(T x)&#123;
+	if(x &lt; 0) putchar(&#39;-&#39;), x &#x3D; -x;
+	if(x &gt; 9)   write(x &#x2F; 10);
+	putchar(x % 10 + &#39;0&#39;);
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -511,13 +563,94 @@
 <p>​	2、主函数调用system()去执行两份代码，并判断生成的结果是否一致（答案会在system里面写入文件中）。</p>
 </blockquote>
 <p><mark>数据代码生成器：</mark>data_generator.cpp</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">generate_data</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">ofstream <span class="title">fout</span><span class="params">(<span class="string">&quot;input.txt&quot;</span>)</span></span>;</span><br><span class="line">    <span class="type">int</span> n = <span class="number">10</span>,m = <span class="built_in">rand</span>() % <span class="number">100</span> + <span class="number">50</span>;</span><br><span class="line">    fout &lt;&lt; n &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; m &lt;&lt; endl;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i &lt; n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> v = <span class="built_in">rand</span>() % <span class="number">50</span> + <span class="number">10</span>,w = <span class="built_in">rand</span>() % <span class="number">50</span> + <span class="number">10</span>;</span><br><span class="line">        fout &lt;&lt; v &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; w &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    fout.<span class="built_in">close</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>)-&gt;<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    <span class="built_in">srand</span>(<span class="built_in">time</span>(<span class="number">0</span>));</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i &lt; <span class="number">100</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;iteration: %d\n&quot;</span>,i);</span><br><span class="line">        <span class="built_in">generate_data</span>();</span><br><span class="line">        <span class="built_in">system</span>(<span class="string">&quot;std.exe &lt; input.txt &gt; std_output.txt&quot;</span>);</span><br><span class="line">        <span class="built_in">system</span>(<span class="string">&quot;bf.exe &lt; input.txt &gt; bf_output.txt&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">system</span>(<span class="string">&quot;fc std_output.txt bf_output.txt&quot;</span>))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">puts</span>(<span class="string">&quot;Error!&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">getchar</span>();<span class="comment">//每次回车开始下一个数据</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+void generate_data()
+&#123;
+    ofstream fout(&quot;input.txt&quot;);
+    int n &#x3D; 10,m &#x3D; rand() % 100 + 50;
+    fout &lt;&lt; n &lt;&lt; &quot; &quot; &lt;&lt; m &lt;&lt; endl;
+    
+    for(int i &#x3D; 0;i &lt; n;i++)
+    &#123;
+        int v &#x3D; rand() % 50 + 10,w &#x3D; rand() % 50 + 10;
+        fout &lt;&lt; v &lt;&lt; &quot; &quot; &lt;&lt; w &lt;&lt; endl;
+    &#125;
+    fout.close();
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+    srand(time(0));
+    for(int i &#x3D; 0;i &lt; 100;i++)
+    &#123;
+        printf(&quot;iteration: %d\n&quot;,i);
+        generate_data();
+        system(&quot;std.exe &lt; input.txt &gt; std_output.txt&quot;);
+        system(&quot;bf.exe &lt; input.txt &gt; bf_output.txt&quot;);
+        if(system(&quot;fc std_output.txt bf_output.txt&quot;))
+        &#123;
+            puts(&quot;Error!&quot;);
+            break;
+        &#125;
+        getchar();&#x2F;&#x2F;每次回车开始下一个数据
+    &#125;
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><mark>正解：</mark>std.cpp</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1010</span>;</span><br><span class="line"><span class="type">int</span> n,m;</span><br><span class="line"><span class="type">int</span> v[N],w[N];<span class="comment">//v表示体积，w表示价值</span></span><br><span class="line"><span class="type">int</span> f[N];<span class="comment">//一维数组</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m;<span class="comment">//物品个数、背包容量</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>;i &lt;= n;i++)   cin &gt;&gt; v[i] &gt;&gt; w[i];<span class="comment">//输入每个物品的体积、价值</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>;i &lt;= n;i++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = m;j &gt;= v[i];j--)<span class="comment">//逆序更新</span></span><br><span class="line">        &#123;</span><br><span class="line">            f[j] = <span class="built_in">max</span>(f[j],f[j-v[i]] + w[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    cout &lt;&lt; f[m] &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1010;
+int n,m;
+int v[N],w[N];&#x2F;&#x2F;v表示体积，w表示价值
+int f[N];&#x2F;&#x2F;一维数组
+
+int main()
+&#123;
+    cin &gt;&gt; n &gt;&gt; m;&#x2F;&#x2F;物品个数、背包容量
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; v[i] &gt;&gt; w[i];&#x2F;&#x2F;输入每个物品的体积、价值
+    
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+        for(int j &#x3D; m;j &gt;&#x3D; v[i];j--)&#x2F;&#x2F;逆序更新
+        &#123;
+            f[j] &#x3D; max(f[j],f[j-v[i]] + w[i]);
+        &#125;
+    cout &lt;&lt; f[m] &lt;&lt; endl;
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><mark>暴力：</mark>bf.cpp</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1010</span>;</span><br><span class="line"><span class="type">int</span> n,m;</span><br><span class="line"><span class="type">int</span> v[N],w[N];<span class="comment">//v表示体积，w表示价值</span></span><br><span class="line"><span class="type">int</span> f[N];<span class="comment">//一维数组</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m;<span class="comment">//物品个数、背包容量</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i &lt; n;i++)   cin &gt;&gt; v[i] &gt;&gt; w[i];<span class="comment">//输入每个物品的体积、价值</span></span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i &lt; <span class="number">1</span> &lt;&lt; n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> sumv = <span class="number">0</span>,sumw = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>;j &lt; n;j++)</span><br><span class="line">            <span class="keyword">if</span>(i &gt;&gt; j &amp; <span class="number">1</span>)  sumv += v[j],sumw += w[j];</span><br><span class="line">        <span class="keyword">if</span>(sumv &lt;= m)   res = <span class="built_in">max</span>(res,sumw);</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; res &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1010;
+int n,m;
+int v[N],w[N];&#x2F;&#x2F;v表示体积，w表示价值
+int f[N];&#x2F;&#x2F;一维数组
+
+int main()
+&#123;
+    cin &gt;&gt; n &gt;&gt; m;&#x2F;&#x2F;物品个数、背包容量
+    for(int i &#x3D; 0;i &lt; n;i++)   cin &gt;&gt; v[i] &gt;&gt; w[i];&#x2F;&#x2F;输入每个物品的体积、价值
+    
+    int res &#x3D; 0;
+    for(int i &#x3D; 0;i &lt; 1 &lt;&lt; n;i++)
+    &#123;
+        int sumv &#x3D; 0,sumw &#x3D; 0;
+        for(int j &#x3D; 0;j &lt; n;j++)
+            if(i &gt;&gt; j &amp; 1)  sumv +&#x3D; v[j],sumw +&#x3D; w[j];
+        if(sumv &lt;&#x3D; m)   res &#x3D; max(res,sumw);
+    &#125;
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
                 
             </div>
             <hr/>

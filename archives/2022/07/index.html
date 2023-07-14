@@ -495,7 +495,15 @@
                                 
                                     搜索排列模板题：排列数字
 手写全排列：
-12345678910111213141516171819202122232425262728293031323334353637#include&lt;bits/stdc++.h&gt;using 
+#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 20;
+
+int n;
+int st[N];
+
                                 
                             </div>
                             <div class="publish-info">
@@ -551,7 +559,16 @@
                             <div class="summary block-with-text">
                                 
                                     线性筛法模板代码：
-123456789101112131415161718192021222324252627282930#include&lt;bits/stdc++.h&gt;using namespace std;const int 
+#include&lt;bits/stdc++.h>
+
+using namespace std;
+
+const int N = 1e8+10;
+
+int primes[N],cnt;
+bool st[N];
+
+void 
                                 
                             </div>
                             <div class="publish-info">
@@ -610,10 +627,9 @@
 求区间[l,r]之间的和：$s[r] - s[l - 1]$
 
 核心代码：
-1for(int i = 1; i&lt;=n;i++)     s[i] = s[i-1]+ a[i];
+for(int i &#x3D; 1; i&lt;&#x3D;n;i++)     s[i] &#x3D; s[i-1]+ a[i];
 
-一维异或和
-求区间 $[l,r]$ 
+一维异或
                                 
                             </div>
                             <div class="publish-info">
