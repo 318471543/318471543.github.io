@@ -5,12 +5,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="好题精选, 重生带我走">
-    <meta name="description" content="根据数据范围，探索写法题单推荐：
+    <meta name="description" content="
+## 根据数据范围，探索写法
 
-三角形重心
-C. Vampiric Powers, anyone?
+题单推荐：
 
-讲解——三角形重心：题意：给了 $n$ 个点，问是否有 $2$ 个三角形，满足重心相等。即重心为$\frac{x_1 + x_2 + ">
+- [三角形重心](https://ac.nowcoder.com/acm/contest/60254/F)
+- [C. Vampiric Powers, anyone?](https://c">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -486,15 +487,24 @@ C. Vampiric Powers, anyone?
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="根据数据范围，探索写法"><a href="#根据数据范围，探索写法" class="headerlink" title="根据数据范围，探索写法"></a>根据数据范围，探索写法</h2><p><mark>题单推荐：</mark></p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/60254/F">三角形重心</a></li>
-<li><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1847/problem/C">C. Vampiric Powers, anyone?</a></li>
-</ul>
-<h3 id="讲解——三角形重心："><a href="#讲解——三角形重心：" class="headerlink" title="讲解——三角形重心："></a>讲解——三角形重心：</h3><p><strong>题意：</strong>给了 $n$ 个点，问是否有 $2$ 个三角形，满足重心相等。即重心为$\frac{x_1 + x_2 + x_3}{3} &#x3D; \frac{y_1 + y_2 + y_3}{3}$ 。如果找到的话，请输出对应三角形三点的下标。</p>
-<p><strong>数据范围：</strong>$ 1 \le n\le 10^5, -1000 \le x_i,y_i \le 1000$ 。</p>
-<p><mark>思路：</mark> 单从 $n$ 的数据范围来看的话，很难做出来。但<strong>一定</strong>请注意到坐标的数据范围。这个数据范围可以 $O(n^2)$，因此可以进一步思考（需要一定的理论分析）：重心一共有 $10^6$ 个，虽然看着枚举三个点的时间复杂度很高，但是如果时间复杂度真的到了 $10^6$ 的时候，是不是答案已经出来了呢？（具体来讲，如果枚举的时间复杂度小于 $10^6$，那么时间够用，不用额外考虑；反正如果时间复杂度已经到了 $10^6$ 还没找到，那是不可能的，因为重心已经基本被遍历完一遍了，一定会出答案。 ）因此，这道题被很多人称为了“<strong>一眼丁真题</strong>”。</p>
-<p><mark>参考代码：</mark></p>
+                
+## 根据数据范围，探索写法
+
+<mark>题单推荐：</mark>
+
+- [三角形重心](https://ac.nowcoder.com/acm/contest/60254/F)
+- [C. Vampiric Powers, anyone?](https://codeforces.com/contest/1847/problem/C)
+
+### 讲解——三角形重心：
+
+**题意：**给了 $n$ 个点，问是否有 $2$ 个三角形，满足重心相等。即重心为$\frac{x_1 + x_2 + x_3}{3} = \frac{y_1 + y_2 + y_3}{3}$ 。如果找到的话，请输出对应三角形三点的下标。
+
+**数据范围：**$ 1 \le n\le 10^5, -1000 \le x_i,y_i \le 1000$ 。
+
+<mark>思路：</mark> 单从 $n$ 的数据范围来看的话，很难做出来。但**一定**请注意到坐标的数据范围。这个数据范围可以 $O(n^2)$，因此可以进一步思考（需要一定的理论分析）：重心一共有 $10^6$ 个，虽然看着枚举三个点的时间复杂度很高，但是如果时间复杂度真的到了 $10^6$ 的时候，是不是答案已经出来了呢？（具体来讲，如果枚举的时间复杂度小于 $10^6$，那么时间够用，不用额外考虑；反正如果时间复杂度已经到了 $10^6$ 还没找到，那是不可能的，因为重心已经基本被遍历完一遍了，一定会出答案。 ）因此，这道题被很多人称为了“**一眼丁真题**”。
+
+<mark>参考代码：</mark>
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -556,12 +566,20 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="讲解——Vampiric-Powers-anyone-："><a href="#讲解——Vampiric-Powers-anyone-：" class="headerlink" title="讲解——Vampiric Powers, anyone?："></a>讲解——Vampiric Powers, anyone?：</h3><p><strong>题意转化：</strong>给 $n$ 个数和对应的 $a_i$ ，求 $1$ ~ $n$ 区间中连续异或的最大值是多少？（子段连续异或和的最大值）</p>
-<p><strong>数据范围：</strong> $n \le 10^5$， $0 \le a_i &lt; 2^8$ 。</p>
-<p><mark>清除误区：</mark> <strong>区间异或和的最大值不能用线段树做！</strong>因为类比区间连续子段和的最大值来说：最大值与最大值的和结果是最大值，但是异或的最大值和异或的最大值合起来（异或）不一定就是最大值了！</p>
-<p><mark>思路1：</mark> 需要仔细看到数据范围是 $2^8$，即256，不要以为是 $2^{28}$！看到数值这么小，可以想到枚举数值，但可能有点不太好想怎么枚举数值（有点思维在里面）。这里就直接说结论了：每次存储当前所有的前缀，对于当下枚举到的前缀，我们枚举数值！（这里的数值是已经存在过的前缀异或值），这样的效果等价于 $sum[r]$ ^ $sum[l-1]$，其中 $sum[l - 1]$ 是要枚举的数值！，这样得到的就是所有的子区间的异或值，然后取个 $max$ 即可。</p>
-<p><mark>思路2：</mark> 其实思路1是偏向于思维的，可能不太容易想到，trie这种数据结构可能会想被想到！如果理解了第一个思路的公式，那么显然，我们每次插入的就是前缀和，然后对于当前点进行询问即可。</p>
-<p><mark>思路 1 参考代码：</mark></p>
+### 讲解——Vampiric Powers, anyone?：
+
+**题意转化：**给 $n$ 个数和对应的 $a_i$ ，求 $1$ ~ $n$ 区间中连续异或的最大值是多少？（子段连续异或和的最大值）
+
+**数据范围：** $n \le 10^5$， $0 \le a_i < 2^8$ 。
+
+<mark>清除误区：</mark> **区间异或和的最大值不能用线段树做！**因为类比区间连续子段和的最大值来说：最大值与最大值的和结果是最大值，但是异或的最大值和异或的最大值合起来（异或）不一定就是最大值了！
+
+<mark>思路1：</mark> 需要仔细看到数据范围是 $2^8$，即256，不要以为是 $2^{28}$！看到数值这么小，可以想到枚举数值，但可能有点不太好想怎么枚举数值（有点思维在里面）。这里就直接说结论了：每次存储当前所有的前缀，对于当下枚举到的前缀，我们枚举数值！（这里的数值是已经存在过的前缀异或值），这样的效果等价于 $sum[r]$ ^ $sum[l-1]$，其中 $sum[l - 1]$ 是要枚举的数值！，这样得到的就是所有的子区间的异或值，然后取个 $max$ 即可。
+
+<mark>思路2：</mark> 其实思路1是偏向于思维的，可能不太容易想到，trie这种数据结构可能会想被想到！如果理解了第一个思路的公式，那么显然，我们每次插入的就是前缀和，然后对于当前点进行询问即可。
+
+<mark>思路 1 参考代码：</mark>
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -599,7 +617,8 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><mark>思路 2 参考代码：</mark></p>
+<mark>思路 2 参考代码：</mark>
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -673,15 +692,19 @@ int main()
 
 
 
-<h2 id="练习数据结构手感"><a href="#练习数据结构手感" class="headerlink" title="练习数据结构手感"></a>练习数据结构手感</h2><p><mark>题单放送：</mark></p>
-<ul>
-<li><p><strong>线段树（最大连续子段和）：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/246/">你能回答这些问题吗</a></p>
-</li>
-<li><p><strong>树链剖分（树链剖分 + 最大 &#x2F; 最小连续子段和）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1843/problem/F2">F2. Omsk Metro (hard version)</a></p>
-</li>
-</ul>
-<p><mark>代码参考：</mark></p>
-<h3 id="线段树（最大连续子段和）："><a href="#线段树（最大连续子段和）：" class="headerlink" title="线段树（最大连续子段和）："></a>线段树（最大连续子段和）：</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+## 练习数据结构手感
+
+<mark>题单放送：</mark>
+
+- **线段树（最大连续子段和）：**[你能回答这些问题吗](https://www.acwing.com/problem/content/246/)
+
+- **树链剖分（树链剖分 + 最大 / 最小连续子段和）：**[F2. Omsk Metro (hard version)](https://codeforces.com/contest/1843/problem/F2)
+
+<mark>代码参考：</mark>
+
+### 线段树（最大连续子段和）：
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -778,7 +801,9 @@ int main()
 	return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="树链剖分（树链剖分-最大-x2F-最小连续子段和）："><a href="#树链剖分（树链剖分-最大-x2F-最小连续子段和）：" class="headerlink" title="树链剖分（树链剖分 + 最大 &#x2F; 最小连续子段和）："></a>树链剖分（树链剖分 + 最大 &#x2F; 最小连续子段和）：</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+### 树链剖分（树链剖分 + 最大 / 最小连续子段和）：
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -968,7 +993,13 @@ int main()
 
 
 
-<h2 id="蓝桥杯精选"><a href="#蓝桥杯精选" class="headerlink" title="蓝桥杯精选"></a>蓝桥杯精选</h2><h3 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h3><h4 id="判断平年-x2F-闰年"><a href="#判断平年-x2F-闰年" class="headerlink" title="判断平年&#x2F;闰年"></a>判断平年&#x2F;闰年</h4><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;stdio.h&gt;
+## 蓝桥杯精选
+
+### 日期
+
+#### 判断平年/闰年
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;stdio.h&gt;
 int main()
 &#123;
     &#x2F;*1、能被4整除，但不能别100整除
@@ -981,7 +1012,9 @@ int main()
 &#125;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h4 id="获取日期字符串"><a href="#获取日期字符串" class="headerlink" title="获取日期字符串"></a>获取日期字符串</h4><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+#### 获取日期字符串
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -1012,8 +1045,14 @@ int main()
 	return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><h4 id="排列"><a href="#排列" class="headerlink" title="排列"></a>排列</h4><p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/844/">排列数字</a></p>
-<p><mark>手写全排列：</mark></p>
+### 搜索
+
+#### 排列
+
+**模板题：**[排列数字](https://www.acwing.com/problem/content/description/844/)
+
+<mark>手写全排列：</mark>
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1052,11 +1091,12 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><mark>调用函数实现：</mark></p>
-<blockquote>
-<p>首先，请记住：next_permutation() 函数！</p>
-<p>iota函数()：前两个参数是范围，第三个参数是初值是多少，之后每个元素都从初值递增1。</p>
-</blockquote>
+<mark>调用函数实现：</mark>
+
+>首先，请记住：next_permutation() 函数！
+>
+>iota函数()：前两个参数是范围，第三个参数是初值是多少，之后每个元素都从初值递增1。
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1078,9 +1118,10 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h4 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h4><blockquote>
-<p>与排列所不同的是：需要按照顺序组合，即多加一个参数cur：表示当前要从第几个数开始，有了这种顺序后，就可以不用st数组判重了。</p>
-</blockquote>
+#### 组合
+
+>与排列所不同的是：需要按照顺序组合，即多加一个参数cur：表示当前要从第几个数开始，有了这种顺序后，就可以不用st数组判重了。
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void dfs(int cur&#x2F;*当前是第几个数*&#x2F;,int cnt&#x2F;*当前已经选了多少个数*&#x2F;)
 &#123;
     if(cnt &#x3D;&#x3D; select)&#x2F;&#x2F;从n个数中选select个
@@ -1098,12 +1139,18 @@ int main()
     &#125;
 &#125;&#x2F;&#x2F;如果用dfs(1,0)调用：表示数组元素从1开始,当前已经选了0个数。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="天梯赛-OR-CAIP（原RoboCom）"><a href="#天梯赛-OR-CAIP（原RoboCom）" class="headerlink" title="天梯赛 OR CAIP（原RoboCom）"></a>天梯赛 OR CAIP（原RoboCom）</h2><blockquote>
-<p>常用小技巧：</p>
-<p>1、断言：assert();</p>
-<p>2、随机数</p>
-</blockquote>
+## 天梯赛 OR CAIP（原RoboCom）
 
+>常用小技巧：
+>
+>1、断言：assert();
+>
+>2、随机数
+
+**大模拟思路：**
+
+- 明确存储容器
+- 函数代码分工
                 
             </div>
             <hr/>

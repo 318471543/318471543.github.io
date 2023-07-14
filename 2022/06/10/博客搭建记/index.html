@@ -5,13 +5,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="博客搭建记, 重生带我走">
-    <meta name="description" content="搭建过程跟着B站的教学视频简单的搭建了一下，这里将教学视频推荐给大家：
-保姆级Hexo+github搭建个人博客
-搭建经历搭建心得hexo部署指南1、一般修改完文章或使用其他功能后，可通过如下指令上传：
-hexo g
-hexo d
+    <meta name="description" content="## 搭建过程
 
-立刻查">
+跟着B站的教学视频简单的搭建了一下，这里将教学视频推荐给大家：
+
+[保姆级Hexo+github搭建个人博客](https://www.bilibili.com/video/BV1mU4y1j72n?p=1&amp;vd_sour">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -487,16 +485,35 @@ hexo d
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="搭建过程"><a href="#搭建过程" class="headerlink" title="搭建过程"></a>搭建过程</h2><p>跟着B站的教学视频简单的搭建了一下，这里将教学视频推荐给大家：</p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1mU4y1j72n?p=1&vd_source=3d7e149b792ef13210101958098b6da2">保姆级Hexo+github搭建个人博客</a></p>
-<h2 id="搭建经历"><a href="#搭建经历" class="headerlink" title="搭建经历"></a>搭建经历</h2><h2 id="搭建心得"><a href="#搭建心得" class="headerlink" title="搭建心得"></a>搭建心得</h2><h2 id="hexo部署指南"><a href="#hexo部署指南" class="headerlink" title="hexo部署指南"></a>hexo部署指南</h2><p>1、一般修改完文章或使用其他功能后，可通过如下指令上传：</p>
+                ## 搭建过程
+
+跟着B站的教学视频简单的搭建了一下，这里将教学视频推荐给大家：
+
+[保姆级Hexo+github搭建个人博客](https://www.bilibili.com/video/BV1mU4y1j72n?p=1&vd_source=3d7e149b792ef13210101958098b6da2)
+
+
+
+## 搭建经历
+
+
+
+## 搭建心得
+
+
+
+## hexo部署指南
+
+1、一般修改完文章或使用其他功能后，可通过如下指令上传：
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">hexo g
 hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p>立刻查看静态效果的话可以使用如下指令：</p>
+立刻查看静态效果的话可以使用如下指令：
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">hexo s<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>2、当部署出现Spawn failed报错时，可以参考下面的方法：</p>
+2、当部署出现Spawn failed报错时，可以参考下面的方法：
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">进入站点根目录
 cd E:&#x2F;hexo
  
@@ -509,17 +526,26 @@ git config --global core.autocrlf false
 最后
 hexo clean &amp;&amp; hexo g &amp;&amp; hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>3、常见问题指南</p>
-<p>参考了博客：<a target="_blank" rel="noopener" href="https://zhangxiaocai.cn/posts/a53a9069.html">Matery主题新手常见问题</a>，终于解决了代码块的问题！</p>
-<ul>
-<li>改代码不生效<ul>
-<li>如果修改了  <code>_config.yml</code> 文件，调试前一定要执行 <code>hexo clean</code> 命令！</li>
-</ul>
-</li>
-</ul>
-<h2 id="常识"><a href="#常识" class="headerlink" title="常识"></a>常识</h2><h3 id="计算空间大小"><a href="#计算空间大小" class="headerlink" title="计算空间大小"></a>计算空间大小</h3><p>1e6个chat为1M</p>
-<p>1e6个int为4M</p>
-<h2 id="C-个人通用模板"><a href="#C-个人通用模板" class="headerlink" title="C++个人通用模板"></a>C++个人通用模板</h2><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+3、常见问题指南
+
+参考了博客：[Matery主题新手常见问题](https://zhangxiaocai.cn/posts/a53a9069.html)，终于解决了代码块的问题！
+
+- 改代码不生效
+  - 如果修改了  `_config.yml` 文件，调试前一定要执行 `hexo clean` 命令！
+
+
+
+## 常识
+
+### 计算空间大小
+
+1e6个chat为1M
+
+1e6个int为4M
+
+## C++个人通用模板
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -555,14 +581,20 @@ int main()
 
 
 
-<h2 id="在这里写个对拍！"><a href="#在这里写个对拍！" class="headerlink" title="在这里写个对拍！"></a>在这里写个对拍！</h2><p><strong>参考题目链接：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2/">01背包问题</a></p>
-<blockquote>
-<p>首先，正解和暴力解法仍需正常写，不必加任何与文件输入输出流相关的代码。</p>
-<p>而数据代码生成器：</p>
-<p>​	1、封装一个函数用来读文件写入随机数据，并关闭文件。</p>
-<p>​	2、主函数调用system()去执行两份代码，并判断生成的结果是否一致（答案会在system里面写入文件中）。</p>
-</blockquote>
-<p><mark>数据代码生成器：</mark>data_generator.cpp</p>
+## 在这里写个对拍！
+
+**参考题目链接：**[01背包问题](https://www.acwing.com/problem/content/2/)
+
+>首先，正解和暴力解法仍需正常写，不必加任何与文件输入输出流相关的代码。
+>
+>而数据代码生成器：
+>
+>​	1、封装一个函数用来读文件写入随机数据，并关闭文件。
+>
+>​	2、主函数调用system()去执行两份代码，并判断生成的结果是否一致（答案会在system里面写入文件中）。
+
+<mark>数据代码生成器：</mark>data_generator.cpp
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -601,7 +633,8 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><mark>正解：</mark>std.cpp</p>
+<mark>正解：</mark>std.cpp
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -625,7 +658,8 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><mark>暴力：</mark>bf.cpp</p>
+<mark>暴力：</mark>bf.cpp
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;

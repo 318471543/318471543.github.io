@@ -5,17 +5,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="图论, 重生带我走">
-    <meta name="description" content="搜索排列模板题：排列数字
+    <meta name="description" content="
+## 搜索
+
+### 排列
+
+**模板题：**[排列数字](https://www.acwing.com/problem/content/description/844/)
+
 手写全排列：
-#include&amp;lt;bits&amp;#x2F;stdc++.h&amp;gt;
 
-using namespace std;
-
-const int N &amp;#x3D; 20;
-
-int n;
-int st[N];
-">
+#include&amp;lt;bits&amp;#x2F;s">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -491,8 +490,15 @@ int st[N];
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h2><h3 id="排列"><a href="#排列" class="headerlink" title="排列"></a>排列</h3><p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/844/">排列数字</a></p>
-<p><mark>手写全排列：</mark></p>
+                
+## 搜索
+
+### 排列
+
+**模板题：**[排列数字](https://www.acwing.com/problem/content/description/844/)
+
+<mark>手写全排列：</mark>
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -531,11 +537,12 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><mark>调用函数实现：</mark></p>
-<blockquote>
-<p>首先，请记住：next_permutation() 函数！</p>
-<p>iota函数()：前两个参数是范围，第三个参数是初值是多少，之后每个元素都从初值递增1。</p>
-</blockquote>
+<mark>调用函数实现：</mark>
+
+>首先，请记住：next_permutation() 函数！
+>
+>iota函数()：前两个参数是范围，第三个参数是初值是多少，之后每个元素都从初值递增1。
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -557,9 +564,10 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h3><blockquote>
-<p>与排列所不同的是：需要按照顺序组合，即多加一个参数cur：表示当前要从第几个数开始，有了这种顺序后，就可以不用st数组判重了。</p>
-</blockquote>
+### 组合
+
+>与排列所不同的是：需要按照顺序组合，即多加一个参数cur：表示当前要从第几个数开始，有了这种顺序后，就可以不用st数组判重了。
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void dfs(int cur&#x2F;*当前是第几个数*&#x2F;,int cnt&#x2F;*当前已经选了多少个数*&#x2F;)
 &#123;
     if(cnt &#x3D;&#x3D; select)&#x2F;&#x2F;从n个数中选select个
@@ -577,7 +585,12 @@ int main()
     &#125;
 &#125;&#x2F;&#x2F;如果用dfs(1,0)调用：表示数组元素从1开始,当前已经选了0个数。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="树"><a href="#树" class="headerlink" title="树"></a>树</h2><h3 id="给定中、后序遍历，求层次序"><a href="#给定中、后序遍历，求层次序" class="headerlink" title="给定中、后序遍历，求层次序"></a>给定中、后序遍历，求层次序</h3><p><strong>题目链接：</strong><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/994805069361299456"><strong>L2-006 树的遍历</strong></a></p>
+## 树
+
+### 给定中、后序遍历，求层次序
+
+**题目链接：**[**L2-006 树的遍历**](https://pintia.cn/problem-sets/994805046380707840/exam/problems/994805069361299456)
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -642,7 +655,10 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="给定中、前序遍历，求层次序"><a href="#给定中、前序遍历，求层次序" class="headerlink" title="给定中、前序遍历，求层次序"></a>给定中、前序遍历，求层次序</h3><p><strong>题目链接：</strong><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/994805065406070784"><strong>L2-011 玩转二叉树</strong></a></p>
+### 给定中、前序遍历，求层次序
+
+**题目链接：**[**L2-011 玩转二叉树**](https://pintia.cn/problem-sets/994805046380707840/exam/problems/994805065406070784)
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -716,8 +732,16 @@ int main()
 
 
 
-<h2 id="最短路"><a href="#最短路" class="headerlink" title="最短路"></a>最短路</h2><h3 id="Dijkstra"><a href="#Dijkstra" class="headerlink" title="Dijkstra"></a>Dijkstra</h3><h4 id="朴素版Dijkstra"><a href="#朴素版Dijkstra" class="headerlink" title="朴素版Dijkstra"></a>朴素版Dijkstra</h4><p>适用于<strong>稠密图</strong>(m ≈ n<sup>2</sup>)，用邻接矩阵存储。时间复杂度：O(n<sup>2</sup>)</p>
-<p><mark>代码模板：</mark></p>
+## 最短路
+
+### Dijkstra
+
+#### 朴素版Dijkstra
+
+适用于**稠密图**(m ≈ n<sup>2</sup>)，用邻接矩阵存储。时间复杂度：O(n<sup>2</sup>)
+
+<mark>代码模板：</mark>
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -759,8 +783,12 @@ int main()
     printf(&quot;%d\n&quot;,dijkstra());
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h4 id="堆优化版Dijkstra"><a href="#堆优化版Dijkstra" class="headerlink" title="堆优化版Dijkstra"></a>堆优化版Dijkstra</h4><p>适用于<strong>稀疏图</strong>(m ≈ n)，用邻接表存储。时间复杂度：O(mlog(n))</p>
-<p><mark>代码模板：</mark></p>
+#### 堆优化版Dijkstra
+
+适用于**稀疏图**(m ≈ n)，用邻接表存储。时间复杂度：O(mlog(n))
+
+<mark>代码模板：</mark>
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -820,7 +848,10 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="bellman-ford"><a href="#bellman-ford" class="headerlink" title="bellman-ford"></a>bellman-ford</h3><p><mark>代码模板：</mark></p>
+### bellman-ford
+
+<mark>代码模板：</mark>
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -865,7 +896,10 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="spfa"><a href="#spfa" class="headerlink" title="spfa"></a>spfa</h3><p><mark>代码模板：</mark></p>
+### spfa
+
+<mark>代码模板：</mark>
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -927,7 +961,10 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="Floyd"><a href="#Floyd" class="headerlink" title="Floyd"></a>Floyd</h3><p><mark>代码模板：</mark></p>
+### Floyd
+
+<mark>代码模板：</mark>
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -975,7 +1012,12 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h2><h3 id="Prim"><a href="#Prim" class="headerlink" title="Prim"></a>Prim</h3><p><mark>代码模板：</mark></p>
+## 最小生成树
+
+### Prim
+
+<mark>代码模板：</mark>
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1023,7 +1065,10 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="Kruskal"><a href="#Kruskal" class="headerlink" title="Kruskal"></a>Kruskal</h3><p><mark>代码模板：</mark></p>
+### Kruskal
+
+<mark>代码模板：</mark>
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1081,7 +1126,10 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="最近公共祖先-LCA"><a href="#最近公共祖先-LCA" class="headerlink" title="最近公共祖先(LCA)"></a>最近公共祖先(LCA)</h2><p><mark>代码模板：</mark></p>
+## 最近公共祖先(LCA)
+
+<mark>代码模板：</mark>
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1175,7 +1223,11 @@ depth[i]:表示深度
 2、让两个点同时往上跳,一直跳到他们的最近公共祖先的下一层
 *&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="网络流"><a href="#网络流" class="headerlink" title="网络流"></a>网络流</h2><h3 id="EK算法求最大流"><a href="#EK算法求最大流" class="headerlink" title="EK算法求最大流"></a>EK算法求最大流</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+## 网络流
+
+### EK算法求最大流
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -1242,7 +1294,9 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="Dinic算法求最大流"><a href="#Dinic算法求最大流" class="headerlink" title="Dinic算法求最大流"></a>Dinic算法求最大流</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+### Dinic算法求最大流
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 

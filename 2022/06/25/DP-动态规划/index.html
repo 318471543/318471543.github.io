@@ -5,12 +5,18 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="DP-动态规划, 重生带我走">
-    <meta name="description" content="背包九讲01背包题目描述：
+    <meta name="description" content="
+## 背包九讲
+
+### 01背包
+
+**题目描述：**
+
 有 N 件物品和一个容量是 V 的背包。每件物品只能使用一次。
+
 第 i 件物品的体积是 vi，价值是 wi。
-求解将哪些物品装入背包，可使这些物品的总体积不超过背包容量，且总价值最大。输出最大价值。
-输入格式
-第">
+
+求解将哪些物品装入背包，可使这些物品的总体积不超过背包容量，且总">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -486,39 +492,66 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="背包九讲"><a href="#背包九讲" class="headerlink" title="背包九讲"></a>背包九讲</h2><h3 id="01背包"><a href="#01背包" class="headerlink" title="01背包"></a>01背包</h3><p><strong>题目描述：</strong></p>
-<p>有 N 件物品和一个容量是 V 的背包。每件物品只能使用一次。</p>
-<p>第 i 件物品的体积是 v<sub>i</sub>，价值是 w<sub>i</sub>。</p>
-<p>求解将哪些物品装入背包，可使这些物品的总体积不超过背包容量，且总价值最大。<br>输出最大价值。</p>
-<p><strong>输入格式</strong></p>
-<p>第一行两个整数，N，V，用空格隔开，分别表示物品数量和背包容积。</p>
-<p>接下来有 N 行，每行两个整数 v<sub>i</sub>,w<sub>i</sub>，用空格隔开，分别表示第 i 件物品的体积和价值。</p>
-<p><strong>输出格式</strong></p>
-<p>输出一个整数，表示最大价值。</p>
-<p><strong>数据范围</strong></p>
-<p>0 &lt; N,V ≤ 1000<br>0 &lt; v<sub>i</sub>,w<sub>i</sub> ≤ 1000</p>
-<p><strong>输入样例：</strong></p>
+                
+## 背包九讲
+
+### 01背包
+
+**题目描述：**
+
+有 N 件物品和一个容量是 V 的背包。每件物品只能使用一次。
+
+第 i 件物品的体积是 v<sub>i</sub>，价值是 w<sub>i</sub>。
+
+求解将哪些物品装入背包，可使这些物品的总体积不超过背包容量，且总价值最大。
+输出最大价值。
+
+**输入格式**
+
+第一行两个整数，N，V，用空格隔开，分别表示物品数量和背包容积。
+
+接下来有 N 行，每行两个整数 v<sub>i</sub>,w<sub>i</sub>，用空格隔开，分别表示第 i 件物品的体积和价值。
+
+**输出格式**
+
+输出一个整数，表示最大价值。
+
+**数据范围**
+
+0 < N,V ≤ 1000
+0 < v<sub>i</sub>,w<sub>i</sub> ≤ 1000
+
+**输入样例：**
+
 <pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">4 5
 1 2
 2 4
 3 4
 4 5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><strong>输出样例：</strong></p>
+**输出样例：**
+
 <pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">8<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 
 
-<p><mark>二维数组（朴素版）：</mark></p>
-<blockquote>
-<p>状态f[i] [j] 定义为：前 i 个物品，背包容量 j 下的最优解（最大价值）。</p>
-<p>有 N 件物品，则需要 N 次决策，每一次对第 i 件物品的决策，状态f[i] [j]不断由之前的状态更新而来。</p>
-<p>1、当前背包容量不够（j &lt; v[i]），没得选，因此前 i 个物品最优解即为前 i−1个物品最优解：</p>
-<p>对应代码：<mark>f[i] [j] &#x3D; f[i -1] [j]</mark>。</p>
-<p>2、当前背包容量够，可以选，因此需要决策选与不选第 i 个物品：</p>
-<p>选：<mark>f[i] [j] &#x3D; f[i - 1] [j - v[i]] + w[i]</mark>。<br>不选：<mark>f[i] [j] &#x3D; f[i - 1] [j]</mark> 。</p>
-<p>我们的决策是如何取到最大价值，因此以上两种情况取 max() 。</p>
-</blockquote>
+<mark>二维数组（朴素版）：</mark>
+
+> 状态f[i] [j] 定义为：前 i 个物品，背包容量 j 下的最优解（最大价值）。
+>
+> 有 N 件物品，则需要 N 次决策，每一次对第 i 件物品的决策，状态f[i] [j]不断由之前的状态更新而来。
+>
+> 1、当前背包容量不够（j < v[i]），没得选，因此前 i 个物品最优解即为前 i−1个物品最优解：
+>
+> 对应代码：<mark>f[i] [j] = f[i -1] [j]</mark>。
+>
+> 2、当前背包容量够，可以选，因此需要决策选与不选第 i 个物品：
+>
+> 选：<mark>f[i] [j] = f[i - 1] [j - v[i]] + w[i]</mark>。
+> 不选：<mark>f[i] [j] = f[i - 1] [j]</mark> 。
+>
+> 我们的决策是如何取到最大价值，因此以上两种情况取 max() 。
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
 const int N &#x3D; 1010;
@@ -539,14 +572,18 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><mark>一维数组（优化版）：</mark></p>
-<blockquote>
-<p>状态f[j]定义：N 件物品，背包容量j下的最优解。</p>
-<p>注意枚举背包容量j必须从m开始。</p>
-<p><mark>为什么一维情况下枚举背包容量需要逆序？</mark>在二维情况下，状态f[i] [j]是由上一轮i - 1的状态得来的，f[i] [j]与f[i - 1] [j]是独立的。而优化到一维后，如果我们还是正序，则有f[较小体积]更新到f[较大体积]，则有可能本应该用第i-1轮的状态却用的是第i轮的状态（因为体积小的状态已经被更新了，当体积大的需要用到体积小的去更新时，用到的是第i轮，而非第i - 1轮）。</p>
-<p>例如，一维状态第i轮对体积为 3 的物品进行决策，则f[7]由f[4]更新而来，这里的f[4]正确应该是f[i - 1] [4]，但从小到大枚举j这里的f[4]在第i轮计算却变成了f[i] [4]。当逆序枚举背包容量j时，我们求f[7]同样由f[4]更新，但由于是逆序，这里的f[4]还没有在第i轮计算，所以此时实际计算的f[4]仍然是f[i - 1] [4]。</p>
-<p>故状态转移方程为：<mark>f[j] &#x3D; max(f[j], f[j - v[i]] + w[i]</mark> 。</p>
-</blockquote>
+<mark>一维数组（优化版）：</mark>
+
+>状态f[j]定义：N 件物品，背包容量j下的最优解。
+>
+>注意枚举背包容量j必须从m开始。
+>
+><mark>为什么一维情况下枚举背包容量需要逆序？</mark>在二维情况下，状态f[i] [j]是由上一轮i - 1的状态得来的，f[i] [j]与f[i - 1] [j]是独立的。而优化到一维后，如果我们还是正序，则有f[较小体积]更新到f[较大体积]，则有可能本应该用第i-1轮的状态却用的是第i轮的状态（因为体积小的状态已经被更新了，当体积大的需要用到体积小的去更新时，用到的是第i轮，而非第i - 1轮）。
+>
+>例如，一维状态第i轮对体积为 3 的物品进行决策，则f[7]由f[4]更新而来，这里的f[4]正确应该是f[i - 1] [4]，但从小到大枚举j这里的f[4]在第i轮计算却变成了f[i] [4]。当逆序枚举背包容量j时，我们求f[7]同样由f[4]更新，但由于是逆序，这里的f[4]还没有在第i轮计算，所以此时实际计算的f[4]仍然是f[i - 1] [4]。
+>
+>故状态转移方程为：<mark>f[j] = max(f[j], f[j - v[i]] + w[i]</mark> 。
+
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;bits/stdc++.h></span></span>
 
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -572,37 +609,60 @@ int main()
 
 
 
-<h3 id="完全背包"><a href="#完全背包" class="headerlink" title="完全背包"></a>完全背包</h3><p><strong>题目描述：</strong></p>
-<p>有 N 种物品和一个容量是 V 的背包，每种物品都有无限件可用。</p>
-<p>第 i 种物品的体积是 v<sub>i</sub>，价值是 w<sub>i</sub>。</p>
-<p>求解将哪些物品装入背包，可使这些物品的总体积不超过背包容量，且总价值最大。<br>输出最大价值。</p>
-<p><strong>输入格式</strong></p>
-<p>第一行两个整数，N，V，用空格隔开，分别表示物品种数和背包容积。</p>
-<p>接下来有 N 行，每行两个整数 v<sub>i</sub>,w<sub>i</sub>，用空格隔开，分别表示第 i 种物品的体积和价值。</p>
-<p><strong>输出格式</strong></p>
-<p>输出一个整数，表示最大价值。</p>
-<p><strong>数据范围</strong></p>
-<p>0 &lt; N,V ≤ 1000<br>0 &lt; v<sub>i</sub>,w<sub>i</sub> ≤ 1000</p>
-<p><strong>输入样例：</strong></p>
+### 完全背包
+
+**题目描述：**
+
+有 N 种物品和一个容量是 V 的背包，每种物品都有无限件可用。
+
+第 i 种物品的体积是 v<sub>i</sub>，价值是 w<sub>i</sub>。
+
+求解将哪些物品装入背包，可使这些物品的总体积不超过背包容量，且总价值最大。
+输出最大价值。
+
+**输入格式**
+
+第一行两个整数，N，V，用空格隔开，分别表示物品种数和背包容积。
+
+接下来有 N 行，每行两个整数 v<sub>i</sub>,w<sub>i</sub>，用空格隔开，分别表示第 i 种物品的体积和价值。
+
+**输出格式**
+
+输出一个整数，表示最大价值。
+
+**数据范围**
+
+0 < N,V ≤ 1000
+0 < v<sub>i</sub>,w<sub>i</sub> ≤ 1000
+
+**输入样例：**
+
 <pre class="line-numbers language-none"><code class="language-none">4 5
 1 2
 2 4
 3 4
 4 5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><strong>输出样例：</strong></p>
+**输出样例：**
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">10<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p><mark>二维数组（朴素版）：</mark></p>
-<blockquote>
-<p>与01背包的代码几乎完全一样，只不过枚举体积的顺序是从小到大开始！</p>
-<p>公式推导过程：</p>
-<p>f[i] [j] &#x3D; max(f[i - 1] [j],<mark>f[i - 1] [j - v] + w,f[i - 1] [j - 2v] + 2w,f[i - 1] [j - 3v] + 3w</mark>…)</p>
-<p>然后突然有了一个<strong>“神奇”的表达式</strong>，f[i] [j - v]如下：</p>
-<p>f[i] [j - v] &#x3D; max(<mark>f[i - 1] [j - v],f[i - 1] [j - 2v] + w,f[i - 1] [j - 3v] + 2w</mark>,…)</p>
-<p>不难看出，标亮的式子中：上面比下面多加了一个w。</p>
-<p>因此：f[i] [j] &#x3D; max(f[i - 1] [j],f[i] [j - v] + w)。</p>
-</blockquote>
+<mark>二维数组（朴素版）：</mark>
+
+>与01背包的代码几乎完全一样，只不过枚举体积的顺序是从小到大开始！
+>
+>公式推导过程：
+>
+>f[i] [j] = max(f[i - 1] [j],<mark>f[i - 1] [j - v] + w,f[i - 1] [j - 2v] + 2w,f[i - 1] [j - 3v] + 3w</mark>...)
+>
+>然后突然有了一个**“神奇”的表达式**，f[i] [j - v]如下：
+>
+>f[i] [j - v] = max(<mark>f[i - 1] [j - v],f[i - 1] [j - 2v] + w,f[i - 1] [j - 3v] + 2w</mark>,...)
+>
+>不难看出，标亮的式子中：上面比下面多加了一个w。
+>
+>因此：f[i] [j] = max(f[i - 1] [j],f[i] [j - v] + w)。
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
 
 using namespace std;
@@ -632,12 +692,15 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><mark>一维数组（优化版）：</mark></p>
-<blockquote>
-<p><strong>如果与01背包进行对比：</strong><br>f[i] [j] &#x3D; max(f[i - 1] [j],f<mark>[i - 1]</mark> [j - v] + w)	01背包</p>
-<p>f[i] [j] &#x3D; max(f[i - 1] [j],f<mark>[i]</mark> [j - v] + w)				完全背包</p>
-<p>可以发现，完全背包需要用到当前的状态，即从小到大枚举。</p>
-</blockquote>
+<mark>一维数组（优化版）：</mark>
+
+> **如果与01背包进行对比：**
+> f[i] [j] = max(f[i - 1] [j],f<mark>[i - 1]</mark> [j - v] + w)	01背包
+>
+> f[i] [j] = max(f[i - 1] [j],f<mark>[i]</mark> [j - v] + w)				完全背包
+>
+> 可以发现，完全背包需要用到当前的状态，即从小到大枚举。
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -663,28 +726,48 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="多重背包"><a href="#多重背包" class="headerlink" title="多重背包"></a>多重背包</h3><h4 id="多重背包I"><a href="#多重背包I" class="headerlink" title="多重背包I"></a>多重背包I</h4><p><strong>题目描述：</strong></p>
-<p>有 N 种物品和一个容量是 V 的背包。</p>
-<p>第 i 种物品最多有 s<sub>i</sub> 件，每件体积是 v<sub>i</sub>，价值是 w<sub>i</sub>。</p>
-<p>求解将哪些物品装入背包，可使物品体积总和不超过背包容量，且价值总和最大。<br>输出最大价值。</p>
-<p><strong>输入格式</strong></p>
-<p>第一行两个整数，N，V，用空格隔开，分别表示物品种数和背包容积。</p>
-<p>接下来有 N 行，每行三个整数 v<sub>i</sub>,w<sub>i</sub>,s<sub>i</sub>，用空格隔开，分别表示第 i 种物品的体积、价值和数量。</p>
-<p><strong>输出格式</strong></p>
-<p>输出一个整数，表示最大价值。</p>
-<p><strong>数据范围</strong></p>
-<p>0 &lt; N,V ≤ 1000 &lt; N,V ≤ 100<br>0 &lt; v<sub>i</sub>,w<sub>i</sub>,s<sub>i</sub> ≤ 100</p>
-<p><strong>输入样例：</strong></p>
+### 多重背包
+
+#### 多重背包I
+
+**题目描述：**
+
+有 N 种物品和一个容量是 V 的背包。
+
+第 i 种物品最多有 s<sub>i</sub> 件，每件体积是 v<sub>i</sub>，价值是 w<sub>i</sub>。
+
+求解将哪些物品装入背包，可使物品体积总和不超过背包容量，且价值总和最大。
+输出最大价值。
+
+**输入格式**
+
+第一行两个整数，N，V，用空格隔开，分别表示物品种数和背包容积。
+
+接下来有 N 行，每行三个整数 v<sub>i</sub>,w<sub>i</sub>,s<sub>i</sub>，用空格隔开，分别表示第 i 种物品的体积、价值和数量。
+
+**输出格式**
+
+输出一个整数，表示最大价值。
+
+**数据范围**
+
+0 < N,V ≤ 1000 < N,V ≤ 100
+0 < v<sub>i</sub>,w<sub>i</sub>,s<sub>i</sub> ≤ 100
+
+**输入样例：**
+
 <pre class="line-numbers language-none"><code class="language-none">4 5
 1 2 3
 2 4 1
 3 4 3
 4 5 2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><strong>输出样例：</strong></p>
+**输出样例：**
+
 <pre class="line-numbers language-none"><code class="language-none">10<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p><mark>朴素版：</mark></p>
+<mark>朴素版：</mark>
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
 const int N &#x3D; 110;
@@ -705,35 +788,57 @@ int main()
 
 
 
-<h4 id="多重背包II"><a href="#多重背包II" class="headerlink" title="多重背包II"></a>多重背包II</h4><p><strong>题目描述：</strong></p>
-<p>有 N 种物品和一个容量是 V 的背包。</p>
-<p>第 i 种物品最多有 s<sub>i</sub> 件，每件体积是 v<sub>i</sub>，价值是 w<sub>i</sub>。</p>
-<p>求解将哪些物品装入背包，可使物品体积总和不超过背包容量，且价值总和最大。<br>输出最大价值。</p>
-<p><strong>输入格式</strong></p>
-<p>第一行两个整数，N，V，用空格隔开，分别表示物品种数和背包容积。</p>
-<p>接下来有 N 行，每行三个整数 v<sub>i</sub>,w<sub>i</sub>,s<sub>i</sub>，用空格隔开，分别表示第 i 种物品的体积、价值和数量。</p>
-<p><strong>输出格式</strong></p>
-<p>输出一个整数，表示最大价值。</p>
-<p><strong>数据范围</strong></p>
-<p>0 &lt; N ≤ 1000<br>0 &lt; V ≤ 2000<br>0 &lt; v<sub>i</sub>,w<sub>i</sub>,s<sub>i</sub> ≤ 2000</p>
-<p><strong>提示：</strong></p>
-<p>本题考查多重背包的二进制优化方法。</p>
-<p><strong>输入样例</strong>：</p>
+#### 多重背包II
+
+**题目描述：**
+
+有 N 种物品和一个容量是 V 的背包。
+
+第 i 种物品最多有 s<sub>i</sub> 件，每件体积是 v<sub>i</sub>，价值是 w<sub>i</sub>。
+
+求解将哪些物品装入背包，可使物品体积总和不超过背包容量，且价值总和最大。
+输出最大价值。
+
+**输入格式**
+
+第一行两个整数，N，V，用空格隔开，分别表示物品种数和背包容积。
+
+接下来有 N 行，每行三个整数 v<sub>i</sub>,w<sub>i</sub>,s<sub>i</sub>，用空格隔开，分别表示第 i 种物品的体积、价值和数量。
+
+**输出格式**
+
+输出一个整数，表示最大价值。
+
+**数据范围**
+
+0 < N ≤ 1000
+0 < V ≤ 2000
+0 < v<sub>i</sub>,w<sub>i</sub>,s<sub>i</sub> ≤ 2000
+
+**提示：**
+
+本题考查多重背包的二进制优化方法。
+
+**输入样例**：
+
 <pre class="line-numbers language-none"><code class="language-none">4 5
 1 2 3
 2 4 1
 3 4 3
 4 5 2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><strong>输出样例：</strong></p>
+**输出样例：**
+
 <pre class="line-numbers language-none"><code class="language-none">10<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p><mark>二进制优化：</mark></p>
-<blockquote>
-<p>利用二进制优化，时间复杂度可以从 O(N * M * S) 降到O(N * logS * M ),从4∗10^9^降到了2∗10^7^。</p>
-<p>思想：将每种物品拆分成1,2,4,8,16,32…，即分成1,2,4，…，2^k^,s这些个物品，其中s小于2^k+1^。这样可以利用01背包的思想，拼凑出任意数量的解（包括最优解），然后调用01背包模板即可。</p>
-<p>举例：如果某种物品数量s &#x3D; 200，则可拆分成：1,2,4,8,16,32,64,73（73 &lt; 128）。</p>
-</blockquote>
+<mark>二进制优化：</mark>
+
+>利用二进制优化，时间复杂度可以从 O(N * M * S) 降到O(N * logS * M ),从4∗10^9^降到了2∗10^7^。
+>
+>思想：将每种物品拆分成1,2,4,8,16,32...，即分成1,2,4，...，2^k^,s这些个物品，其中s小于2^k+1^。这样可以利用01背包的思想，拼凑出任意数量的解（包括最优解），然后调用01背包模板即可。
+>
+>举例：如果某种物品数量s = 200，则可拆分成：1,2,4,8,16,32,64,73（73 < 128）。
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
 const int N &#x3D; 12010,M &#x3D; 2010;&#x2F;&#x2F;一共有1000个物品，每个物品最多拆分成log2000个物品，故是N的由来
@@ -774,30 +879,51 @@ int main()
 
 
 
-<h4 id="多重背包III"><a href="#多重背包III" class="headerlink" title="多重背包III"></a>多重背包III</h4><p><strong>题目描述：</strong></p>
-<p>有 N 种物品和一个容量是 V 的背包。</p>
-<p>第 i 种物品最多有 s<sub>i</sub> 件，每件体积是 v<sub>i</sub>，价值是 w<sub>i</sub>。</p>
-<p>求解将哪些物品装入背包，可使物品体积总和不超过背包容量，且价值总和最大。<br>输出最大价值。</p>
-<p><strong>输入格式</strong></p>
-<p>第一行两个整数，N，V (0 &lt; N ≤ 1000，0 &lt; V ≤ 20000)，用空格隔开，分别表示物品种数和背包容积。</p>
-<p>接下来有 N 行，每行三个整数 v<sub>i</sub>,w<sub>i</sub>,s<sub>i</sub>，用空格隔开，分别表示第 i 种物品的体积、价值和数量。</p>
-<p><strong>输出格式</strong></p>
-<p>输出一个整数，表示最大价值。</p>
-<p><strong>数据范围</strong></p>
-<p>0 &lt; N ≤ 1000<br>0 &lt; V ≤ 20000<br>0 &lt; v<sub>i</sub>,w<sub>i</sub>,s<sub>i </sub>≤ 20000</p>
-<p><strong>提示</strong></p>
-<p>本题考查多重背包的单调队列优化方法。</p>
-<p><strong>输入样例：</strong></p>
+#### 多重背包III
+
+**题目描述：**
+
+有 N 种物品和一个容量是 V 的背包。
+
+第 i 种物品最多有 s<sub>i</sub> 件，每件体积是 v<sub>i</sub>，价值是 w<sub>i</sub>。
+
+求解将哪些物品装入背包，可使物品体积总和不超过背包容量，且价值总和最大。
+输出最大价值。
+
+**输入格式**
+
+第一行两个整数，N，V (0 < N ≤ 1000，0 < V ≤ 20000)，用空格隔开，分别表示物品种数和背包容积。
+
+接下来有 N 行，每行三个整数 v<sub>i</sub>,w<sub>i</sub>,s<sub>i</sub>，用空格隔开，分别表示第 i 种物品的体积、价值和数量。
+
+**输出格式**
+
+输出一个整数，表示最大价值。
+
+**数据范围**
+
+0 < N ≤ 1000
+0 < V ≤ 20000
+0 < v<sub>i</sub>,w<sub>i</sub>,s<sub>i </sub>≤ 20000
+
+**提示**
+
+本题考查多重背包的单调队列优化方法。
+
+**输入样例：**
+
 <pre class="line-numbers language-none"><code class="language-none">4 5
 1 2 3
 2 4 1
 3 4 3
 4 5 2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><strong>输出样例：</strong></p>
+**输出样例：**
+
 <pre class="line-numbers language-none"><code class="language-none">10<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p><mark>单调队列优化：</mark></p>
+<mark>单调队列优化：</mark>
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -833,36 +959,53 @@ int main()&#x2F;&#x2F;我们需要是上一次的[j-v],而我们当前层的[j-v
 
 
 
-<h3 id="混合背包"><a href="#混合背包" class="headerlink" title="混合背包"></a>混合背包</h3><p><strong>题目描述：</strong></p>
-<p>有 N 种物品和一个容量是 V 的背包。</p>
-<p>物品一共有三类：</p>
-<ul>
-<li>第一类物品只能用1次（01背包）；</li>
-<li>第二类物品可以用无限次（完全背包）；</li>
-<li>第三类物品最多只能用 s<sub>i</sub> 次（多重背包）；</li>
-</ul>
-<p>每种体积是 v<sub>i</sub>，价值是 w<sub>i</sub>。</p>
-<p>求解将哪些物品装入背包，可使物品体积总和不超过背包容量，且价值总和最大。<br>输出最大价值。</p>
-<p><strong>输入格式</strong></p>
-<p>第一行两个整数，N，V，用空格隔开，分别表示物品种数和背包容积。</p>
-<p>接下来有 N 行，每行三个整数 v<sub>i</sub>,w<sub>i</sub>,s<sub>i</sub>，用空格隔开，分别表示第 i 种物品的体积、价值和数量。</p>
-<ul>
-<li>s<sub>i</sub> &#x3D; −1 表示第 i 种物品只能用1次；</li>
-<li>s<sub>i</sub> &#x3D; 0 表示第 i 种物品可以用无限次；</li>
-<li>s<sub>i</sub> &gt; 0 表示第 i 种物品可以使用 s<sub>i</sub> 次；</li>
-</ul>
-<p><strong>输出格式</strong></p>
-<p>输出一个整数，表示最大价值。</p>
-<p><strong>数据范围</strong></p>
-<p>0 &lt; N,V ≤ 1000<br>0 &lt; v<sub>i</sub>,w<sub>i</sub> ≤ 1000<br>−1 ≤ s<sub>i</sub> ≤ 1000</p>
-<p><strong>输入样例：</strong></p>
+### 混合背包
+
+**题目描述：**
+
+有 N 种物品和一个容量是 V 的背包。
+
+物品一共有三类：
+
+- 第一类物品只能用1次（01背包）；
+- 第二类物品可以用无限次（完全背包）；
+- 第三类物品最多只能用 s<sub>i</sub> 次（多重背包）；
+
+每种体积是 v<sub>i</sub>，价值是 w<sub>i</sub>。
+
+求解将哪些物品装入背包，可使物品体积总和不超过背包容量，且价值总和最大。
+输出最大价值。
+
+**输入格式**
+
+第一行两个整数，N，V，用空格隔开，分别表示物品种数和背包容积。
+
+接下来有 N 行，每行三个整数 v<sub>i</sub>,w<sub>i</sub>,s<sub>i</sub>，用空格隔开，分别表示第 i 种物品的体积、价值和数量。
+
+- s<sub>i</sub> = −1 表示第 i 种物品只能用1次；
+- s<sub>i</sub> = 0 表示第 i 种物品可以用无限次；
+- s<sub>i</sub> > 0 表示第 i 种物品可以使用 s<sub>i</sub> 次；
+
+**输出格式**
+
+输出一个整数，表示最大价值。
+
+**数据范围**
+
+0 < N,V ≤ 1000
+0 < v<sub>i</sub>,w<sub>i</sub> ≤ 1000
+−1 ≤ s<sub>i</sub> ≤ 1000
+
+**输入样例：**
+
 <pre class="line-numbers language-none"><code class="language-none">4 5
 1 2 -1
 2 4 1
 3 4 0
 4 5 2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><strong>输出样例：</strong></p>
+**输出样例：**
+
 <pre class="line-numbers language-none"><code class="language-none">8<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -910,23 +1053,40 @@ int main()
 
 
 
-<h3 id="分组背包"><a href="#分组背包" class="headerlink" title="分组背包"></a>分组背包</h3><p><strong>题目描述：</strong></p>
-<p>有 N 组物品和一个容量是 V 的背包。</p>
-<p>每组物品有若干个，同一组内的物品最多只能选一个。<br>每件物品的体积是 v<sub>ij</sub>，价值是 w<sub>ij</sub>，其中 i 是组号，j 是组内编号。</p>
-<p>求解将哪些物品装入背包，可使物品总体积不超过背包容量，且总价值最大。</p>
-<p>输出最大价值。</p>
-<p><strong>输入格式</strong></p>
-<p>第一行有两个整数 N，V，用空格隔开，分别表示物品组数和背包容量。</p>
-<p>接下来有 N 组数据：</p>
-<ul>
-<li>每组数据第一行有一个整数 Si，表示第 i 个物品组的物品数量；</li>
-<li>每组数据接下来有 S<sub>i</sub> 行，每行有两个整数 v<sub>ij</sub>,w<sub>ij</sub>，用空格隔开，分别表示第 i 个物品组的第 j 个物品的体积和价值；</li>
-</ul>
-<p><strong>输出格式</strong></p>
-<p>输出一个整数，表示最大价值。</p>
-<p><strong>数据范围</strong></p>
-<p>0 &lt; N,V ≤ 100<br>0 &lt; S<sub>i</sub> ≤ 100<br>0 &lt; v<sub>ij</sub>,w<sub>ij</sub> ≤ 100</p>
-<p><strong>输入样例：</strong></p>
+### 分组背包
+
+**题目描述：**
+
+有 N 组物品和一个容量是 V 的背包。
+
+每组物品有若干个，同一组内的物品最多只能选一个。
+每件物品的体积是 v<sub>ij</sub>，价值是 w<sub>ij</sub>，其中 i 是组号，j 是组内编号。
+
+求解将哪些物品装入背包，可使物品总体积不超过背包容量，且总价值最大。
+
+输出最大价值。
+
+**输入格式**
+
+第一行有两个整数 N，V，用空格隔开，分别表示物品组数和背包容量。
+
+接下来有 N 组数据：
+
+- 每组数据第一行有一个整数 Si，表示第 i 个物品组的物品数量；
+- 每组数据接下来有 S<sub>i</sub> 行，每行有两个整数 v<sub>ij</sub>,w<sub>ij</sub>，用空格隔开，分别表示第 i 个物品组的第 j 个物品的体积和价值；
+
+**输出格式**
+
+输出一个整数，表示最大价值。
+
+**数据范围**
+
+0 < N,V ≤ 100
+0 < S<sub>i</sub> ≤ 100
+0 < v<sub>ij</sub>,w<sub>ij</sub> ≤ 100
+
+**输入样例：**
+
 <pre class="line-numbers language-none"><code class="language-none">3 5
 2
 1 2
@@ -936,15 +1096,21 @@ int main()
 1
 4 5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><strong>输出样例：</strong></p>
+**输出样例：**
+
 <pre class="line-numbers language-none"><code class="language-none">8<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<blockquote>
-<p>细节：需要先循环体积，再循环决策。</p>
-<p>体积优化成一维之后，要保证代码和优化之前是等价的，交换顺序之后就不等价了。</p>
-<p>假设对第i组里的物品k，把所有体积遍历了一次，然后选择了这件物品，这个时候f[i] [j]已经包含了第i组中一个物品，也就是k；接下来还是这一组，第k+1个物品，又枚举所有体积，并且你也选择了这一个物品，即</p>
-<p>f[i] [j]&#x3D;max(f[i-1] [j],f[i-1] [j-v[i] [k+1]]+w[i] [k+1])中后者更大，更新之后f变成了后者<br>这就意味着在第i组中同时选择了k和k+1两个物品<br>而如果固定体积，遍历物品，就不会有这个问题，因为每次遍历都只能选中一件物品；<br>这本质上还是在优化成一维数组之后数组的更新过程中需要注意的问题，就像y总说的要保证等价。</p>
-</blockquote>
+>细节：需要先循环体积，再循环决策。
+>
+>体积优化成一维之后，要保证代码和优化之前是等价的，交换顺序之后就不等价了。
+>
+>假设对第i组里的物品k，把所有体积遍历了一次，然后选择了这件物品，这个时候f[i] [j]已经包含了第i组中一个物品，也就是k；接下来还是这一组，第k+1个物品，又枚举所有体积，并且你也选择了这一个物品，即
+>
+>f[i] [j]=max(f[i-1] [j],f[i-1] [j-v[i] [k+1]]+w[i] [k+1])中后者更大，更新之后f变成了后者
+>这就意味着在第i组中同时选择了k和k+1两个物品
+>而如果固定体积，遍历物品，就不会有这个问题，因为每次遍历都只能选中一件物品；
+>这本质上还是在优化成一维数组之后数组的更新过程中需要注意的问题，就像y总说的要保证等价。
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
 const int N &#x3D; 110;
@@ -970,25 +1136,44 @@ int main()
 
 
 
-<h3 id="二维费用的背包问题"><a href="#二维费用的背包问题" class="headerlink" title="二维费用的背包问题"></a>二维费用的背包问题</h3><p><strong>题目描述：</strong></p>
-<p>有 N 件物品和一个容量是 V 的背包，背包能承受的最大重量是 M。</p>
-<p>每件物品只能用一次。体积是 v<sub>i</sub>，重量是 m<sub>i</sub>，价值是 w<sub>i</sub>。</p>
-<p>求解将哪些物品装入背包，可使物品总体积不超过背包容量，总重量不超过背包可承受的最大重量，且价值总和最大。<br>输出最大价值。</p>
-<p><strong>输入格式</strong></p>
-<p>第一行三个整数，N,V,M，用空格隔开，分别表示物品件数、背包容积和背包可承受的最大重量。</p>
-<p>接下来有 N 行，每行三个整数 v<sub>i</sub>,m<sub>i</sub>,w<sub>i</sub>，用空格隔开，分别表示第 i 件物品的体积、重量和价值。</p>
-<p><strong>输出格式</strong></p>
-<p>输出一个整数，表示最大价值。</p>
-<p><strong>数据范围</strong></p>
-<p>0 &lt; N ≤ 1000<br>0 &lt; V,M ≤ 100<br>0 &lt; v<sub>i</sub>,m<sub>i</sub> ≤ 100<br>0 &lt; w<sub>i</sub> ≤ 1000</p>
-<p><strong>输入样例：</strong></p>
+### 二维费用的背包问题
+
+**题目描述：**
+
+有 N 件物品和一个容量是 V 的背包，背包能承受的最大重量是 M。
+
+每件物品只能用一次。体积是 v<sub>i</sub>，重量是 m<sub>i</sub>，价值是 w<sub>i</sub>。
+
+求解将哪些物品装入背包，可使物品总体积不超过背包容量，总重量不超过背包可承受的最大重量，且价值总和最大。
+输出最大价值。
+
+**输入格式**
+
+第一行三个整数，N,V,M，用空格隔开，分别表示物品件数、背包容积和背包可承受的最大重量。
+
+接下来有 N 行，每行三个整数 v<sub>i</sub>,m<sub>i</sub>,w<sub>i</sub>，用空格隔开，分别表示第 i 件物品的体积、重量和价值。
+
+**输出格式**
+
+输出一个整数，表示最大价值。
+
+**数据范围**
+
+0 < N ≤ 1000
+0 < V,M ≤ 100
+0 < v<sub>i</sub>,m<sub>i</sub> ≤ 100
+0 < w<sub>i</sub> ≤ 1000
+
+**输入样例：**
+
 <pre class="line-numbers language-none"><code class="language-none">4 5 6
 1 2 3
 2 4 4
 3 4 5
 4 5 6<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><strong>输出样例：</strong></p>
+**输出样例：**
+
 <pre class="line-numbers language-none"><code class="language-none">8<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -1020,28 +1205,50 @@ int main()
 
 
 
-<h3 id="有依赖的背包问题"><a href="#有依赖的背包问题" class="headerlink" title="有依赖的背包问题"></a>有依赖的背包问题</h3><p><strong>题目描述：</strong></p>
-<p>有 N 个物品和一个容量是 V 的背包。</p>
-<p>物品之间具有依赖关系，且依赖关系组成一棵树的形状。如果选择一个物品，则必须选择它的父节点。</p>
-<p>如下图所示：</p>
-<p><img src="/DP-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92.assets/image-20220626105506402.png" alt="image-20220626105506402"></p>
-<p>如果选择物品5，则必须选择物品1和2。这是因为2是5的父节点，1是2的父节点。</p>
-<p>每件物品的编号是 i，体积是 v<sub>i</sub>，价值是 w<sub>i</sub>，依赖的父节点编号是 p<sub>i</sub>。物品的下标范围是 1…N。</p>
-<p>求解将哪些物品装入背包，可使物品总体积不超过背包容量，且总价值最大。</p>
-<p>输出最大价值。</p>
-<p><strong>输入格式</strong></p>
-<p>第一行有两个整数 N，V，用空格隔开，分别表示物品个数和背包容量。</p>
-<p>接下来有 N 行数据，每行数据表示一个物品。<br>第 i 行有三个整数 v<sub>i</sub>,w<sub>i</sub>,p<sub>i</sub>，用空格隔开，分别表示物品的体积、价值和依赖的物品编号。<br>如果 p<sub>i</sub> &#x3D; −1，表示根节点。 <strong>数据保证所有物品构成一棵树。</strong></p>
-<p><strong>输出格式</strong></p>
-<p>输出一个整数，表示最大价值。</p>
-<p><strong>数据范围</strong></p>
-<p>1 ≤ N,V ≤ 100<br>1 ≤ v<sub>i</sub>,w<sub>i</sub> ≤ 100</p>
-<p><strong>父节点编号范围：</strong></p>
-<ul>
-<li>内部结点：1 ≤ p<sub>i</sub> ≤ N;</li>
-<li>根节点 p<sub>i</sub>&#x3D;−1;</li>
-</ul>
-<p><strong>输入样例：</strong></p>
+### 有依赖的背包问题
+
+**题目描述：**
+
+有 N 个物品和一个容量是 V 的背包。
+
+物品之间具有依赖关系，且依赖关系组成一棵树的形状。如果选择一个物品，则必须选择它的父节点。
+
+如下图所示：
+
+![image-20220626105506402](DP-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92.assets/image-20220626105506402.png)
+
+如果选择物品5，则必须选择物品1和2。这是因为2是5的父节点，1是2的父节点。
+
+每件物品的编号是 i，体积是 v<sub>i</sub>，价值是 w<sub>i</sub>，依赖的父节点编号是 p<sub>i</sub>。物品的下标范围是 1…N。
+
+求解将哪些物品装入背包，可使物品总体积不超过背包容量，且总价值最大。
+
+输出最大价值。
+
+**输入格式**
+
+第一行有两个整数 N，V，用空格隔开，分别表示物品个数和背包容量。
+
+接下来有 N 行数据，每行数据表示一个物品。
+第 i 行有三个整数 v<sub>i</sub>,w<sub>i</sub>,p<sub>i</sub>，用空格隔开，分别表示物品的体积、价值和依赖的物品编号。
+如果 p<sub>i</sub> = −1，表示根节点。 **数据保证所有物品构成一棵树。**
+
+**输出格式**
+
+输出一个整数，表示最大价值。
+
+**数据范围**
+
+1 ≤ N,V ≤ 100
+1 ≤ v<sub>i</sub>,w<sub>i</sub> ≤ 100
+
+**父节点编号范围：**
+
+- 内部结点：1 ≤ p<sub>i</sub> ≤ N;
+- 根节点 p<sub>i</sub>=−1;
+
+**输入样例：**
+
 <pre class="line-numbers language-none"><code class="language-none">5 7
 2 3 -1
 2 2 1
@@ -1049,7 +1256,8 @@ int main()
 4 7 2
 3 6 2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><strong>输出样例：</strong></p>
+**输出样例：**
+
 <pre class="line-numbers language-none"><code class="language-none">11<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -1107,26 +1315,43 @@ int main()
 
 
 
-<h3 id="背包问题求方案数"><a href="#背包问题求方案数" class="headerlink" title="背包问题求方案数"></a>背包问题求方案数</h3><p><strong>题目描述：</strong></p>
-<p>有 N 件物品和一个容量是 V 的背包。每件物品只能使用一次。</p>
-<p>第 i 件物品的体积是 v<sub>i</sub>，价值是 w<sub>i</sub>。</p>
-<p>求解将哪些物品装入背包，可使这些物品的总体积不超过背包容量，且总价值最大。</p>
-<p>输出 <strong>最优选法的方案数</strong>。注意答案可能很大，请输出答案模 10<sup>9</sup> + 7 的结果。</p>
-<p><strong>输入格式</strong></p>
-<p>第一行两个整数，N，V，用空格隔开，分别表示物品数量和背包容积。</p>
-<p>接下来有 N 行，每行两个整数 v<sub>i</sub>,w<sub>i</sub>，用空格隔开，分别表示第 ii 件物品的体积和价值。</p>
-<p><strong>输出格式</strong></p>
-<p>输出一个整数，表示 <strong>方案数</strong> 模 109+7109+7 的结果。</p>
-<p><strong>数据范围</strong></p>
-<p>0 &lt; N,V ≤ 1000<br>0 &lt; v<sub>i</sub>,w<sub>i</sub> ≤ 1000</p>
-<p>输入样例：</p>
+### 背包问题求方案数
+
+**题目描述：**
+
+有 N 件物品和一个容量是 V 的背包。每件物品只能使用一次。
+
+第 i 件物品的体积是 v<sub>i</sub>，价值是 w<sub>i</sub>。
+
+求解将哪些物品装入背包，可使这些物品的总体积不超过背包容量，且总价值最大。
+
+输出 **最优选法的方案数**。注意答案可能很大，请输出答案模 10<sup>9</sup> + 7 的结果。
+
+**输入格式**
+
+第一行两个整数，N，V，用空格隔开，分别表示物品数量和背包容积。
+
+接下来有 N 行，每行两个整数 v<sub>i</sub>,w<sub>i</sub>，用空格隔开，分别表示第 ii 件物品的体积和价值。
+
+**输出格式**
+
+输出一个整数，表示 **方案数** 模 109+7109+7 的结果。
+
+**数据范围**
+
+0 < N,V ≤ 1000
+0 < v<sub>i</sub>,w<sub>i</sub> ≤ 1000
+
+输入样例：
+
 <pre class="line-numbers language-none"><code class="language-none">4 5
 1 2
 2 4
 3 4
 4 6<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>输出样例：</p>
+输出样例：
+
 <pre class="line-numbers language-none"><code class="language-none">2<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -1173,27 +1398,45 @@ int main()
 
 
 
-<h3 id="背包问题求具体方案"><a href="#背包问题求具体方案" class="headerlink" title="背包问题求具体方案"></a>背包问题求具体方案</h3><p><strong>题目描述：</strong></p>
-<p>有 N 件物品和一个容量是 V 的背包。每件物品只能使用一次。</p>
-<p>第 i 件物品的体积是 v<sub>i</sub>，价值是 w<sub>i</sub>。</p>
-<p>求解将哪些物品装入背包，可使这些物品的总体积不超过背包容量，且总价值最大。</p>
-<p>输出 <strong>字典序最小的方案</strong>。这里的字典序是指：所选物品的编号所构成的序列。物品的编号范围是 1…N。</p>
-<p><strong>输入格式</strong></p>
-<p>第一行两个整数N，V，用空格隔开，分别表示物品数量和背包容积。</p>
-<p>接下来有 N 行，每行两个整数 v<sub>i</sub>,w<sub>i</sub>，用空格隔开，分别表示第 i 件物品的体积和价值。</p>
-<p><strong>输出格式</strong></p>
-<p>输出一行，包含若干个用空格隔开的整数，表示最优解中所选物品的编号序列，且该编号序列的字典序最小。</p>
-<p>物品编号范围是 1…N。</p>
-<p><strong>数据范围</strong></p>
-<p>0 &lt; N,V ≤ 1000<br>0 &lt; v<sub>i</sub>,w<sub>i</sub> ≤ 1000</p>
-<p><strong>输入样例：</strong></p>
+### 背包问题求具体方案
+
+**题目描述：**
+
+有 N 件物品和一个容量是 V 的背包。每件物品只能使用一次。
+
+第 i 件物品的体积是 v<sub>i</sub>，价值是 w<sub>i</sub>。
+
+求解将哪些物品装入背包，可使这些物品的总体积不超过背包容量，且总价值最大。
+
+输出 **字典序最小的方案**。这里的字典序是指：所选物品的编号所构成的序列。物品的编号范围是 1…N。
+
+**输入格式**
+
+第一行两个整数N，V，用空格隔开，分别表示物品数量和背包容积。
+
+接下来有 N 行，每行两个整数 v<sub>i</sub>,w<sub>i</sub>，用空格隔开，分别表示第 i 件物品的体积和价值。
+
+**输出格式**
+
+输出一行，包含若干个用空格隔开的整数，表示最优解中所选物品的编号序列，且该编号序列的字典序最小。
+
+物品编号范围是 1…N。
+
+**数据范围**
+
+0 < N,V ≤ 1000
+0 < v<sub>i</sub>,w<sub>i</sub> ≤ 1000
+
+**输入样例：**
+
 <pre class="line-numbers language-none"><code class="language-none">4 5
 1 2
 2 4
 3 4
 4 6<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><strong>输出样例：</strong></p>
+**输出样例：**
+
 <pre class="line-numbers language-none"><code class="language-none">1 4<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -1231,11 +1474,16 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="线性DP"><a href="#线性DP" class="headerlink" title="线性DP"></a>线性DP</h2><h3 id="数字三角形"><a href="#数字三角形" class="headerlink" title="数字三角形"></a>数字三角形</h3><p><strong>题意：</strong>给定一个如下图所示的数字三角形，从顶部出发，在每一结点可以选择移动至其左下方的结点或移动至其右下方的结点，一直走到底层，要求找出一条路径，使路径上的数字的和最大。</p>
-<p><img src="D:\Develop\Blog\source_posts\DP-动态规划.assets\image-20230406144340615.png" alt="image-20230406144340615"></p>
-<blockquote>
-<p>f[i] [j]只能从f[i - 1] [j]和f[i - 1] [j - 1]转移过来，略微处理下边界即可。</p>
-</blockquote>
+## 线性DP
+
+### 数字三角形
+
+**题意：**给定一个如下图所示的数字三角形，从顶部出发，在每一结点可以选择移动至其左下方的结点或移动至其右下方的结点，一直走到底层，要求找出一条路径，使路径上的数字的和最大。
+
+![image-20230406144340615](D:\Develop\Blog\source\_posts\DP-动态规划.assets\image-20230406144340615.png)
+
+>f[i] [j]只能从f[i - 1] [j]和f[i - 1] [j - 1]转移过来，略微处理下边界即可。
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1268,13 +1516,18 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="最长上升子序列"><a href="#最长上升子序列" class="headerlink" title="最长上升子序列"></a>最长上升子序列</h3><p><strong>题意：</strong>给定一个长度为 N（1 ≤ N ≤ 1000） 的数列，求数值严格单调递增的子序列的长度最长是多少。</p>
-<p><mark>DP暴力：</mark></p>
-<blockquote>
-<p>f[i]：以i结尾的最长上升子序列长度。</p>
-<p>思路：枚举上一个数是多少进行递推。</p>
-<p>时间复杂度：O（n$^2$）</p>
-</blockquote>
+### 最长上升子序列
+
+**题意：**给定一个长度为 N（1 ≤ N ≤ 1000） 的数列，求数值严格单调递增的子序列的长度最长是多少。
+
+<mark>DP暴力：</mark>
+
+>f[i]：以i结尾的最长上升子序列长度。
+>
+>思路：枚举上一个数是多少进行递推。
+>
+>时间复杂度：O（n$^2$）
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1305,12 +1558,16 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="最长上升子序列II"><a href="#最长上升子序列II" class="headerlink" title="最长上升子序列II"></a>最长上升子序列II</h3><p><strong>题意：</strong>给定一个长度为 N（1 ≤ N ≤ 100000） 的数列，求数值严格单调递增的子序列的长度最长是多少。</p>
-<p><mark>二分：</mark></p>
-<blockquote>
-<p>案例：对于序列1 4 3，长度为2的上升子序列哪个更优呢？答案一定就是：1,3。因为如果后面有个更大的数（比如是4）的话它一定可以接到3的后面，而不能接到1,4的后面。</p>
-<p>受此启发，我们可以处理出每个长度下，该序列结尾数最小的序列，显然该序列一定是单调递增的。当每增加一个数a，我们需要将它插入到一个小于a且最大的数的后面，二分即可。</p>
-</blockquote>
+### 最长上升子序列II
+
+**题意：**给定一个长度为 N（1 ≤ N ≤ 100000） 的数列，求数值严格单调递增的子序列的长度最长是多少。
+
+<mark>二分：</mark>
+
+>案例：对于序列1 4 3，长度为2的上升子序列哪个更优呢？答案一定就是：1,3。因为如果后面有个更大的数（比如是4）的话它一定可以接到3的后面，而不能接到1,4的后面。
+>
+>受此启发，我们可以处理出每个长度下，该序列结尾数最小的序列，显然该序列一定是单调递增的。当每增加一个数a，我们需要将它插入到一个小于a且最大的数的后面，二分即可。
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1343,12 +1600,16 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="最长公共子序列"><a href="#最长公共子序列" class="headerlink" title="最长公共子序列"></a>最长公共子序列</h3><p><strong>题意：</strong>给定两个长度分别为 N 和 M 的字符串 A 和 B，求既是 A 的子序列又是 B 的子序列的字符串长度最长是多少。</p>
-<blockquote>
-<p>定义f[i] [j]：表示a的前i个字母，和b的前j个字母的最长公共子序列长度。</p>
-<p>如果a[i] &#x3D; b[j]，则：f[i] [j] &#x3D; f[i - 1] [j - 1] + 1，则从f[i - 1] [j - 1]转移过来。</p>
-<p>如果a[i] $\neq$ b[j]，则：f[i] [j]可以从f[i - 1] [j - 1]，f[i - 1] [j]，f[i] [j - 1]中转移过来，其中f[i - 1] [j - 1]已经被f[i] [j - 1]和f[i - 1] [j]包含了，故可以省略。</p>
-</blockquote>
+### 最长公共子序列
+
+**题意：**给定两个长度分别为 N 和 M 的字符串 A 和 B，求既是 A 的子序列又是 B 的子序列的字符串长度最长是多少。
+
+>定义f[i] [j]：表示a的前i个字母，和b的前j个字母的最长公共子序列长度。
+>
+>如果a[i] = b[j]，则：f[i] [j] = f[i - 1] [j - 1] + 1，则从f[i - 1] [j - 1]转移过来。
+>
+>如果a[i] $\neq$ b[j]，则：f[i] [j]可以从f[i - 1] [j - 1]，f[i - 1] [j]，f[i] [j - 1]中转移过来，其中f[i - 1] [j - 1]已经被f[i] [j - 1]和f[i - 1] [j]包含了，故可以省略。
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1377,19 +1638,24 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="最短编辑距离"><a href="#最短编辑距离" class="headerlink" title="最短编辑距离"></a>最短编辑距离</h3><p>给定两个字符串 A 和 B，现在要将 A 经过若干操作变为 B，可进行的操作有：</p>
-<ol>
-<li>删除–将字符串 A 中的某个字符删除。</li>
-<li>插入–在字符串 A 的某个位置插入某个字符。</li>
-<li>替换–将字符串 A 中的某个字符替换为另一个字符。</li>
-</ol>
-<p>现在请你求出，将 A 变为 B 至少需要进行多少次操作。</p>
-<blockquote>
-<p>定义：f[i] [j]:将A的前i个字母变成B的前j个字母的最小操作次数。</p>
-<p>1、删除:f[i] [j] &#x3D; f[i - 1] [j] + 1。A的前i - 1个字母已经和B的前j个字母匹配了，故从此转移。</p>
-<p>2、插入:f[i] [j] &#x3D; f[i] [j - 1] + 1。A的前i个字母已经和B的前j - 1个字母匹配了，故从此转移。</p>
-<p>3、替换:f[i] [j] &#x3D; f[i - 1] [j - 1] + (a[i] !&#x3D; b[j])。A的前i - 1个字母已经和B的前j - 1个字母匹配了，最后看第i位和第j位是否相同。</p>
-</blockquote>
+### 最短编辑距离
+
+给定两个字符串 A 和 B，现在要将 A 经过若干操作变为 B，可进行的操作有：
+
+1. 删除–将字符串 A 中的某个字符删除。
+2. 插入–在字符串 A 的某个位置插入某个字符。
+3. 替换–将字符串 A 中的某个字符替换为另一个字符。
+
+现在请你求出，将 A 变为 B 至少需要进行多少次操作。
+
+>定义：f[i] [j]:将A的前i个字母变成B的前j个字母的最小操作次数。
+>
+>1、删除:f[i] [j] = f[i - 1] [j] + 1。A的前i - 1个字母已经和B的前j个字母匹配了，故从此转移。
+>
+>2、插入:f[i] [j] = f[i] [j - 1] + 1。A的前i个字母已经和B的前j - 1个字母匹配了，故从此转移。
+>
+>3、替换:f[i] [j] = f[i - 1] [j - 1] + (a[i] != b[j])。A的前i - 1个字母已经和B的前j - 1个字母匹配了，最后看第i位和第j位是否相同。
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1416,14 +1682,20 @@ int main()
     return 0;
 &#125; <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="区间DP"><a href="#区间DP" class="headerlink" title="区间DP"></a>区间DP</h2><p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/284/">石子合并</a></p>
-<p><strong>题意：</strong> 有N堆石子，每次只能合并相邻的两堆石子，代价为这两堆石子的质量之和，问最终合并为一堆后的代价最小是多少。</p>
-<blockquote>
-<p>区间合并：三重循环：</p>
-<p>1、枚举区间长度</p>
-<p>2、枚举左端点</p>
-<p>3、枚举当前区间的中间点（由区间长度和左端点可知右端点，故枚举该区间的中间点）</p>
-</blockquote>
+## 区间DP
+
+**模板题：**[石子合并](https://www.acwing.com/problem/content/284/)
+
+**题意：** 有N堆石子，每次只能合并相邻的两堆石子，代价为这两堆石子的质量之和，问最终合并为一堆后的代价最小是多少。
+
+>区间合并：三重循环：
+>
+>1、枚举区间长度
+>
+>2、枚举左端点
+>
+>3、枚举当前区间的中间点（由区间长度和左端点可知右端点，故枚举该区间的中间点）
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1461,20 +1733,32 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="计数类DP"><a href="#计数类DP" class="headerlink" title="计数类DP"></a>计数类DP</h2><blockquote>
-<p>完全背包思想：价值为1,2,3,4,5,…n放到体积为n的背包中。</p>
-<p>根据第i个物品选择的数量划分：</p>
-<p>选择0个：f[i - 1] [j]</p>
-<p>选择1个：f[i - 1] [j - i]</p>
-<p>选择2个：f[i - 1] [j - 2i]</p>
-<p>选择3个：f[i - 1] [j - 3i]</p>
-<p>…</p>
-<p>比如当前第i个物品选了2个:</p>
-<p>即对应于:从1~i中选，i选了2个等价于f[i - 1] [j - 2i]，即数量相等</p>
-<p>则:f[i] [j] &#x3D; f[i - 1] [j] + f[i - 1] [j - i] + … + f[i - 1] [j - si]</p>
-<p>用类似于完全背包的优化:f[i] [j - i] &#x3D; f[i - 1] [j - i] + f[i - 1] [j - 2i] + …</p>
-<p>故:f[i] [j] &#x3D; f[i - 1] [j] + f[i] [j - i]</p>
-</blockquote>
+## 计数类DP
+
+>完全背包思想：价值为1,2,3,4,5,...n放到体积为n的背包中。
+>
+>根据第i个物品选择的数量划分：
+>
+>选择0个：f[i - 1] [j]
+>
+>选择1个：f[i - 1] [j - i]
+>
+>选择2个：f[i - 1] [j - 2i]
+>
+>选择3个：f[i - 1] [j - 3i]
+>
+>...
+>
+>比如当前第i个物品选了2个:
+>
+>即对应于:从1~i中选，i选了2个等价于f[i - 1] [j - 2i]，即数量相等
+>
+>则:f[i] [j] = f[i - 1] [j] + f[i - 1] [j - i] + ... + f[i - 1] [j - si]
+>
+>用类似于完全背包的优化:f[i] [j - i] = f[i - 1] [j - i] + f[i - 1] [j - 2i] + ...
+>
+>故:f[i] [j] = f[i - 1] [j] + f[i] [j - i]
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1497,13 +1781,16 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<blockquote>
-<p>定义f[i] [j]:总和为i，由j个数组成的所有方案数。</p>
-<p>f[i] [j]可以不重不漏的划分为两大类:</p>
-<p>1、最小值为1 -&gt; f[i - 1] [j - 1]</p>
-<p>2、最小值大于1 -&gt; f[i - j] [j]</p>
-<p>故f[i] [j] &#x3D; f[i - 1] [j - 1] + f[i - j] [j]。</p>
-</blockquote>
+>定义f[i] [j]:总和为i，由j个数组成的所有方案数。
+>
+>f[i] [j]可以不重不漏的划分为两大类:
+>
+>1、最小值为1 -> f[i - 1] [j - 1]
+>
+>2、最小值大于1 -> f[i - j] [j]
+>
+>故f[i] [j] = f[i - 1] [j - 1] + f[i - j] [j]。
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1530,11 +1817,14 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="数位DP"><a href="#数位DP" class="headerlink" title="数位DP"></a>数位DP</h2><blockquote>
-<p>数位 DP 问题一般给定一个区间 [L,R]，问区间满足的条件的数有多少个。</p>
-<p>可以利用前缀和来求解答案：$∑_{i&#x3D;1}^Rans_i−∑_{i&#x3D;1}^{L−1}ans_i$</p>
-</blockquote>
-<p><mark>模板（伪代码）：</mark></p>
+## 数位DP
+
+>数位 DP 问题一般给定一个区间 [L,R]，问区间满足的条件的数有多少个。
+>
+>可以利用前缀和来求解答案：$∑_{i=1}^Rans_i−∑_{i=1}^{L−1}ans_i$
+
+<mark>模板（伪代码）：</mark>
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int dfs(int pos, int pre, int lead, int limit) &#123;
     if (!pos) &#123;
         边界条件
@@ -1558,30 +1848,50 @@ int main() &#123;
     cout &lt;&lt; dp(r) - dp(l - 1) &lt;&lt; endl;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<blockquote>
-<p><mark>dp函数：</mark></p>
-<p>​			每次初始化f数组为-1，长度len &#x3D; 0。</p>
-<p>​			a$_i$：每个数位具体数字。</p>
-<p><mark>dfs函数：</mark></p>
-<p>​			变量res记录答案，初始化一般为0。</p>
-<p>​			变量up表示能枚举的最高位数。</p>
-<p>​			采用记忆化搜索的方式：if(!limit &amp;&amp; !lead &amp;&amp; f[pos] [pre] !&#x3D; -1)	return f[pos] [pre];&#x2F;&#x2F;只有无限制、无前导零才可以，不然都是未搜索完的情况。</p>
-<p>​			如果最后还有限制，那么返回res，否则返回f[pos] [pre]。</p>
-<p><mark>基本参数：</mark></p>
-<p>​				假设数字x位数为a$_1$..a$_n$</p>
-<p><mark>必填参数：</mark></p>
-<p>​				pos：表示数字的位数</p>
-<p>​				limit：可以填数的限制（无限制的话（limit &#x3D; 0）0 ~ 9随便填，否则只能填到a$i$）</p>
-<p><mark>可选参数：</mark></p>
-<p>​				pre：表示上一个数是多少</p>
-<p>​				lead：前导零是否存在，lead &#x3D; 1表示存在前导零，否则不存在。</p>
-<p>​				sum：搜索到当前所有数字之和。</p>
-<p>​				cnt：某个数字出现的次数。</p>
-</blockquote>
-<p><strong>学习参考：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/blog/content/7944/">数位DP(DFS做法)</a></p>
-<p><strong>推荐题单：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1808/problem/C">C. Unlucky Numbers</a></p>
-<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/340/">计数问题</a></p>
-<p><strong>数位DP + 二分：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1811/problem/E">E. Living Sequence</a></p>
+><mark>dp函数：</mark>
+>
+>​			每次初始化f数组为-1，长度len = 0。
+>
+>​			a$_i$：每个数位具体数字。
+>
+><mark>dfs函数：</mark>
+>
+>​			变量res记录答案，初始化一般为0。
+>
+>​			变量up表示能枚举的最高位数。
+>
+>​			采用记忆化搜索的方式：if(!limit && !lead && f[pos] [pre] != -1)	return f[pos] [pre];//只有无限制、无前导零才可以，不然都是未搜索完的情况。
+>
+>​			如果最后还有限制，那么返回res，否则返回f[pos] [pre]。
+>
+><mark>基本参数：</mark>
+>
+>​				假设数字x位数为a$_1$..a$_n$
+>
+><mark>必填参数：</mark>
+>
+>​				pos：表示数字的位数
+>
+>​				limit：可以填数的限制（无限制的话（limit = 0）0 ~ 9随便填，否则只能填到a$i$）
+>
+><mark>可选参数：</mark>
+>
+>​				pre：表示上一个数是多少
+>
+>​				lead：前导零是否存在，lead = 1表示存在前导零，否则不存在。
+>
+>​				sum：搜索到当前所有数字之和。
+>
+>​				cnt：某个数字出现的次数。
+
+**学习参考：**[数位DP(DFS做法)](https://www.acwing.com/blog/content/7944/)
+
+**推荐题单：**[C. Unlucky Numbers](https://codeforces.com/contest/1808/problem/C)
+
+**模板题：**[计数问题](https://www.acwing.com/problem/content/description/340/)
+
+**数位DP + 二分：**[E. Living Sequence](https://codeforces.com/contest/1811/problem/E)
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1635,8 +1945,13 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="树形DP"><a href="#树形DP" class="headerlink" title="树形DP"></a>树形DP</h2><p><strong>推荐题单：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1746/problem/D">https://codeforces.com/contest/1746/problem/D</a></p>
-<h3 id="没有上司的舞会"><a href="#没有上司的舞会" class="headerlink" title="没有上司的舞会"></a>没有上司的舞会</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+## 树形DP
+
+**推荐题单：**https://codeforces.com/contest/1746/problem/D
+
+### 没有上司的舞会
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
 const int N &#x3D; 6010;
 int n;
@@ -1678,18 +1993,32 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="期望DP"><a href="#期望DP" class="headerlink" title="期望DP"></a>期望DP</h2><p><strong>推荐题目：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/33186/I">Chiitoitsu</a></p>
-<h2 id="状态压缩DP"><a href="#状态压缩DP" class="headerlink" title="状态压缩DP"></a>状态压缩DP</h2><h3 id="蒙德里安的梦想"><a href="#蒙德里安的梦想" class="headerlink" title="蒙德里安的梦想"></a>蒙德里安的梦想</h3><p><strong>题目链接：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/293/">蒙德里安的梦想</a></p>
-<blockquote>
-<p>核心：先把所有横着的摆放完后，竖着的就只有1种方案了（直接塞进去就行了）。</p>
-<p>即：总方案数，等于只放横着的小方块的合法方案数。</p>
-<p>那如何判断，当前方案是否合法呢？即看所有剩余位置，能否填充满竖着的小方块。又由于是竖着的小方块，所以可以按列来看，每一列内部所有连续的空着的小方块需要是偶数个！</p>
-<p>so：</p>
-<p>定义f[i] [j]：表示已经将前i - 1列摆好，且从第i - 1列伸出到第i列的状态为j的所有方案。</p>
-<p>再考虑一些这个问题：假设第i - 2列伸出到第i - 1列的状态是k，第i - 1列伸出到第i列的状态为j，则什么时候k与j能拼在一起构成一个合法方案呢？</p>
-<p>1、两个小方块不能处在同一行（如果处在同一行会有交集），即(j &amp; k) &#x3D;&#x3D; 0判断。</p>
-<p>2、第i - 1列空着的小方格能被竖着的小方块塞满，即st[i | j]存在。</p>
-</blockquote>
+## 期望DP
+
+**推荐题目：**[Chiitoitsu](https://ac.nowcoder.com/acm/contest/33186/I)
+
+## 状态压缩DP
+
+###  蒙德里安的梦想
+
+**题目链接：**[蒙德里安的梦想](https://www.acwing.com/problem/content/description/293/)
+
+>核心：先把所有横着的摆放完后，竖着的就只有1种方案了（直接塞进去就行了）。
+>
+>即：总方案数，等于只放横着的小方块的合法方案数。
+>
+>那如何判断，当前方案是否合法呢？即看所有剩余位置，能否填充满竖着的小方块。又由于是竖着的小方块，所以可以按列来看，每一列内部所有连续的空着的小方块需要是偶数个！
+>
+>so：
+>
+>定义f[i] [j]：表示已经将前i - 1列摆好，且从第i - 1列伸出到第i列的状态为j的所有方案。
+>
+>再考虑一些这个问题：假设第i - 2列伸出到第i - 1列的状态是k，第i - 1列伸出到第i列的状态为j，则什么时候k与j能拼在一起构成一个合法方案呢？
+>
+>1、两个小方块不能处在同一行（如果处在同一行会有交集），即(j & k) == 0判断。
+>
+>2、第i - 1列空着的小方格能被竖着的小方块塞满，即st[i | j]存在。
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1748,10 +2077,12 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="最短Hamilton路径"><a href="#最短Hamilton路径" class="headerlink" title="最短Hamilton路径"></a>最短Hamilton路径</h3><blockquote>
-<p>f[i] [j]：状态为i的情况下，停到点j的最短路径是多少。</p>
-<p>f[state] [j] &#x3D; f[state_k] [k] + weight[k] [j]，state_k &#x3D; state除掉j之后的集合，state_k要包含k。</p>
-</blockquote>
+### 最短Hamilton路径
+
+>f[i] [j]：状态为i的情况下，停到点j的最短路径是多少。
+>
+>f[state] [j] = f[state_k] [k] + weight[k] [j]，state_k = state除掉j之后的集合，state_k要包含k。
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1786,19 +2117,33 @@ int main()
 
 
 
-<h3 id="小国王"><a href="#小国王" class="headerlink" title="小国王"></a>小国王</h3><p><strong>题目链接：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1066/">小国王</a></p>
-<p><strong>题目描述</strong></p>
-<p>在 n×n 的棋盘上放 k 个国王，国王可攻击相邻的 8 个格子，求使它们无法互相攻击的方案总数。</p>
-<p><strong>输入格式</strong></p>
-<p>共一行，包含两个整数 n 和 k。</p>
-<p><strong>输出格式</strong></p>
-<p>共一行，表示方案总数，若不能够放置则输出0。</p>
-<p><strong>数据范围</strong></p>
-<p>1 ≤ n ≤ 10,<br>0 ≤ k ≤ n<sup>2</sup></p>
-<p><strong>输入样例：</strong></p>
+### 小国王
+
+**题目链接：**[小国王](https://www.acwing.com/problem/content/1066/)
+
+**题目描述**
+
+在 n×n 的棋盘上放 k 个国王，国王可攻击相邻的 8 个格子，求使它们无法互相攻击的方案总数。
+
+**输入格式**
+
+共一行，包含两个整数 n 和 k。
+
+**输出格式**
+
+共一行，表示方案总数，若不能够放置则输出0。
+
+**数据范围**
+
+1 ≤ n ≤ 10,
+0 ≤ k ≤ n<sup>2</sup>
+
+**输入样例：**
+
 <pre class="line-numbers language-none"><code class="language-none">3 2<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p><strong>输出样例：</strong></p>
+**输出样例：**
+
 <pre class="line-numbers language-none"><code class="language-none">16<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -1862,7 +2207,11 @@ int main()
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="记忆化搜索"><a href="#记忆化搜索" class="headerlink" title="记忆化搜索"></a>记忆化搜索</h2><h3 id="滑雪"><a href="#滑雪" class="headerlink" title="滑雪"></a>滑雪</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+## 记忆化搜索
+
+### 滑雪
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
