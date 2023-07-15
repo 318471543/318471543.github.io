@@ -486,7 +486,7 @@ int sign(double x)&amp;#x2F;&amp;#x2F;判">
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p><mark>计算几何模板归纳：</mark></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e5 + 10;
+<pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e5 + 10;
 const double eps &#x3D; 1e-8,pi &#x3D; acos(-1);
 
 int sign(double x)&#x2F;&#x2F;判断符号
@@ -515,10 +515,10 @@ struct Point
     double operator&amp;(const Point&amp; b) const &#123;return x * b.x + y * b.y;&#125;&#x2F;&#x2F;点积
     double len() &#123;return sqrt(*this &amp; *this);&#125;
     Point rotate(double b) &#123;return &#123;x * cos(b) + y * sin(b),-x * sin(b) + y * cos(b)&#125;;&#125;&#x2F;&#x2F;顺时针旋转b角度
-&#125;point[N];<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;point[N];</code></pre>
 <h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="1、前置知识："><a href="#1、前置知识：" class="headerlink" title="1、前置知识："></a>1、前置知识：</h3><p>（1）π = acos(-1)</p>
 <p>（2）余弦定理：$c^2 = a^2 + b^2$ - 2abcos(θ)</p>
-<h3 id="2、浮点数比较："><a href="#2、浮点数比较：" class="headerlink" title="2、浮点数比较："></a>2、浮点数比较：</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">const double eps &#x3D; 1e-8;
+<h3 id="2、浮点数比较："><a href="#2、浮点数比较：" class="headerlink" title="2、浮点数比较："></a>2、浮点数比较：</h3><pre class="language-c++" data-language="c++"><code class="language-c++">const double eps &#x3D; 1e-8;
 int sign(double x)&#x2F;&#x2F;符号函数
 &#123;
     if(fabs(x) &lt; eps)	return 0;&#x2F;&#x2F;0
@@ -529,46 +529,46 @@ int cmp(double x,double y)&#x2F;&#x2F;比较函数
 &#123;
     if(fabs(x - y) &lt; eps)	return 0;&#x2F;&#x2F;两数相等
     return x &lt; y ? -1 : 1;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <h3 id="3、向量："><a href="#3、向量：" class="headerlink" title="3、向量："></a>3、向量：</h3><p>3.1、<strong>内积（点积）：</strong>A · B = |A| * |B| cos(C)</p>
 <p>（1）几何意义：向量A在向量B上的投影与B的长度的乘积。</p>
 <p>（2）代码实现：</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">double dot(Point a,Point b)
+<pre class="language-c++" data-language="c++"><code class="language-c++">double dot(Point a,Point b)
 &#123;
     return a.x * b.x + a.y * b.y;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <p>3.2、<strong>外积（叉积）：</strong>A × B = |A||B|sin（C）</p>
 <p>（1）几何意义：向量A与B张成的平行四边形的有向面积，B在A的逆时针方向为正</p>
 <p>（2）代码实现</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">double cross(Point a,Point b)
+<pre class="language-c++" data-language="c++"><code class="language-c++">double cross(Point a,Point b)
 &#123;
     return a.x * b.y - b.x * a.y;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <p>3.4、<strong>常用函数</strong></p>
 <ul>
 <li><p>3.4.1 <strong>取模</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">double get_length(Point a)
+<pre class="language-c++" data-language="c++"><code class="language-c++">double get_length(Point a)
 &#123;
     return sqrt(dot(a,a));
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 </li>
 <li><p>3.4.2 <strong>计算向量夹角</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">double get_angle(Point a,Point b)
+<pre class="language-c++" data-language="c++"><code class="language-c++">double get_angle(Point a,Point b)
 &#123;
     return acos(dot(a,b) &#x2F; get_length(a) &#x2F; get_length(b));
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 </li>
 <li><p>3.4.3 <strong>计算两个向量构成的平行四边形有向面积</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">double area(Point a,Point b,Point c)
+<pre class="language-c++" data-language="c++"><code class="language-c++">double area(Point a,Point b,Point c)
 &#123;
     return cross(b - a,c - a);
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 </li>
 <li><p>3.4.4 <strong>向量A顺时针旋转C的角度</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">double rotate(Point a,double angle)
+<pre class="language-c++" data-language="c++"><code class="language-c++">double rotate(Point a,double angle)
 &#123;
     return Point(a.x * cos(angle) + a.y * sin(angle),-a.x * sin(angle) + a.y * cos(angle));
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 </li>
 </ul>
 <p>  <strong>顺时针旋转公式：</strong></p>
@@ -589,50 +589,50 @@ int cmp(double x,double y)&#x2F;&#x2F;比较函数
 </li>
 <li><p><strong>两直线相交</strong> </p>
 <p>//cross(v,w) == 0则两直线平行或者重合</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">Point get_line_intersection(Point p,vector v,Point q,vector w)
+<pre class="language-c++" data-language="c++"><code class="language-c++">Point get_line_intersection(Point p,vector v,Point q,vector w)
 &#123;
     vector u &#x3D; p - q;
     double t &#x3D; cross(w,u) &#x2F; cross(v,w);
     return p + v * t;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 </li>
 <li><p><strong>点到直线距离</strong>（右手定则，大拇指向外为正，向内为负）</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">double distance_to_line(Point p,Point a,Point b)
+<pre class="language-c++" data-language="c++"><code class="language-c++">double distance_to_line(Point p,Point a,Point b)
 &#123;
     vector v1 &#x3D; b - a,v2 &#x3D; p - a;
     return fabs(cross(v1,v2) &#x2F; get_length(v1));
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 </li>
 <li><p><strong>点到线段的距离</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">double distance_to_segment(Point p,Point a,Point b)
+<pre class="language-c++" data-language="c++"><code class="language-c++">double distance_to_segment(Point p,Point a,Point b)
 &#123;
     if(a &#x3D;&#x3D; b)	return get_length(p - a);
     vector v &#x3D; b - a,v2 &#x3D; p - a,v3 &#x3D; p - b;
     if(sign(dot(v1,v2)) &lt; 0)	return get_length(v2);
     if(sign(dot(v1,v3)) &gt; 0)	return get_length(v3);
     return distance_to_line(p,a,b);
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 </li>
 <li><p><strong>点在直线上的投影</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">double get_line_projection(Point p,Point a,Point b)
+<pre class="language-c++" data-language="c++"><code class="language-c++">double get_line_projection(Point p,Point a,Point b)
 &#123;
     vector v &#x3D; b - a;
     return a + v * (dot(v,p - a) &#x2F; dot(v,v));
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 </li>
 <li><p><strong>点是否在线段上</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">bool on_segment(Point p,Point a,Point b)
+<pre class="language-c++" data-language="c++"><code class="language-c++">bool on_segment(Point p,Point a,Point b)
 &#123;&#x2F;&#x2F;叉积为0 &amp;&amp; 点积小于等于0
     return sign(cross(p - a,p - b)) &#x3D;&#x3D; 0 &amp;&amp; sign(dot(p - a,p - b)) &lt;&#x3D; 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 </li>
 <li><p><strong>判断两线段是否相交</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">bool segment_intersection(Point a1,Point a2,Point b1,Point b2)
+<pre class="language-c++" data-language="c++"><code class="language-c++">bool segment_intersection(Point a1,Point a2,Point b1,Point b2)
 &#123;
     double c1 &#x3D; cross(a2 - a1,b1 - a1),c2 &#x3D; cross(a2 - a1,b2 - a1);
     double c3 &#x3D; cross(b2 - b1,a2 - b1),c4 &#x3D; cross(b2 - b1,a1 - b1);
     return sign(c1) * sign(c2) &lt;&#x3D; 0 &amp;&amp; sign(c3) * sign(c4) &lt;&#x3D; 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 </li>
 </ul>
 </li>
@@ -669,7 +669,7 @@ int cmp(double x,double y)&#x2F;&#x2F;比较函数
 <h2 id="极角排序"><a href="#极角排序" class="headerlink" title="极角排序"></a>极角排序</h2><p>有待考古。。。</p>
 <p><mark>模板题：</mark><a target="_blank" rel="noopener" href="https://codeforces.com/contest/598/problem/C">C. Nearest vectors</a></p>
 <p><strong>第一种方法：</strong>利用<code>atan2(y,x)</code>函数直接计算<code>(x,y)</code>的极角，其值域为 (−π,π] 。</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -716,10 +716,10 @@ int main()
 
     cout &lt;&lt; resx &lt;&lt; &quot; &quot; &lt;&lt; resy &lt;&lt; &quot;\n&quot;;
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <p><strong>第二种方法：</strong>是用叉乘和象限判断，待考古。。。</p>
 <p><strong>板题：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/53417/G">数四边形</a></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -779,8 +779,8 @@ int main()
     cout &lt;&lt; C(n,4) - cnt &lt;&lt; &quot;\n&quot;;
     
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="凸包"><a href="#凸包" class="headerlink" title="凸包"></a>凸包</h2><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+&#125;</code></pre>
+<h2 id="凸包"><a href="#凸包" class="headerlink" title="凸包"></a>凸包</h2><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
 #include&lt;algorithm&gt;
 #include&lt;iomanip&gt;
 #include&lt;cmath&gt;
@@ -856,8 +856,8 @@ int main()
     double res &#x3D; andrew();
     cout &lt;&lt; fixed &lt;&lt; setprecision(2) &lt;&lt; res;
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="半平面交"><a href="#半平面交" class="headerlink" title="半平面交"></a>半平面交</h2><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+&#125;</code></pre>
+<h2 id="半平面交"><a href="#半平面交" class="headerlink" title="半平面交"></a>半平面交</h2><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
 #include&lt;algorithm&gt;
 #include&lt;cmath&gt;
 #include&lt;iomanip&gt;
@@ -977,8 +977,8 @@ int main()
     
     cout &lt;&lt; fixed &lt;&lt; setprecision(3) &lt;&lt; half_plane_intersection();
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="最小圆覆盖"><a href="#最小圆覆盖" class="headerlink" title="最小圆覆盖"></a>最小圆覆盖</h2><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+&#125;</code></pre>
+<h2 id="最小圆覆盖"><a href="#最小圆覆盖" class="headerlink" title="最小圆覆盖"></a>最小圆覆盖</h2><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
 #include&lt;cmath&gt;
 #include&lt;algorithm&gt;
 #include&lt;iomanip&gt;
@@ -1096,8 +1096,8 @@ int main()
     cout &lt;&lt; c.r &lt;&lt; &quot;\n&quot;;
     cout &lt;&lt; c.p.x &lt;&lt; &quot; &quot; &lt;&lt; c.p.y &lt;&lt; &quot;\n&quot;;
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="三维计算几何基础与三维凸包"><a href="#三维计算几何基础与三维凸包" class="headerlink" title="三维计算几何基础与三维凸包"></a>三维计算几何基础与三维凸包</h2><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+&#125;</code></pre>
+<h2 id="三维计算几何基础与三维凸包"><a href="#三维计算几何基础与三维凸包" class="headerlink" title="三维计算几何基础与三维凸包"></a>三维计算几何基础与三维凸包</h2><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
 #include&lt;cmath&gt;
 #include&lt;iomanip&gt;
 
@@ -1199,8 +1199,8 @@ int main()
     
     cout &lt;&lt; fixed &lt;&lt; setprecision(6) &lt;&lt; res ;
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="旋转卡壳"><a href="#旋转卡壳" class="headerlink" title="旋转卡壳"></a>旋转卡壳</h2><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+&#125;</code></pre>
+<h2 id="旋转卡壳"><a href="#旋转卡壳" class="headerlink" title="旋转卡壳"></a>旋转卡壳</h2><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
 #include&lt;algorithm&gt;
 
 using namespace std;
@@ -1286,8 +1286,8 @@ int main()
     get_convex();
     cout &lt;&lt; rotating_calipers();
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="三角剖分"><a href="#三角剖分" class="headerlink" title="三角剖分"></a>三角剖分</h2><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+&#125;</code></pre>
+<h2 id="三角剖分"><a href="#三角剖分" class="headerlink" title="三角剖分"></a>三角剖分</h2><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
 #include&lt;iomanip&gt;
 #include&lt;cmath&gt;
 #include&lt;algorithm&gt;
@@ -1443,8 +1443,8 @@ int main()
     &#125;
     
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="扫描线——三角形面积并"><a href="#扫描线——三角形面积并" class="headerlink" title="扫描线——三角形面积并"></a>扫描线——三角形面积并</h2><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+&#125;</code></pre>
+<h2 id="扫描线——三角形面积并"><a href="#扫描线——三角形面积并" class="headerlink" title="扫描线——三角形面积并"></a>扫描线——三角形面积并</h2><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
 #include&lt;algorithm&gt;
 #include&lt;vector&gt;
 #include&lt;cmath&gt;
@@ -1603,8 +1603,8 @@ int main()
 
     cout &lt;&lt; fixed &lt;&lt; setprecision(2) &lt;&lt; res;
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="自适应辛普森积分"><a href="#自适应辛普森积分" class="headerlink" title="自适应辛普森积分"></a>自适应辛普森积分</h2><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+&#125;</code></pre>
+<h2 id="自适应辛普森积分"><a href="#自适应辛普森积分" class="headerlink" title="自适应辛普森积分"></a>自适应辛普森积分</h2><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
 #include&lt;iomanip&gt;
 #include&lt;cmath&gt;
 
@@ -1638,8 +1638,8 @@ int main()
 
     cout &lt;&lt; fixed &lt;&lt; setprecision(6) &lt;&lt; asr(l,r,simpson(l,r));
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="补充数据结构——主席树"><a href="#补充数据结构——主席树" class="headerlink" title="补充数据结构——主席树"></a>补充数据结构——主席树</h1><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+&#125;</code></pre>
+<h1 id="补充数据结构——主席树"><a href="#补充数据结构——主席树" class="headerlink" title="补充数据结构——主席树"></a>补充数据结构——主席树</h1><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -1721,7 +1721,7 @@ int main()
 		printf(&quot;%d\n&quot;,nums[query(root[r],root[l - 1],0,nums.size() - 1,k)]);
 	&#125;
 	return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 
                 
             </div>

@@ -490,14 +490,14 @@ for(int i &amp;#x3D; 1; i&amp;lt;&amp;#x3D;n;i++)     s[i] &amp;#x3D; s[i-1]+ a[
 <p>求区间[l,r]之间的和：$s[r] - s[l - 1]$</p>
 </blockquote>
 <p><mark>核心代码：</mark></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">for(int i &#x3D; 1; i&lt;&#x3D;n;i++)     s[i] &#x3D; s[i-1]+ a[i];<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-c++" data-language="c++"><code class="language-c++">for(int i &#x3D; 1; i&lt;&#x3D;n;i++)     s[i] &#x3D; s[i-1]+ a[i];</code></pre>
 <h3 id="一维异或和"><a href="#一维异或和" class="headerlink" title="一维异或和"></a>一维异或和</h3><blockquote>
 <p>求区间 $[l,r]$ 之间的异或和：$s[r]$ ^ $s[l - 1]$</p>
 </blockquote>
 <p><mark>核心代码：</mark></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">for(int i &#x3D; 1;i &lt;&#x3D; n;i++)	sum[i] &#x3D; sum[i - 1] ^ a[i];<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-c++" data-language="c++"><code class="language-c++">for(int i &#x3D; 1;i &lt;&#x3D; n;i++)	sum[i] &#x3D; sum[i - 1] ^ a[i];</code></pre>
 <h3 id="二维前缀和"><a href="#二维前缀和" class="headerlink" title="二维前缀和"></a>二维前缀和</h3><p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/798/">子矩阵的和</a></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -523,13 +523,13 @@ int main()
         printf(&quot;%d\n&quot;,s[x2][y2] - s[x1 - 1][y2] - s[x2][y1 - 1] + s[x1 - 1][y1 - 1]);
     &#125;
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <h2 id="差分"><a href="#差分" class="headerlink" title="差分"></a>差分</h2><h3 id="一维差分"><a href="#一维差分" class="headerlink" title="一维差分"></a>一维差分</h3><p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/799/">差分</a></p>
 <blockquote>
 <p>核心代码：</p>
 <p>在区间[l,r]加上一个数c：b[l] += c,b[r + 1] -= c;</p>
 </blockquote>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
 #include &lt;cstring&gt;
 #include &lt;algorithm&gt;
 
@@ -556,8 +556,8 @@ int main()
     for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   b[i] +&#x3D; b[i-1];
     for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   printf(&quot;%d &quot;,b[i]);
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="二维差分"><a href="#二维差分" class="headerlink" title="二维差分"></a>二维差分</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+&#125;</code></pre>
+<h3 id="二维差分"><a href="#二维差分" class="headerlink" title="二维差分"></a>二维差分</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
 const int N &#x3D; 1e3+10;
 int a[N][N],b[N][N];
@@ -595,9 +595,9 @@ int main()
         cout &lt;&lt; endl;
     &#125;
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <h2 id="二分"><a href="#二分" class="headerlink" title="二分"></a>二分</h2><p><mark>整数二分：</mark></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;第一种:
+<pre class="language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;第一种:
 while(l &lt; r)
 &#123;
 	int mid &#x3D; l + r + 1 &gt;&gt; 1;
@@ -610,14 +610,14 @@ while(l &lt; r)
 	int mid &#x3D; l + r &gt;&gt; 1;
 	if(check(mid))	r &#x3D; mid;
 	else	l &#x3D; mid + 1;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <p><mark>浮点数二分：</mark></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">while(l + eps &lt; r)
+<pre class="language-c++" data-language="c++"><code class="language-c++">while(l + eps &lt; r)
 &#123;
     double mid &#x3D; (l + r) &#x2F; 2;
     if(check(mid))	l &#x3D; mid;
     else	r &#x3D; mid;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <h2 id="三分"><a href="#三分" class="headerlink" title="三分"></a>三分</h2><blockquote>
 <p>三分时间复杂度：O（n$^2$）</p>
 <p>三分与二分的思想类似，也是通过不断缩小答案可能的区间范围，来找到最终答案所在的位置。</p>
@@ -641,7 +641,7 @@ while(l &lt; r)
 <p>比如要求最大值，就要把小的那一部分给删去；</p>
 <p>要求最小值，则把大的那一部分删去。</p>
 </blockquote>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -676,9 +676,9 @@ int main()
     
     cout &lt;&lt; fixed &lt;&lt; setprecision(5) &lt;&lt; l &lt;&lt; &quot;\n&quot;;
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <p><mark>浮点三分法求凹函数：</mark></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -713,14 +713,14 @@ int main()
     
     cout &lt;&lt; fixed &lt;&lt; setprecision(5) &lt;&lt; l &lt;&lt; &quot;\n&quot;;
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <h3 id="整数三分"><a href="#整数三分" class="headerlink" title="整数三分"></a>整数三分</h3><p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1355/problem/E">E. Restorer Distance</a></p>
 <blockquote>
 <p>while(l + 2 &lt; r)需要区间可以分成三段！</p>
 <p>最后暴力枚举l ~ r之间的结果即可！</p>
 </blockquote>
 <p><mark>整数三分求凹函数：</mark></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -768,7 +768,7 @@ int main()
 
     cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <h2 id="KMP"><a href="#KMP" class="headerlink" title="KMP"></a>KMP</h2><div class="table-container">
 <table>
 <thead>
@@ -802,7 +802,7 @@ int main()
 </blockquote>
 <p><mark>模板题：</mark><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/833/">KMP字符串</a></p>
 <p><mark>模板代码：</mark></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
 const int N &#x3D; 1e5+10,M &#x3D; 1e6+10;
 int n,m;
@@ -831,14 +831,14 @@ int main()&#x2F;&#x2F;下面两个过程基本是类似的
     &#125;
     return 0;
 &#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
 <h3 id="EX-KMP"><a href="#EX-KMP" class="headerlink" title="EX-KMP"></a>EX-KMP</h3><p><mark>Z函数：</mark>求一个字符串str以第 i 位开始的后缀与str的最长公共前缀（lcp）</p>
 <p>使用z[i]表示第i位开始的后缀与str的最长公共前缀</p>
 <p><mark>扩展KMP：</mark>给两个字符串str1、str2，求出str1的每一个后缀与str2的最长公共前缀，时间复杂度：O（n）</p>
 <p><strong>推荐视频教学：</strong><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Y54y1o7Ca?spm_id_from=333.337.search-card.all.click&amp;vd_source=3d7e149b792ef13210101958098b6da2">扩展 KMP(Z 函数)</a></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5410">【模板】扩展 KMP（Z 函数）</a></p>
 <p><mark>模板代码：</mark></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -886,10 +886,10 @@ int main()
 	for (int i &#x3D; 1; i &lt;&#x3D; n; i++) res ^&#x3D; 1ll * i * (p[i] + 1);
 	printf(&quot;%lld\n&quot;,res);
 	return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <h2 id="字符串哈希"><a href="#字符串哈希" class="headerlink" title="字符串哈希"></a>字符串哈希</h2><p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/843/">字符串哈希</a></p>
 <p><mark>代码模板：</mark></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;&#x2F;&#x2F;本来应该对2的64次方取模，但是用unsigned long long的话就相当于取模了
 
@@ -923,7 +923,7 @@ int main()
         else    puts(&quot;No&quot;);
     &#125;
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <p>推荐题单：<a target="_blank" rel="noopener" href="https://codeforces.com/gym/103729/problem/J">https://codeforces.com/gym/103729/problem/J</a></p>
 <h2 id="Manacher算法"><a href="#Manacher算法" class="headerlink" title="Manacher算法"></a>Manacher算法</h2><p>模板题：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/3190/">Manacher算法</a></p>
 <p><strong>题目描述</strong></p>
@@ -935,11 +935,11 @@ int main()
 <p><strong>数据范围</strong></p>
 <p>1 ≤ n ≤ 10<sup>7</sup></p>
 <p><strong>输入样例：</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">abcbabcbabcba<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-none"><code class="language-none">abcbabcbabcba</code></pre>
 <p><strong>输出样例：</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">13<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-none"><code class="language-none">13</code></pre>
 <p><mark>代码：</mark></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -987,7 +987,7 @@ int main()
     printf(&quot;%d\n&quot;,res - 1);
     
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <h2 id="Trie"><a href="#Trie" class="headerlink" title="Trie"></a>Trie</h2><blockquote>
 <p>字典树。用来存储和查询字符串（01串）。</p>
 </blockquote>
@@ -1000,7 +1000,7 @@ int main()
 </ul>
 <p><mark>代码模板：</mark></p>
 <p><strong>存储字符串：</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -1049,9 +1049,9 @@ int main()
     &#125;
     
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <p><strong>存储01串：</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
 const int N &#x3D; 1e5+10,M &#x3D; 31 * N;
 int a[N];
@@ -1098,9 +1098,9 @@ int main()
         ans &#x3D; max(ans,a[i] ^ t);
     &#125;
     printf(&quot;%d\n&quot;,ans);
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <h2 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h2><p><mark>封装模板：</mark></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;
+<pre class="language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;
 struct DSU &#123;
     vector&lt;T&gt; p, sz;
     DSU(T n) : p(n), sz(n, 1) &#123; iota(p.begin(), p.end(), 0); &#125;
@@ -1123,9 +1123,9 @@ struct DSU &#123;
     &#125;
     bool same(T x, T y) &#123; return find(x) &#x3D;&#x3D; find(y); &#125;&#x2F;&#x2F;判断是否在同一集合
     T size(T x) &#123; return sz[find(x)]; &#125;&#x2F;&#x2F;获取集合大小
-&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;;</code></pre>
 <p><mark>普通模板：</mark></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void init(int n)
+<pre class="language-c++" data-language="c++"><code class="language-c++">void init(int n)
 &#123;
     for(int i &#x3D; 1;i &lt;&#x3D; n;i++)	p[i] &#x3D; i;
 &#125;
@@ -1133,7 +1133,7 @@ struct DSU &#123;
 int find(int x)
 &#123;
 	return x &#x3D;&#x3D; p[x] ? p[x] &#x3D; find(p[x]);
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <p><strong>推荐题单：</strong></p>
 <p>并查集 + 坐标转换：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1252/">格子游戏</a></p>
 <p><mark>二维坐标转化为一维坐标公式：</mark></p>
@@ -1150,7 +1150,7 @@ int find(int x)
 </blockquote>
 <p><strong>具体过程：</strong></p>
 <p><img src="D:\Develop\Blog\source\_posts\数据结构.assets\image-20230415140514438.png" alt="image-20230415140514438"></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -1224,10 +1224,10 @@ int main()
     &#125;
 
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <h2 id="树状数组"><a href="#树状数组" class="headerlink" title="树状数组"></a>树状数组</h2><p>​     <strong>树状数组</strong>，又以其发明者命名为<strong>Fenwick</strong>树，最早由Peter M. <strong>Fenwick</strong>于1994年以A New Data Structure for Cumulative Frequency Tables为题发表在SOFTWARE PRACTICE AND EXPERIENCE。，现多用于高效计算数列的前缀和， 区间和。</p>
 <p><mark>封装树状数组：</mark></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template &lt;typename T&gt;
+<pre class="language-c++" data-language="c++"><code class="language-c++">template &lt;typename T&gt;
 struct Fenwick&#x2F;&#x2F;树状数组
 &#123;
 	const int n;
@@ -1248,11 +1248,11 @@ struct Fenwick&#x2F;&#x2F;树状数组
         for(int i &#x3D; x;i ;i -&#x3D; i &amp; -i)	res +&#x3D; tr[i];	
         return res;
     &#125;
-&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;;</code></pre>
 <h2 id="线段树"><a href="#线段树" class="headerlink" title="线段树"></a>线段树</h2><p><mark>推荐题单：</mark></p>
 <p><strong>区间最大连续子段和 + 单点修改：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/246/">你能回答这些问题吗</a></p>
 <p><mark>代码模板：</mark></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
 
 const int N &#x3D; 5e5+10;
@@ -1337,7 +1337,7 @@ int main()
         else    modify(1,x,y);
     &#125;
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <h3 id="主席树"><a href="#主席树" class="headerlink" title="主席树"></a>主席树</h3><h3 id="权值线段树"><a href="#权值线段树" class="headerlink" title="权值线段树"></a>权值线段树</h3><h3 id="动态开点线段树"><a href="#动态开点线段树" class="headerlink" title="动态开点线段树"></a>动态开点线段树</h3><h3 id="势能线段树"><a href="#势能线段树" class="headerlink" title="势能线段树"></a>势能线段树</h3><blockquote>
 <p>因为区间中每个数字都是不相同的，就算知道了区间和sum，也不知道开方后的区间和sum，所以区间开方不支持使用lazy的本质在于，无法使用懒标记快速更新整段区间信息。</p>
 </blockquote>
@@ -1354,7 +1354,7 @@ int main()
 <p>3</p>
 <p>1</p>
 <p>​    所以每个数最多开5次根号即可变成1，因此我们需要维护一个区间最大值，当最大值为1时，之后就不再进行修改了。所以可以在modify递归的时候去”暴力“进行计算取根号，递归到叶子节点后修改下数值，一但一段区间的最大值为1，就不用再递归修改了，代码如下：</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -1430,9 +1430,9 @@ int main()
     &#125;
     
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <h4 id="势能线段树模板题2"><a href="#势能线段树模板题2" class="headerlink" title="势能线段树模板题2"></a>势能线段树模板题2</h4><p>题目链接：<a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/19917/C">势能线段树模板题二</a></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt; 
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt; 
 
 using namespace std;
 
@@ -1544,12 +1544,12 @@ int main()
     &#125;
     
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <h3 id="李超线段树"><a href="#李超线段树" class="headerlink" title="李超线段树"></a>李超线段树</h3><h2 id="ST表"><a href="#ST表" class="headerlink" title="ST表"></a>ST表</h2><p><strong>RMQ</strong>（Range Maximum/Minimum Query）问题，即区间最值查询问题，是指对于长度为 n 的数组a，查询数组a中下标在 [ i , j ] 里的最大值或最小值。</p>
 <p>ST算法是一个非常有名的在线处理RMQ问题的算法，它在 O ( n log ⁡ n ) 时间内进行预处理，然后可以在 O ( 1 )  时间内回答每个查询，其本质是倍增与动态规划的思想。要注意的是：ST算法只适用于静态区间求最值。</p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1275/">天才的记忆</a></p>
 <p><mark>模板代码：</mark></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
 
 using namespace std;
 
@@ -1594,7 +1594,7 @@ int main()
         cout &lt;&lt; query(l,r) &lt;&lt; &quot;\n&quot;;
     &#125;
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <h2 id="珂朵莉树"><a href="#珂朵莉树" class="headerlink" title="珂朵莉树"></a>珂朵莉树</h2><p><strong>珂朵莉树</strong>（Chtholly Tree）起源于<a target="_blank" rel="noopener" href="https://codeforces.com/contest/896/problem/C">CF896C</a>，那道题要求我们实现一种数据结构，可以较快地实现：</p>
 <ul>
 <li><p>区间加</p>
@@ -1613,7 +1613,7 @@ int main()
 <p><mark>应用：</mark></p>
 <p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1638/problem/E">E. Colorful Operations</a></p>
 <p><mark>封装珂朵莉树：</mark></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;
+<pre class="language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;
 struct ODT&#x2F;&#x2F;珂朵莉树
 &#123;
     struct Node
@@ -1665,9 +1665,9 @@ struct ODT&#x2F;&#x2F;珂朵莉树
         &#125;
         return res;
     &#125;
-&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;;</code></pre>
 <p><mark>模板题代码：</mark></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -1790,11 +1790,11 @@ int main()
     &#125;
     
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <p><strong>注意：</strong> 往集合里插入结构体的时候，如果有缺省的构造函数，即如下：</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">Node(int _l,int _r &#x3D; -1,ll _v &#x3D; 0):l(_l),r(_r),v(_v)&#123;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-c++" data-language="c++"><code class="language-c++">Node(int _l,int _r &#x3D; -1,ll _v &#x3D; 0):l(_l),r(_r),v(_v)&#123;&#125;</code></pre>
 <p>并且使用如下方式插入：</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">S.insert(&#123;i,i,a[i]&#125;);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="language-c++" data-language="c++"><code class="language-c++">S.insert(&#123;i,i,a[i]&#125;);</code></pre>
 <p>则会出现问题！即它只接收我第一个参数，后面的全给忽视了！！！</p>
 <p><img src="D:\Develop\Blog\source\_posts\数据结构.assets\image-20230320133802252.png" alt="image-20230320133802252"></p>
 <p>因此一定要注意插入的时候用带上结构体。当然如果不定义构造函数，就可以直接用大括号插入。</p>
@@ -1805,7 +1805,7 @@ int main()
 <p><img src="https://cdn.acwing.com/media/article/image/2021/10/30/52559_c53b02bc39-5057293-3e5e8475936a5f0a.gif" alt="5057293-3e5e8475936a5f0a.gif"></p>
 <p>模板题：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/255/">普通平衡树</a></p>
 <p><mark>模板代码：</mark></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -1947,7 +1947,7 @@ int main()
         else    printf(&quot;%d\n&quot;,get_next(root,x));&#x2F;&#x2F;找后继
     &#125;
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <h3 id="Splay"><a href="#Splay" class="headerlink" title="Splay"></a>Splay</h3><p>Splay保证中序遍历是当前序列的顺序。</p>
 <h2 id="树链剖分"><a href="#树链剖分" class="headerlink" title="树链剖分"></a>树链剖分</h2><blockquote>
 <p>算法流程：<br>        1、通过dfs1确定深度、父节点、子树大小；</p>
@@ -1966,7 +1966,7 @@ int main()
 <p><mark>推荐题单：</mark></p>
 <p><strong>树链剖分 + 区间最大/最小子段和：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1843/problem/F2">F2. Omsk Metro (hard version)</a></p>
 <p><mark>代码模板：</mark></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -2141,7 +2141,7 @@ int main()
     &#125;
     
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <h2 id="动态树——LCT（link-cut-tree）"><a href="#动态树——LCT（link-cut-tree）" class="headerlink" title="动态树——LCT（link-cut-tree）"></a>动态树——LCT（link-cut-tree）</h2><p><strong>LCT</strong> 是用于解决 <strong>动态树问题</strong> 的数据结构。</p>
 <blockquote>
 <p><strong>动态树问题：</strong></p>
@@ -2172,7 +2172,7 @@ int main()
 <li><code>3 x y</code> 代表将点 x上的权值变成 y。</li>
 </ul>
 <p><mark>代码模板：</mark></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
 #include&lt;cstring&gt;
 #include&lt;algorithm&gt;
 
@@ -2314,7 +2314,7 @@ int main()
     &#125;
     
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <h2 id="AC自动机"><a href="#AC自动机" class="headerlink" title="AC自动机"></a>AC自动机</h2><p><img src="D:\Develop\Blog\source\_posts\image\image-20221116093020974.png" alt="image-20221116093020974"></p>
 <p><strong>模板题：</strong></p>
 <p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/1284/">搜索关键词</a></p>
@@ -2322,7 +2322,7 @@ int main()
 <p><strong>模板题加强版(严格O(n))：</strong></p>
 <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3808">【模板】AC 自动机（简单版）</a></p>
 <p><mark>代码：</mark></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;bits&#x2F;stdc++.h&gt;
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include &lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -2401,13 +2401,13 @@ int main()
         printf(&quot;%d\n&quot;, res);
     &#125;
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <h2 id="后缀自动机"><a href="#后缀自动机" class="headerlink" title="后缀自动机"></a>后缀自动机</h2><p><img src="https://cdn.acwing.com/media/article/image/2022/05/03/42737_b66a9742ca-2468386-20220502221144777-169385588.png" alt="2468386-20220502221144777-169385588.png"></p>
 <p>后缀自动机学了好几遍，总是难以理解，最后看了个视频，差不多理解每个变量的含义了，安利一下：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV145411N7Qp?spm_id_from=333.1007.top_right_bar_window_history.content.click&amp;vd_source=3d7e149b792ef13210101958098b6da2">[OI]完全搞懂后缀自动机(SAM)</a></p>
 <p>推荐练习：</p>
 <p><strong>线段树 + 后缀自动机：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/33188/H">Hacker</a></p>
 <p><mark>代码模板：</mark></p>
-<pre class="line-numbers language-none"><code class="language-none">#include&lt;bits&#x2F;stdc++.h&gt;
+<pre class="language-none"><code class="language-none">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -2470,7 +2470,7 @@ int main()
     for(int i &#x3D; 2;i &lt;&#x3D; tot;i++) add(node[i].fa,i);&#x2F;&#x2F;1号点是没有父节点的;当前点的父节点向当前点连一条边
     dfs(1);
     printf(&quot;%lld\n&quot;,ans);
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 
                 
             </div>

@@ -492,7 +492,7 @@ void ">
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="线性筛法"><a href="#线性筛法" class="headerlink" title="线性筛法"></a>线性筛法</h2><p><mark>模板代码：</mark></p>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;bits/stdc++.h></span></span>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;bits/stdc++.h></span></span>
 
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
 
@@ -521,10 +521,10 @@ void ">
     <span class="token function">get_prime</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
     cout <span class="token operator">&lt;&lt;</span> cnt <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">&#125;</span></code></pre>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/870/">筛质数</a></p>
 <h2 id="最大公约数"><a href="#最大公约数" class="headerlink" title="最大公约数"></a>最大公约数</h2><p><mark>模板代码：</mark></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -544,10 +544,10 @@ int main()
         printf(&quot;%d\n&quot;,gcd(a,b));
     &#125;
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/874/">最大公约数</a></p>
 <h2 id="扩展欧几里得"><a href="#扩展欧几里得" class="headerlink" title="扩展欧几里得"></a>扩展欧几里得</h2><p>当方程符合ax + by = gcd(a,b)时，可以用扩展欧几里得算法求($x_0$,$y_0$)，模板如下：</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">ll exgcd(ll a,ll b,ll&amp; x,ll&amp; y)
+<pre class="language-c++" data-language="c++"><code class="language-c++">ll exgcd(ll a,ll b,ll&amp; x,ll&amp; y)
 &#123;
     if(!b)
     &#123;
@@ -557,20 +557,20 @@ int main()
     ll d &#x3D; exgcd(b,a % b,y,x);
     y -&#x3D; a &#x2F; b * x;
     return d;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <p><mark>最精简（参考jiangly）：</mark></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">array&lt;ll,3&gt; exgcd(ll a,ll b)
+<pre class="language-c++" data-language="c++"><code class="language-c++">array&lt;ll,3&gt; exgcd(ll a,ll b)
 &#123;
     if(!b)  return &#123;a,1,0&#125;;&#x2F;&#x2F;d,x,y
     auto [d,x,y] &#x3D; exgcd(b,a % b);
     return &#123;d,y,x - a &#x2F; b * y&#125;;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <p><strong>题单推荐：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104008/problem/E">Draw a triangle</a></p>
 <h2 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h2><blockquote>
 <p>1∼N 中与 N 互质的数的个数被称为欧拉函数，记为 ϕ(N)。<br>若在算数基本定理中，$N=p_1^{a_1}p_2^{a_2}…p_m^{a_m}$，则：<br>ϕ(N) = $N×\frac{p_1−1}{p_1}×\frac{p_2−1}{p_2}×…×\frac{p_m−1}{p_m}$</p>
 </blockquote>
 <p><mark>模板代码：</mark></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">ll get_euler(int n)
+<pre class="language-c++" data-language="c++"><code class="language-c++">ll get_euler(int n)
 &#123;
     ll res &#x3D; n;
     for(int i &#x3D; 2;i &lt;&#x3D; n &#x2F; i;i++)
@@ -583,7 +583,7 @@ int main()
     &#125;
     if(n &gt; 1)   res &#x3D; res &#x2F; n * (n - 1);
     return res;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <p><mark>欧拉定理：</mark></p>
 <blockquote>
 <p>若gcd(a,m) = 1，则$a^{ϕ(m)}$ ≡ 1（mod m）</p>
@@ -627,7 +627,7 @@ x       &   \equiv    & a_k(mod\; m_k)\\
 </li>
 <li>方程组在模M意义下的唯一解为：$x = \sum_{i=1}^{k}a_iM_iM_i^{-1}(mod\;n)$</li>
 </ul>
-<h2 id="组合数"><a href="#组合数" class="headerlink" title="组合数"></a>组合数</h2><h3 id="组合数I"><a href="#组合数I" class="headerlink" title="组合数I"></a>组合数I</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<h2 id="组合数"><a href="#组合数" class="headerlink" title="组合数"></a>组合数</h2><h3 id="组合数I"><a href="#组合数I" class="headerlink" title="组合数I"></a>组合数I</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -658,8 +658,8 @@ int main()
     &#125;
     
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="组合数II"><a href="#组合数II" class="headerlink" title="组合数II"></a>组合数II</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+&#125;</code></pre>
+<h3 id="组合数II"><a href="#组合数II" class="headerlink" title="组合数II"></a>组合数II</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -698,8 +698,8 @@ int main()
         printf(&quot;%d\n&quot;,(ll)fact[a]*infact[b] % mod * infact[a-b] % mod);&#x2F;&#x2F;公式得出
     &#125;
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="组合数III"><a href="#组合数III" class="headerlink" title="组合数III"></a>组合数III</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+&#125;</code></pre>
+<h3 id="组合数III"><a href="#组合数III" class="headerlink" title="组合数III"></a>组合数III</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
 
 typedef long long ll;
@@ -747,8 +747,8 @@ int main()
         cout &lt;&lt; lucas(a,b) &lt;&lt; endl;
     &#125;
     return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="组合数IV"><a href="#组合数IV" class="headerlink" title="组合数IV"></a>组合数IV</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+&#125;</code></pre>
+<h3 id="组合数IV"><a href="#组合数IV" class="headerlink" title="组合数IV"></a>组合数IV</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 
 using namespace std;
@@ -833,11 +833,11 @@ int main()
 2、利用公式:Cab &#x3D; a! &#x2F; (b! * (a - b)!)一定可以写成若干素数的乘积，而且求a!中有多少个质数p可以利用
 上面get函数方法计算
 3、高精度模板结束
-*&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+*&#x2F;</code></pre>
 <h2 id="容斥原理"><a href="#容斥原理" class="headerlink" title="容斥原理"></a>容斥原理</h2><p><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimages.cnblogs.com%2Fcnblogs_com%2Flinyujun%2F787954%2Fo_16.gif&amp;refer=http%3A%2F%2Fimages.cnblogs.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1670726264&amp;t=4d012cf5da77d83716f3afdce6dd9149" alt="img"></p>
 <p>  　<font color='red'> 代码模板说明：</font>一般用容斥原理求的结果是多个集合的并集。但为了代码的简洁，我下面的代码求的是多个集合的并集以外的部分，即全集 - 并集的结果。因为下面的计算公式是:n - ? + ?? - ??? + ???? - …。其与求并集的”奇加偶减“相反，并且还多了个n，那么我们可以用n - (n - ? + ?? - …)，即可得到这种形式：? - ?? + ??? - …的并集！</p>
 <p><mark>模板：</mark></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void dfs(int i,int x,int flag)&#x2F;&#x2F;参数含义:i:数组下标,这里从1开始;x:当前的数;flag:加或减
+<pre class="language-c++" data-language="c++"><code class="language-c++">void dfs(int i,int x,int flag)&#x2F;&#x2F;参数含义:i:数组下标,这里从1开始;x:当前的数;flag:加或减
 &#123;
     if(i &#x3D;&#x3D; m + 1)&#x2F;&#x2F;m为数组的大小
     &#123;
@@ -847,7 +847,7 @@ int main()
 
     dfs(i + 1,x,flag);
     if(x &lt;&#x3D; n &#x2F; v[i])    dfs(i + 1,x * v[i],-flag);
-&#125;&#x2F;&#x2F;对应的调用方式：dfs(1,1,1);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;&#x2F;&#x2F;对应的调用方式：dfs(1,1,1);</code></pre>
 <h2 id="矩阵快速幂"><a href="#矩阵快速幂" class="headerlink" title="矩阵快速幂"></a>矩阵快速幂</h2><p><strong>模板题：</strong></p>
 <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1962">斐波那契数列</a></p>
 <p><strong>下面是推导过程：</strong></p>
@@ -993,19 +993,19 @@ A = \left[
 </ul>
 <p>综上所述， $\lfloor \frac{n}{i} \rfloor$ 最多只有 2$\sqrt{n}$ 个取值</p>
 <p><strong>四、记住结论，拓展应用</strong></p>
-<script type="math/tex; mode=display">\sum_{i=1}^{n} \lfloor \frac{n}{i} \rfloor</script><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int sum &#x3D; 0;
+<script type="math/tex; mode=display">\sum_{i=1}^{n} \lfloor \frac{n}{i} \rfloor</script><pre class="language-c++" data-language="c++"><code class="language-c++">int sum &#x3D; 0;
 for(int l &#x3D; 1,r;l &lt;&#x3D; n;l &#x3D; r + 1)
 &#123;
     r &#x3D; n &#x2F; (n &#x2F; l);
     sum +&#x3D; (r - l + 1) * (n &#x2F; l);
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <script type="math/tex; mode=display">\sum_{i=1}^{n} \lfloor \frac{n}{i} \rfloor * i</script><p>在一段区间内的 n / i 的值是相同的，而在区间内对 i 的求和是一个明确了左端点和右端点的等差数列求和，代码如下：</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int sum &#x3D; 0;
+<pre class="language-c++" data-language="c++"><code class="language-c++">int sum &#x3D; 0;
 for(int l &#x3D; 1,r;l &lt;&#x3D; n;l &#x3D; r + 1)
 &#123;
     r &#x3D; n &#x2F; (n &#x2F; l);
     sum +&#x3D; (r - l + 1) * (n &#x2F; l) * (l + r) &#x2F; 2;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;</code></pre>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/201/">余数之和</a></p>
 <p><strong>进阶题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1706/problem/D2">Chopping Carrots (Hard Version)</a></p>
 <h2 id="康托展开"><a href="#康托展开" class="headerlink" title="康托展开"></a>康托展开</h2><h3 id="康托展开-1"><a href="#康托展开-1" class="headerlink" title="康托展开"></a>康托展开</h3><p>  把一个集合产生的全排列按照字典序排序，第X个排列的计算公式如下：</p>
@@ -1016,12 +1016,12 @@ for(int l &#x3D; 1,r;l &lt;&#x3D; n;l &#x3D; r + 1)
 
 <p>其中，a[i]表示原数的第i位在当前未出现的元素中排在第几个（从0开始）。</p>
 <p><mark>代码模板：</mark></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">ll res &#x3D; 1;&#x2F;&#x2F;因为算法是从0开始的，故按排名的话需要先初始化为1
+<pre class="language-c++" data-language="c++"><code class="language-c++">ll res &#x3D; 1;&#x2F;&#x2F;因为算法是从0开始的，故按排名的话需要先初始化为1
 	for(int i &#x3D; n;i &gt;&#x3D; 1;i--)
     &#123;&#x2F;&#x2F;这里用的是树状数组
         res +&#x3D;  query(a[i]) * fact[n - i];
         add(a[i],1);
-    &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    &#125;</code></pre>
 <h3 id="逆康托展开"><a href="#逆康托展开" class="headerlink" title="逆康托展开"></a>逆康托展开</h3><p>  由于没能找到比较好的博客去介绍逆康托的相关使用，下面粗略的给出求解的一种思路和朴素的算法（<del>不是</del>）。</p>
 <p><strong>一、思路？</strong></p>
 <p>如果4的全排列中排名第6的排列是？</p>
@@ -1032,7 +1032,7 @@ for(int l &#x3D; 1,r;l &lt;&#x3D; n;l &#x3D; r + 1)
 <p>最后只剩下一个数了，即第四位是2</p>
 <p>综上所述，排名第6的排列是：1432</p>
 <p><strong>二、朴素！</strong></p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">ll x;
+<pre class="language-c++" data-language="c++"><code class="language-c++">ll x;
 std::cin &gt;&gt; x;
 x--;&#x2F;&#x2F;需要先减1初始化
 
@@ -1047,7 +1047,7 @@ for(int i &#x3D; n,r &#x3D; 0;i &gt;&#x3D; 1;i--)
     res[n - i + 1] &#x3D; num[t + 1];&#x2F;&#x2F;说明当前的数排名第t + 1
     num.erase(num.begin() + t + 1);&#x2F;&#x2F;将该数从num中删去
 &#125;
-for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   std::cout &lt;&lt; res[i] &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; n];<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   std::cout &lt;&lt; res[i] &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; n];</code></pre>
 <p>综合<strong>康托展开</strong>和<strong>逆康托展开</strong>的例题奉上：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3014">[USACO11FEB]Cow Line S</a></p>
 <h2 id="结论总结"><a href="#结论总结" class="headerlink" title="结论总结"></a>结论总结</h2><h3 id="模数范围"><a href="#模数范围" class="headerlink" title="模数范围"></a>模数范围</h3><blockquote>
     一个数n，如果对mod(1 &le; mod &le; n)取模的话，得到的模数x范围为：[0，(x - 1) / 2]。</blockquote>
