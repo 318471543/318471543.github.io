@@ -1225,7 +1225,36 @@ int main()
 
     return 0;
 &#125;</code></pre>
-<h2 id="树状数组"><a href="#树状数组" class="headerlink" title="树状数组"></a>树状数组</h2><p>​     <strong>树状数组</strong>，又以其发明者命名为<strong>Fenwick</strong>树，最早由Peter M. <strong>Fenwick</strong>于1994年以A New Data Structure for Cumulative Frequency Tables为题发表在SOFTWARE PRACTICE AND EXPERIENCE。，现多用于高效计算数列的前缀和， 区间和。</p>
+<h2 id="树状数组"><a href="#树状数组" class="headerlink" title="树状数组"></a>树状数组</h2><blockquote>
+<p><strong>树状数组</strong>，又以其发明者命名为<strong>Fenwick</strong>树。现多用于高效计算数列的前缀和， 区间和。</p>
+<p><mark>注意：</mark>区间最小是从1开始，不能从0开始（否则会死循环）。</p>
+</blockquote>
+<p><mark>推荐题单：</mark></p>
+<p><strong>树状数组求逆序对的数量：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/790/">逆序对的数量</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/243/">楼兰图腾</a></p>
+<p><mark>常用函数：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">ll lowbit(ll x)
+&#123;
+	return x &amp; -x;
+&#125;
+
+void add(int x,ll c)
+&#123;
+    for(int i &#x3D; x;i &lt;&#x3D; n;i +&#x3D; lowbit(i))
+    &#123;
+        tr[i] +&#x3D; c;
+    &#125;
+&#125;
+
+ll sum(int x)
+&#123;
+    ll res &#x3D; 0;
+    for(int i &#x3D; x;i ;i -&#x3D; lowbit(i))
+    &#123;
+        res +&#x3D; tr[i];
+    &#125;
+    return res;
+&#125;</code></pre>
 <p><mark>封装树状数组：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">template &lt;typename T&gt;
 struct Fenwick&#x2F;&#x2F;树状数组
