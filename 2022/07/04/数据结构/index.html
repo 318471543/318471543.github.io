@@ -496,8 +496,7 @@ for(int i &amp;#x3D; 1; i&amp;lt;&amp;#x3D;n;i++)     s[i] &amp;#x3D; s[i-1]+ a[
 </blockquote>
 <p><mark>核心代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">for(int i &#x3D; 1;i &lt;&#x3D; n;i++)	sum[i] &#x3D; sum[i - 1] ^ a[i];</code></pre>
-<h3 id="二维前缀和"><a href="#二维前缀和" class="headerlink" title="二维前缀和"></a>二维前缀和</h3><p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/798/">子矩阵的和</a></p>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<h3 id="二维前缀和"><a href="#二维前缀和" class="headerlink" title="二维前缀和"></a>二维前缀和</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -524,8 +523,8 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
-<h2 id="差分"><a href="#差分" class="headerlink" title="差分"></a>差分</h2><h3 id="一维差分"><a href="#一维差分" class="headerlink" title="一维差分"></a>一维差分</h3><p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/799/">差分</a></p>
-<blockquote>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/798/">子矩阵的和</a></p>
+<h2 id="差分"><a href="#差分" class="headerlink" title="差分"></a>差分</h2><h3 id="一维差分"><a href="#一维差分" class="headerlink" title="一维差分"></a>一维差分</h3><blockquote>
 <p>核心代码：</p>
 <p>在区间[l,r]加上一个数c：b[l] += c,b[r + 1] -= c;</p>
 </blockquote>
@@ -557,6 +556,7 @@ int main()
     for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   printf(&quot;%d &quot;,b[i]);
     return 0;
 &#125;</code></pre>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/799/">差分</a></p>
 <h3 id="二维差分"><a href="#二维差分" class="headerlink" title="二维差分"></a>二维差分</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
 const int N &#x3D; 1e3+10;
@@ -596,8 +596,7 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
-<h2 id="二分"><a href="#二分" class="headerlink" title="二分"></a>二分</h2><p><mark>整数二分：</mark></p>
-<pre class="language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;第一种:
+<h2 id="二分"><a href="#二分" class="headerlink" title="二分"></a>二分</h2><h3 id="整数二分："><a href="#整数二分：" class="headerlink" title="整数二分："></a>整数二分：</h3><pre class="language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;第一种:
 while(l &lt; r)
 &#123;
 	int mid &#x3D; l + r + 1 &gt;&gt; 1;
@@ -611,8 +610,7 @@ while(l &lt; r)
 	if(check(mid))	r &#x3D; mid;
 	else	l &#x3D; mid + 1;
 &#125;</code></pre>
-<p><mark>浮点数二分：</mark></p>
-<pre class="language-c++" data-language="c++"><code class="language-c++">while(l + eps &lt; r)
+<h3 id="浮点数二分："><a href="#浮点数二分：" class="headerlink" title="浮点数二分："></a>浮点数二分：</h3><pre class="language-c++" data-language="c++"><code class="language-c++">while(l + eps &lt; r)
 &#123;
     double mid &#x3D; (l + r) &#x2F; 2;
     if(check(mid))	l &#x3D; mid;
@@ -634,93 +632,12 @@ while(l &lt; r)
 <p>什么时候使用三分？</p>
 <p>​    即一个函数，在考虑的范围[l,r]内是单峰的，并且从峰值往左右两边都是要<strong>严格</strong>单调递增或<strong>严格</strong>单调递减的。</p>
 </blockquote>
-<h3 id="浮点数三分"><a href="#浮点数三分" class="headerlink" title="浮点数三分"></a>浮点数三分</h3><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3382">【模板】三分法</a></p>
-<p><mark>浮点三分法求凸函数：</mark></p>
-<blockquote>
-<p>模板记忆口诀：哪个情况更糟就删去哪一部分（每次会删去三分之一的区间）：</p>
-<p>比如要求最大值，就要把小的那一部分给删去；</p>
-<p>要求最小值，则把大的那一部分删去。</p>
-</blockquote>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
-
-using namespace std;
-
-constexpr double eps &#x3D; 1e-7;
-
-int main()
-&#123;
-    cin.tie(nullptr)-&gt;sync_with_stdio(false);
-
-    int n;
-    double l,r;
-    cin &gt;&gt; n &gt;&gt; l &gt;&gt; r;
-
-    vector&lt;double&gt; a(n + 1);
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; a[i];
-
-    auto f &#x3D; [&amp;](double x) -&gt; double
-    &#123;
-        double res &#x3D; 0;
-        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
-            res +&#x3D; a[i] * pow(x,n - i + 1);
-        return res;
-    &#125;;
-
-    while (l + eps &lt; r)
-    &#123;
-        double m1 &#x3D; (r - l) &#x2F; 3 + l;
-        double m2 &#x3D; (r - l) &#x2F; 3 * 2 + l;
-        if(f(m1) &gt; f(m2))    r &#x3D; m2;
-        else    l &#x3D; m1;
-    &#125;
-    
-    cout &lt;&lt; fixed &lt;&lt; setprecision(5) &lt;&lt; l &lt;&lt; &quot;\n&quot;;
-    return 0;
-&#125;</code></pre>
-<p><mark>浮点三分法求凹函数：</mark></p>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
-
-using namespace std;
-
-constexpr double eps &#x3D; 1e-7;
-
-int main()
-&#123;
-    cin.tie(nullptr)-&gt;sync_with_stdio(false);
-
-    int n;
-    double l,r;
-    cin &gt;&gt; n &gt;&gt; l &gt;&gt; r;
-
-    vector&lt;double&gt; a(n + 1);
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; a[i];
-
-    auto f &#x3D; [&amp;](double x) -&gt; double
-    &#123;
-        double res &#x3D; 0;
-        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
-            res +&#x3D; a[i] * pow(x,n - i + 1);
-        return res;
-    &#125;;
-
-    while (l + eps &lt; r)
-    &#123;
-        double m1 &#x3D; (r - l) &#x2F; 3 + l;
-        double m2 &#x3D; (r - l) &#x2F; 3 * 2 + l;
-        if(f(m1) &gt; f(m2))    l &#x3D; m1;
-        else    r &#x3D; m2;
-    &#125;
-    
-    cout &lt;&lt; fixed &lt;&lt; setprecision(5) &lt;&lt; l &lt;&lt; &quot;\n&quot;;
-    return 0;
-&#125;</code></pre>
 <h3 id="整数三分"><a href="#整数三分" class="headerlink" title="整数三分"></a>整数三分</h3><p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1355/problem/E">E. Restorer Distance</a></p>
 <blockquote>
 <p>while(l + 2 &lt; r)需要区间可以分成三段！</p>
 <p>最后暴力枚举l ~ r之间的结果即可！</p>
 </blockquote>
-<p><mark>整数三分求凹函数：</mark></p>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<h4 id="数三分求凹函数："><a href="#数三分求凹函数：" class="headerlink" title="数三分求凹函数："></a>数三分求凹函数：</h4><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -769,6 +686,84 @@ int main()
     cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
+<h3 id="浮点数三分"><a href="#浮点数三分" class="headerlink" title="浮点数三分"></a>浮点数三分</h3><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3382">【模板】三分法</a></p>
+<blockquote>
+<p>模板记忆口诀：哪个情况更糟就删去哪一部分（每次会删去三分之一的区间）：</p>
+<p>比如要求最大值，就要把小的那一部分给删去；</p>
+<p>要求最小值，则把大的那一部分删去。</p>
+</blockquote>
+<h4 id="浮点三分法求凸函数："><a href="#浮点三分法求凸函数：" class="headerlink" title="浮点三分法求凸函数："></a>浮点三分法求凸函数：</h4><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+constexpr double eps &#x3D; 1e-7;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n;
+    double l,r;
+    cin &gt;&gt; n &gt;&gt; l &gt;&gt; r;
+
+    vector&lt;double&gt; a(n + 1);
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; a[i];
+
+    auto f &#x3D; [&amp;](double x) -&gt; double
+    &#123;
+        double res &#x3D; 0;
+        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+            res +&#x3D; a[i] * pow(x,n - i + 1);
+        return res;
+    &#125;;
+
+    while (l + eps &lt; r)
+    &#123;
+        double m1 &#x3D; (r - l) &#x2F; 3 + l;
+        double m2 &#x3D; (r - l) &#x2F; 3 * 2 + l;
+        if(f(m1) &gt; f(m2))    r &#x3D; m2;
+        else    l &#x3D; m1;
+    &#125;
+    
+    cout &lt;&lt; fixed &lt;&lt; setprecision(5) &lt;&lt; l &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+<h4 id="浮点三分法求凹函数："><a href="#浮点三分法求凹函数：" class="headerlink" title="浮点三分法求凹函数："></a>浮点三分法求凹函数：</h4><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+constexpr double eps &#x3D; 1e-7;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n;
+    double l,r;
+    cin &gt;&gt; n &gt;&gt; l &gt;&gt; r;
+
+    vector&lt;double&gt; a(n + 1);
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; a[i];
+
+    auto f &#x3D; [&amp;](double x) -&gt; double
+    &#123;
+        double res &#x3D; 0;
+        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+            res +&#x3D; a[i] * pow(x,n - i + 1);
+        return res;
+    &#125;;
+
+    while (l + eps &lt; r)
+    &#123;
+        double m1 &#x3D; (r - l) &#x2F; 3 + l;
+        double m2 &#x3D; (r - l) &#x2F; 3 * 2 + l;
+        if(f(m1) &gt; f(m2))    l &#x3D; m1;
+        else    r &#x3D; m2;
+    &#125;
+    
+    cout &lt;&lt; fixed &lt;&lt; setprecision(5) &lt;&lt; l &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
 <h2 id="KMP"><a href="#KMP" class="headerlink" title="KMP"></a>KMP</h2><div class="table-container">
 <table>
 <thead>
@@ -800,8 +795,7 @@ int main()
 <h3 id="KMP-1"><a href="#KMP-1" class="headerlink" title="KMP"></a>KMP</h3><blockquote>
 <p><strong>KMP算法</strong>是可以在<strong>文本串s</strong>中快速查找<strong>模式串p</strong>的一种算法。</p>
 </blockquote>
-<p><mark>模板题：</mark><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/833/">KMP字符串</a></p>
-<p><mark>模板代码：</mark></p>
+<p><mark>模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
 const int N &#x3D; 1e5+10,M &#x3D; 1e6+10;
@@ -832,12 +826,13 @@ int main()&#x2F;&#x2F;下面两个过程基本是类似的
     return 0;
 &#125;
 </code></pre>
+<p><mark>模板题：</mark><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/833/">KMP字符串</a></p>
 <h3 id="EX-KMP"><a href="#EX-KMP" class="headerlink" title="EX-KMP"></a>EX-KMP</h3><p><mark>Z函数：</mark>求一个字符串str以第 i 位开始的后缀与str的最长公共前缀（lcp）</p>
 <p>使用z[i]表示第i位开始的后缀与str的最长公共前缀</p>
 <p><mark>扩展KMP：</mark>给两个字符串str1、str2，求出str1的每一个后缀与str2的最长公共前缀，时间复杂度：O（n）</p>
 <p><strong>推荐视频教学：</strong><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Y54y1o7Ca?spm_id_from=333.337.search-card.all.click&amp;vd_source=3d7e149b792ef13210101958098b6da2">扩展 KMP(Z 函数)</a></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5410">【模板】扩展 KMP（Z 函数）</a></p>
-<p><mark>模板代码：</mark></p>
+<p><mark>模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -887,8 +882,7 @@ int main()
 	printf(&quot;%lld\n&quot;,res);
 	return 0;
 &#125;</code></pre>
-<h2 id="字符串哈希"><a href="#字符串哈希" class="headerlink" title="字符串哈希"></a>字符串哈希</h2><p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/843/">字符串哈希</a></p>
-<p><mark>代码模板：</mark></p>
+<h2 id="字符串哈希"><a href="#字符串哈希" class="headerlink" title="字符串哈希"></a>字符串哈希</h2><p><mark>模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;&#x2F;&#x2F;本来应该对2的64次方取模，但是用unsigned long long的话就相当于取模了
@@ -924,21 +918,13 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
-<p>推荐题单：<a target="_blank" rel="noopener" href="https://codeforces.com/gym/103729/problem/J">https://codeforces.com/gym/103729/problem/J</a></p>
-<h2 id="Manacher算法"><a href="#Manacher算法" class="headerlink" title="Manacher算法"></a>Manacher算法</h2><p>模板题：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/3190/">Manacher算法</a></p>
-<p><strong>题目描述</strong></p>
-<p>给定一个长度为 n 的由小写字母构成的字符串，求它的最长回文子串的长度是多少。</p>
-<p><strong>输入格式</strong></p>
-<p>一个由小写字母构成的字符串。</p>
-<p><strong>输出格式</strong></p>
-<p>输出一个整数，表示最长回文子串的长度。</p>
-<p><strong>数据范围</strong></p>
-<p>1 ≤ n ≤ 10<sup>7</sup></p>
-<p><strong>输入样例：</strong></p>
-<pre class="language-none"><code class="language-none">abcbabcbabcba</code></pre>
-<p><strong>输出样例：</strong></p>
-<pre class="language-none"><code class="language-none">13</code></pre>
-<p><mark>代码：</mark></p>
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/843/">字符串哈希</a></p>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/gym/103729/problem/J">https://codeforces.com/gym/103729/problem/J</a></p>
+<h2 id="Manacher算法"><a href="#Manacher算法" class="headerlink" title="Manacher算法"></a>Manacher算法</h2><blockquote>
+<p>求序列的最长回文子串的长度是多少？</p>
+</blockquote>
+<p><mark>模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -988,18 +974,13 @@ int main()
     
     return 0;
 &#125;</code></pre>
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/3190/">Manacher算法</a></p>
 <h2 id="Trie"><a href="#Trie" class="headerlink" title="Trie"></a>Trie</h2><blockquote>
 <p>字典树。用来存储和查询字符串（01串）。</p>
 </blockquote>
-<p><mark>模板题：</mark></p>
-<p><strong>存储字符串：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/837/">Trie字符串统计</a></p>
-<p><strong>存储01串：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/145/">最大异或对</a></p>
-<p><mark>推荐题单：</mark></p>
-<ul>
-<li><strong>区间异或和最大值：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1847/problem/C">C. Vampiric Powers, anyone?</a></li>
-</ul>
-<p><mark>代码模板：</mark></p>
-<p><strong>存储字符串：</strong></p>
+<p><mark>模板：</mark></p>
+<p><strong>1、存储字符串：</strong></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1050,7 +1031,7 @@ int main()
     
     return 0;
 &#125;</code></pre>
-<p><strong>存储01串：</strong></p>
+<p><strong>2、存储01串：</strong></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
 const int N &#x3D; 1e5+10,M &#x3D; 31 * N;
@@ -1099,7 +1080,25 @@ int main()
     &#125;
     printf(&quot;%d\n&quot;,ans);
 &#125;</code></pre>
-<h2 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h2><p><mark>封装模板：</mark></p>
+<p><mark>推荐题单：</mark></p>
+<ul>
+<li><p><strong>模板题1：存储字符串：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/837/">Trie字符串统计</a></p>
+</li>
+<li><p><strong>模板题2：存储01串：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/145/">最大异或对</a></p>
+</li>
+</ul>
+<p><strong>区间异或和最大值：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1847/problem/C">C. Vampiric Powers, anyone?</a></p>
+<h2 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h2><p><mark>常用函数：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">void init(int n)
+&#123;
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)	p[i] &#x3D; i;
+&#125;
+
+int find(int x)
+&#123;
+	return x &#x3D;&#x3D; p[x] ? p[x] &#x3D; find(p[x]);
+&#125;</code></pre>
+<p><mark>封装模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;
 struct DSU &#123;
     vector&lt;T&gt; p, sz;
@@ -1124,16 +1123,6 @@ struct DSU &#123;
     bool same(T x, T y) &#123; return find(x) &#x3D;&#x3D; find(y); &#125;&#x2F;&#x2F;判断是否在同一集合
     T size(T x) &#123; return sz[find(x)]; &#125;&#x2F;&#x2F;获取集合大小
 &#125;;</code></pre>
-<p><mark>普通模板：</mark></p>
-<pre class="language-c++" data-language="c++"><code class="language-c++">void init(int n)
-&#123;
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)	p[i] &#x3D; i;
-&#125;
-
-int find(int x)
-&#123;
-	return x &#x3D;&#x3D; p[x] ? p[x] &#x3D; find(p[x]);
-&#125;</code></pre>
 <p><strong>推荐题单：</strong></p>
 <p>并查集 + 坐标转换：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1252/">格子游戏</a></p>
 <p><mark>二维坐标转化为一维坐标公式：</mark></p>
@@ -1229,9 +1218,6 @@ int main()
 <p><strong>树状数组</strong>，又以其发明者命名为<strong>Fenwick</strong>树。现多用于高效计算数列的前缀和， 区间和。</p>
 <p><mark>注意：</mark>区间最小是从1开始，不能从0开始（否则会死循环）。</p>
 </blockquote>
-<p><mark>推荐题单：</mark></p>
-<p><strong>树状数组求逆序对的数量：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/790/">逆序对的数量</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/243/">楼兰图腾</a></p>
 <p><mark>常用函数：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">ll lowbit(ll x)
 &#123;
@@ -1278,9 +1264,10 @@ struct Fenwick&#x2F;&#x2F;树状数组
         return res;
     &#125;
 &#125;;</code></pre>
-<h2 id="线段树"><a href="#线段树" class="headerlink" title="线段树"></a>线段树</h2><p><mark>推荐题单：</mark></p>
-<p><strong>区间最大连续子段和 + 单点修改：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/246/">你能回答这些问题吗</a></p>
-<p><mark>代码模板：</mark></p>
+<p><mark>推荐题单：</mark></p>
+<p><strong>树状数组求逆序对的数量：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/790/">逆序对的数量</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/243/">楼兰图腾</a></p>
+<h2 id="线段树"><a href="#线段树" class="headerlink" title="线段树"></a>线段树</h2><p><mark>模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
 
@@ -1367,23 +1354,12 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
+<p><mark>推荐题单：</mark></p>
+<p><strong>区间最大连续子段和 + 单点修改：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/246/">你能回答这些问题吗</a></p>
 <h3 id="主席树"><a href="#主席树" class="headerlink" title="主席树"></a>主席树</h3><h3 id="权值线段树"><a href="#权值线段树" class="headerlink" title="权值线段树"></a>权值线段树</h3><h3 id="动态开点线段树"><a href="#动态开点线段树" class="headerlink" title="动态开点线段树"></a>动态开点线段树</h3><h3 id="势能线段树"><a href="#势能线段树" class="headerlink" title="势能线段树"></a>势能线段树</h3><blockquote>
 <p>因为区间中每个数字都是不相同的，就算知道了区间和sum，也不知道开方后的区间和sum，所以区间开方不支持使用lazy的本质在于，无法使用懒标记快速更新整段区间信息。</p>
 </blockquote>
-<h4 id="势能线段树模板题1"><a href="#势能线段树模板题1" class="headerlink" title="势能线段树模板题1"></a>势能线段树模板题1</h4><p><strong>题目链接：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/19917/D">势能线段树模板题一</a></p>
-<p><strong>题意：</strong></p>
-<p>​    1、给定一个区间[l,r]，将其中每个数开根号并向下取整。</p>
-<p>​    2、查询区间和。</p>
-<p><mark>思路：</mark></p>
-<p>​    可以发现，对于一个数1e9，每次将其开根号，可以依次得到：</p>
-<p>1000000000</p>
-<p>31622</p>
-<p>177</p>
-<p>13</p>
-<p>3</p>
-<p>1</p>
-<p>​    所以每个数最多开5次根号即可变成1，因此我们需要维护一个区间最大值，当最大值为1时，之后就不再进行修改了。所以可以在modify递归的时候去”暴力“进行计算取根号，递归到叶子节点后修改下数值，一但一段区间的最大值为1，就不用再递归修改了，代码如下：</p>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<h4 id="势能线段树模板题1"><a href="#势能线段树模板题1" class="headerlink" title="势能线段树模板题1"></a>势能线段树模板题1</h4><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -1460,8 +1436,20 @@ int main()
     
     return 0;
 &#125;</code></pre>
-<h4 id="势能线段树模板题2"><a href="#势能线段树模板题2" class="headerlink" title="势能线段树模板题2"></a>势能线段树模板题2</h4><p>题目链接：<a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/19917/C">势能线段树模板题二</a></p>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt; 
+<p><strong>题目链接：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/19917/D">势能线段树模板题一</a></p>
+<p><strong>题意：</strong></p>
+<p>​    1、给定一个区间[l,r]，将其中每个数开根号并向下取整。</p>
+<p>​    2、查询区间和。</p>
+<p><mark>思路：</mark></p>
+<p>​    可以发现，对于一个数1e9，每次将其开根号，可以依次得到：</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">1000000000
+31622
+177
+13
+3
+1</code></pre>
+<p>​    所以每个数最多开5次根号即可变成1，因此我们需要维护一个区间最大值，当最大值为1时，之后就不再进行修改了。所以可以在modify递归的时候去”暴力“进行计算取根号，递归到叶子节点后修改下数值，一但一段区间的最大值为1，就不用再递归修改了。</p>
+<h4 id="势能线段树模板题2"><a href="#势能线段树模板题2" class="headerlink" title="势能线段树模板题2"></a>势能线段树模板题2</h4><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt; 
 
 using namespace std;
 
@@ -1574,10 +1562,12 @@ int main()
     
     return 0;
 &#125;</code></pre>
-<h3 id="李超线段树"><a href="#李超线段树" class="headerlink" title="李超线段树"></a>李超线段树</h3><h2 id="ST表"><a href="#ST表" class="headerlink" title="ST表"></a>ST表</h2><p><strong>RMQ</strong>（Range Maximum/Minimum Query）问题，即区间最值查询问题，是指对于长度为 n 的数组a，查询数组a中下标在 [ i , j ] 里的最大值或最小值。</p>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/19917/C">势能线段树模板题二</a></p>
+<h3 id="李超线段树"><a href="#李超线段树" class="headerlink" title="李超线段树"></a>李超线段树</h3><h2 id="ST表"><a href="#ST表" class="headerlink" title="ST表"></a>ST表</h2><blockquote>
+<p><strong>RMQ</strong>（Range Maximum/Minimum Query）问题，即区间最值查询问题，是指对于长度为 n 的数组a，查询数组a中下标在 [ i , j ] 里的最大值或最小值。</p>
 <p>ST算法是一个非常有名的在线处理RMQ问题的算法，它在 O ( n log ⁡ n ) 时间内进行预处理，然后可以在 O ( 1 )  时间内回答每个查询，其本质是倍增与动态规划的思想。要注意的是：ST算法只适用于静态区间求最值。</p>
-<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1275/">天才的记忆</a></p>
-<p><mark>模板代码：</mark></p>
+</blockquote>
+<p><mark>模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
 
 using namespace std;
@@ -1624,6 +1614,7 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1275/">天才的记忆</a></p>
 <h2 id="珂朵莉树"><a href="#珂朵莉树" class="headerlink" title="珂朵莉树"></a>珂朵莉树</h2><p><strong>珂朵莉树</strong>（Chtholly Tree）起源于<a target="_blank" rel="noopener" href="https://codeforces.com/contest/896/problem/C">CF896C</a>，那道题要求我们实现一种数据结构，可以较快地实现：</p>
 <ul>
 <li><p>区间加</p>
@@ -2436,7 +2427,7 @@ int main()
 <p>推荐练习：</p>
 <p><strong>线段树 + 后缀自动机：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/33188/H">Hacker</a></p>
 <p><mark>代码模板：</mark></p>
-<pre class="language-none"><code class="language-none">#include&lt;bits&#x2F;stdc++.h&gt;
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
