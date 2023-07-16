@@ -1049,6 +1049,27 @@ for(int i &#x3D; n,r &#x3D; 0;i &gt;&#x3D; 1;i--)
 &#125;
 for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   std::cout &lt;&lt; res[i] &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; n];</code></pre>
 <p>综合<strong>康托展开</strong>和<strong>逆康托展开</strong>的例题奉上：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3014">[USACO11FEB]Cow Line S</a></p>
+<h2 id="莫比乌斯反演"><a href="#莫比乌斯反演" class="headerlink" title="莫比乌斯反演"></a>莫比乌斯反演</h2><p><mark>线性筛法求莫比乌斯函数：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">int cnt,primes[N],mu[N],sum[N];
+bool st[N];
+
+void init()
+&#123;
+    mu[1] &#x3D; 1;
+    for(int i &#x3D; 2;i &lt; N;i++)
+    &#123;
+        if(!st[i])  primes[cnt++] &#x3D; i,mu[i] &#x3D; -1;
+        for(int j &#x3D; 0;primes[j] * i &lt; N;j++)
+        &#123;
+            st[primes[j] * i] &#x3D; true;
+            if(i % primes[j] &#x3D;&#x3D; 0)  break;
+            mu[primes[j] * i] &#x3D; -mu[i];   
+        &#125;
+    &#125;
+    for(int i &#x3D; 1;i &lt; N;i++)    sum[i] &#x3D; sum[i - 1] + mu[i];&#x2F;&#x2F;莫比乌斯前缀和
+&#125;</code></pre>
+<p><mark>推荐题单：</mark><br><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/2704/">problem b</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1360/">约数个数和</a></p>
 <h2 id="结论总结"><a href="#结论总结" class="headerlink" title="结论总结"></a>结论总结</h2><h3 id="模数范围"><a href="#模数范围" class="headerlink" title="模数范围"></a>模数范围</h3><blockquote>
     一个数n，如果对mod(1 &le; mod &le; n)取模的话，得到的模数x范围为：[0，(x - 1) / 2]。</blockquote>
 

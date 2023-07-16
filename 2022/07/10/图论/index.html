@@ -709,6 +709,74 @@ int main()
     &#x2F;&#x2F; for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; tr[i].l &lt;&lt; &quot; &quot; &lt;&lt; tr[i].r &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
+<h2 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h2><blockquote>
+<p><mark>应用：</mark></p>
+<p>​    拓扑排序可以判断图中是否有环，还可以用来判断图是否是一条链。</p>
+<p><mark>手算流程：</mark></p>
+<p>一个有向图，如果图中有入度为 0 的点，就把这个点删掉，同时也删掉这个点所连的边。</p>
+<p>一直进行上面出处理，如果所有点都能被删掉，则这个图可以进行拓扑排序。</p>
+<p><mark>算法流程：</mark></p>
+<p>首先记录各个点的入度</p>
+<p>然后将入度为 0 的点放入队列</p>
+<p>将队列里的点依次出队列，然后找出所有出队列这个点发出的边，删除边，同事边的另一侧的点的入度 -1。</p>
+<p>如果所有点都进过队列，则可以拓扑排序，输出所有顶点。否则输出-1，代表不可以进行拓扑排序。</p>
+</blockquote>
+<p><mark>模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+&#x2F;&#x2F;一个有向无环图一定至少存在一个入度为0的点
+using namespace std;&#x2F;&#x2F;有向图才会有拓扑序列
+
+const int N &#x3D; 1e5+10;&#x2F;&#x2F;新概念: 入度、出度
+
+int n,m;&#x2F;&#x2F;一个有向无环图一定存在拓扑序，而题目仅是说有向图，注意区分
+int h[N],e[N],ne[N],idx;
+int q[N],d[N];&#x2F;&#x2F;q[]是队列,d[]存的是点的入度
+&#x2F;&#x2F;数组模拟队列的好处:即使hh变化，也只是下标，数组中的元素依旧在，故输出拓扑序
+void add(int a,int b)
+&#123;
+    e[idx] &#x3D; b,ne[idx] &#x3D; h[a],h[a] &#x3D; idx++;
+&#125;
+
+bool topsort()
+&#123;
+    int hh &#x3D; 0,tt &#x3D; -1;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        if(!d[i])
+            q[++tt] &#x3D; i;
+    while (hh &lt;&#x3D; tt)
+    &#123;
+        int t &#x3D; q[hh++];
+        for (int i &#x3D; h[t]; i !&#x3D; -1; i &#x3D; ne[i])
+        &#123;
+            int j &#x3D; e[i];
+            d[j]--;&#x2F;&#x2F;入度减减
+            if(d[j]&#x3D;&#x3D;0) q[++tt] &#x3D; j;
+        &#125;
+    &#125;
+    return tt &#x3D;&#x3D; n - 1;&#x2F;&#x2F;tt初始为-1，队列加入了n个点后，tt变成n-1，故存在拓扑序
+&#125;
+
+int main()
+&#123;
+    cin &gt;&gt; n &gt;&gt; m;
+    memset(h,-1,sizeof h);
+    for (int i &#x3D; 0; i &lt; m; i++)
+    &#123;
+        int a,b;
+        cin &gt;&gt; a &gt;&gt; b;
+        add(a,b);
+        d[b]++;
+    &#125;
+    if(topsort())
+    &#123;
+        for(int i &#x3D; 0;i &lt; n;i++)    printf(&quot;%d &quot;,q[i]);
+        puts(&quot;&quot;);
+    &#125;
+    else    puts(&quot;-1&quot;);
+    return 0;
+&#125;</code></pre>
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/850/">有向图的拓扑序列</a></p>
 <h2 id="最短路"><a href="#最短路" class="headerlink" title="最短路"></a>最短路</h2><h3 id="Dijkstra"><a href="#Dijkstra" class="headerlink" title="Dijkstra"></a>Dijkstra</h3><h4 id="朴素版Dijkstra"><a href="#朴素版Dijkstra" class="headerlink" title="朴素版Dijkstra"></a>朴素版Dijkstra</h4><p>适用于<strong>稠密图</strong>(m ≈ n<sup>2</sup>)，用邻接矩阵存储。时间复杂度：O(n<sup>2</sup>)</p>
 <p><mark>代码模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -932,7 +1000,6 @@ void floyd()
         for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
             for(int j &#x3D; 1;j &lt;&#x3D; n;j++)
                 d[i][j] &#x3D; min(d[i][j],d[i][k]+d[k][j]);
-        
 &#125;
 
 int main()
@@ -1067,7 +1134,7 @@ int main()
     Kruskal();
     return 0;
 &#125;</code></pre>
-<h2 id="最近公共祖先-LCA"><a href="#最近公共祖先-LCA" class="headerlink" title="最近公共祖先(LCA)"></a>最近公共祖先(LCA)</h2><p><mark>代码模板：</mark></p>
+<h2 id="二分图"><a href="#二分图" class="headerlink" title="二分图"></a>二分图</h2><h2 id="Tarjan"><a href="#Tarjan" class="headerlink" title="Tarjan"></a>Tarjan</h2><h2 id="最近公共祖先-LCA"><a href="#最近公共祖先-LCA" class="headerlink" title="最近公共祖先(LCA)"></a>最近公共祖先(LCA)</h2><p><mark>代码模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
