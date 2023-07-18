@@ -4,13 +4,12 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="好题精选, 重生带我走">
-    <meta name="description" content="根据数据范围，探索写法题单推荐：
-
-三角形重心
-C. Vampiric Powers, anyone?
-
-讲解——三角形重心：题意：给了 $n$ 个点，问是否有 $2$ 个三角形，满足重心相等。即重心为$\frac{x_1 + x_2 + ">
+    <meta name="keywords" content="2023“钉耙编程”中国大学生算法设计超级联赛（1）, 重生带我走">
+    <meta name="description" content="比赛超链接：2023“钉耙编程”中国大学生算法设计超级联赛（1）
+Assertion题意：
+​        将 $m$ 分成 $n$ 份，是否至少有一份的数 $\ge$ d，如果是输出“Yes”，否则输出“No”。
+思路：
+​      ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -35,7 +34,7 @@ C. Vampiric Powers, anyone?
 
     
 
-    <title>好题精选 | 重生带我走</title>
+    <title>2023“钉耙编程”中国大学生算法设计超级联赛（1） | 重生带我走</title>
     <link rel="icon" type="image/jpeg" href="/favicon.jpg">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -325,12 +324,12 @@ C. Vampiric Powers, anyone?
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">好题精选</h1>
+                    <h1 class="description center-align post-title">2023“钉耙编程”中国大学生算法设计超级联赛（1）</h1>
                 </div>
             </div>
         </div>
@@ -446,8 +445,8 @@ C. Vampiric Powers, anyone?
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%A5%BD%E9%A2%98%E7%B2%BE%E9%80%89/">
-                                <span class="chip bg-color">好题精选</span>
+                            <a href="/tags/2023%E2%80%9C%E9%92%89%E8%80%99%E7%BC%96%E7%A8%8B%E2%80%9D%E4%B8%AD%E5%9B%BD%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E8%B6%85%E7%BA%A7%E8%81%94%E8%B5%9B%EF%BC%881%EF%BC%89/">
+                                <span class="chip bg-color">2023“钉耙编程”中国大学生算法设计超级联赛（1）</span>
                             </a>
                         
                     </div>
@@ -462,7 +461,7 @@ C. Vampiric Powers, anyone?
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-07-02
+                    2023-07-18
                 </div>
                 
 
@@ -486,81 +485,11 @@ C. Vampiric Powers, anyone?
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="根据数据范围，探索写法"><a href="#根据数据范围，探索写法" class="headerlink" title="根据数据范围，探索写法"></a>根据数据范围，探索写法</h2><p><mark>题单推荐：</mark></p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/60254/F">三角形重心</a></li>
-<li><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1847/problem/C">C. Vampiric Powers, anyone?</a></li>
-</ul>
-<h3 id="讲解——三角形重心："><a href="#讲解——三角形重心：" class="headerlink" title="讲解——三角形重心："></a>讲解——三角形重心：</h3><p><strong>题意：</strong>给了 $n$ 个点，问是否有 $2$ 个三角形，满足重心相等。即重心为$\frac{x_1 + x_2 + x_3}{3} = \frac{y_1 + y_2 + y_3}{3}$ 。如果找到的话，请输出对应三角形三点的下标。</p>
-<p><strong>数据范围：</strong>$ 1 \le n\le 10^5, -1000 \le x_i,y_i \le 1000$ 。</p>
-<p><mark>思路：</mark> 单从 $n$ 的数据范围来看的话，很难做出来。但<strong>一定</strong>请注意到坐标的数据范围。这个数据范围可以 $O(n^2)$，因此可以进一步思考（需要一定的理论分析）：重心一共有 $10^6$ 个，虽然看着枚举三个点的时间复杂度很高，但是如果时间复杂度真的到了 $10^6$ 的时候，是不是答案已经出来了呢？（具体来讲，如果枚举的时间复杂度小于 $10^6$，那么时间够用，不用额外考虑；反正如果时间复杂度已经到了 $10^6$ 还没找到，那是不可能的，因为重心已经基本被遍历完一遍了，一定会出答案。 ）因此，这道题被很多人称为了“<strong>一眼丁真题</strong>”。</p>
-<p><mark>参考代码：</mark></p>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
-
-using namespace std;
-
-typedef long long ll;
-typedef pair&lt;int,int&gt; pii;
-
-#define IOS ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr)
-#define cf(_) int _;cin &gt;&gt; _;while(_--)
-
-const int N &#x3D; 1e5 + 10;
-
-int n;
-pii a[N];
-vector&lt;int&gt; v;
-map&lt;int,vector&lt;int&gt;&gt; mp[6010];
-
-void dfs(int cnt,int cur)
-&#123;
-    if(cnt &#x3D;&#x3D; 3)
-    &#123;
-        int x &#x3D; a[v[0]].first + a[v[1]].first + a[v[2]].first + 3000;
-        int y &#x3D; a[v[0]].second + a[v[1]].second + a[v[2]].second + 3000;
-        if(mp[x][y].size())
-        &#123;
-            cout &lt;&lt; &quot;YES\n&quot;;
-            cout &lt;&lt; mp[x][y][0] &lt;&lt; &quot; &quot; &lt;&lt; mp[x][y][1] &lt;&lt; &quot; &quot; &lt;&lt; mp[x][y][2] &lt;&lt; &quot;\n&quot;;
-            cout &lt;&lt; v[0] &lt;&lt; &quot; &quot; &lt;&lt; v[1] &lt;&lt; &quot; &quot; &lt;&lt; v[2] &lt;&lt; &quot;\n&quot;;
-            exit(0);
-        &#125;
-        else    
-        &#123;
-            for(int i &#x3D; 0;i &lt; v.size();i++)
-            &#123;
-                mp[x][y].push_back(v[i]);
-            &#125;
-        &#125;
-        return;
-    &#125;
-
-    for(int i &#x3D; cur;i &lt;&#x3D; n;i++)
-    &#123;
-        v.push_back(i);
-        dfs(cnt + 1,i + 1);
-        v.pop_back();
-    &#125;
-&#125;
-
-int main()
-&#123;
-    IOS;
-    cin &gt;&gt; n;
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; a[i].first &gt;&gt; a[i].second;
-
-    dfs(0,1);
-
-    cout &lt;&lt; &quot;NO&quot; &lt;&lt; &quot;\n&quot;;
-    
-    return 0;
-&#125;</code></pre>
-<h3 id="讲解——Vampiric-Powers-anyone-："><a href="#讲解——Vampiric-Powers-anyone-：" class="headerlink" title="讲解——Vampiric Powers, anyone?："></a>讲解——Vampiric Powers, anyone?：</h3><p><strong>题意转化：</strong>给 $n$ 个数和对应的 $a_i$ ，求 $1$ ~ $n$ 区间中连续异或的最大值是多少？（子段连续异或和的最大值）</p>
-<p><strong>数据范围：</strong> $n \le 10^5$， $0 \le a_i &lt; 2^8$ 。</p>
-<p><mark>清除误区：</mark> <strong>区间异或和的最大值不能用线段树做！</strong>因为类比区间连续子段和的最大值来说：最大值与最大值的和结果是最大值，但是异或的最大值和异或的最大值合起来（异或）不一定就是最大值了！</p>
-<p><mark>思路1：</mark> 需要仔细看到数据范围是 $2^8$，即256，不要以为是 $2^{28}$！看到数值这么小，可以想到枚举数值，但可能有点不太好想怎么枚举数值（有点思维在里面）。这里就直接说结论了：每次存储当前所有的前缀，对于当下枚举到的前缀，我们枚举数值！（这里的数值是已经存在过的前缀异或值），这样的效果等价于 $sum[r]$ ^ $sum[l-1]$，其中 $sum[l - 1]$ 是要枚举的数值！，这样得到的就是所有的子区间的异或值，然后取个 $max$ 即可。</p>
-<p><mark>思路2：</mark> 其实思路1是偏向于思维的，可能不太容易想到，trie这种数据结构可能会想被想到！如果理解了第一个思路的公式，那么显然，我们每次插入的就是前缀和，然后对于当前点进行询问即可。</p>
-<p><mark>思路 1 参考代码：</mark></p>
+                <p><mark>比赛超链接：<a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/contest/problems?cid=1094">2023“钉耙编程”中国大学生算法设计超级联赛（1）</a></mark></p>
+<h2 id="Assertion"><a href="#Assertion" class="headerlink" title="Assertion"></a>Assertion</h2><p><strong>题意：</strong></p>
+<p>​        将 $m$ 分成 $n$ 份，是否至少有一份的数 $\ge$ d，如果是输出“Yes”，否则输出“No”。</p>
+<p><strong>思路：</strong></p>
+<p>​       先均分（即 $\frac{m}{n}$ 个），如果有余数的话则加 $1$，然后判断这个值是否 $\ge$ d 即可。</p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -576,524 +505,14 @@ int main()
     IOS;
     cf(_)
     &#123;
-        int n;
-        cin &gt;&gt; n;
-        vector&lt;int&gt; a(n + 1),sum(n + 1);
-        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; a[i],sum[i] &#x3D; sum[i - 1] ^ a[i];
+        int n,m,d;
+        cin &gt;&gt; n &gt;&gt; m &gt;&gt; d;
 
-        map&lt;int,int&gt; mp;
-        int res &#x3D; 0;
-        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
-        &#123;
-            res &#x3D; max(res,sum[i]);
-            for(int j &#x3D; 0;j &lt; (1 &lt;&lt; 8);j++)
-            &#123;
-                if(mp.count(j)) res &#x3D; max(res,sum[i] ^ j); 
-            &#125;
-            mp[sum[i]]++;
-        &#125;
-
-        cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+        if(((m - n) % n !&#x3D; 0) + m &#x2F; n &gt;&#x3D; d)   cout &lt;&lt; &quot;Yes\n&quot;;
+        else    cout &lt;&lt; &quot;No\n&quot;;
     &#125;
     return 0;
 &#125;</code></pre>
-<p><mark>思路 2 参考代码：</mark></p>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
-
-using namespace std;
-
-const int N &#x3D; 1e5 + 10,M &#x3D; N * 8;
-
-int n;
-int a[N],sum[N];
-int idx,son[M][2];
-
-void insert(int x)
-&#123;
-    int p &#x3D; 0;
-    for(int i &#x3D; 7;i &gt;&#x3D; 0;i--)
-    &#123;
-        int u &#x3D; x &gt;&gt; i &amp; 1;
-        if(!son[p][u])  son[p][u] &#x3D; ++idx;
-        p &#x3D; son[p][u];   
-    &#125;
-&#125;
-
-int query(int x)
-&#123;
-    int p &#x3D; 0,res &#x3D; 0;
-    for(int i &#x3D; 7;i &gt;&#x3D; 0;i--)
-    &#123;
-        int u &#x3D; x &gt;&gt; i &amp; 1;
-        if(son[p][!u])   p &#x3D; son[p][u ^ 1],res &#x3D; res * 2 + !u;
-        else    p &#x3D; son[p][u],res &#x3D; res * 2 + u;
-    &#125;
-    return res;
-&#125;
-
-void init()
-&#123;
-    for(int i &#x3D; 0;i &lt;&#x3D; idx;i++)
-        for(int j &#x3D; 0;j &lt;&#x3D; 1;j++)
-            son[i][j] &#x3D; 0;
-    idx &#x3D; 0;
-&#125;
-
-void solve()
-&#123;
-    cin &gt;&gt; n;
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; a[i],sum[i] &#x3D; sum[i - 1] ^ a[i];
-
-    init();
-
-    int res &#x3D; 0;
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
-    &#123;
-        insert(sum[i - 1]);
-        int t &#x3D; query(sum[i]);
-        res &#x3D; max(res,sum[i] ^ t);
-    &#125;
-
-    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
-&#125;
-
-int main()
-&#123;
-    cin.tie(nullptr)-&gt;sync_with_stdio(false);
-
-    int t;
-    cin &gt;&gt; t;
-
-    while(t--)  solve();
-
-    return 0;
-&#125;</code></pre>
-<h2 id="练习数据结构手感"><a href="#练习数据结构手感" class="headerlink" title="练习数据结构手感"></a>练习数据结构手感</h2><p><mark>题单放送：</mark></p>
-<ul>
-<li><p><strong>线段树（最大连续子段和）：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/246/">你能回答这些问题吗</a></p>
-</li>
-<li><p><strong>树链剖分（树链剖分 + 最大 / 最小连续子段和）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1843/problem/F2">F2. Omsk Metro (hard version)</a></p>
-</li>
-</ul>
-<p><mark>代码参考：</mark></p>
-<h3 id="线段树（最大连续子段和）："><a href="#线段树（最大连续子段和）：" class="headerlink" title="线段树（最大连续子段和）："></a>线段树（最大连续子段和）：</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
-
-using namespace std;
-
-const int N &#x3D; 5e5 + 10;
-
-int n,m;
-int w[N];
-struct Node
-&#123;
-	int l,r,sum;
-	int lmx,rmx,tmx;
-&#125;tr[N &lt;&lt; 2];
-
-void pushup(Node&amp; u,Node&amp; l,Node&amp; r)
-&#123;
-	u.sum &#x3D; l.sum + r.sum;
-	u.lmx &#x3D; max(l.lmx,l.sum + r.lmx);
-	u.rmx &#x3D; max(r.rmx,r.sum + l.rmx);
-	u.tmx &#x3D; max(&#123;l.tmx,r.tmx,l.rmx + r.lmx&#125;);
-&#125;
-
-void pushup(int u)
-&#123;
-	pushup(tr[u],tr[u &lt;&lt; 1],tr[u &lt;&lt; 1 | 1]);
-&#125;
-
-void build(int u,int l,int r)
-&#123;
-	tr[u] &#x3D; &#123;l,r&#125;;
-	if(l &#x3D;&#x3D; r)	
-	&#123;
-		tr[u].sum &#x3D; w[l];
-		tr[u].lmx &#x3D; tr[u].rmx &#x3D; tr[u].tmx &#x3D; w[l];
-	&#125;
-	else
-	&#123;
-		int mid &#x3D; l + r &gt;&gt; 1;
-		build(u &lt;&lt; 1,l,mid),build(u &lt;&lt; 1 | 1,mid + 1,r);
-		pushup(u);
-	&#125;
-&#125;
-
-void modify(int u,int x,int y)
-&#123;
-	if(tr[u].l &#x3D;&#x3D; x &amp;&amp; tr[u].r &#x3D;&#x3D; x)
-	&#123;
-		w[x] &#x3D; y;
-		tr[u].sum &#x3D; tr[u].lmx &#x3D; tr[u].rmx &#x3D; tr[u].tmx &#x3D; y;
-	&#125;
-	else
-	&#123;
-		int mid &#x3D; tr[u].l + tr[u].r &gt;&gt; 1;
-		if(x &lt;&#x3D; mid)	modify(u &lt;&lt; 1,x,y);
-		else	modify(u &lt;&lt; 1 | 1,x,y);
-		pushup(u);
-	&#125;
-&#125;
-
-Node query(int u,int l,int r)
-&#123;
-	if(tr[u].l &gt;&#x3D; l &amp;&amp; tr[u].r &lt;&#x3D; r)	return tr[u];
-	int mid &#x3D; tr[u].l + tr[u].r &gt;&gt; 1;
-	if(l &gt; mid)	return query(u &lt;&lt; 1 | 1,l,r);
-	else if(r &lt;&#x3D; mid)	return query(u &lt;&lt; 1,l,r);
-	Node res;
-	Node left &#x3D; query(u &lt;&lt; 1,l,r),right &#x3D; query(u &lt;&lt; 1 | 1,l,r);
-	pushup(res,left,right);
-	return res;
-&#125;
-
-int main()
-&#123;
-	cin.tie(nullptr)-&gt;sync_with_stdio(false);
-
-	cin &gt;&gt; n &gt;&gt; m;
-	for(int i &#x3D; 1;i &lt;&#x3D; n;i++)	cin &gt;&gt; w[i];
-
-	build(1,1,n);
-	while (m--)
-	&#123;
-		int k,x,y;
-		cin &gt;&gt; k &gt;&gt; x &gt;&gt; y;
-		if(k &#x3D;&#x3D; 1)
-		&#123;
-			if(x &gt; y)	swap(x,y);
-			cout &lt;&lt; query(1,x,y).tmx &lt;&lt; &quot;\n&quot;;
-		&#125;
-		else
-		&#123;
-			modify(1,x,y);
-		&#125;
-	&#125;
-	
-	return 0;
-&#125;</code></pre>
-<h3 id="树链剖分（树链剖分-最大-最小连续子段和）："><a href="#树链剖分（树链剖分-最大-最小连续子段和）：" class="headerlink" title="树链剖分（树链剖分 + 最大 / 最小连续子段和）："></a>树链剖分（树链剖分 + 最大 / 最小连续子段和）：</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
-
-using namespace std;
-
-typedef pair&lt;int,int&gt; pii;
-
-const int N &#x3D; 2e5 + 10,M &#x3D; N * 2;
-
-int n,idx;
-int h[N],e[M],w[N],ne[M];
-int cnt,id[N],nw[N],fa[N],sz[N],top[N],son[N],depth[N];
-
-void init()
-&#123;
-    idx &#x3D; cnt &#x3D; 0;
-    for(int i &#x3D; 0;i &lt;&#x3D; n + 1;i++)   
-    &#123;
-        w[i] &#x3D; nw[i] &#x3D; id[i] &#x3D; son[i] &#x3D; depth[i] &#x3D; top[i] &#x3D; fa[i] &#x3D; 0;
-        h[i] &#x3D; -1;
-    &#125;
-&#125;
-
-struct Node
-&#123;
-    int l,r,sum;
-    int lmax,rmax,tmax;
-    int lmin,rmin,tmin;
-&#125;tr[N &lt;&lt; 2];
-
-struct Query
-&#123;
-    char op;
-    int u,v,x;
-&#125;q[N];
-
-void add(int a,int b)
-&#123;
-    e[idx] &#x3D; b,ne[idx] &#x3D; h[a],h[a] &#x3D; idx++;
-&#125;
-
-void dfs1(int u,int father,int dep)
-&#123;
-    fa[u] &#x3D; father,depth[u] &#x3D; dep,sz[u] &#x3D; 1;
-
-    for(int i &#x3D; h[u]; ~i;i &#x3D; ne[i])
-    &#123;
-        int j &#x3D; e[i];
-        if(j &#x3D;&#x3D; father) continue;
-        dfs1(j,u,dep + 1);
-        sz[u] +&#x3D; sz[j];
-        if(sz[son[u]] &lt; sz[j])  son[u] &#x3D; j;
-    &#125;
-&#125;
-
-void dfs2(int u,int t)
-&#123;
-    id[u] &#x3D; ++cnt,nw[cnt] &#x3D; w[u],top[u] &#x3D; t;
-    if(!son[u]) return;
-    dfs2(son[u],t);
-    for(int i &#x3D; h[u]; ~i;i &#x3D; ne[i])
-    &#123;
-        int j &#x3D; e[i];
-        if(j &#x3D;&#x3D; fa[u] || j &#x3D;&#x3D; son[u])   continue;
-        dfs2(j,j);
-    &#125;
-&#125;
-
-void pushup(Node&amp; u,Node&amp; l,Node&amp; r)
-&#123;
-    u.sum &#x3D; l.sum + r.sum;
-    u.lmin &#x3D; min(l.lmin,l.sum + r.lmin); 
-    u.rmin &#x3D; min(r.rmin,r.sum + l.rmin);
-    u.tmin &#x3D; min(&#123;l.tmin,r.tmin,l.rmin + r.lmin&#125;);
-
-    u.lmax &#x3D; max(l.lmax,l.sum + r.lmax);
-    u.rmax &#x3D; max(r.rmax,r.sum + l.rmax);
-    u.tmax &#x3D; max(&#123;l.tmax,r.tmax,l.rmax + r.lmax&#125;);
-&#125;
-
-void pushup(int u)
-&#123;
-    pushup(tr[u],tr[u &lt;&lt; 1],tr[u &lt;&lt; 1 | 1]);
-&#125;
-
-void build(int u,int l,int r)
-&#123;
-    tr[u] &#x3D; &#123;l,r&#125;;
-    if(l &#x3D;&#x3D; r)  
-    &#123;
-        tr[u].sum &#x3D; nw[l];
-        tr[u].lmax &#x3D; tr[u].rmax &#x3D; nw[l],tr[u].tmax &#x3D; max(0,nw[l]);
-        tr[u].lmin &#x3D; tr[u].rmin &#x3D; nw[l],tr[u].tmin &#x3D; min(0,nw[l]);
-    &#125;
-    else    
-    &#123;
-        int mid &#x3D; l + r &gt;&gt; 1;
-        build(u &lt;&lt; 1,l,mid),build(u &lt;&lt; 1 | 1,mid + 1,r);
-        pushup(u);
-    &#125;
-&#125;
-
-Node query(int u,int l,int r)
-&#123;
-    if(tr[u].l &gt;&#x3D; l &amp;&amp; tr[u].r &lt;&#x3D; r)    return tr[u];
-    int mid &#x3D; tr[u].l + tr[u].r &gt;&gt; 1;
-    if(r &lt;&#x3D; mid)    return query(u &lt;&lt; 1,l,r);
-    else if(l &gt; mid)    return query(u &lt;&lt; 1 | 1,l,r);
-    &#123;
-        auto left &#x3D; query(u &lt;&lt; 1,l,r);
-        auto right &#x3D; query(u &lt;&lt; 1 | 1,l,r);
-        Node res;
-        pushup(res,left,right);
-        return res;
-    &#125;
-&#125;
-
-pii queryPath(int u,int v)
-&#123;
-    Node t[2],ans;
-    t[0] &#x3D; t[1] &#x3D; &#123;0,0,0,0,0,0,0,0,0&#125;;
-    int flag &#x3D; 1;
-    while (top[u] !&#x3D; top[v])
-    &#123;
-        if(depth[top[u]] &lt; depth[top[v]])   swap(u,v),flag &#x3D; 1 - flag;
-        auto res &#x3D; query(1,id[top[u]],id[u]);
-        pushup(ans,res,t[flag]),t[flag] &#x3D; ans;
-        u &#x3D; fa[top[u]];
-    &#125;
-
-    if(depth[u] &lt; depth[v]) swap(u,v),flag &#x3D; 1 - flag;
-    auto res &#x3D; query(1,id[v],id[u]);
-    pushup(ans,res,t[flag]),t[flag] &#x3D; ans;
-    swap(t[1].lmax,t[1].rmax);
-    swap(t[1].lmin,t[1].rmin);
-    pushup(ans,t[1],t[0]);
-    return &#123;ans.tmin,ans.tmax&#125;;
-&#125;
-
-void solve()
-&#123;
-    cin &gt;&gt; n;
-    init();
-
-    int node &#x3D; 1;
-    w[node] &#x3D; 1;
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
-    &#123;
-        char op;
-        int u,v,x;
-        cin &gt;&gt; op;
-        if(op &#x3D;&#x3D; &#39;+&#39;)
-        &#123;
-            cin &gt;&gt; u &gt;&gt; x;
-            ++node;
-            w[node] &#x3D; x;
-            add(u,node),add(node,u);
-        &#125;
-        else    cin &gt;&gt; u &gt;&gt; v &gt;&gt; x;
-        q[i] &#x3D; &#123;op,u,v,x&#125;;
-    &#125;
-
-    dfs1(1,-1,1);
-    dfs2(1,1);
-    build(1,1,node);
-
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
-    &#123;
-        if(q[i].op &#x3D;&#x3D; &#39;?&#39;)
-        &#123;
-            pii res &#x3D; queryPath(q[i].u,q[i].v);
-            if(q[i].x &gt;&#x3D; res.first &amp;&amp; q[i].x &lt;&#x3D; res.second) cout &lt;&lt; &quot;YES\n&quot;;
-            else    cout &lt;&lt; &quot;NO\n&quot;;
-        &#125;
-    &#125;
-&#125;
-
-int main()
-&#123;
-    cin.tie(nullptr)-&gt;sync_with_stdio(false);
-
-    int t;
-    cin &gt;&gt; t;
-
-    while(t--)  solve();
-
-    return 0;
-&#125;</code></pre>
-<h2 id="蓝桥杯精选"><a href="#蓝桥杯精选" class="headerlink" title="蓝桥杯精选"></a>蓝桥杯精选</h2><h3 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h3><h4 id="判断平年-闰年"><a href="#判断平年-闰年" class="headerlink" title="判断平年/闰年"></a>判断平年/闰年</h4><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;stdio.h&gt;
-int main()
-&#123;
-    &#x2F;*1、能被4整除，但不能别100整除
-      2、能被400整除(满足二者之一即为闰年)
-      闰年二月份29天
-      平年二月份28天
-      if条件中两个条件都得写哇
-    *&#x2F;
-  if((year % 4 &#x3D;&#x3D; 0 &amp;&amp; year % 100 !&#x3D; 0) ||year % 400 &#x3D;&#x3D; 0);
-&#125;
-</code></pre>
-<h4 id="获取日期字符串"><a href="#获取日期字符串" class="headerlink" title="获取日期字符串"></a>获取日期字符串</h4><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
-
-using namespace std;
-
-const int months[] &#x3D; &#123;
-	0,31,28,31,30,31,30,
-	31,31,30,31,30,31
-&#125;;
-
-int main()
-&#123;
-	cin.tie(nullptr)-&gt;sync_with_stdio(false);
-	&#x2F;&#x2F;以2022年为例,平年2月份为28天,闰年为29天
-	int year &#x3D; 2022,month &#x3D; 1,day &#x3D; 1;
-	for(int i &#x3D; 0;i &lt; 365;i++)
-	&#123;
-		char str[10];
-		sprintf(str,&quot;%04d%02d%02d&quot;,year,month,day);
-		string s &#x3D; str;
-		cout &lt;&lt; s &lt;&lt; endl;
-
-		if(++day &gt; months[month])	
-		&#123;
-			day &#x3D; 1;
-			month++;
-		&#125;
-	&#125;
-
-	return 0;
-&#125;</code></pre>
-<h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><h4 id="排列"><a href="#排列" class="headerlink" title="排列"></a>排列</h4><p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/844/">排列数字</a></p>
-<p><mark>手写全排列：</mark></p>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
-
-using namespace std;
-
-const int N &#x3D; 20;
-
-int n;
-int st[N];
-vector&lt;int&gt; v;
-void dfs(int cnt&#x2F;*当前已经选了多少个数*&#x2F;)
-&#123;
-    if(cnt &#x3D;&#x3D; n)
-    &#123;
-        for(auto x : v) cout &lt;&lt; x &lt;&lt; &quot; &quot;;
-        cout &lt;&lt; &quot;\n&quot;;
-        return ;
-    &#125;
-
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
-    &#123;
-        if(st[i])   continue;&#x2F;&#x2F;st数组:保证之前选过的数字不能再选了
-        st[i] &#x3D; true;
-        v.push_back(i);
-        dfs(cnt + 1);
-        st[i] &#x3D; false;
-        v.pop_back();
-    &#125;
-&#125;
-
-int main()
-&#123;
-    cin.tie(nullptr)-&gt;sync_with_stdio(false);
-
-    cin &gt;&gt; n;
-    dfs(0);
-    return 0;
-&#125;</code></pre>
-<p><mark>调用函数实现：</mark></p>
-<blockquote>
-<p>首先，请记住：next_permutation() 函数！</p>
-<p>iota函数()：前两个参数是范围，第三个参数是初值是多少，之后每个元素都从初值递增1。</p>
-</blockquote>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
-
-using namespace std;
-
-int n;
-
-int main()
-&#123;
-    cin.tie(nullptr)-&gt;sync_with_stdio(false);
-
-    cin &gt;&gt; n;
-    vector&lt;int&gt; a(n + 1);
-    iota(a.begin(),a.end(),0);
-    do
-    &#123;
-        for(int i &#x3D; 1;i &lt; a.size();i++) cout &lt;&lt; a[i] &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; a.size() - 1];
-    &#125; while (next_permutation(a.begin() + 1,a.end()));
-    
-    return 0;
-&#125;</code></pre>
-<h4 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h4><blockquote>
-<p>与排列所不同的是：需要按照顺序组合，即多加一个参数cur：表示当前要从第几个数开始，有了这种顺序后，就可以不用st数组判重了。</p>
-</blockquote>
-<pre class="language-c++" data-language="c++"><code class="language-c++">void dfs(int cur&#x2F;*当前是第几个数*&#x2F;,int cnt&#x2F;*当前已经选了多少个数*&#x2F;)
-&#123;
-    if(cnt &#x3D;&#x3D; select)&#x2F;&#x2F;从n个数中选select个
-    &#123;
-        for(auto x : v) cout &lt;&lt; x &lt;&lt; &quot; &quot;;
-        cout &lt;&lt; &quot;\n&quot;;
-        return ;
-    &#125;
-
-    for(int i &#x3D; cur;i &lt;&#x3D; n;i++)
-    &#123;
-        v.push_back(i);
-        dfs(i + 1,cnt + 1);
-        v.pop_back();
-    &#125;
-&#125;&#x2F;&#x2F;如果用dfs(1,0)调用：表示数组元素从1开始,当前已经选了0个数。</code></pre>
-<h2 id="天梯赛-OR-CAIP（原RoboCom）"><a href="#天梯赛-OR-CAIP（原RoboCom）" class="headerlink" title="天梯赛 OR CAIP（原RoboCom）"></a>天梯赛 OR CAIP（原RoboCom）</h2><blockquote>
-<p>常用小技巧：</p>
-<p>1、断言：assert();</p>
-<p>2、随机数</p>
-</blockquote>
-<p><strong>大模拟思路：</strong></p>
-<ul>
-<li>明确存储容器</li>
-<li>函数代码分工</li>
-</ul>
 
                 
             </div>
@@ -1120,7 +539,7 @@ int main()
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://318471543.github.io/2023/07/02/%E5%A5%BD%E9%A2%98%E7%B2%BE%E9%80%89/">http://318471543.github.io/2023/07/02/%E5%A5%BD%E9%A2%98%E7%B2%BE%E9%80%89/</a>
+                    <a href="http://318471543.github.io/2023/07/18/2023%E2%80%9C%E9%92%89%E8%80%99%E7%BC%96%E7%A8%8B%E2%80%9D%E4%B8%AD%E5%9B%BD%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E8%B6%85%E7%BA%A7%E8%81%94%E8%B5%9B%EF%BC%881%EF%BC%89/">http://318471543.github.io/2023/07/18/2023%E2%80%9C%E9%92%89%E8%80%99%E7%BC%96%E7%A8%8B%E2%80%9D%E4%B8%AD%E5%9B%BD%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E8%B6%85%E7%BA%A7%E8%81%94%E8%B5%9B%EF%BC%881%EF%BC%89/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1158,8 +577,8 @@ int main()
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%A5%BD%E9%A2%98%E7%B2%BE%E9%80%89/">
-                                    <span class="chip bg-color">好题精选</span>
+                                <a href="/tags/2023%E2%80%9C%E9%92%89%E8%80%99%E7%BC%96%E7%A8%8B%E2%80%9D%E4%B8%AD%E5%9B%BD%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E8%B6%85%E7%BA%A7%E8%81%94%E8%B5%9B%EF%BC%881%EF%BC%89/">
+                                    <span class="chip bg-color">2023“钉耙编程”中国大学生算法设计超级联赛（1）</span>
                                 </a>
                             
                         </div>
@@ -1724,9 +1143,56 @@ int main()
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2023/07/18/2023%E2%80%9C%E9%92%89%E8%80%99%E7%BC%96%E7%A8%8B%E2%80%9D%E4%B8%AD%E5%9B%BD%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E8%B6%85%E7%BA%A7%E8%81%94%E8%B5%9B%EF%BC%881%EF%BC%89/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="2023“钉耙编程”中国大学生算法设计超级联赛（1）">
+                        
+                        <span class="card-title">2023“钉耙编程”中国大学生算法设计超级联赛（1）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-18
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            重生带我走
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/2023%E2%80%9C%E9%92%89%E8%80%99%E7%BC%96%E7%A8%8B%E2%80%9D%E4%B8%AD%E5%9B%BD%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E8%B6%85%E7%BA%A7%E8%81%94%E8%B5%9B%EF%BC%881%EF%BC%89/">
+                        <span class="chip bg-color">2023“钉耙编程”中国大学生算法设计超级联赛（1）</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2023/07/18/%E2%80%9C%E8%8C%83%E5%BC%8F%E6%9D%AF%E2%80%9D2023%E7%89%9B%E5%AE%A2%E6%9A%91%E6%9C%9F%E5%A4%9A%E6%A0%A1%E8%AE%AD%E7%BB%83%E8%90%A51/">
                     <div class="card-image">
@@ -1744,9 +1210,9 @@ int main()
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-07-18
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-18
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -1760,51 +1226,6 @@ int main()
                     
                     <a href="/tags/%E2%80%9C%E8%8C%83%E5%BC%8F%E6%9D%AF%E2%80%9D2023%E7%89%9B%E5%AE%A2%E6%9A%91%E6%9C%9F%E5%A4%9A%E6%A0%A1%E8%AE%AD%E7%BB%83%E8%90%A51/">
                         <span class="chip bg-color">“范式杯”2023牛客暑期多校训练营1</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2022/11/09/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="计算几何">
-                        
-                        <span class="card-title">计算几何</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-09
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            重生带我走
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/">
-                        <span class="chip bg-color">计算几何</span>
                     </a>
                     
                 </div>
