@@ -588,6 +588,7 @@ int main()
 <p>​         给定 $n$ 个字符串，长度均为 $m$，随后 $q$ 个询问，每次询问两个字符串是否是“循环同构的”？</p>
 <p><strong>思路：</strong></p>
 <p>​        比较容易想到一个 $O(n)$ 算法求最小表示法的一个模板题：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/160/">项链</a></p>
+<p><mark>方法一：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -633,6 +634,108 @@ void solve()
         int a,b;
         cin &gt;&gt; a &gt;&gt; b;
         cout &lt;&lt; (s[a] &#x3D;&#x3D; s[b] ? &quot;Yes\n&quot; : &quot;No\n&quot;);
+    &#125;
+    
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int t;
+    cin &gt;&gt; t;
+
+    while(t--)  solve();
+
+    return 0;
+&#125;</code></pre>
+<p>看到知乎大佬 $jls$ 的代码后，没想到 $SAM$ 也可以做，正好温故学习一下qwq。</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/644457415">jis的题解</a></p>
+<p><mark>方法二：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 2e5 + 10;
+
+int tot,last;
+struct Node
+&#123;
+    int len,fa;
+    int ch[26];
+    void init()
+    &#123;
+        len &#x3D; fa &#x3D; 0;
+        memset(ch,0,sizeof(ch));
+    &#125;
+&#125;node[N];
+
+void extend(int c)
+&#123;
+    int p &#x3D; last,np &#x3D; last &#x3D; ++tot;
+    node[np].len &#x3D; node[p].len + 1;
+    for(;p &amp;&amp; !node[p].ch[c];p &#x3D; node[p].fa)
+        node[p].ch[c] &#x3D; np;
+    if(!p)  node[np].fa &#x3D; 1;
+    else
+    &#123;
+        int q &#x3D; node[p].ch[c];
+        if(node[q].len &#x3D;&#x3D; node[p].len + 1)   node[np].fa &#x3D; q;
+        else
+        &#123;
+            int nq &#x3D; ++ tot;
+            node[nq] &#x3D; node[q],node[nq].len &#x3D; node[p].len + 1;
+            node[q].fa &#x3D; node[np].fa &#x3D; nq;
+            for(;p &amp;&amp; node[p].ch[c] &#x3D;&#x3D; q;p &#x3D; node[p].fa)    node[p].ch[c] &#x3D; nq;
+        &#125;
+    &#125;
+&#125;
+
+string get(string s)
+&#123;
+    for(int i &#x3D; 1;i &lt;&#x3D; tot;i++) node[i].init();
+    tot &#x3D; last &#x3D; 1;
+    
+    for(auto c : s) extend(c - &#39;a&#39;);
+    for(auto c : s) extend(c - &#39;a&#39;);
+
+    string res;
+    int p &#x3D; 1;
+    for(int i &#x3D; 0;i &lt; s.size();i++)
+    &#123;
+        for(int j &#x3D; 0;j &lt; 26;j++)
+            if(node[p].ch[j])
+            &#123;
+                p &#x3D; node[p].ch[j];
+                res +&#x3D; char(j + &#39;a&#39;);
+                break;
+            &#125;
+    &#125;
+    return res;
+&#125;
+
+void solve()
+&#123;
+    int n,m;
+    cin &gt;&gt; n &gt;&gt; m;
+
+    vector&lt;string&gt; str(n + 1);
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+    &#123;
+        string s;
+        cin &gt;&gt; s;
+        str[i] &#x3D; get(s);
+    &#125;
+
+    int q;
+    cin &gt;&gt; q;
+
+    while (q--)
+    &#123;
+        int a,b;
+        cin &gt;&gt; a &gt;&gt; b;
+
+        cout &lt;&lt; (str[a] &#x3D;&#x3D; str[b] ? &quot;Yes\n&quot; : &quot;No\n&quot;);
     &#125;
     
 &#125;
