@@ -512,6 +512,97 @@ int main()
     else    cout &lt;&lt; &quot;Kelin\n&quot;;
     return 0;
 &#125;</code></pre>
+<h2 id="J-Roulette"><a href="#J-Roulette" class="headerlink" title="J Roulette"></a>J Roulette</h2><p><strong>题意：</strong></p>
+<p>​        赌博游戏：每次赌 $1,2,4,8\cdots 2^{n}$ 元钱，如果赢了会获得该轮赌钱的两倍，并重新开始从 $1$ 元开始赌；如果输了并且下次再赌则需要支付下一个对应幂次的钱（每次获胜的概率都是 $50\%$ ）。最初有 $n$ 元钱，你想额外再获取 $m$ 元钱，即变成 $(n + m)$ 元，请问可能性是多少？</p>
+<p><strong>思路：</strong></p>
+<ol>
+<li>首先如果在某次赌博中获胜，则净赚 $1$ 元。<ul>
+<li>比如在第 $n$ 轮获胜，则净赚：$2 × 2^{n} - (1 + 2 + 4 + … + 2^{n}) = 2^{n + 1} - (2^{n+1} - 1) = 1$</li>
+</ul>
+</li>
+<li>假设我目前有 $x$ 元，可以计算得知我最多能赌 $cnt$ 轮，则获胜的概率是 $1 - (\frac{1}{2})^{cnt}$。<ul>
+<li>这么多轮有各种各样的胜负情况，唯一输完的概率就是全输：$(\frac{1}{2})^{cnt}$。则获胜的情况就是： $1 - (\frac{1}{2})^{cnt}$。</li>
+</ul>
+</li>
+<li>知道上面的基本信息后，就可以得出思路了：<ul>
+<li>额外挣 $m$ 元需要赌赢 $m$ 轮。</li>
+<li>随着钱数的增多，可能会在之后的一轮中额外赌多局。</li>
+<li>因此，我们需要求出在 $n \sim n + m - 1$ 这些钱的范围内，分别最多可以赌多少局。由于$m$ 的范围比较大： $m \le 10^9$，我们需要优化一下：即预处理求出最多赌 $x$ 局的情况有多少次 。</li>
+</ul>
+</li>
+</ol>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+const int mod &#x3D; 998244353;
+
+ll fpow(ll a,ll b)
+&#123;
+    ll res &#x3D; 1;
+    while(b)
+    &#123;
+        if(b &amp; 1)   res &#x3D; res * a % mod;
+        a &#x3D; a * a % mod;
+        b &gt;&gt;&#x3D; 1;
+    &#125;
+    return res;
+&#125;
+
+int get_cnt(int n)&#x2F;&#x2F;2^n - 1
+&#123;
+    int l &#x3D; 1,r &#x3D; 32;
+    while(l &lt; r)
+    &#123;
+        int mid &#x3D; l + r + 1 &gt;&gt; 1;
+        if((1ll &lt;&lt; mid) - 1 &lt;&#x3D; n) l &#x3D; mid;
+        else    r &#x3D; mid - 1;
+    &#125;
+    return l;
+&#125;
+
+void solve()
+&#123;
+    int n,m;
+    cin &gt;&gt; n &gt;&gt; m;
+    
+    int cnt &#x3D; 0,up &#x3D; 0;
+    vector&lt;int&gt; v;
+    
+    int i &#x3D; get_cnt(n);
+    ll cur &#x3D; n,sum &#x3D; n;
+    while((1ll &lt;&lt; i) - 1 &lt;&#x3D; n + m)
+    &#123;
+        i++;
+        ll t &#x3D; (1ll &lt;&lt; i) - 1 - 1 - cur + 1;
+        sum +&#x3D; t;
+        if(sum &lt;&#x3D; n + m)    v.push_back(t);
+        else    v.push_back(n + m - cur);
+        cur &#x3D; (1ll &lt;&lt; i) - 1;
+    &#125;
+
+    ll res &#x3D; 1,primary &#x3D; get_cnt(n);
+    for(int i &#x3D; 0;i &lt; v.size();i++) 
+    &#123;
+        ll t &#x3D; fpow(fpow(2,mod - 2),primary + i);
+        t &#x3D; (1 - t + mod) % mod;
+        t &#x3D; fpow(t,v[i]);
+        res &#x3D; res * t % mod;
+    &#125;
+
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+    
+    solve();
+
+    return 0;
+&#125;</code></pre>
 
                 
             </div>
