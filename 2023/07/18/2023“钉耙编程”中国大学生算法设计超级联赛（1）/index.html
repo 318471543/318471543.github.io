@@ -6,10 +6,8 @@
     <meta charset="utf-8">
     <meta name="keywords" content="2023“钉耙编程”中国大学生算法设计超级联赛（1）, 重生带我走">
     <meta name="description" content="比赛超链接：2023“钉耙编程”中国大学生算法设计超级联赛（1）
-Assertion题意：
-​        将 $m$ 分成 $n$ 份，是否至少有一份的数 $\ge$ d，如果是输出“Yes”，否则输出“No”。
-思路：
-​      ">
+1002 City Upgrading题意：
+​        有一个树，树上每个点有一个权值。选择树上的一个结点并花费一个权值后，会将该结点的信息传给邻边。问将信息传递给整">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -486,7 +484,169 @@ Assertion题意：
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p><mark>比赛超链接：<a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/contest/problems?cid=1094">2023“钉耙编程”中国大学生算法设计超级联赛（1）</a></mark></p>
-<h2 id="Assertion"><a href="#Assertion" class="headerlink" title="Assertion"></a>Assertion</h2><p><strong>题意：</strong></p>
+<h2 id="1002-City-Upgrading"><a href="#1002-City-Upgrading" class="headerlink" title="1002 City Upgrading"></a>1002 City Upgrading</h2><p><strong>题意：</strong></p>
+<p>​        有一个树，树上每个点有一个权值。选择树上的一个结点并花费一个权值后，会将该结点的信息传给邻边。问将信息传递给整个树的最小权值是多少？</p>
+<p><strong>思路：</strong></p>
+<p>​       看到这道题目，很容易想到<strong>树形DP</strong>的模板题：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/287/">没有上司的舞会</a>。</p>
+<ol>
+<li><p>DP状态定义如下：</p>
+<ul>
+<li>$f[u][num]$：以 $u$ 为根的子树信息被全部传递，且当前结点 $u$ 的状态为 $num$ 的集合（ $num$ 取值：0,1,2）。<ul>
+<li>$num = 0$：当前结点 $u$ 信息被父节点传递。</li>
+<li>$num = 1$：当前结点 $u$ 信息被自己传递。</li>
+<li>$num = 2$：当前结点 $u$ 信息被子结点传递。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>分析转移公式：</p>
+<ul>
+<li>$f[u][0] += min(f[v][1],f[v][2])$</li>
+<li>$f[u][1] += min(f[v][0] - a[u],f[v][1],f[v]][2])$</li>
+<li>$f[u][2] += min(f[v][1],f[v][2])$，其中至少有一项 $f[v][1]$，毕竟定义要求该结点 $u$ 是要被孩子激活的。</li>
+</ul>
+</li>
+</ol>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+void solve()
+&#123;
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;int&gt; a(n + 1);
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; a[i];
+
+    vector&lt;vector&lt;int&gt;&gt; g(n + 1);
+    vector&lt;int&gt; has_father(n + 1);
+    for(int i &#x3D; 0;i &lt; n - 1;i++)
+    &#123;
+        int a,b;
+        cin &gt;&gt; a &gt;&gt; b;
+        g[a].push_back(b);
+        has_father[b] &#x3D; a;
+    &#125;
+
+    int root &#x3D; 1;
+    while(has_father[root]) root &#x3D; has_father[root];
+
+    vector&lt;vector&lt;ll&gt;&gt; f(n + 1,vector&lt;ll&gt;(4));
+    &#x2F;&#x2F;f[u][0]:父亲激活自己 f[u][0] +&#x3D; min(f[j][1],f[j][2])
+    &#x2F;&#x2F;f[u][1]:自己激活自己 f[u][1] +&#x3D; min(f[j][0] - a[u],f[j][1],f[j][2])
+    &#x2F;&#x2F;f[u][2]:儿子激活自己 f[u][2] &#x3D; min(f[u][1],f[u][2]),至少1个f[u][1]
+    &#x2F;&#x2F;f[u][?]:以u为根的子树中，全部接通信号，且u点状态为0,1,2的所有集合
+    function&lt;void(int)&gt; dfs &#x3D; [&amp;](int u) -&gt; void
+    &#123;
+        f[u][0] &#x3D; a[has_father[u]];
+        f[u][1] &#x3D; a[u];
+        vector&lt;int&gt; vec;
+        ll sum &#x3D; 0;
+        for(auto v : g[u])
+        &#123;
+            dfs(v);
+            f[u][0] +&#x3D; min(&#123;f[v][1],f[v][2]&#125;);
+            f[u][1] +&#x3D; min(&#123;f[v][0] - a[u],f[v][1],f[v][2]&#125;);
+            vec.push_back(v);
+            sum +&#x3D; min(f[v][1],f[v][2]);
+        &#125;
+
+        ll res &#x3D; 1e18;
+        for(int i &#x3D; 0;i &lt; vec.size();i++)
+        &#123;
+            int id &#x3D; vec[i];
+            ll t &#x3D; sum - min(f[id][1],f[id][2]);
+            t +&#x3D;  f[id][1];
+            res &#x3D; min(res,t);
+        &#125;
+
+        f[u][2] &#x3D; res;
+    &#125;;
+
+    dfs(root);
+
+    cout &lt;&lt; min(f[root][1],f[root][2]) &lt;&lt; &quot;\n&quot;;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int t;
+    cin &gt;&gt; t;
+
+    while(t--)  solve();
+
+    return 0;
+&#125;</code></pre>
+<h2 id="1005-Cyclically-Isomorphic"><a href="#1005-Cyclically-Isomorphic" class="headerlink" title="1005 Cyclically Isomorphic"></a>1005 Cyclically Isomorphic</h2><p><strong>题意：</strong></p>
+<p>​         给定 $n$ 个字符串，长度均为 $m$，随后 $q$ 个询问，每次询问两个字符串是否是“循环同构的”？</p>
+<p><strong>思路：</strong></p>
+<p>​        比较容易想到一个 $O(n)$ 算法求最小表示法的一个模板题：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/160/">项链</a></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 2e6 + 10;
+
+int n;
+char a[N];
+
+int get_min(char s[])
+&#123;
+    int i &#x3D; 0,j &#x3D; 1;
+    while (i &lt; n &amp;&amp; j &lt; n)
+    &#123;
+        int k &#x3D; 0;
+        while(k &lt; n &amp;&amp; s[i + k] &#x3D;&#x3D; s[j + k])  k++;
+        if(k &#x3D;&#x3D; n)  break;
+        if(s[i + k] &gt; s[j + k]) i +&#x3D; k + 1;
+        else  j +&#x3D; k + 1;
+        if(i &#x3D;&#x3D; j)  j++;
+    &#125;
+    int k &#x3D; min(i,j);
+    s[k + n] &#x3D; 0;
+    return k;
+&#125;
+
+void solve()
+&#123;
+    int cnt,m;
+    cin &gt;&gt; cnt &gt;&gt; n;
+    vector&lt;string&gt; s(cnt + 1);
+    for(int i &#x3D; 1;i &lt;&#x3D; cnt;i++)
+    &#123;
+        cin &gt;&gt; a;
+        memcpy(a + n,a,n);
+        int x &#x3D; get_min(a);
+        s[i] &#x3D; a + x;
+    &#125;
+    
+    cin &gt;&gt; m;
+    while (m--)
+    &#123;
+        int a,b;
+        cin &gt;&gt; a &gt;&gt; b;
+        cout &lt;&lt; (s[a] &#x3D;&#x3D; s[b] ? &quot;Yes\n&quot; : &quot;No\n&quot;);
+    &#125;
+    
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int t;
+    cin &gt;&gt; t;
+
+    while(t--)  solve();
+
+    return 0;
+&#125;</code></pre>
+<h2 id="1009-Assertion"><a href="#1009-Assertion" class="headerlink" title="1009 Assertion"></a>1009 Assertion</h2><p><strong>题意：</strong></p>
 <p>​        将 $m$ 分成 $n$ 份，是否至少有一份的数 $\ge$ d，如果是输出“Yes”，否则输出“No”。</p>
 <p><strong>思路：</strong></p>
 <p>​       先均分（即 $\frac{m}{n}$ 个），如果有余数的话则加 $1$，然后判断这个值是否 $\ge$ d 即可。</p>
