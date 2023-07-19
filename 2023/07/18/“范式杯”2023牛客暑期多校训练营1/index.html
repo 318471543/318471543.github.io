@@ -604,6 +604,82 @@ int main()
 
     return 0;
 &#125;</code></pre>
+<h2 id="K-Subdivision"><a href="#K-Subdivision" class="headerlink" title="K Subdivision"></a>K Subdivision</h2><p><strong>题意：</strong></p>
+<p>​        给定一个无向图，每条边的长度为 $1$，问有多少个结点到 $1$ 号点的距离 $\le k $ ？此外，可以进行任意次以下操作：将一条边 $(u,v)$ 删去，并添加两条新边 $(u,w),(w,v)$，其中 $w$ 是新增的点。</p>
+<p><strong>思路：</strong></p>
+<p>​       利用 $BFS$ 建树，对于树边，如果进行删边操作的话并不会使结果更优，因此考虑删去非树边。一条非树边的贡献是 $k - depth[i]$，因此需要求出每个点有多少条非树边；而如果是”叶子结点“，那么贡献只有一份的 $k - depth[i]$，因此需要对这两种情况取 $max$。</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
+
+void solve()
+&#123;
+    int n,m,k;
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; k;
+
+    vector&lt;vector&lt;int&gt;&gt; g(n + 1);
+    for(int i &#x3D; 1;i &lt;&#x3D; m;i++)
+    &#123;
+        int a,b;
+        cin &gt;&gt; a &gt;&gt; b;
+        g[a].push_back(b),g[b].push_back(a);
+    &#125;
+
+    vector&lt;int&gt; depth(n + 1,-1),fa(n + 1);
+    vector&lt;bool&gt; noleaf(n + 1);
+    auto bfs &#x3D; [&amp;]() -&gt; void
+    &#123;
+        depth[1] &#x3D; 0;
+        queue&lt;int&gt; q;
+        q.push(1);
+        while (!q.empty())
+        &#123;
+            auto u &#x3D; q.front();
+            q.pop();
+            
+            for(auto v : g[u])
+            &#123;
+                if(depth[v] &#x3D;&#x3D; -1)
+                &#123;
+                    q.push(v);
+                    depth[v] &#x3D; depth[u] + 1;
+                    fa[v] &#x3D; u;
+                    noleaf[u] &#x3D; 1;
+                &#125;
+            &#125;
+        &#125;
+    &#125;;
+
+    bfs();
+    ll res &#x3D; 0;
+    for(int u &#x3D; 1;u &lt;&#x3D; n;u++)
+    &#123;
+        if(depth[u] &#x3D;&#x3D; -1 || depth[u] &gt; k)    continue;
+        
+        int cnt &#x3D; 0;
+        for(auto v : g[u])  
+        &#123;
+            if(fa[v] &#x3D;&#x3D; u || fa[u] &#x3D;&#x3D; v)    continue;
+            cnt++;
+        &#125;
+        int cur &#x3D; res;
+        if(!noleaf[u] &amp;&amp; g[u].size()) cnt &#x3D; max(cnt,1);
+        res +&#x3D; (k - depth[u]) * (ll)cnt + 1;
+    &#125;
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    solve();
+
+    return 0;
+&#125;</code></pre>
 
                 
             </div>
