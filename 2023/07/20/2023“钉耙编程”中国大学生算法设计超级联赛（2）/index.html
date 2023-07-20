@@ -4,10 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="2023“钉耙编程”中国大学生算法设计超级联赛（1）, 重生带我走">
-    <meta name="description" content="比赛超链接：2023“钉耙编程”中国大学生算法设计超级联赛（1）
-1002 City Upgrading题意：
-​        有一个树，树上每个点有一个权值。选择树上的一个结点并花费一个权值后，会将该结点的信息传给邻边。问将信息传递给整">
+    <meta name="keywords" content="重生带我走">
+    <meta name="description" content="1001 Alice Game1002 Binary Number题意：
+​        给定一个 $01$ 串，每次可以任选 $k$ 个区间，将每个数字翻转，即将 ‘$0$’ 变成 ‘$1$’，将’ $1$ ‘ 变成 ‘ $0$ ‘。问">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -32,7 +31,7 @@
 
     
 
-    <title>2023“钉耙编程”中国大学生算法设计超级联赛（1） | 重生带我走</title>
+    <title>重生带我走</title>
     <link rel="icon" type="image/jpeg" href="/favicon.jpg">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -322,12 +321,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">2023“钉耙编程”中国大学生算法设计超级联赛（1）</h1>
+                    <h1 class="description center-align post-title"></h1>
                 </div>
             </div>
         </div>
@@ -441,13 +440,9 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/2023%E2%80%9C%E9%92%89%E8%80%99%E7%BC%96%E7%A8%8B%E2%80%9D%E4%B8%AD%E5%9B%BD%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E8%B6%85%E7%BA%A7%E8%81%94%E8%B5%9B%EF%BC%881%EF%BC%89/">
-                                <span class="chip bg-color">2023“钉耙编程”中国大学生算法设计超级联赛（1）</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -459,7 +454,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-07-18
+                    2023-07-20
                 </div>
                 
 
@@ -483,32 +478,18 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><mark>比赛超链接：<a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/contest/problems?cid=1094">2023“钉耙编程”中国大学生算法设计超级联赛（1）</a></mark></p>
-<h2 id="1002-City-Upgrading"><a href="#1002-City-Upgrading" class="headerlink" title="1002 City Upgrading"></a>1002 City Upgrading</h2><p><strong>题意：</strong></p>
-<p>​        有一个树，树上每个点有一个权值。选择树上的一个结点并花费一个权值后，会将该结点的信息传给邻边。问将信息传递给整个树的最小权值是多少？</p>
+                <h2 id="1001-Alice-Game"><a href="#1001-Alice-Game" class="headerlink" title="1001 Alice Game"></a>1001 Alice Game</h2><h2 id="1002-Binary-Number"><a href="#1002-Binary-Number" class="headerlink" title="1002 Binary Number"></a>1002 Binary Number</h2><p><strong>题意：</strong></p>
+<p>​        给定一个 $01$ 串，每次可以任选 $k$ 个区间，将每个数字翻转，即将 ‘$0$’ 变成 ‘$1$’，将’ $1$ ‘ 变成 ‘ $0$ ‘。问在准确进行完 $k$ 次操作后，能否最大化该串对应的二进制数值，请输出修改后的串。 </p>
 <p><strong>思路：</strong></p>
-<p>​       看到这道题目，很容易想到<strong>树形DP</strong>的模板题：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/287/">没有上司的舞会</a>。</p>
-<ol>
-<li><p>DP状态定义如下：</p>
+<p>​        细节比较多，简单来说就是：计算一共有多少个 $0$ （即 $cnt_min$ ）和一共有多少个连续的 $0$ 串（即 $cnt_max$）。</p>
 <ul>
-<li>$f[u][num]$：以 $u$ 为根的子树信息被全部传递，且当前结点 $u$ 的状态为 $num$ 的集合（ $num$ 取值：0,1,2）。<ul>
-<li>$num = 0$：当前结点 $u$ 信息被父节点传递。</li>
-<li>$num = 1$：当前结点 $u$ 信息被自己传递。</li>
-<li>$num = 2$：当前结点 $u$ 信息被子结点传递。</li>
-</ul>
+<li><p>先特判掉 $k$ 为 $0$ 的情况，直接不修改。</p>
 </li>
-</ul>
+<li><p>$cnt_min \le k \le cnt_max$：则一定可以全部变成 $1$ 。</p>
 </li>
-<li><p>分析转移公式：</p>
-<ul>
-<li>$f[u][0] += min(f[v][1],f[v][2])$</li>
-<li>$f[u][1] += min(f[v][0] - a[u],f[v][1],f[v]][2])$</li>
-<li>$f[u][2] += min(f[v][1],f[v][2])$，其中至少有一项 $f[v][1]$，毕竟定义要求该结点 $u$ 是要被孩子激活的。</li>
+<li>$ k &lt; cnt_min$：则只需将 $k$ 个连续 $0$ 串修改为 $1$ 即可。</li>
+<li>$k &gt; cnt_max$：首先特判 $n = 1$ 的情况；然后如果原串存在 $0$ ，则一定可以修改为全 $1$，因为可以先变成第一个字符为 $1$ 和第二个字符为 $0$ 的状态，此时$k$ 可能还有 $2$ 次，或者更多次。2 次的话可以：”$10 -&gt; 01 -&gt; 11$ “，其余次类推。如果原串没有 $0$，如果还有 $1$ 次操作机会，则修改末尾为 $0$，否则就是全 $1$。</li>
 </ul>
-</li>
-</ol>
-<p><strong>收获：</strong></p>
-<p>除了收获了这道题以外，我还弄清楚了之前的一个疑惑：树本身是无向的，而一但确定根后，就变成有向的了（建有向图），那么进而还要寻找谁是根节点；而如果直接建无向图（即建正反边），那么谁是根节点都可以。</p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -518,232 +499,177 @@ typedef long long ll;
 void solve()
 &#123;
     int n;
-    cin &gt;&gt; n;
+    ll k;
+    cin &gt;&gt; n &gt;&gt; k;
 
-    vector&lt;int&gt; a(n + 1);
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; a[i];
+    string s;
+    cin &gt;&gt; s;
 
-    vector&lt;vector&lt;int&gt;&gt; g(n + 1);
-    vector&lt;int&gt; has_father(n + 1);
-    for(int i &#x3D; 0;i &lt; n - 1;i++)
-    &#123;
-        int a,b;
-        cin &gt;&gt; a &gt;&gt; b;
-        g[a].push_back(b);
-        has_father[b] &#x3D; a;
-    &#125;
+    if(!k)  return cout &lt;&lt; s &lt;&lt; &quot;\n&quot;,void();
 
-    int root &#x3D; 1;
-    while(has_father[root]) root &#x3D; has_father[root];
-
-    vector&lt;vector&lt;ll&gt;&gt; f(n + 1,vector&lt;ll&gt;(4));
-    &#x2F;&#x2F;f[u][0]:父亲激活自己 f[u][0] +&#x3D; min(f[j][1],f[j][2])
-    &#x2F;&#x2F;f[u][1]:自己激活自己 f[u][1] +&#x3D; min(f[j][0] - a[u],f[j][1],f[j][2])
-    &#x2F;&#x2F;f[u][2]:儿子激活自己 f[u][2] &#x3D; min(f[u][1],f[u][2]),至少1个f[u][1]
-    &#x2F;&#x2F;f[u][?]:以u为根的子树中，全部接通信号，且u点状态为0,1,2的所有集合
-    function&lt;void(int)&gt; dfs &#x3D; [&amp;](int u) -&gt; void
-    &#123;
-        f[u][0] &#x3D; a[has_father[u]];
-        f[u][1] &#x3D; a[u];
-        vector&lt;int&gt; vec;
-        ll sum &#x3D; 0;
-        for(auto v : g[u])
-        &#123;
-            dfs(v);
-            f[u][0] +&#x3D; min(&#123;f[v][1],f[v][2]&#125;);
-            f[u][1] +&#x3D; min(&#123;f[v][0] - a[u],f[v][1],f[v][2]&#125;);
-            vec.push_back(v);
-            sum +&#x3D; min(f[v][1],f[v][2]);
-        &#125;
-
-        ll res &#x3D; 1e18;
-        for(int i &#x3D; 0;i &lt; vec.size();i++)
-        &#123;
-            int id &#x3D; vec[i];
-            ll t &#x3D; sum - min(f[id][1],f[id][2]);
-            t +&#x3D;  f[id][1];
-            res &#x3D; min(res,t);
-        &#125;
-
-        f[u][2] &#x3D; res;
-    &#125;;
-
-    dfs(root);
-
-    cout &lt;&lt; min(f[root][1],f[root][2]) &lt;&lt; &quot;\n&quot;;
-&#125;
-
-int main()
-&#123;
-    cin.tie(nullptr)-&gt;sync_with_stdio(false);
-
-    int t;
-    cin &gt;&gt; t;
-
-    while(t--)  solve();
-
-    return 0;
-&#125;</code></pre>
-<h2 id="1005-Cyclically-Isomorphic"><a href="#1005-Cyclically-Isomorphic" class="headerlink" title="1005 Cyclically Isomorphic"></a>1005 Cyclically Isomorphic</h2><p><strong>题意：</strong></p>
-<p>​         给定 $n$ 个字符串，长度均为 $m$，随后 $q$ 个询问，每次询问两个字符串是否是“循环同构的”？</p>
-<p><strong>思路：</strong></p>
-<p>​        比较容易想到一个 $O(n)$ 算法求最小表示法的一个模板题：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/160/">项链</a></p>
-<p><mark>方法一：</mark></p>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
-
-using namespace std;
-
-const int N &#x3D; 2e6 + 10;
-
-int n;
-char a[N];
-
-int get_min(char s[])
-&#123;
-    int i &#x3D; 0,j &#x3D; 1;
-    while (i &lt; n &amp;&amp; j &lt; n)
-    &#123;
-        int k &#x3D; 0;
-        while(k &lt; n &amp;&amp; s[i + k] &#x3D;&#x3D; s[j + k])  k++;
-        if(k &#x3D;&#x3D; n)  break;
-        if(s[i + k] &gt; s[j + k]) i +&#x3D; k + 1;
-        else  j +&#x3D; k + 1;
-        if(i &#x3D;&#x3D; j)  j++;
-    &#125;
-    int k &#x3D; min(i,j);
-    s[k + n] &#x3D; 0;
-    return k;
-&#125;
-
-void solve()
-&#123;
-    int cnt,m;
-    cin &gt;&gt; cnt &gt;&gt; n;
-    vector&lt;string&gt; s(cnt + 1);
-    for(int i &#x3D; 1;i &lt;&#x3D; cnt;i++)
-    &#123;
-        cin &gt;&gt; a;
-        memcpy(a + n,a,n);
-        int x &#x3D; get_min(a);
-        s[i] &#x3D; a + x;
-    &#125;
-    
-    cin &gt;&gt; m;
-    while (m--)
-    &#123;
-        int a,b;
-        cin &gt;&gt; a &gt;&gt; b;
-        cout &lt;&lt; (s[a] &#x3D;&#x3D; s[b] ? &quot;Yes\n&quot; : &quot;No\n&quot;);
-    &#125;
-    
-&#125;
-
-int main()
-&#123;
-    cin.tie(nullptr)-&gt;sync_with_stdio(false);
-
-    int t;
-    cin &gt;&gt; t;
-
-    while(t--)  solve();
-
-    return 0;
-&#125;</code></pre>
-<p>看到知乎大佬 $jls$ 的代码后，没想到 $SAM$ 也可以做，正好温故学习一下qwq。</p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/644457415">jis的题解</a></p>
-<p><mark>方法二：</mark></p>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
-
-using namespace std;
-
-const int N &#x3D; 2e5 + 10;
-
-int tot,last;
-struct Node
-&#123;
-    int len,fa;
-    int ch[26];
-    void init()
-    &#123;
-        len &#x3D; fa &#x3D; 0;
-        memset(ch,0,sizeof(ch));
-    &#125;
-&#125;node[N];
-
-void extend(int c)
-&#123;
-    int p &#x3D; last,np &#x3D; last &#x3D; ++tot;
-    node[np].len &#x3D; node[p].len + 1;
-    for(;p &amp;&amp; !node[p].ch[c];p &#x3D; node[p].fa)
-        node[p].ch[c] &#x3D; np;
-    if(!p)  node[np].fa &#x3D; 1;
-    else
-    &#123;
-        int q &#x3D; node[p].ch[c];
-        if(node[q].len &#x3D;&#x3D; node[p].len + 1)   node[np].fa &#x3D; q;
-        else
-        &#123;
-            int nq &#x3D; ++ tot;
-            node[nq] &#x3D; node[q],node[nq].len &#x3D; node[p].len + 1;
-            node[q].fa &#x3D; node[np].fa &#x3D; nq;
-            for(;p &amp;&amp; node[p].ch[c] &#x3D;&#x3D; q;p &#x3D; node[p].fa)    node[p].ch[c] &#x3D; nq;
-        &#125;
-    &#125;
-&#125;
-
-string get(string s)
-&#123;
-    for(int i &#x3D; 1;i &lt;&#x3D; tot;i++) node[i].init();
-    tot &#x3D; last &#x3D; 1;
-    
-    for(auto c : s) extend(c - &#39;a&#39;);
-    for(auto c : s) extend(c - &#39;a&#39;);
-
-    string res;
-    int p &#x3D; 1;
+    int cnt_max &#x3D; 0,cnt_min &#x3D; 0;
+    int len &#x3D; 0;
     for(int i &#x3D; 0;i &lt; s.size();i++)
     &#123;
-        for(int j &#x3D; 0;j &lt; 26;j++)
-            if(node[p].ch[j])
+        if(s[i] &#x3D;&#x3D; &#39;0&#39;) 
+        &#123;
+            cnt_max++;
+            len++;
+        &#125;
+        else
+        &#123;
+            if(len) cnt_min++;
+            len &#x3D; 0;
+        &#125;
+    &#125;
+    if(len) cnt_min++;
+
+    if(cnt_min &lt;&#x3D; k &amp;&amp; k &lt;&#x3D; cnt_max)   cout &lt;&lt; string(n,&#39;1&#39;) &lt;&lt; &quot;\n&quot;;
+    else if(k &lt; cnt_min)
+    &#123;
+        int cnt &#x3D; 0;
+        for(int i &#x3D; 0;i &lt; s.size();i++)
+        &#123;
+            if(s[i] &#x3D;&#x3D; &#39;0&#39; &amp;&amp; cnt &lt; k)  cout &lt;&lt; &#39;1&#39;;
+            else
             &#123;
-                p &#x3D; node[p].ch[j];
-                res +&#x3D; char(j + &#39;a&#39;);
-                break;
+                cout &lt;&lt; s[i];
+                if(i &amp;&amp; s[i - 1] &#x3D;&#x3D; &#39;0&#39;)    cnt++;
             &#125;
+        &#125;
+        cout &lt;&lt; &quot;\n&quot;;
+    &#125;
+    else&#x2F;&#x2F;k &gt; cnt_max
+    &#123;
+        cout &lt;&lt; string(n - 1,&#39;1&#39;);
+        if(n &#x3D;&#x3D; 1)  cout &lt;&lt; (k % 2 ? &#39;0&#39; : &#39;1&#39;) &lt;&lt; &quot;\n&quot;;
+        else    
+        &#123;
+            if(cnt_min) cout &lt;&lt; &#39;1&#39; &lt;&lt; &#39;\n&#39;;
+            else if(k &gt;&#x3D; 2)    cout &lt;&lt; &#39;1&#39; &lt;&lt; &#39;\n&#39;;
+            else    cout &lt;&lt; &#39;0&#39; &lt;&lt; &#39;\n&#39;;
+        &#125;
+    &#125;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    &#x2F;&#x2F; freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    &#x2F;&#x2F; freopen(&quot;out.txt&quot;,&quot;w&quot;,stdout);
+
+    int t;
+    cin &gt;&gt; t;
+
+    while(t--)  solve();
+
+    return 0;
+&#125;</code></pre>
+<h2 id="1004-Card-Game"><a href="#1004-Card-Game" class="headerlink" title="1004 Card Game"></a>1004 Card Game</h2><p><strong>题意：</strong></p>
+<p>​       有 $n$ 堆排，第一堆牌有 $k$ 个（编号从牌顶到牌底依次为 $k,k - 1,,k - 2\cdots,1$），其余堆都是空的。问能否将第一堆的牌移到第二堆？移动的过程中，需要保证每堆排从牌顶到牌底是依次递减的（递减依次是1）。</p>
+<p><strong>思路：</strong></p>
+<p>​      这个很明显就是汉诺塔的问题。</p>
+<p>1层：1次；</p>
+<p>2层：3次；</p>
+<p>3层：7次；</p>
+<p>4层：15次；</p>
+<p>5层：31次</p>
+<p>$\cdots$</p>
+<p>​       由此规律可知，答案为 $2^{n - 1} - 1$。</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
+
+#define IOS ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr)
+#define cf(_) int _;cin &gt;&gt; _;while(_--)
+
+const int mod &#x3D; 998244353;
+
+ll fpow(ll a,ll b)
+&#123;
+    ll res &#x3D; 1;
+    while (b)
+    &#123;
+        if(b &amp; 1)   res &#x3D; res * a % mod;
+        a &#x3D; a * a % mod;
+        b &gt;&gt;&#x3D; 1;
     &#125;
     return res;
+&#125;
+
+int main()
+&#123;
+    IOS;
+
+    cf(_)
+    &#123;
+        int n;
+        cin &gt;&gt; n;
+
+        cout &lt;&lt; (fpow(2ll,n - 1) - 1) % mod &lt;&lt; &quot;\n&quot;;
+    &#125;
+    return 0;
+&#125;</code></pre>
+<h2 id="1007-foreverlasting-and-fried-chicken"><a href="#1007-foreverlasting-and-fried-chicken" class="headerlink" title="1007 foreverlasting and fried-chicken"></a>1007 foreverlasting and fried-chicken</h2><p><strong>题意：</strong></p>
+<p>​        给定的图中，有多少个形如题意所给的子图？</p>
+<p><strong>思路：</strong></p>
+<p>​       给定的 $n$ 为1000，可以 $n^2$ 暴力枚举点对，但是计算两个点之间相连的点的交集的时候可能又需要枚举 $n$ 次，会导致复杂度高达 $n^3$。因此需要优化掉这一循环，而 $bitset$ 就是突破口，<mark>时间复杂度：$O(\frac{n^3}{64})$。</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+const int N &#x3D; 1010,mod &#x3D; 1000000007;
+
+ll C2[N],C4[N];
+
+void init()
+&#123;
+    for(ll i &#x3D; 4;i &lt; N;i++)
+        C4[i] &#x3D; (i * (i - 3) * (i - 2) * (i - 1) &#x2F; 24) % mod;
+
+    for(ll i &#x3D; 2;i &lt; N;i++)
+        C2[i] &#x3D; (i * (i - 1) &#x2F; 2) % mod;
 &#125;
 
 void solve()
 &#123;
     int n,m;
     cin &gt;&gt; n &gt;&gt; m;
-
-    vector&lt;string&gt; str(n + 1);
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
-    &#123;
-        string s;
-        cin &gt;&gt; s;
-        str[i] &#x3D; get(s);
-    &#125;
-
-    int q;
-    cin &gt;&gt; q;
-
-    while (q--)
+    bitset&lt;1100&gt; bit[1100];
+    while(m--)
     &#123;
         int a,b;
         cin &gt;&gt; a &gt;&gt; b;
-
-        cout &lt;&lt; (str[a] &#x3D;&#x3D; str[b] ? &quot;Yes\n&quot; : &quot;No\n&quot;);
+        bit[a][b] &#x3D; bit[b][a] &#x3D; 1;
     &#125;
-    
+
+    ll res&#x3D;0;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        for (int j &#x3D; i+1; j &lt;&#x3D; n; j++)
+        &#123;
+            ll cnt &#x3D; (bit[i] &amp; bit[j]).count();
+            int t &#x3D; bit[i][j];
+            if(cnt &lt; 4 || t + cnt &lt; 4) continue;
+            res &#x3D; (res + C4[cnt] * (C2[bit[i].count() - 4 - t] + C2[bit[j].count() - 4 - t]) % mod) % mod;
+        &#125;
+    &#125;
+
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
 &#125;
 
 int main()
 &#123;
     cin.tie(nullptr)-&gt;sync_with_stdio(false);
-
+    
+    init();
+    
     int t;
     cin &gt;&gt; t;
 
@@ -751,10 +677,10 @@ int main()
 
     return 0;
 &#125;</code></pre>
-<h2 id="1009-Assertion"><a href="#1009-Assertion" class="headerlink" title="1009 Assertion"></a>1009 Assertion</h2><p><strong>题意：</strong></p>
-<p>​        将 $m$ 分成 $n$ 份，是否至少有一份的数 $\ge$ d，如果是输出“Yes”，否则输出“No”。</p>
+<h2 id="1009-String-Problem"><a href="#1009-String-Problem" class="headerlink" title="1009 String Problem"></a>1009 String Problem</h2><p><strong>题意：</strong></p>
+<p>​        给定一个串，对于里面所有的字母种类不超过 $1$ 的回文串，定义其权值为其中的回文串长度与回文串的个数的差，求最大权值。</p>
 <p><strong>思路：</strong></p>
-<p>​       先均分（即 $\frac{m}{n}$ 个），如果有余数的话则加 $1$，然后判断这个值是否 $\ge$ d 即可。</p>
+<p>​        签到题。对于字符串长度  $\ge$ 2 的一定是算上更优的，长度为 $1$ 的只能说可加可不加 $qwq$。</p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -770,11 +696,32 @@ int main()
     IOS;
     cf(_)
     &#123;
-        int n,m,d;
-        cin &gt;&gt; n &gt;&gt; m &gt;&gt; d;
+        string s;
+        cin &gt;&gt; s;
 
-        if(((m - n) % n !&#x3D; 0) + m &#x2F; n &gt;&#x3D; d)   cout &lt;&lt; &quot;Yes\n&quot;;
-        else    cout &lt;&lt; &quot;No\n&quot;;
+        vector&lt;int&gt; v;
+        string t &#x3D; &quot;&quot;;
+        t +&#x3D; s[0];
+        char last &#x3D; s[0];
+        for(int i &#x3D; 1;i &lt; s.size();i++)
+        &#123;
+            if(s[i] &#x3D;&#x3D; last)    t +&#x3D; s[i];
+            else    
+            &#123;
+                if(t.size() !&#x3D; 1)   v.push_back(t.size());
+                t &#x3D; &quot;&quot;;
+                t +&#x3D; s[i];
+                last &#x3D; s[i];
+            &#125;
+        &#125;
+        if(t.size() !&#x3D; 1)   v.push_back(t.size()); 
+
+        ll res &#x3D; 0;
+        for(int i &#x3D; 0;i &lt; v.size();i++)
+        &#123;
+            res +&#x3D; v[i];
+        &#125;
+        cout &lt;&lt; res - v.size() &lt;&lt; &quot;\n&quot;;
     &#125;
     return 0;
 &#125;</code></pre>
@@ -804,7 +751,7 @@ int main()
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://318471543.github.io/2023/07/18/2023%E2%80%9C%E9%92%89%E8%80%99%E7%BC%96%E7%A8%8B%E2%80%9D%E4%B8%AD%E5%9B%BD%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E8%B6%85%E7%BA%A7%E8%81%94%E8%B5%9B%EF%BC%881%EF%BC%89/">http://318471543.github.io/2023/07/18/2023%E2%80%9C%E9%92%89%E8%80%99%E7%BC%96%E7%A8%8B%E2%80%9D%E4%B8%AD%E5%9B%BD%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E8%B6%85%E7%BA%A7%E8%81%94%E8%B5%9B%EF%BC%881%EF%BC%89/</a>
+                    <a href="http://318471543.github.io/2023/07/20/2023%E2%80%9C%E9%92%89%E8%80%99%E7%BC%96%E7%A8%8B%E2%80%9D%E4%B8%AD%E5%9B%BD%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E8%B6%85%E7%BA%A7%E8%81%94%E8%B5%9B%EF%BC%882%EF%BC%89/">http://318471543.github.io/2023/07/20/2023%E2%80%9C%E9%92%89%E8%80%99%E7%BC%96%E7%A8%8B%E2%80%9D%E4%B8%AD%E5%9B%BD%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E8%B6%85%E7%BA%A7%E8%81%94%E8%B5%9B%EF%BC%882%EF%BC%89/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -841,11 +788,7 @@ int main()
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/2023%E2%80%9C%E9%92%89%E8%80%99%E7%BC%96%E7%A8%8B%E2%80%9D%E4%B8%AD%E5%9B%BD%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E8%B6%85%E7%BA%A7%E8%81%94%E8%B5%9B%EF%BC%881%EF%BC%89/">
-                                    <span class="chip bg-color">2023“钉耙编程”中国大学生算法设计超级联赛（1）</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -1408,9 +1351,10 @@ int main()
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2023/07/20/2023%E2%80%9C%E9%92%89%E8%80%99%E7%BC%96%E7%A8%8B%E2%80%9D%E4%B8%AD%E5%9B%BD%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E8%B6%85%E7%BA%A7%E8%81%94%E8%B5%9B%EF%BC%882%EF%BC%89/">
                     <div class="card-image">
@@ -1428,9 +1372,9 @@ int main()
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-07-20
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-20
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -1439,6 +1383,7 @@ int main()
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -1449,13 +1394,13 @@ int main()
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/07/18/%E2%80%9C%E8%8C%83%E5%BC%8F%E6%9D%AF%E2%80%9D2023%E7%89%9B%E5%AE%A2%E6%9A%91%E6%9C%9F%E5%A4%9A%E6%A0%A1%E8%AE%AD%E7%BB%83%E8%90%A51/">
+                <a href="/2023/07/18/2023%E2%80%9C%E9%92%89%E8%80%99%E7%BC%96%E7%A8%8B%E2%80%9D%E4%B8%AD%E5%9B%BD%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E8%B6%85%E7%BA%A7%E8%81%94%E8%B5%9B%EF%BC%881%EF%BC%89/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="“范式杯”2023牛客暑期多校训练营1">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="2023“钉耙编程”中国大学生算法设计超级联赛（1）">
                         
-                        <span class="card-title">“范式杯”2023牛客暑期多校训练营1</span>
+                        <span class="card-title">2023“钉耙编程”中国大学生算法设计超级联赛（1）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1479,8 +1424,8 @@ int main()
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E2%80%9C%E8%8C%83%E5%BC%8F%E6%9D%AF%E2%80%9D2023%E7%89%9B%E5%AE%A2%E6%9A%91%E6%9C%9F%E5%A4%9A%E6%A0%A1%E8%AE%AD%E7%BB%83%E8%90%A51/">
-                        <span class="chip bg-color">“范式杯”2023牛客暑期多校训练营1</span>
+                    <a href="/tags/2023%E2%80%9C%E9%92%89%E8%80%99%E7%BC%96%E7%A8%8B%E2%80%9D%E4%B8%AD%E5%9B%BD%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E8%B6%85%E7%BA%A7%E8%81%94%E8%B5%9B%EF%BC%881%EF%BC%89/">
+                        <span class="chip bg-color">2023“钉耙编程”中国大学生算法设计超级联赛（1）</span>
                     </a>
                     
                 </div>
@@ -1641,13 +1586,6 @@ int main()
 
 </main>
 
-
-<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>
-    MathJax.Hub.Config({
-        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
-    });
-</script>
 
 
 
