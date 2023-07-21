@@ -6,7 +6,10 @@
     <meta charset="utf-8">
     <meta name="keywords" content="2023牛客暑期多校训练营2, 重生带我走">
     <meta name="description" content="比赛超链接：2023牛客暑期多校训练营2
-E Square">
+E Square题意：
+​        给定一个数 $x$，请找一个数 $y$ 使得 $y^2$ 的前缀含有 $x$。
+思路：
+​        比如给一个数 $4$，优先会想到 $2^2 = 4">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -483,7 +486,123 @@ E Square">
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p><mark>比赛超链接：<a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57356">2023牛客暑期多校训练营2</a></mark></p>
-<h2 id="E-Square"><a href="#E-Square" class="headerlink" title="E Square"></a>E Square</h2>
+<h2 id="E-Square"><a href="#E-Square" class="headerlink" title="E Square"></a>E Square</h2><p><strong>题意：</strong></p>
+<p>​        给定一个数 $x$，请找一个数 $y$ 使得 $y^2$ 的前缀含有 $x$。</p>
+<p><strong>思路：</strong></p>
+<p>​        比如给一个数 $4$，优先会想到 $2^2 = 4,7^2 = 49,20^2 = 400,\cdots$，因此，会优先考虑 $4,40,400,4000,\cdots$，然后对其开根号，由于精度问题，但只会上下浮动两个数（向下取整和向上取整），因此按照此思路模拟即可。</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+void solve()
+&#123;
+    ll n;
+    cin &gt;&gt; n;
+
+    bool ok &#x3D; false;
+    ll x &#x3D; 1,base &#x3D; 1;
+    while (sqrt(base * n) &lt;&#x3D; 1e9)
+    &#123;
+        x &#x3D; sqrt(base * n);
+        for(auto i : &#123;x,x + 1&#125;)
+        &#123;
+            ll t &#x3D; i * i;
+            if(t &gt;&#x3D; base * n &amp;&amp; t &lt; base * (n + 1))
+            &#123;
+                ok &#x3D; true;
+                cout &lt;&lt; i &lt;&lt; &quot;\n&quot;;
+                break;
+            &#125;
+        &#125;
+        if(ok)  break;
+        base *&#x3D; 10;
+    &#125;
+
+    if(!ok) cout &lt;&lt; &quot;-1\n&quot;;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int t;
+    cin &gt;&gt; t;
+
+    while(t--)  solve();
+
+    return 0;
+&#125;</code></pre>
+<h2 id="I-Link-with-Gomoku"><a href="#I-Link-with-Gomoku" class="headerlink" title="I Link with Gomoku"></a>I Link with Gomoku</h2><p><strong>题意：</strong></p>
+<p>​        模拟五子棋的过程，使其变成“平局”的局面。</p>
+<p><strong>思路：</strong></p>
+<p>​        一种构造方法就是：</p>
+<p>​        $xxooxxoo$</p>
+<p>​        $ooxxooxx$</p>
+<p>​        $xxooxxoo$</p>
+<p>​        $ooxxooxx$</p>
+<p>​        $\cdots$</p>
+<p>可能由于奇偶的性质，导致 $o$ 和 ‘x’ 的个数不够，因此，先处理好前 $n - 1$ 行的局面，最后一行根据个数间隔插入即可。</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+void solve()
+&#123;
+    int n,m;
+    cin &gt;&gt; n &gt;&gt; m;
+
+    char op1[] &#x3D; &#123;&#39;o&#39;,&#39;o&#39;,&#39;x&#39;,&#39;x&#39;&#125;,op2[] &#x3D; &#123;&#39;x&#39;,&#39;x&#39;,&#39;o&#39;,&#39;o&#39;&#125;;
+
+    int cnt_x &#x3D; 0,cnt_o &#x3D; 0;
+    for(int i &#x3D; 1;i &lt;&#x3D; n - 1;i++)
+    &#123;
+        for(int j &#x3D; 1;j &lt;&#x3D; m;j++)
+            if(i % 2)   
+            &#123;
+                cout &lt;&lt; op1[j % 4];
+                if(op1[j % 4] &#x3D;&#x3D; &#39;o&#39;)   cnt_o++;
+                else    cnt_x++;
+            &#125;
+            else    
+            &#123;
+                cout &lt;&lt; op2[j % 4];
+                if(op2[j % 4] &#x3D;&#x3D; &#39;o&#39;)   cnt_o++;
+                else    cnt_x++;
+            &#125;
+        cout &lt;&lt; &quot;\n&quot;; 
+    &#125;
+
+    for(int i &#x3D; 1;i &lt;&#x3D; m;i++)
+    &#123;
+        if(cnt_o &lt; cnt_x)  
+        &#123;
+            cout &lt;&lt; &#39;o&#39;;
+            cnt_o++;
+        &#125;
+        else    
+        &#123;
+            cout &lt;&lt; &#39;x&#39;;
+            cnt_x++;
+        &#125;
+    &#125;
+    cout &lt;&lt; &quot;\n&quot;;
+    &#x2F;&#x2F; cout &lt;&lt; cnt_o &lt;&lt; &quot; &quot; &lt;&lt; cnt_x &lt;&lt; &#39;\n&#39;;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int t;
+    cin &gt;&gt; t;
+
+    while(t--)  solve();
+
+    return 0;
+&#125;</code></pre>
+
                 
             </div>
             <hr/>
