@@ -1123,11 +1123,37 @@ struct DSU &#123;
     bool same(T x, T y) &#123; return find(x) &#x3D;&#x3D; find(y); &#125;&#x2F;&#x2F;判断是否在同一集合
     T size(T x) &#123; return sz[find(x)]; &#125;&#x2F;&#x2F;获取集合大小
 &#125;;</code></pre>
-<p><strong>推荐题单：</strong></p>
+<p><mark>推荐题单：</mark></p>
 <p>并查集 + 坐标转换：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1252/">格子游戏</a></p>
-<p><mark>二维坐标转化为一维坐标公式：</mark></p>
+<p><strong>二维坐标转化为一维坐标公式：</strong></p>
 <p>当(x,y)是从(0,0)点开始的时候：x * n + y    (0,1,2,3,4,5,6,7,8,……)</p>
 <p>当(x,y)是从(1,1)点开始的时候：(x - 1) * n + y    (1,2,3,4,5,6,7,8,9,……)</p>
+<h3 id="带权并查集"><a href="#带权并查集" class="headerlink" title="带权并查集"></a>带权并查集</h3><p>集合合并时，需要更新  $d[px]$ 的值，更新过程如下：</p>
+<p><img src="D:\Develop\Blog\source\_posts\数据结构.assets\image-20230722110241304.png" alt="image-20230722110241304"></p>
+<p><mark>模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">function&lt;int(int)&gt; find &#x3D; [&amp;](int x) -&gt; int
+&#123;
+    if(x !&#x3D; p[x])
+    &#123;
+        int t &#x3D; find(p[x]);
+        dist[x] +&#x3D; dist[p[x]];
+        p[x] &#x3D; t;
+    &#125;
+    return p[x];
+&#125;;
+
+auto merge &#x3D; [&amp;](int a,int b,int d) -&gt; void
+&#123;
+    int pa &#x3D; find(a),pb &#x3D; find(b);
+    if(pa !&#x3D; pb)
+    &#123;
+        p[pa] &#x3D; pb;
+        dist[pa] &#x3D; dist[b] - dist[a] + d;
+    &#125;
+&#125;;</code></pre>
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/242/">食物链</a></p>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1850/problem/H">H. The Third Letter</a></p>
 <h2 id="启发式合并"><a href="#启发式合并" class="headerlink" title="启发式合并"></a>启发式合并</h2><h3 id="梦幻布丁"><a href="#梦幻布丁" class="headerlink" title="梦幻布丁"></a>梦幻布丁</h3><p><strong>题目链接：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/2156/">梦幻布丁</a></p>
 <p><strong>题意：</strong>有n个颜色的布丁，每次将所有颜色为a的布丁变为颜色b，问一共有多少种颜色不同的布丁？</p>
 <blockquote>

@@ -1134,7 +1134,77 @@ int main()
 &#125;</code></pre>
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/850/">有向图的拓扑序列</a></p>
-<h2 id="二分图"><a href="#二分图" class="headerlink" title="二分图"></a>二分图</h2><h2 id="Tarjan"><a href="#Tarjan" class="headerlink" title="Tarjan"></a>Tarjan</h2><blockquote>
+<h2 id="二分图"><a href="#二分图" class="headerlink" title="二分图"></a>二分图</h2><blockquote>
+<p>将所有点分成两个集合，使得所有边只出现在集合之间，就是二分图。</p>
+</blockquote>
+<p>下图即为一个二分图：</p>
+<p><img src="D:\Develop\Blog\source\_posts\图论.assets\image-20230722113111851.png" alt="image-20230722113111851"></p>
+<h3 id="染色法判定二分图"><a href="#染色法判定二分图" class="headerlink" title="染色法判定二分图"></a>染色法判定二分图</h3><blockquote>
+<p><mark>算法思想：</mark></p>
+<p>染色可以使用 $1$ 和 $2$ 区分不同颜色，用 $0$ 表示未染色。</p>
+<p>遍历所有点，每次将未染色的点进行 $dfs$, $1$ 和 $2$ 可以用 $3 - c$ 快速交替！</p>
+<p>最后，染色失败相当于存在相邻的2个点染了相同的颜色。</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1e5 + 10,M &#x3D; 2 * N;
+
+int n,m;
+int h[N],e[M],ne[M],idx;
+int color[N];
+
+void add(int a,int b)
+&#123;
+	e[idx] &#x3D; b,ne[idx] &#x3D; h[a],h[a] &#x3D; idx++;
+&#125;
+
+bool dfs(int u,int c)
+&#123;
+    color[u] &#x3D; c;
+	for(int i &#x3D; h[u]; ~i;i &#x3D; ne[i])
+	&#123;
+		int j &#x3D; e[i];
+		if(!color[j])	
+        &#123;
+            if(!dfs(j,3 - c))   return false;
+        &#125;
+        else if(color[j] &#x3D;&#x3D; c)  return false;
+	&#125;
+    return true;
+&#125;
+
+int main()
+&#123;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+	cin &gt;&gt; n &gt;&gt; m;
+
+	memset(h,-1,sizeof(h));
+	while (m--)
+	&#123;
+		int a,b;
+		cin &gt;&gt; a &gt;&gt; b;
+		add(a,b),add(b,a);
+	&#125;
+
+    bool ok &#x3D; true;
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+        if(!color[i])
+        &#123;
+            if(!dfs(i,1))
+            &#123;
+                ok &#x3D; false;
+                break;
+            &#125;
+        &#125;
+    cout &lt;&lt; (ok ? &quot;Yes&quot; : &quot;No&quot;) &lt;&lt; &quot;\n&quot;;
+	return 0;
+&#125;</code></pre>
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/862/">染色法判定二分图</a></p>
+<h3 id="二分图的最大匹配"><a href="#二分图的最大匹配" class="headerlink" title="二分图的最大匹配"></a>二分图的最大匹配</h3><pre class="language-none"><code class="language-none"></code></pre>
+<h2 id="Tarjan"><a href="#Tarjan" class="headerlink" title="Tarjan"></a>Tarjan</h2><blockquote>
 <p>对于一个有向图，<strong>连通分量</strong>：对于分量中任意两点 $u$ 、$v$，必然可以从 $u$ 走到  $v$，且从 $v$ 走到 $u$ 。</p>
 <p><strong>强连通分量</strong>：极大连通分量。</p>
 <p><mark>主要作用：</mark>通过缩点的方式，将任意有向图转换成有向无环图（DAG），又称拓扑图。</p>
@@ -1180,7 +1250,7 @@ void tarjan(int u)&#x2F;&#x2F;塔尖儿
 &#125;</code></pre>
 <p><mark>推荐题单：</mark></p>
 <p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1176/">受欢迎的牛</a></p>
-<h2 id="最近公共祖先-LCA"><a href="#最近公共祖先-LCA" class="headerlink" title="最近公共祖先(LCA)"></a>最近公共祖先(LCA)</h2><p><mark>代码模板：</mark></p>
+<h2 id="最近公共祖先-LCA"><a href="#最近公共祖先-LCA" class="headerlink" title="最近公共祖先(LCA)"></a>最近公共祖先(LCA)</h2><p><mark>模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1273,6 +1343,8 @@ depth[i]:表示深度
 1、先将两个点跳到同一层
 2、让两个点同时往上跳,一直跳到他们的最近公共祖先的下一层
 *&#x2F;</code></pre>
+<h3 id="树上差分"><a href="#树上差分" class="headerlink" title="树上差分"></a>树上差分</h3><p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/354/">闇の連鎖</a></p>
 <h2 id="网络流"><a href="#网络流" class="headerlink" title="网络流"></a>网络流</h2><h3 id="EK算法求最大流"><a href="#EK算法求最大流" class="headerlink" title="EK算法求最大流"></a>EK算法求最大流</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
