@@ -512,7 +512,14 @@ git config --global core.autocrlf false
  
 最后
 hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</code></pre>
-<p>3、常见问题指南</p>
+<p>3、上传图片</p>
+<ul>
+<li>先在_post目录下的images文件夹里面放置图片，然后再 $source$ 目录下的 $images$ 里面继续放置相同图片即可。</li>
+<li>$markdown$ 里的图片文件命名需要为：<code>/images/id.png</code>，一般直接复制图片的话，需要在开头<strong>手动</strong>添加 <code>/</code> 才可以。</li>
+<li>最后在下图目录下执行三个流程即可上传好图片（这里省略了 $hexo\ d$）</li>
+</ul>
+<p><img src="/images/10.png" alt=""></p>
+<p>4、常见问题指南</p>
 <p>参考了博客：<a target="_blank" rel="noopener" href="https://zhangxiaocai.cn/posts/a53a9069.html">Matery主题新手常见问题</a>，终于解决了代码块的问题！</p>
 <ul>
 <li>改代码不生效<ul>

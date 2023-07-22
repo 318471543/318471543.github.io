@@ -962,7 +962,10 @@ int main()
     
     return 0;
 &#125;</code></pre>
-<h2 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h2><h3 id="Prim"><a href="#Prim" class="headerlink" title="Prim"></a>Prim</h3><p><mark>代码模板：</mark></p>
+<h2 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h2><h3 id="Prim"><a href="#Prim" class="headerlink" title="Prim"></a>Prim</h3><blockquote>
+<p>时间复杂度：$O(n^2)$</p>
+</blockquote>
+<p><mark>模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1009,7 +1012,10 @@ int main()
     else    printf(&quot;%d\n&quot;,t);
     return 0;
 &#125;</code></pre>
-<h3 id="Kruskal"><a href="#Kruskal" class="headerlink" title="Kruskal"></a>Kruskal</h3><p><mark>代码模板：</mark></p>
+<h3 id="Kruskal"><a href="#Kruskal" class="headerlink" title="Kruskal"></a>Kruskal</h3><blockquote>
+<p>时间复杂度：$O(mlogm)$</p>
+</blockquote>
+<p><mark>代码模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1138,13 +1144,20 @@ int main()
 <p>将所有点分成两个集合，使得所有边只出现在集合之间，就是二分图。</p>
 </blockquote>
 <p>下图即为一个二分图：</p>
-<p><img src="D:\Develop\Blog\source\_posts\图论.assets\image-20230722113111851.png" alt="image-20230722113111851"></p>
+<p><img src="/images/1.png" alt="二分图"></p>
 <h3 id="染色法判定二分图"><a href="#染色法判定二分图" class="headerlink" title="染色法判定二分图"></a>染色法判定二分图</h3><blockquote>
-<p><mark>算法思想：</mark></p>
-<p>染色可以使用 $1$ 和 $2$ 区分不同颜色，用 $0$ 表示未染色。</p>
-<p>遍历所有点，每次将未染色的点进行 $dfs$, $1$ 和 $2$ 可以用 $3 - c$ 快速交替！</p>
-<p>最后，染色失败相当于存在相邻的2个点染了相同的颜色。</p>
+<p><strong>算法流程：</strong></p>
+<ul>
+<li><p>染色可以使用数字 $1$ 和 $2$ 区分不同颜色，用 $0$ 表示未染色。</p>
+</li>
+<li><p>遍历所有点，每次将未染色的点进行 $dfs$, 数字 $1$ 和 $2$ 可以用 $3 - c$ 快速交替！</p>
+</li>
+<li><p>最后，染色失败相当于存在相邻的2个点染了相同的颜色。</p>
+</li>
+</ul>
+<p><strong>时间复杂度：</strong>$O(N+M)$</p>
 </blockquote>
+<p><mark>模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1203,18 +1216,94 @@ int main()
 &#125;</code></pre>
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/862/">染色法判定二分图</a></p>
-<h3 id="二分图的最大匹配"><a href="#二分图的最大匹配" class="headerlink" title="二分图的最大匹配"></a>二分图的最大匹配</h3><pre class="language-none"><code class="language-none"></code></pre>
-<h2 id="Tarjan"><a href="#Tarjan" class="headerlink" title="Tarjan"></a>Tarjan</h2><blockquote>
+<h3 id="二分图的最大匹配"><a href="#二分图的最大匹配" class="headerlink" title="二分图的最大匹配"></a>二分图的最大匹配</h3><p><strong>基本定义：</strong></p>
+<p>匹配：在图论中，一个「匹配」是一个边的集合，其中任意两条边都没有公共顶点。</p>
+<p>最大匹配：一个图所有匹配中，所含匹配边数最多的匹配，称为这个图的最大匹配。</p>
+<blockquote>
+<p><mark>匈牙利算法：</mark>主要用来解决两个问题：求二分图的<strong>最大匹配数</strong>和<strong>最小点覆盖数</strong>。</p>
+<p><strong>柯尼希定理：二分图最小点覆盖的点数 = 最大匹配数。</strong></p>
+<p><strong>时间复杂度：</strong>$O(nm)$</p>
+</blockquote>
+<p><strong>数组含义：</strong></p>
+<p>$n1$：左部分点集；</p>
+<p>$n2$：右部分点集；</p>
+<p>$match[i]$：右部分的点 $i$ 对应的左部分点 $j$ ；</p>
+<p>$st[i]$：预定数组，即预定的右点集。</p>
+<p><mark>模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 510,M &#x3D; 1e5 + 10;
+
+int n1,n2,m;
+int h[N],e[M],ne[M],idx;
+int match[N];
+bool st[N];
+
+void add(int a,int b)
+&#123;
+    e[idx] &#x3D; b,ne[idx] &#x3D; h[a],h[a] &#x3D; idx++;
+&#125;
+
+bool find(int x)
+&#123;
+    for(int i &#x3D; h[x]; ~i;i &#x3D; ne[i])
+    &#123;
+        int j &#x3D; e[i];
+        if(!st[j])
+        &#123;
+            st[j] &#x3D; true;
+            if(match[j] &#x3D;&#x3D; 0 || find(match[j]))
+            &#123;
+                match[j] &#x3D; x;
+                return true;
+            &#125;
+        &#125;
+    &#125;
+    return false;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    cin &gt;&gt; n1 &gt;&gt; n2 &gt;&gt; m;
+
+    memset(h,-1,sizeof(h));
+    while (m--)
+    &#123;
+        int a,b;
+        cin &gt;&gt; a &gt;&gt; b;
+        add(a,b);
+    &#125;
+
+    int res &#x3D; 0;
+    for(int i &#x3D; 1;i &lt;&#x3D; n1;i++)
+    &#123;
+        memset(st,0,sizeof(st));
+        if(find(i)) res++;
+    &#125;
+    
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+
+    return 0;
+&#125;</code></pre>
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/863/">二分图的最大匹配</a></p>
+<h2 id="Tarjan"><a href="#Tarjan" class="headerlink" title="Tarjan"></a>Tarjan</h2><p><strong>基本定义：</strong></p>
 <p>对于一个有向图，<strong>连通分量</strong>：对于分量中任意两点 $u$ 、$v$，必然可以从 $u$ 走到  $v$，且从 $v$ 走到 $u$ 。</p>
 <p><strong>强连通分量</strong>：极大连通分量。</p>
-<p><mark>主要作用：</mark>通过缩点的方式，将任意有向图转换成有向无环图（DAG），又称拓扑图。</p>
+<blockquote>
+<p><strong>主要功能：</strong>通过缩点的方式，将任意有向图转换成有向无环图（DAG），又称拓扑图。</p>
+<p><strong>注意：</strong>做完 $tarjan$ 算法之后,拓扑序一定是按照强连通分量节点编号递减的顺序，因此不需要再做一遍拓扑排序。</p>
+</blockquote>
 <p>定义两个时间戳概念；</p>
 <ul>
-<li>$dfn[u]$ 表示：遍历到 $u$ 的时间戳</li>
-<li>$low[u]$ 表示：从u开始走，所能遍历到的最小时间戳是什么</li>
+<li>$dfn[u]$ 表示：遍历到 $u$ 的时间戳；</li>
+<li>$low[u]$ 表示：从u开始走，所能遍历到的最小时间戳是什么；</li>
 </ul>
 <p>因此，$u$ 是其所在的强连通分量的最高点，等价于 $dfn[u] == low[u]$。</p>
-</blockquote>
 <p><mark>模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">int dfn[N],low[N],timestamp;
 int stk[N],top;
@@ -1249,7 +1338,8 @@ void tarjan(int u)&#x2F;&#x2F;塔尖儿
     &#125;
 &#125;</code></pre>
 <p><mark>推荐题单：</mark></p>
-<p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1176/">受欢迎的牛</a></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1176/">受欢迎的牛</a></p>
+<p><strong>$tarjan + dp$：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1177/">最大半连通子图</a>，其中 $dp$ 问题类似于<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/11/">背包问题求方案数</a></p>
 <h2 id="最近公共祖先-LCA"><a href="#最近公共祖先-LCA" class="headerlink" title="最近公共祖先(LCA)"></a>最近公共祖先(LCA)</h2><p><mark>模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -1343,6 +1433,8 @@ depth[i]:表示深度
 1、先将两个点跳到同一层
 2、让两个点同时往上跳,一直跳到他们的最近公共祖先的下一层
 *&#x2F;</code></pre>
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1174/">祖孙询问</a></p>
 <h3 id="树上差分"><a href="#树上差分" class="headerlink" title="树上差分"></a>树上差分</h3><p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/354/">闇の連鎖</a></p>
 <h2 id="网络流"><a href="#网络流" class="headerlink" title="网络流"></a>网络流</h2><h3 id="EK算法求最大流"><a href="#EK算法求最大流" class="headerlink" title="EK算法求最大流"></a>EK算法求最大流</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;

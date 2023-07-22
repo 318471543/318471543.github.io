@@ -861,8 +861,6 @@ int main()
 <h3 id="有依赖的背包问题"><a href="#有依赖的背包问题" class="headerlink" title="有依赖的背包问题"></a>有依赖的背包问题</h3><p><strong>题目描述：</strong></p>
 <p>有 N 个物品和一个容量是 V 的背包。</p>
 <p>物品之间具有依赖关系，且依赖关系组成一棵树的形状。如果选择一个物品，则必须选择它的父节点。</p>
-<p>如下图所示：</p>
-<p><img src="DP-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92.assets/image-20220626105506402.png" alt="image-20220626105506402"></p>
 <p>如果选择物品5，则必须选择物品1和2。这是因为2是5的父节点，1是2的父节点。</p>
 <p>每件物品的编号是 i，体积是 v<sub>i</sub>，价值是 w<sub>i</sub>，依赖的父节点编号是 p<sub>i</sub>。物品的下标范围是 1…N。</p>
 <p>求解将哪些物品装入背包，可使物品总体积不超过背包容量，且总价值最大。</p>
@@ -940,26 +938,13 @@ int main()
     cout &lt;&lt; f[root][m] &lt;&lt; endl;
     return 0;
 &#125;</code></pre>
-<h3 id="背包问题求方案数"><a href="#背包问题求方案数" class="headerlink" title="背包问题求方案数"></a>背包问题求方案数</h3><p><strong>题目描述：</strong></p>
-<p>有 N 件物品和一个容量是 V 的背包。每件物品只能使用一次。</p>
-<p>第 i 件物品的体积是 v<sub>i</sub>，价值是 w<sub>i</sub>。</p>
-<p>求解将哪些物品装入背包，可使这些物品的总体积不超过背包容量，且总价值最大。</p>
-<p>输出 <strong>最优选法的方案数</strong>。注意答案可能很大，请输出答案模 10<sup>9</sup> + 7 的结果。</p>
-<p><strong>输入格式</strong></p>
-<p>第一行两个整数，N，V，用空格隔开，分别表示物品数量和背包容积。</p>
-<p>接下来有 N 行，每行两个整数 v<sub>i</sub>,w<sub>i</sub>，用空格隔开，分别表示第 ii 件物品的体积和价值。</p>
-<p><strong>输出格式</strong></p>
-<p>输出一个整数，表示 <strong>方案数</strong> 模 109+7 的结果。</p>
-<p><strong>数据范围</strong></p>
-<p>0 &lt; N,V ≤ 1000<br>0 &lt; v<sub>i</sub>,w<sub>i</sub> ≤ 1000</p>
-<p>输入样例：</p>
-<pre class="language-none"><code class="language-none">4 5
-1 2
-2 4
-3 4
-4 6</code></pre>
-<p>输出样例：</p>
-<pre class="language-none"><code class="language-none">2</code></pre>
+<h3 id="背包问题求方案数"><a href="#背包问题求方案数" class="headerlink" title="背包问题求方案数"></a>背包问题求方案数</h3><blockquote>
+<p>有 $n$ 个物品，容量为 $m$，每个物品有体积和价值，问最大化价值的方案数有多少种？</p>
+<p>数据范围：</p>
+<p>0 &lt; $N,V$ $\le$ 1000<br>0 &lt; $v_i,w_i$ $\le$ 1000</p>
+</blockquote>
+<p>$f[j]$ 定义为：体积恰好为 $j$ 的最大价值（因为如果是不超过 $j$ 的话，在求方案数时可能得做个容斥原理，毕竟麻烦，摘自 $y$ 总语录）；</p>
+<p>$g[j]$：求方案数。</p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1057,7 +1042,6 @@ int main()
     return 0;
 &#125;</code></pre>
 <h2 id="线性DP"><a href="#线性DP" class="headerlink" title="线性DP"></a>线性DP</h2><h3 id="数字三角形"><a href="#数字三角形" class="headerlink" title="数字三角形"></a>数字三角形</h3><p><strong>题意：</strong>给定一个如下图所示的数字三角形，从顶部出发，在每一结点可以选择移动至其左下方的结点或移动至其右下方的结点，一直走到底层，要求找出一条路径，使路径上的数字的和最大。</p>
-<p><img src="D:\Develop\Blog\source\_posts\DP-动态规划.assets\image-20230406144340615.png" alt="image-20230406144340615"></p>
 <blockquote>
 <p>f[i] [j]只能从f[i - 1] [j]和f[i - 1] [j - 1]转移过来，略微处理下边界即可。</p>
 </blockquote>

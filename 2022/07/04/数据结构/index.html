@@ -627,7 +627,7 @@ while(l &lt; r)
 <p>但也有某类单峰函数不能用三分！</p>
 <p>某些问题的函数可能是单峰的，但峰值两边并非严格递增（递减）的，即有可能出现”平台“（）一条与x轴平行的直线。</p>
 </blockquote>
-<p><img src="D:\Develop\Blog\source\_posts\数据结构.assets\image-20230407110448328.png" alt="image-20230407110448328"></p>
+<p><img src="/images/2.png" alt=""></p>
 <blockquote>
 <p>什么时候使用三分？</p>
 <p>​    即一个函数，在考虑的范围[l,r]内是单峰的，并且从峰值往左右两边都是要<strong>严格</strong>单调递增或<strong>严格</strong>单调递减的。</p>
@@ -1129,7 +1129,7 @@ struct DSU &#123;
 <p>当(x,y)是从(0,0)点开始的时候：x * n + y    (0,1,2,3,4,5,6,7,8,……)</p>
 <p>当(x,y)是从(1,1)点开始的时候：(x - 1) * n + y    (1,2,3,4,5,6,7,8,9,……)</p>
 <h3 id="带权并查集"><a href="#带权并查集" class="headerlink" title="带权并查集"></a>带权并查集</h3><p>集合合并时，需要更新  $d[px]$ 的值，更新过程如下：</p>
-<p><img src="D:\Develop\Blog\source\_posts\数据结构.assets\image-20230722110241304.png" alt="image-20230722110241304"></p>
+<p><img src="/images/3.png" alt=""></p>
 <p><mark>模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">function&lt;int(int)&gt; find &#x3D; [&amp;](int x) -&gt; int
 &#123;
@@ -1164,7 +1164,7 @@ auto merge &#x3D; [&amp;](int a,int b,int d) -&gt; void
 <p>2、如果颜色数量大的要合并到颜色数量小的里面去，需要考虑下映射：因为还是需要先将数量少的集合放到数量多的集合里面，那么被保留的颜色应该是那个数量少的颜色，而放到集合大的集合后颜色仍为原本集合大的颜色，因此需要一种映射操作去维护对应颜色归属。</p>
 </blockquote>
 <p><strong>具体过程：</strong></p>
-<p><img src="D:\Develop\Blog\source\_posts\数据结构.assets\image-20230415140514438.png" alt="image-20230415140514438"></p>
+<p><img src="/images/4.png" alt=""></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1698,7 +1698,7 @@ int main()
 <li><p>求区间第k大值</p>
 </li>
 <li><p>求区间n次方和</p>
-<p><img src="https://pic1.zhimg.com/80/v2-dab9afe9114971ed82c27e5516af35b8_720w.webp" alt="img"></p>
+<p><img src="/images/9.webp" alt=""></p>
 </li>
 </ul>
 <p><mark>模板题：</mark></p>
@@ -1890,13 +1890,13 @@ int main()
 <p>并且使用如下方式插入：</p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">S.insert(&#123;i,i,a[i]&#125;);</code></pre>
 <p>则会出现问题！即它只接收我第一个参数，后面的全给忽视了！！！</p>
-<p><img src="D:\Develop\Blog\source\_posts\数据结构.assets\image-20230320133802252.png" alt="image-20230320133802252"></p>
+<p><img src="/images/5.png" alt="5"></p>
 <p>因此一定要注意插入的时候用带上结构体。当然如果不定义构造函数，就可以直接用大括号插入。</p>
 <h2 id="平衡树"><a href="#平衡树" class="headerlink" title="平衡树"></a>平衡树</h2><h3 id="Treap"><a href="#Treap" class="headerlink" title="Treap"></a>Treap</h3><p>Treap = Tree + Heap</p>
 <p>右旋：</p>
-<p><img src="https://cdn.acwing.com/media/article/image/2021/10/29/52559_e3864c7b38-5057293-45da57f7ccfefe4d.gif" alt="5057293-45da57f7ccfefe4d.gif"></p>
+<p><img src="/images/8.gif" alt="右旋"></p>
 <p>左旋：</p>
-<p><img src="https://cdn.acwing.com/media/article/image/2021/10/30/52559_c53b02bc39-5057293-3e5e8475936a5f0a.gif" alt="5057293-3e5e8475936a5f0a.gif"></p>
+<p><img src="/images/7.gif" alt="左旋"></p>
 <p>模板题：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/255/">普通平衡树</a></p>
 <p><mark>模板代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -2256,7 +2256,7 @@ int main()
 <p><strong>性质：每条实链用一个splay维护，中序遍历按深度严格递增。</strong></p>
 <p>注意：区分<strong>树根</strong>和<strong>splay的根</strong>。</p>
 <p>一些辅助树构成了Link Cut Tree(LCT)，其维护的是整个森林。</p>
-<p><img src="D:\Develop\Blog\source\_posts\数据结构.assets\image-20230316183608662.png" alt="image-20230316183608662"></p>
+<p><img src="/images/6.png" alt=""></p>
 <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3690">【模板】动态树（Link Cut Tree）</a></p>
 <p>给定 n 个点以及每个点的权值，要你处理接下来的 m个操作。<br>操作有四种，操作从 0 到 3 编号。点从 1 到 n 编号。</p>
 <ul>
@@ -2409,8 +2409,7 @@ int main()
     
     return 0;
 &#125;</code></pre>
-<h2 id="AC自动机"><a href="#AC自动机" class="headerlink" title="AC自动机"></a>AC自动机</h2><p><img src="D:\Develop\Blog\source\_posts\image\image-20221116093020974.png" alt="image-20221116093020974"></p>
-<p><strong>模板题：</strong></p>
+<h2 id="AC自动机"><a href="#AC自动机" class="headerlink" title="AC自动机"></a>AC自动机</h2><p><strong>模板题：</strong></p>
 <p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/1284/">搜索关键词</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/1287/">单词</a></p>
 <p><strong>模板题加强版(严格O(n))：</strong></p>
@@ -2506,7 +2505,6 @@ int main()
 <li>最长公共子串。</li>
 </ol>
 </blockquote>
-<p><img src="D:\Develop\Blog\source\_posts\数据结构.assets\image-20221116093020974.png" alt="image-20221116093020974"></p>
 <p><mark>模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
