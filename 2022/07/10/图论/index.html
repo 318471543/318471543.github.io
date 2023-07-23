@@ -1291,7 +1291,7 @@ int main()
 &#125;</code></pre>
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/863/">二分图的最大匹配</a></p>
-<h2 id="Tarjan"><a href="#Tarjan" class="headerlink" title="Tarjan"></a>Tarjan</h2><p><strong>基本定义：</strong></p>
+<h2 id="Tarjan"><a href="#Tarjan" class="headerlink" title="Tarjan"></a>Tarjan</h2><h3 id="有向图的强连通分量"><a href="#有向图的强连通分量" class="headerlink" title="有向图的强连通分量"></a>有向图的强连通分量</h3><p><strong>基本定义：</strong></p>
 <p>对于一个有向图，<strong>连通分量</strong>：对于分量中任意两点 $u$ 、$v$，必然可以从 $u$ 走到  $v$，且从 $v$ 走到 $u$ 。</p>
 <p><strong>强连通分量</strong>：极大连通分量。</p>
 <blockquote>
@@ -1305,41 +1305,412 @@ int main()
 </ul>
 <p>因此，$u$ 是其所在的强连通分量的最高点，等价于 $dfn[u] == low[u]$。</p>
 <p><mark>模板：</mark></p>
-<pre class="language-c++" data-language="c++"><code class="language-c++">int dfn[N],low[N],timestamp;
+<pre class="language-c++" data-language="c++"><code class="language-c++">int low[N],dfn[N],timestamp;
 int stk[N],top;
 bool in_stk[N];
 int id[N],scc_cnt,sz[N];
-int dout[N];&#x2F;&#x2F;出度
 
-void tarjan(int u)&#x2F;&#x2F;塔尖儿
+void tarjan(int u)
 &#123;
-    dfn[u] &#x3D; low[u] &#x3D; ++ timestamp;
+    dfn[u] &#x3D; low[u] &#x3D; ++timestamp;
     stk[++top] &#x3D; u,in_stk[u] &#x3D; true;
-    for (int i &#x3D; h[u]; i !&#x3D; -1; i &#x3D; ne[i])
+    for(int i &#x3D; h[u]; ~i;i &#x3D; ne[i])
     &#123;
         int j &#x3D; e[i];
         if(!dfn[j])
         &#123;
             tarjan(j);
-            low[u] &#x3D; min(low[u],low[j]); 
+            low[u] &#x3D; min(low[u],low[j]);
         &#125;
         else if(in_stk[j])  low[u] &#x3D; min(low[u],dfn[j]);
     &#125;
+
     if(dfn[u] &#x3D;&#x3D; low[u])
     &#123;
         ++scc_cnt;
         int y;
-        do&#123;
+        do
+        &#123;
             y &#x3D; stk[top--];
             in_stk[y] &#x3D; false;
             id[y] &#x3D; scc_cnt;
             sz[scc_cnt]++;
-        &#125;while(y !&#x3D; u);
+        &#125; while (y !&#x3D; u);
     &#125;
+&#125;</code></pre>
+<p><mark>模板题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1e4 + 10,M &#x3D; 5e4 + 10;
+
+int n,m;
+int h[N],e[M],ne[M],idx;
+int low[N],dfn[N],timestamp;
+int stk[N],top;
+bool in_stk[N];
+int id[N],scc_cnt,sz[N];
+int dout[N];
+
+void add(int a,int b)
+&#123;
+    e[idx] &#x3D; b,ne[idx] &#x3D; h[a],h[a] &#x3D; idx++;
+&#125;
+
+void tarjan(int u)
+&#123;
+    dfn[u] &#x3D; low[u] &#x3D; ++timestamp;
+    stk[++top] &#x3D; u,in_stk[u] &#x3D; true;
+    for(int i &#x3D; h[u]; ~i;i &#x3D; ne[i])
+    &#123;
+        int j &#x3D; e[i];
+        if(!dfn[j])
+        &#123;
+            tarjan(j);
+            low[u] &#x3D; min(low[u],low[j]);
+        &#125;
+        else if(in_stk[j])  low[u] &#x3D; min(low[u],dfn[j]);
+    &#125;
+
+    if(dfn[u] &#x3D;&#x3D; low[u])
+    &#123;
+        ++scc_cnt;
+        int y;
+        do
+        &#123;
+            y &#x3D; stk[top--];
+            in_stk[y] &#x3D; false;
+            id[y] &#x3D; scc_cnt;
+            sz[scc_cnt]++;
+        &#125; while (y !&#x3D; u);
+    &#125;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n,m;
+    cin &gt;&gt; n &gt;&gt; m;
+
+    memset(h,-1,sizeof(h));
+
+    while (m--)
+    &#123;
+        int a,b;
+        cin &gt;&gt; a &gt;&gt; b;
+        add(a,b);
+    &#125;
+
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+        if(!dfn[i])
+            tarjan(i);
+
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+    &#123;
+        for(int j &#x3D; h[i]; ~j;j &#x3D; ne[j])
+        &#123;
+            int k &#x3D; e[j];
+            int a &#x3D; id[i],b &#x3D; id[k];
+            if(a !&#x3D; b)
+            &#123;
+                dout[a]++;
+            &#125;
+        &#125;
+    &#125;
+
+    int zero &#x3D; 0,sum &#x3D; 0;
+
+    for(int i &#x3D; 1;i &lt;&#x3D; scc_cnt;i++)
+        if(!dout[i])
+        &#123;
+            zero++;
+            sum &#x3D; sz[i];
+            if(zero &gt; 1)
+            &#123;
+                sum &#x3D; 0;
+                break;
+            &#125;
+        &#125;
+    
+    cout &lt;&lt; sum &lt;&lt; &quot;\n&quot;;
+    return 0;
 &#125;</code></pre>
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1176/">受欢迎的牛</a></p>
 <p><strong>$tarjan + dp$：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1177/">最大半连通子图</a>，其中 $dp$ 问题类似于<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/11/">背包问题求方案数</a></p>
+<h3 id="无向图的双连通分量"><a href="#无向图的双连通分量" class="headerlink" title="无向图的双连通分量"></a>无向图的双连通分量</h3><p><strong>基本定义：</strong></p>
+<ul>
+<li><p>边双连通分量 $(e-DCC)$</p>
+<ul>
+<li><p>极大的不包含<strong>桥</strong>（桥：去掉一条边，会使其变得不连通）的连通块，被称为边双连通分量。那么在一个边双连通分量中，不管删除哪条边，该区域仍然连通。</p>
+<p><img src="/images/11.png" alt="11"></p>
+</li>
+</ul>
+</li>
+<li><p>点双连通分量 $(v-DCC)$</p>
+<ul>
+<li><p>极大的不包含<strong>割点</strong>的连通块，被称为点双连通分量。</p>
+<p><img src="/images/12.png" alt="12"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="边双连通分量"><a href="#边双连通分量" class="headerlink" title="边双连通分量"></a>边双连通分量</h4><blockquote>
+<p><strong>边双连通分量：</strong></p>
+<p>1、如何找到桥？<br>桥 $\Longleftrightarrow $ $dfn[x] &lt; low[y]$</p>
+<p><strong>结论：</strong></p>
+<p>1、对于有向图，最少加多少条边可以使其变成强连通分量呢？</p>
+<p>答案为：$max(p,q)$ 。其中 $p,q$ 分别表示出度为 $0$ 和入度为 $0$ 的连通块数。</p>
+<p>2、对于无向图，最小加多少条边可以使其变成边双连通分量呢？</p>
+<p>答案为：<strong>$\lfloor \frac{cnt + 1}{2} \rfloor$</strong>，其中 $cnt$ 是缩完点后，度数为 $1$ 的点的个数。 </p>
+</blockquote>
+<p><mark>模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">int dfn[N],low[N],timestamp;
+int id[N],dcc_cnt;
+int stk[N],top;
+bool is_bridge[N];
+
+void tarjan(int u,int from)
+&#123;
+    dfn[u] &#x3D; low[u] &#x3D; ++timestamp;
+    stk[++top] &#x3D; u;
+    for(int i &#x3D; h[u]; ~i;i &#x3D; ne[i])
+    &#123;
+        int j &#x3D; e[i];
+        if(!dfn[j])
+        &#123;
+            tarjan(j,i);
+            low[u] &#x3D; min(low[u],low[j]);
+            if(low[j] &gt; dfn[u]) 
+            &#123;
+                is_bridge[i] &#x3D; is_bridge[i ^ 1] &#x3D; true;
+            &#125;
+        &#125;
+        else if(i !&#x3D; (from ^ 1))  low[u] &#x3D; min(low[u],dfn[j]);
+    &#125;
+
+    if(dfn[u] &#x3D;&#x3D; low[u])
+    &#123;
+        ++dcc_cnt;
+        int y;
+        do
+        &#123;
+            y &#x3D; stk[top--];
+            id[y] &#x3D; dcc_cnt;
+        &#125; while (y !&#x3D; u);
+        
+    &#125;
+&#125;</code></pre>
+<p><mark>模板题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+
+using namespace std;
+
+const int N &#x3D; 5e3 + 10,M &#x3D; 2e4 + 10;
+
+int n,m;
+int h[N],e[M],ne[M],idx;
+int dfn[N],low[N],timestamp;
+int id[N],dcc_cnt;
+int stk[N],top;
+bool is_bridge[N];
+int d[N];
+
+void add(int a,int b)
+&#123;
+    e[idx] &#x3D; b,ne[idx] &#x3D; h[a],h[a] &#x3D; idx++;
+&#125;
+
+void tarjan(int u,int from)
+&#123;
+    dfn[u] &#x3D; low[u] &#x3D; ++timestamp;
+    stk[++top] &#x3D; u;
+    for(int i &#x3D; h[u]; ~i;i &#x3D; ne[i])
+    &#123;
+        int j &#x3D; e[i];
+        if(!dfn[j])
+        &#123;
+            tarjan(j,i);
+            low[u] &#x3D; min(low[u],low[j]);
+            if(low[j] &gt; dfn[u]) 
+            &#123;
+                is_bridge[i] &#x3D; is_bridge[i ^ 1] &#x3D; true;
+            &#125;
+        &#125;
+        else if(i !&#x3D; (from ^ 1))  low[u] &#x3D; min(low[u],dfn[j]);
+    &#125;
+
+    if(dfn[u] &#x3D;&#x3D; low[u])
+    &#123;
+        ++dcc_cnt;
+        int y;
+        do
+        &#123;
+            y &#x3D; stk[top--];
+            id[y] &#x3D; dcc_cnt;
+        &#125; while (y !&#x3D; u);
+        
+    &#125;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    cin &gt;&gt; n &gt;&gt; m;
+
+    memset(h,-1,sizeof(h));
+    while (m--)
+    &#123;
+        int a,b;
+        cin &gt;&gt; a &gt;&gt; b;
+        add(a,b),add(b,a);
+    &#125;
+    
+    tarjan(1,-1);
+
+    for(int i &#x3D; 0;i &lt; idx;i++)
+    &#123;
+        if(is_bridge[i])
+            d[id[e[i]]]++;
+    &#125;
+
+    int cnt &#x3D; 0;
+    for(int i &#x3D; 1;i &lt;&#x3D; dcc_cnt;i++)
+        if(d[i] &#x3D;&#x3D; 1)   
+            cnt++;
+
+    cout &lt;&lt; (cnt + 1) &#x2F; 2 &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/397/">冗余路径</a></p>
+<h4 id="点双连通分量"><a href="#点双连通分量" class="headerlink" title="点双连通分量"></a>点双连通分量</h4><blockquote>
+<p><strong>点双连通分量：</strong><br>1、如何求割点？</p>
+<p>$low[y] \ge dfn[x]$</p>
+<ul>
+<li>如果 $x$ 不是根节点，那么 $x$ 是割点。</li>
+<li>如果 $x$ 是根节点</li>
+<li>至少有两个子节点 $y_i$，满足：$low[y_i] \ge dfn[x]$，则 $x$ 是割点。</li>
+</ul>
+<p>2、如何求点双连通分量？</p>
+<ol>
+<li>统计连通块个数 $cnt$；</li>
+<li>枚举从哪个块中删除哪个点 $v$，使其分成了 $s$ 个块，则当前答案为 $s + cnt - 1$；</li>
+<li>枚举取个最大值即可。</li>
+</ol>
+</blockquote>
+<p><mark>模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">void tarjan(int u)
+&#123;
+    dfn[u] &#x3D; low[u] &#x3D; ++timestamp;
+    stk[++top] &#x3D; u;
+	
+    if(u &#x3D;&#x3D; root &amp;&amp; h[u] &#x3D;&#x3D; -1)&#x2F;&#x2F;孤立点
+    &#123;
+        ++dcc_cnt;
+        dcc[dcc_cnt].push_back(u);
+        return ;
+    &#125;
+
+    int cnt &#x3D; 0;
+    for(int i &#x3D; h[u]; ~i;i &#x3D; ne[i])
+    &#123;
+        int j &#x3D; e[i];
+        if(!dfn[j])
+        &#123;
+            tarjan(j);
+            low[u] &#x3D; min(low[u],low[j]);
+            if(low[j] &gt;&#x3D; dfn[u])
+            &#123;
+                cnt++;
+                ++dcc_cnt;
+                if(root !&#x3D; u || cnt &gt; 1)    cut[u] &#x3D; true;
+                int y;
+                do
+                &#123;
+                    y &#x3D; stk[top--];
+                    dcc[dcc_cnt].push_back(y);
+                &#125; while (y !&#x3D; j);
+                dcc[dcc_cnt].push_back(u);
+            &#125;
+        &#125;
+        else    low[u] &#x3D; min(low[u],dfn[j]);
+    &#125;
+&#125;</code></pre>
+<p><mark>模板题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1e4 + 10,M &#x3D; 3e4 + 10;
+
+int n,m;
+int h[N],e[M],ne[M],idx;
+int dfn[N],low[N],timestamp;
+int root,ans;
+
+void add(int a,int b)
+&#123;
+    e[idx] &#x3D; b,ne[idx] &#x3D; h[a],h[a] &#x3D; idx++;
+&#125;
+
+void tarjan(int u)
+&#123;
+    dfn[u] &#x3D; low[u] &#x3D; ++ timestamp;
+    int cnt &#x3D; 0;&#x2F;&#x2F;当前块内可以分出的子树个数
+
+    for(int i &#x3D; h[u]; ~i;i &#x3D; ne[i])
+    &#123;
+        int j &#x3D; e[i];
+        if(!dfn[j])
+        &#123;
+            tarjan(j);
+            low[u] &#x3D; min(low[u],low[j]);
+            if(low[j] &gt;&#x3D; dfn[u])    cnt++;
+        &#125;
+        else    low[u] &#x3D; min(low[u],dfn[j]);
+    &#125;
+
+    if(u !&#x3D; root &amp;&amp; cnt)    cnt++;
+    ans &#x3D; max(ans,cnt);
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    while(cin &gt;&gt; n &gt;&gt; m,n || m)
+    &#123;
+        memset(dfn,0,sizeof(dfn));
+        memset(h,-1,sizeof(h));
+        idx &#x3D; ans &#x3D; timestamp &#x3D; 0;
+
+        while (m--)
+        &#123;
+            int a,b;
+            cin &gt;&gt; a &gt;&gt; b;
+            add(a,b),add(b,a);
+        &#125;
+
+        int cnt &#x3D; 0;
+        for (root &#x3D; 0; root&lt; n; root++)
+            if(!dfn[root])
+            &#123;
+                tarjan(root);
+                cnt++;
+            &#125;
+        
+        cout &lt;&lt; (ans + cnt - 1) &lt;&lt; &quot;\n&quot;;
+    &#125;
+    return 0;
+&#125;</code></pre>
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1185/">电力</a></p>
+<p><strong>按点双连通分量缩点：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/398/">矿场搭建</a></p>
 <h2 id="最近公共祖先-LCA"><a href="#最近公共祖先-LCA" class="headerlink" title="最近公共祖先(LCA)"></a>最近公共祖先(LCA)</h2><p><mark>模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
