@@ -534,6 +534,79 @@ int main()
 
     return 0;
 &#125;</code></pre>
+<h2 id="G-Link-with-Centrally-Symmetric-Strings"><a href="#G-Link-with-Centrally-Symmetric-Strings" class="headerlink" title="G Link with Centrally Symmetric Strings"></a>G Link with Centrally Symmetric Strings</h2><p><strong>题意：</strong></p>
+<p>​        给点一个串，问该串是否可以分成若干个由题意描述的中心对称子串。</p>
+<p><strong>思路：</strong></p>
+<p>​        $manacher + dp$。</p>
+<ul>
+<li>需要略微修改 $manacher$ 的板子，即重定义匹配规则，令 $pl$ 字符串与 $pr$ 字符串匹配（参考下面代码），然后由于存在自己跟自己相同的字符（如 $o,s,x,z$ ），也有不相同的可以匹配，那么就需要修改一个条件：<code>p[i] = i &lt;= r ? min(p[mid * 2 - i],r - i + 1) : 1;</code>，将默认最小的 $1$ 改为 $0$，因为模板是求回文串的，一定是相同字母和相同字母匹配，所以省略了自己跟自己匹配，故最初从 $p[i]$ 从 $1$ 开始。 </li>
+<li>接着是跑 $DP$。不过这个 $DP$ 比较简单，定义：$f[i]$：前 $i$ 个字符都能匹配的状态（即 $0$ 或 $1$）。在 $manacher$ 板子里加上 <code>f[i + p[i]] |= f[i - p[i] - 1]</code> 即可，最终答案为 $f[n]$。</li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 2e6 + 10;
+
+int n;
+char a[N],s[N];
+int p[N];&#x2F;&#x2F;以i为中心的最大回文半径
+map&lt;char,char&gt; mp;
+string pl &#x3D; &quot;bdpqnuosxz#&quot;;
+string pr &#x3D; &quot;qpdbunosxz#&quot;;
+bool f[N];
+
+void init()
+&#123;
+    n &#x3D; 0;
+    int len &#x3D; strlen(a);
+    s[0] &#x3D; &#39;$&#39;;
+    for(int i &#x3D; 0;i &lt; len;i++) s[++n] &#x3D; &#39;#&#39;,s[++n] &#x3D; a[i];
+    s[++n] &#x3D; &#39;#&#39;,s[n + 1] &#x3D; &#39;^&#39;;
+&#125;
+
+void manacher()
+&#123;
+    init();
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   f[i] &#x3D; 0;
+    f[0] &#x3D; 1;
+
+    int mid &#x3D; 0,r &#x3D; 0;
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+    &#123;
+        p[i] &#x3D; i &lt;&#x3D; r ? min(p[mid * 2 - i],r - i + 1) : 0;
+        while(s[i - p[i]] &#x3D;&#x3D; mp[s[i + p[i]]])   
+        &#123;
+            f[i + p[i]] |&#x3D; f[i - p[i] - 1];
+            p[i]++;
+        &#125;
+        if(i + p[i] - 1 &gt; r)    r &#x3D; i + p[i] - 1,mid &#x3D; i;
+    &#125;
+&#125;
+
+void solve()
+&#123;
+    cin &gt;&gt; a;
+    manacher();
+
+    &#x2F;&#x2F; for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cout &lt;&lt; f[i] &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; n];
+    cout &lt;&lt; (f[n] ? &quot;Yes&quot; : &quot;No&quot;) &lt;&lt; &quot;\n&quot;;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+    
+    for(int i &#x3D; 0;i &lt; pl.size();i++)
+        mp[pl[i]] &#x3D; pr[i];
+
+    int t;
+    cin &gt;&gt; t;
+    
+    while(t--)  solve();
+
+    return 0;
+&#125;</code></pre>
 <h2 id="I-Link-with-Gomoku"><a href="#I-Link-with-Gomoku" class="headerlink" title="I Link with Gomoku"></a>I Link with Gomoku</h2><p><strong>题意：</strong></p>
 <p>​        模拟五子棋的过程，使其变成“平局”的局面。</p>
 <p><strong>思路：</strong></p>

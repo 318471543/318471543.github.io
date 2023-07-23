@@ -922,9 +922,49 @@ int main()
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/843/">字符串哈希</a></p>
 <p><a target="_blank" rel="noopener" href="https://codeforces.com/gym/103729/problem/J">https://codeforces.com/gym/103729/problem/J</a></p>
 <h2 id="Manacher算法"><a href="#Manacher算法" class="headerlink" title="Manacher算法"></a>Manacher算法</h2><blockquote>
-<p>求序列的最长回文子串的长度是多少？</p>
+<p><strong>应用：</strong>求序列的最长回文子串的长度是多少？</p>
+<p><strong>算法需知：</strong></p>
+<ul>
+<li>在原串中，不管是奇数还是偶数的回文串，在新串中都对应长度为奇数的回文串。</li>
+<li>细节方面：若原串空间为 $n(即数组下标为[0,n - 1])$，则新串空间长度需为 $2n + 3(即数组下标为[0,2n+2])$。</li>
+<li><strong>具体而言，只需考虑 $[1,n]$，其中 $n$ 为更新后的长度，即 $n<em>{新} = 2n</em>{原} + 1$，为奇数，该区间串的内容为：”#a#a#”(以 $aa$ 字符串为例)。</strong></li>
+</ul>
+<p><strong>数组含义：</strong></p>
+<ul>
+<li>a[i]：原串</li>
+<li>s[i]：新串</li>
+<li>p[i]：新串中以 $i$ 为中心的最大回文串的半径是多少。</li>
+</ul>
+<p><strong>时间复杂度：</strong>$O(n)$</p>
 </blockquote>
 <p><mark>模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e7 + 10;
+
+int n;
+char a[N &lt;&lt; 1],s[N &lt;&lt; 1];
+int p[N &lt;&lt; 1];&#x2F;&#x2F;以i为中心的最大回文半径
+
+void init()
+&#123;
+    n &#x3D; 0;
+    int len &#x3D; strlen(a);
+    s[0] &#x3D; &#39;$&#39;;
+    for(int i &#x3D; 0;i &lt; len;i++) s[++n] &#x3D; &#39;#&#39;,s[++n] &#x3D; a[i];
+    s[++n] &#x3D; &#39;#&#39;,s[n + 1] &#x3D; &#39;^&#39;;
+&#125;
+
+void manacher()
+&#123;
+    init();
+    int mid &#x3D; 0,r &#x3D; 0;
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+    &#123;
+        p[i] &#x3D; i &lt;&#x3D; r ? min(p[mid * 2 - i],r - i + 1) : 1;
+        while(s[i - p[i]] &#x3D;&#x3D; s[i + p[i]])   p[i]++;
+        if(i + p[i] - 1 &gt; r)    r &#x3D; i + p[i] - 1,mid &#x3D; i;
+    &#125;
+&#125;</code></pre>
+<p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -932,50 +972,47 @@ using namespace std;
 const int N &#x3D; 2e7 + 10;
 
 int n;
-char a[N],b[N];
-int p[N];&#x2F;&#x2F;以s[i]为中心的最大回文串的半径
+char a[N],s[N];
+int p[N];&#x2F;&#x2F;以i为中心的最大回文半径
 
-void init()&#x2F;&#x2F;下标0,n-1是边界,一般可以认为是从1到n - 2为对应的2 * n + 1个。
+void init()
 &#123;
-    int k &#x3D; 0;
-    b[k++] &#x3D; &#39;$&#39;,b[k++] &#x3D; &#39;#&#39;;
-    for(int i &#x3D; 0;i &lt; n;i++)    b[k++] &#x3D; a[i],b[k++] &#x3D; &#39;#&#39;;
-    b[k++] &#x3D; &#39;^&#39;;
-    n &#x3D; k;
+    s[0] &#x3D; &#39;$&#39;;
+    int len &#x3D; strlen(a);
+    for(int i &#x3D; 0;i &lt; len;i++) s[++n] &#x3D; &#39;#&#39;,s[++n] &#x3D; a[i];
+    s[++n] &#x3D; &#39;#&#39;,s[n + 1] &#x3D; &#39;^&#39;;
 &#125;
 
 void manacher()
 &#123;
-    int mr &#x3D; 0,mid;
-    for(int i &#x3D; 1;i &lt; n;i++)
+    init();
+    int mid &#x3D; 0,r &#x3D; 0;
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
     &#123;
-        if(i &lt; mr)  p[i] &#x3D; min(p[mid * 2 - i],mr - i);
-        else    p[i] &#x3D; 1;
-        while(b[i - p[i]] &#x3D;&#x3D; b[i + p[i]])   p[i]++;
-        if(i + p[i] &gt; mr)
-        &#123;
-            mr &#x3D; i + p[i];
-            mid &#x3D; i;
-        &#125;  
+        p[i] &#x3D; i &lt;&#x3D; r ? min(p[mid * 2 - i],r - i + 1) : 1;
+        while(s[i - p[i]] &#x3D;&#x3D; s[i + p[i]])   p[i]++;
+        if(i + p[i] - 1 &gt; r)    r &#x3D; i + p[i] - 1,mid &#x3D; i;
     &#125;
 &#125;
 
 int main()
 &#123;
-    scanf(&quot;%s&quot;,a);
-    n &#x3D; strlen(a);
-
-    init();
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+    cin &gt;&gt; a;
+    
     manacher();
 
     int res &#x3D; 0;
-    for(int i &#x3D; 0;i &lt; n;i++)    res &#x3D; max(res,p[i]);
-    printf(&quot;%d\n&quot;,res - 1);
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+        res &#x3D; max(res,p[i]);
     
+    cout &lt;&lt; res - 1 &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/3190/">Manacher算法</a></p>
+<p><strong>$Manacher$ + 差分：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/33540/A">花非花</a></p>
+<p><a href="Link with Centrally Symmetric Strings">Link with Centrally Symmetric Strings</a></p>
 <h2 id="Trie"><a href="#Trie" class="headerlink" title="Trie"></a>Trie</h2><blockquote>
 <p>字典树。用来存储和查询字符串（01串）。</p>
 </blockquote>
