@@ -4,12 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="2023牛客暑期多校训练营2, 重生带我走">
-    <meta name="description" content="比赛超链接：2023牛客暑期多校训练营2
-E Square题意：
-​        给定一个数 $x$，请找一个数 $y$ 使得 $y^2$ 的前缀含有 $x$。
-思路：
-​        比如给一个数 $4$，优先会想到 $2^2 = 4">
+    <meta name="keywords" content="2023牛客暑期多校训练营3, 重生带我走">
+    <meta name="description" content="比赛超链接：2023牛客暑期多校训练营3
+A World Fragments I题意：
+​        给定两个二进制数 $x$ 和 $y$，为使 $x$ 变换成 $y$，可以选取 $x$ 二进制表示中的一位上的数字进行 $+/-$，问最">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -34,7 +32,7 @@ E Square题意：
 
     
 
-    <title>2023牛客暑期多校训练营2 | 重生带我走</title>
+    <title>2023牛客暑期多校训练营3 | 重生带我走</title>
     <link rel="icon" type="image/jpeg" href="/favicon.jpg">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -324,12 +322,12 @@ E Square题意：
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">2023牛客暑期多校训练营2</h1>
+                    <h1 class="description center-align post-title">2023牛客暑期多校训练营3</h1>
                 </div>
             </div>
         </div>
@@ -445,8 +443,8 @@ E Square题意：
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/2023%E7%89%9B%E5%AE%A2%E6%9A%91%E6%9C%9F%E5%A4%9A%E6%A0%A1%E8%AE%AD%E7%BB%83%E8%90%A52/">
-                                <span class="chip bg-color">2023牛客暑期多校训练营2</span>
+                            <a href="/tags/2023%E7%89%9B%E5%AE%A2%E6%9A%91%E6%9C%9F%E5%A4%9A%E6%A0%A1%E8%AE%AD%E7%BB%83%E8%90%A53/">
+                                <span class="chip bg-color">2023牛客暑期多校训练营3</span>
                             </a>
                         
                     </div>
@@ -461,7 +459,7 @@ E Square题意：
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-07-21
+                    2023-07-25
                 </div>
                 
 
@@ -485,194 +483,191 @@ E Square题意：
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><mark>比赛超链接：<a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57356">2023牛客暑期多校训练营2</a></mark></p>
-<h2 id="E-Square"><a href="#E-Square" class="headerlink" title="E Square"></a>E Square</h2><p><strong>题意：</strong></p>
-<p>​        给定一个数 $x$，请找一个数 $y$ 使得 $y^2$ 的前缀含有 $x$。</p>
+                <p><mark>比赛超链接：<a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57357">2023牛客暑期多校训练营3</a></mark></p>
+<h2 id="A-World-Fragments-I"><a href="#A-World-Fragments-I" class="headerlink" title="A World Fragments I"></a>A World Fragments I</h2><p><strong>题意：</strong></p>
+<p>​        给定两个二进制数 $x$ 和 $y$，为使 $x$ 变换成 $y$，可以选取 $x$ 二进制表示中的一位上的数字进行 $+/-$，问最快什么时候变成 $y$？</p>
 <p><strong>思路：</strong></p>
-<p>​        比如给一个数 $4$，优先会想到 $2^2 = 4,7^2 = 49,20^2 = 400,\cdots$，因此，会优先考虑 $4,40,400,4000,\cdots$，然后对其开根号，由于精度问题，但只会上下浮动两个数（向下取整和向上取整），因此按照此思路模拟即可。</p>
+<p>​        如果 $x = y$，则 $0$ 次即可，否则判断 $x$ 二进制位上是否有 $1$，有 $1$ 才可以变换，则最小次数为绝对值之差，否则为 $-1$。 </p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
 typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
 
-void solve()
+#define IOS ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr)
+#define cf(_) int _;cin &gt;&gt; _;while(_--)
+
+mt19937 mrand(random_device&#123;&#125;());
+int rnd(int x) &#123; return mrand() % x;&#125;
+ll gcd(ll a,ll b)&#123;return b ? gcd(b,a % b) : a;&#125;
+ll fpow(ll a,ll b,ll mod)&#123;ll res &#x3D; 1;a %&#x3D; mod;assert(b &gt;&#x3D; 0);while(b)&#123;if(b &amp; 1)res &#x3D; res * a % mod;a &#x3D; a * a % mod;b &gt;&gt;&#x3D; 1;&#125;return res;&#125;
+
+int main()
 &#123;
-    ll n;
+    IOS;
+    string a,b;
+    cin &gt;&gt; a &gt;&gt; b;
+
+    if(a &#x3D;&#x3D; b)  return cout &lt;&lt; 0,0;
+
+    auto get &#x3D; [&amp;](string s) -&gt; ll
+    &#123;
+        ll res &#x3D; 0;
+        for(auto c : s)
+            res &#x3D; res * 2 + (c - &#39;0&#39;);
+        return res;
+    &#125;;
+
+    ll x &#x3D; get(a),y &#x3D; get(b);
+    if(!x)  cout &lt;&lt; -1;
+    else    cout &lt;&lt; abs(x - y);
+    return 0;
+&#125;</code></pre>
+<h2 id="D-Ama-no-Jaku"><a href="#D-Ama-no-Jaku" class="headerlink" title="D Ama no Jaku"></a>D Ama no Jaku</h2><p><strong>题意：</strong></p>
+<p>​        给定 $n$ 个数，每次同时令一个数 $+$ 1，一个数 $-$ 1，问是否最终可以令每个数都是质数？</p>
+<p><strong>思路：</strong></p>
+<p>​        由于每次操作，$\sum_{i=1}^{n}a_i$ 不变，那么分类讨论：</p>
+<ol>
+<li>如果 $\sum_{i=1}^{n}a_i \le 2n$ ，则一定不行；（连最小的 $2$ 都凑不齐）；</li>
+<li>如果 $n = 1$，判断其是否为质数；</li>
+<li>如果 $n = 2$：<ul>
+<li>如果二者之和为奇数：则一定一个为 $2$，另一个为奇数，只需判断那个奇数是否为质数即可；</li>
+<li>如果二者之和为偶数：则一定可以凑出来两个质数（当时手推的）；</li>
+</ul>
+</li>
+<li>如果 $n &gt; 2$：则一定都满足。（也是当时手玩发现的，此时已把前面 $\le 2n$ 判断过了）</li>
+</ol>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
+
+#define IOS ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr)
+#define cf(_) int _;cin &gt;&gt; _;while(_--)
+
+mt19937 mrand(random_device&#123;&#125;());
+int rnd(int x) &#123; return mrand() % x;&#125;
+ll gcd(ll a,ll b)&#123;return b ? gcd(b,a % b) : a;&#125;
+ll fpow(ll a,ll b,ll mod)&#123;ll res &#x3D; 1;a %&#x3D; mod;assert(b &gt;&#x3D; 0);while(b)&#123;if(b &amp; 1)res &#x3D; res * a % mod;a &#x3D; a * a % mod;b &gt;&gt;&#x3D; 1;&#125;return res;&#125;
+
+int main()
+&#123;
+    IOS;
+    int n;
     cin &gt;&gt; n;
 
-    bool ok &#x3D; false;
-    ll x &#x3D; 1,base &#x3D; 1;
-    while (sqrt(base * n) &lt;&#x3D; 1e9)
+    vector&lt;int&gt; a(n + 1);
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; a[i];
+
+    auto check &#x3D; [&amp;](ll n) -&gt; bool
     &#123;
-        x &#x3D; sqrt(base * n);
-        for(auto i : &#123;x,x + 1&#125;)
+        for(int i &#x3D; 2;i &lt;&#x3D; n &#x2F; i;i++)
         &#123;
-            ll t &#x3D; i * i;
-            if(t &gt;&#x3D; base * n &amp;&amp; t &lt; base * (n + 1))
+            if(n % i &#x3D;&#x3D; 0)  return false;
+        &#125;
+        return true;
+    &#125;;
+
+    if(accumulate(a.begin() + 1,a.end(),0ll) &lt; 2 * n)   
+    &#123;
+        cout &lt;&lt; &quot;No\n&quot;;
+        return 0;
+    &#125;
+
+    if(n &#x3D;&#x3D; 1)
+    &#123;
+        if(check(a[1]))    cout &lt;&lt; &quot;Yes\n&quot;;
+        else    cout &lt;&lt; &quot;No\n&quot;;
+        return 0;
+    &#125;
+    else 
+    &#123;
+        if(n &#x3D;&#x3D; 2)
+        &#123;
+            ll sum &#x3D; a[1] + a[2];
+            if(sum % 2)
             &#123;
-                ok &#x3D; true;
-                cout &lt;&lt; i &lt;&lt; &quot;\n&quot;;
-                break;
+                if(check(sum - 2))  cout &lt;&lt; &quot;Yes\n&quot;;
+                else    cout &lt;&lt; &quot;No\n&quot;;
             &#125;
+            else    cout &lt;&lt; &quot;Yes\n&quot;;
         &#125;
-        if(ok)  break;
-        base *&#x3D; 10;
+        else    cout &lt;&lt; &quot;Yes\n&quot;;
     &#125;
-
-    if(!ok) cout &lt;&lt; &quot;-1\n&quot;;
-&#125;
-
-int main()
-&#123;
-    cin.tie(nullptr)-&gt;sync_with_stdio(false);
-
-    int t;
-    cin &gt;&gt; t;
-
-    while(t--)  solve();
-
     return 0;
 &#125;</code></pre>
-<h2 id="G-Link-with-Centrally-Symmetric-Strings"><a href="#G-Link-with-Centrally-Symmetric-Strings" class="headerlink" title="G Link with Centrally Symmetric Strings"></a>G Link with Centrally Symmetric Strings</h2><p><strong>题意：</strong></p>
-<p>​        给点一个串，问该串是否可以分成若干个由题意描述的中心对称子串。</p>
+<h2 id="H-Until-the-Blue-Moon-Rises"><a href="#H-Until-the-Blue-Moon-Rises" class="headerlink" title="H Until the Blue Moon Rises"></a>H Until the Blue Moon Rises</h2><h2 id="J-Fine-Logic"><a href="#J-Fine-Logic" class="headerlink" title="J Fine Logic"></a>J Fine Logic</h2><p><strong>题意：</strong></p>
+<p>​        给定 $n$ 以及 $m$ 组赢关系，构造最少组排名使得每组赢关系都被至少一组排名所满足。</p>
 <p><strong>思路：</strong></p>
-<p>​        $manacher + dp$。</p>
-<ul>
-<li>需要略微修改 $manacher$ 的板子，即重定义匹配规则，令 $pl$ 字符串与 $pr$ 字符串匹配（参考下面代码），然后由于存在自己跟自己相同的字符（如 $o,s,x,z$ ），也有不相同的可以匹配，那么就需要修改一个条件：<code>p[i] = i &lt;= r ? min(p[mid * 2 - i],r - i + 1) : 1;</code>，将默认最小的 $1$ 改为 $0$，因为模板是求回文串的，一定是相同字母和相同字母匹配，所以省略了自己跟自己匹配，故最初从 $p[i]$ 从 $1$ 开始。 </li>
-<li>接着是跑 $DP$。不过这个 $DP$ 比较简单，定义：$f[i]$：前 $i$ 个字符都能匹配的状态（即 $0$ 或 $1$）。在 $manacher$ 板子里加上 <code>f[i + p[i]] |= f[i - p[i] - 1]</code> 即可，最终答案为 $f[n]$。</li>
-</ul>
+<p>​        如果是一个有向无环图$(DAG)$，则一组即可；如果有环，则两组即可，从 $1$ 输出到 $n$，然后再从 $n$ 输出到 $1$ 即可。</p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
-const int N &#x3D; 2e6 + 10;
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
 
-int n;
-char a[N],s[N];
-int p[N];&#x2F;&#x2F;以i为中心的最大回文半径
-map&lt;char,char&gt; mp;
-string pl &#x3D; &quot;bdpqnuosxz#&quot;;
-string pr &#x3D; &quot;qpdbunosxz#&quot;;
-bool f[N];
+#define IOS ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr)
+#define cf(_) int _;cin &gt;&gt; _;while(_--)
 
-void init()
-&#123;
-    n &#x3D; 0;
-    int len &#x3D; strlen(a);
-    s[0] &#x3D; &#39;$&#39;;
-    for(int i &#x3D; 0;i &lt; len;i++) s[++n] &#x3D; &#39;#&#39;,s[++n] &#x3D; a[i];
-    s[++n] &#x3D; &#39;#&#39;,s[n + 1] &#x3D; &#39;^&#39;;
-&#125;
-
-void manacher()
-&#123;
-    init();
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   f[i] &#x3D; 0;
-    f[0] &#x3D; 1;
-
-    int mid &#x3D; 0,r &#x3D; 0;
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
-    &#123;
-        p[i] &#x3D; i &lt;&#x3D; r ? min(p[mid * 2 - i],r - i + 1) : 0;
-        while(s[i - p[i]] &#x3D;&#x3D; mp[s[i + p[i]]])   
-        &#123;
-            f[i + p[i]] |&#x3D; f[i - p[i] - 1];
-            p[i]++;
-        &#125;
-        if(i + p[i] - 1 &gt; r)    r &#x3D; i + p[i] - 1,mid &#x3D; i;
-    &#125;
-&#125;
-
-void solve()
-&#123;
-    cin &gt;&gt; a;
-    manacher();
-
-    &#x2F;&#x2F; for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cout &lt;&lt; f[i] &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; n];
-    cout &lt;&lt; (f[n] ? &quot;Yes&quot; : &quot;No&quot;) &lt;&lt; &quot;\n&quot;;
-&#125;
+mt19937 mrand(random_device&#123;&#125;());
+int rnd(int x) &#123; return mrand() % x;&#125;
+ll gcd(ll a,ll b)&#123;return b ? gcd(b,a % b) : a;&#125;
+ll fpow(ll a,ll b,ll mod)&#123;ll res &#x3D; 1;a %&#x3D; mod;assert(b &gt;&#x3D; 0);while(b)&#123;if(b &amp; 1)res &#x3D; res * a % mod;a &#x3D; a * a % mod;b &gt;&gt;&#x3D; 1;&#125;return res;&#125;
 
 int main()
 &#123;
-    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+    IOS;
     
-    for(int i &#x3D; 0;i &lt; pl.size();i++)
-        mp[pl[i]] &#x3D; pr[i];
-
-    int t;
-    cin &gt;&gt; t;
-    
-    while(t--)  solve();
-
-    return 0;
-&#125;</code></pre>
-<h2 id="I-Link-with-Gomoku"><a href="#I-Link-with-Gomoku" class="headerlink" title="I Link with Gomoku"></a>I Link with Gomoku</h2><p><strong>题意：</strong></p>
-<p>​        模拟五子棋的过程，使其变成“平局”的局面。</p>
-<p><strong>思路：</strong></p>
-<p>​        一种构造方法就是：</p>
-<p>​        $xxooxxoo$</p>
-<p>​        $ooxxooxx$</p>
-<p>​        $xxooxxoo$</p>
-<p>​        $ooxxooxx$</p>
-<p>​        $\cdots$</p>
-<p>可能由于奇偶的性质，导致 $o$ 和 ‘x’ 的个数不够，因此，先处理好前 $n - 1$ 行的局面，最后一行根据个数间隔插入即可。</p>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
-
-using namespace std;
-
-void solve()
-&#123;
     int n,m;
     cin &gt;&gt; n &gt;&gt; m;
 
-    char op1[] &#x3D; &#123;&#39;o&#39;,&#39;o&#39;,&#39;x&#39;,&#39;x&#39;&#125;,op2[] &#x3D; &#123;&#39;x&#39;,&#39;x&#39;,&#39;o&#39;,&#39;o&#39;&#125;;
-
-    int cnt_x &#x3D; 0,cnt_o &#x3D; 0;
-    for(int i &#x3D; 1;i &lt;&#x3D; n - 1;i++)
+    vector&lt;vector&lt;int&gt;&gt; g(n + 1);
+    vector&lt;int&gt; d(n + 1);
+    while (m--)
     &#123;
-        for(int j &#x3D; 1;j &lt;&#x3D; m;j++)
-            if(i % 2)   
-            &#123;
-                cout &lt;&lt; op1[j % 4];
-                if(op1[j % 4] &#x3D;&#x3D; &#39;o&#39;)   cnt_o++;
-                else    cnt_x++;
-            &#125;
-            else    
-            &#123;
-                cout &lt;&lt; op2[j % 4];
-                if(op2[j % 4] &#x3D;&#x3D; &#39;o&#39;)   cnt_o++;
-                else    cnt_x++;
-            &#125;
-        cout &lt;&lt; &quot;\n&quot;; 
+        int a,b;
+        cin &gt;&gt; a &gt;&gt; b;
+        g[a].push_back(b);
+        d[b]++;
     &#125;
 
-    for(int i &#x3D; 1;i &lt;&#x3D; m;i++)
+    vector&lt;int&gt; q(n + 1);
+    int hh &#x3D; 0,tt &#x3D; -1;
+    auto topsort &#x3D; [&amp;]() -&gt; bool
     &#123;
-        if(cnt_o &lt; cnt_x)  
+        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+            if(!d[i])
+                q[++tt] &#x3D; i;
+
+        while (hh &lt;&#x3D; tt)
         &#123;
-            cout &lt;&lt; &#39;o&#39;;
-            cnt_o++;
+            auto t &#x3D; q[hh++];
+            for(auto v : g[t])
+            &#123;
+                if(--d[v] &#x3D;&#x3D; 0) 
+                &#123;
+                    q[++tt] &#x3D; v;
+                &#125;
+            &#125;
         &#125;
-        else    
-        &#123;
-            cout &lt;&lt; &#39;x&#39;;
-            cnt_x++;
-        &#125;
+        return tt &#x3D;&#x3D; n - 1;
+    &#125;;
+
+    if(topsort())
+    &#123;
+        cout &lt;&lt; 1 &lt;&lt; &quot;\n&quot;;
+        for(int i &#x3D; 0;i &lt;&#x3D; tt;i++)  cout &lt;&lt; q[i] &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; n];
     &#125;
-    cout &lt;&lt; &quot;\n&quot;;
-    &#x2F;&#x2F; cout &lt;&lt; cnt_o &lt;&lt; &quot; &quot; &lt;&lt; cnt_x &lt;&lt; &#39;\n&#39;;
-&#125;
-
-int main()
-&#123;
-    cin.tie(nullptr)-&gt;sync_with_stdio(false);
-
-    int t;
-    cin &gt;&gt; t;
-
-    while(t--)  solve();
-
+    else
+    &#123;
+        cout &lt;&lt; 2 &lt;&lt; &quot;\n&quot;;
+        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cout &lt;&lt; i &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; n];
+        for(int i &#x3D; n;i &gt;&#x3D; 1;i--)   cout &lt;&lt; i &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; 1];
+    &#125;
     return 0;
 &#125;</code></pre>
 
@@ -701,7 +696,7 @@ int main()
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://318471543.github.io/2023/07/21/2023%E7%89%9B%E5%AE%A2%E6%9A%91%E6%9C%9F%E5%A4%9A%E6%A0%A1%E8%AE%AD%E7%BB%83%E8%90%A52/">http://318471543.github.io/2023/07/21/2023%E7%89%9B%E5%AE%A2%E6%9A%91%E6%9C%9F%E5%A4%9A%E6%A0%A1%E8%AE%AD%E7%BB%83%E8%90%A52/</a>
+                    <a href="http://318471543.github.io/2023/07/25/2023%E7%89%9B%E5%AE%A2%E6%9A%91%E6%9C%9F%E5%A4%9A%E6%A0%A1%E8%AE%AD%E7%BB%83%E8%90%A53/">http://318471543.github.io/2023/07/25/2023%E7%89%9B%E5%AE%A2%E6%9A%91%E6%9C%9F%E5%A4%9A%E6%A0%A1%E8%AE%AD%E7%BB%83%E8%90%A53/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -739,8 +734,8 @@ int main()
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/2023%E7%89%9B%E5%AE%A2%E6%9A%91%E6%9C%9F%E5%A4%9A%E6%A0%A1%E8%AE%AD%E7%BB%83%E8%90%A52/">
-                                    <span class="chip bg-color">2023牛客暑期多校训练营2</span>
+                                <a href="/tags/2023%E7%89%9B%E5%AE%A2%E6%9A%91%E6%9C%9F%E5%A4%9A%E6%A0%A1%E8%AE%AD%E7%BB%83%E8%90%A53/">
+                                    <span class="chip bg-color">2023牛客暑期多校训练营3</span>
                                 </a>
                             
                         </div>
@@ -1305,9 +1300,10 @@ int main()
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2023/07/25/2023%E7%89%9B%E5%AE%A2%E6%9A%91%E6%9C%9F%E5%A4%9A%E6%A0%A1%E8%AE%AD%E7%BB%83%E8%90%A53/">
                     <div class="card-image">
@@ -1325,9 +1321,9 @@ int main()
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-07-25
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-25
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -1336,6 +1332,7 @@ int main()
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -1354,13 +1351,13 @@ int main()
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/07/20/2023%E2%80%9C%E9%92%89%E8%80%99%E7%BC%96%E7%A8%8B%E2%80%9D%E4%B8%AD%E5%9B%BD%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E8%B6%85%E7%BA%A7%E8%81%94%E8%B5%9B%EF%BC%882%EF%BC%89/">
+                <a href="/2023/07/21/2023%E7%89%9B%E5%AE%A2%E6%9A%91%E6%9C%9F%E5%A4%9A%E6%A0%A1%E8%AE%AD%E7%BB%83%E8%90%A52/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="2023“钉耙编程”中国大学生算法设计超级联赛（2）">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="2023牛客暑期多校训练营2">
                         
-                        <span class="card-title">2023“钉耙编程”中国大学生算法设计超级联赛（2）</span>
+                        <span class="card-title">2023牛客暑期多校训练营2</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1371,7 +1368,7 @@ int main()
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-20
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-07-21
                             </span>
                         <span class="publish-author">
                             
@@ -1384,8 +1381,8 @@ int main()
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/2023%E2%80%9C%E9%92%89%E8%80%99%E7%BC%96%E7%A8%8B%E2%80%9D%E4%B8%AD%E5%9B%BD%E5%A4%A7%E5%AD%A6%E7%94%9F%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E8%B6%85%E7%BA%A7%E8%81%94%E8%B5%9B%EF%BC%882%EF%BC%89/">
-                        <span class="chip bg-color">2023“钉耙编程”中国大学生算法设计超级联赛（2）</span>
+                    <a href="/tags/2023%E7%89%9B%E5%AE%A2%E6%9A%91%E6%9C%9F%E5%A4%9A%E6%A0%A1%E8%AE%AD%E7%BB%83%E8%90%A52/">
+                        <span class="chip bg-color">2023牛客暑期多校训练营2</span>
                     </a>
                     
                 </div>

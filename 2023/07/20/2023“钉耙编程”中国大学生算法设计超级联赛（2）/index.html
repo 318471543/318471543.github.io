@@ -6,8 +6,12 @@
     <meta charset="utf-8">
     <meta name="keywords" content="2023“钉耙编程”中国大学生算法设计超级联赛（2）, 重生带我走">
     <meta name="description" content="比赛超链接：2023“钉耙编程”中国大学生算法设计超级联赛（2）
-1001 Alice Game1002 Binary Number题意：
-​        给定一个 $01$ 串，每次可以任选 $k$ 个区间，将每个数字翻转，即将 ‘$0">
+1001 Alice Game题意：
+​        一共有 $n$ 个敌人，有两种操作：
+
+如果当前连续的敌人剩余个数 $\le k$ ，则会直接消灭这些敌人；
+
+选择连">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -484,7 +488,94 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p><mark>比赛超链接：<a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/contest/problems?cid=1095">2023“钉耙编程”中国大学生算法设计超级联赛（2）</a></mark></p>
-<h2 id="1001-Alice-Game"><a href="#1001-Alice-Game" class="headerlink" title="1001 Alice Game"></a>1001 Alice Game</h2><h2 id="1002-Binary-Number"><a href="#1002-Binary-Number" class="headerlink" title="1002 Binary Number"></a>1002 Binary Number</h2><p><strong>题意：</strong></p>
+<h2 id="1001-Alice-Game"><a href="#1001-Alice-Game" class="headerlink" title="1001 Alice Game"></a>1001 Alice Game</h2><p><strong>题意：</strong></p>
+<p>​        一共有 $n$ 个敌人，有两种操作：</p>
+<ul>
+<li><p>如果当前连续的敌人剩余个数 $\le k$ ，则会直接消灭这些敌人；</p>
+</li>
+<li><p>选择连续 $k$ 个敌人破坏，但需要保证选完之后会分成左右两个非空序列（通俗讲，就是从中间拿走 $k$ 个，分成了左右两堆）。</p>
+<p>谁无法操作，谁就输。问是先手的 $Alice$ 胜还是后手的 $Bob$ 胜？（数据范围：$1 \le T \le 10000,2 \le k \le 10^7,0 \le n \le 10^9$）</p>
+</li>
+</ul>
+<p><strong>思路：</strong></p>
+<p>​        看到这种数据范围，可以想到一定是个规律题，但这个需要用 $SG$ 函数打表。打表方法如下：</p>
+<ul>
+<li><p>记忆化搜索函数：$f[i][j]$，最初初始化为 $-1$，表示还没有使用过；</p>
+</li>
+<li><p>如果当前没有敌人或当前敌人数恰好为 $k + 1$，则均无法进行操作，故其 $sg$ 值为 $0$；如果当前敌人数目 $n \le k$ ，则先手必胜，即$sg$ 值赋为 $1$；</p>
+</li>
+<li><p>之后每次会分成两堆，枚举两堆分别为多少个，将其$sg$ 值异或放到哈希表中，最后求 $mex$ 即可。</p>
+<p>下面是打表情况：</p>
+</li>
+</ul>
+<p><img src="/images/13.png" alt=""></p>
+<p><img src="/images/14.png" alt=""></p>
+<p><img src="/images/15.png" alt=""></p>
+<p>可以发现，第一个 $n$ 的值为 $0$，第二个 $n$ 的值为 $k + 1$，第三个为 $5k + 3$。令第三个值减去第二个值，会发现相差 $4k + 2$，而且之后相邻两项间都是相差 $4k + 2$，因此答案已知晓。</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
+
+#define IOS ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr)
+#define cf(_) int _;cin &gt;&gt; _;while(_--)
+&#x2F;&#x2F;0:先手必败，因为当前人没法操作
+
+void solve()
+&#123;
+    &#x2F;&#x2F; int k,n;
+    &#x2F;&#x2F; cin &gt;&gt; k &gt;&gt; n;
+    &#x2F;&#x2F;n个敌人，1、操作 &lt;&#x3D; k; 2、操作 &#x3D;&#x3D; k
+    vector&lt;vector&lt;int&gt;&gt; f(100,vector&lt;int&gt;(100,-1));
+    function&lt;int(int,int)&gt; sg &#x3D; [&amp;](int n,int m) -&gt; int&#x2F;&#x2F;操作数&lt;&#x3D;n,总共m
+    &#123;
+        if(f[n][m] !&#x3D; -1)   return f[n][m];
+
+        if(m &#x3D;&#x3D; 0 || m &#x3D;&#x3D; n + 1)  return f[n][m] &#x3D; 0;
+        if(m &lt;&#x3D; n)  return f[n][m] &#x3D; 1;
+
+        unordered_set&lt;int&gt; S;
+        if(m &gt; n)
+        &#123;
+            for(int i &#x3D; 1;i &lt;&#x3D; m - n - 1;i++)
+            &#123;
+                S.insert(sg(n,i) ^ sg(n,m - n - i));
+            &#125;
+        &#125;
+
+        for(int i &#x3D; 0;;i++)
+            if(!S.count(i))
+                return f[n][m] &#x3D; i;
+    &#125;;
+
+    for(int i &#x3D; 0;i &lt; 100;i++)
+    &#123;
+        if(!sg(4,i))    cout &lt;&lt; 4 &lt;&lt; &quot; &quot; &lt;&lt; i &lt;&lt; endl;
+    &#125;
+
+&#125;
+
+int main()
+&#123;
+    IOS;
+    int t;
+    cin &gt;&gt; t;
+
+    &#x2F;&#x2F; while(t--)  solve();
+    while(t--)
+    &#123;
+        int k,n;
+        cin &gt;&gt; k &gt;&gt; n;
+
+        if(!n || (n - (k + 1)) % (4 * k + 2) &#x3D;&#x3D; 0)  cout &lt;&lt; &quot;Bob\n&quot;;
+        else     cout &lt;&lt; &quot;Alice\n&quot;;
+    &#125;
+
+    return 0;
+&#125;</code></pre>
+<h2 id="1002-Binary-Number"><a href="#1002-Binary-Number" class="headerlink" title="1002 Binary Number"></a>1002 Binary Number</h2><p><strong>题意：</strong></p>
 <p>​        给定一个 $01$ 串，每次可以任选 $k$ 个区间，将每个数字翻转，即将 ‘$0$’ 变成 ‘$1$’，将’ $1$ ‘ 变成 ‘ $0$ ‘。问在准确进行完 $k$ 次操作后，能否最大化该串对应的二进制数值，请输出修改后的串。 </p>
 <p><strong>思路：</strong></p>
 <p>​        细节比较多，简单来说就是：计算一共有多少个 $0$ （即 $cnt_min$ ）和一共有多少个连续的 $0$ 串（即 $cnt_max$）。</p>
