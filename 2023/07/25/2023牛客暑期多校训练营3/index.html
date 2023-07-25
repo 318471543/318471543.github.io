@@ -322,7 +322,7 @@ A World Fragments I题意：
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -524,7 +524,7 @@ int main()
     else    cout &lt;&lt; abs(x - y);
     return 0;
 &#125;</code></pre>
-<h2 id="D-Ama-no-Jaku"><a href="#D-Ama-no-Jaku" class="headerlink" title="D Ama no Jaku"></a>D Ama no Jaku</h2><p><strong>题意：</strong></p>
+<h2 id="H-Until-the-Blue-Moon-Rises"><a href="#H-Until-the-Blue-Moon-Rises" class="headerlink" title="H Until the Blue Moon Rises"></a>H Until the Blue Moon Rises</h2><p><strong>题意：</strong></p>
 <p>​        给定 $n$ 个数，每次同时令一个数 $+$ 1，一个数 $-$ 1，问是否最终可以令每个数都是质数？</p>
 <p><strong>思路：</strong></p>
 <p>​        由于每次操作，$\sum_{i=1}^{n}a_i$ 不变，那么分类讨论：</p>
@@ -599,7 +599,73 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
-<h2 id="H-Until-the-Blue-Moon-Rises"><a href="#H-Until-the-Blue-Moon-Rises" class="headerlink" title="H Until the Blue Moon Rises"></a>H Until the Blue Moon Rises</h2><h2 id="J-Fine-Logic"><a href="#J-Fine-Logic" class="headerlink" title="J Fine Logic"></a>J Fine Logic</h2><p><strong>题意：</strong></p>
+<h2 id="D-Ama-no-Jaku"><a href="#D-Ama-no-Jaku" class="headerlink" title="D Ama no Jaku"></a>D Ama no Jaku</h2><p><strong>题意：</strong></p>
+<p>​        给定一个矩阵，每次可以把一行或一列全部翻转（即 $1$ 变成 $0$，$0$ 变成 $1$），问最少几次？</p>
+<p><strong>思路：</strong></p>
+<p>​        先将第一行变为相同字符，之后判断每行相同情况，看看哪个少就全都变成哪个字符即可（注意下细节就行了）。</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
+
+#define IOS ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr)
+#define cf(_) int _;cin &gt;&gt; _;while(_--)
+
+mt19937 mrand(random_device&#123;&#125;());
+int rnd(int x) &#123; return mrand() % x;&#125;
+ll gcd(ll a,ll b)&#123;return b ? gcd(b,a % b) : a;&#125;
+ll fpow(ll a,ll b,ll mod)&#123;ll res &#x3D; 1;a %&#x3D; mod;assert(b &gt;&#x3D; 0);while(b)&#123;if(b &amp; 1)res &#x3D; res * a % mod;a &#x3D; a * a % mod;b &gt;&gt;&#x3D; 1;&#125;return res;&#125;
+
+int main()
+&#123;
+    IOS;
+    int n;
+    cin &gt;&gt; n;
+    vector g(n + 1,vector&lt;char&gt;(n + 1));
+
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+        for(int j &#x3D; 1;j &lt;&#x3D; n;j++)
+            cin &gt;&gt; g[i][j];
+
+    auto check &#x3D; [&amp;](vector&lt;vector&lt;char&gt;&gt; &amp;g,int row,char c) -&gt; bool
+    &#123;
+        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   if(g[row][i] !&#x3D; c)  return false;
+        return true;
+    &#125;;
+
+    auto change &#x3D; [&#x3D;](vector&lt;vector&lt;char&gt;&gt; &amp;g,char c) -&gt; int
+    &#123;
+        int cnt &#x3D; 0;
+        if(!check(g,1,c))
+        &#123;
+            for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+                if(g[1][i] !&#x3D; c)
+                &#123;
+                    for(int j &#x3D; 1;j &lt;&#x3D; n;j++)   g[j][i] ^&#x3D; 1;
+                    cnt++;
+                &#125;
+        &#125;
+
+        int zc &#x3D; 0,fc &#x3D; 0;
+        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+        &#123;
+            if(check(g,i,c))    zc++;
+            else if(check(g,i,c ^ 1))   fc++;
+            else    return -1;
+        &#125;
+        return cnt + min(zc,fc);
+    &#125;;
+    
+    vector t &#x3D; g;
+    int res1 &#x3D; change(g,&#39;0&#39;),res2 &#x3D; change(t,&#39;1&#39;);
+    int mi &#x3D; min(res1,res2);
+    if(mi &#x3D;&#x3D; -1)    return cout &lt;&lt; -1 &lt;&lt; &quot;\n&quot;,0;
+    cout &lt;&lt; mi &lt;&lt; &#39;\n&#39;;
+    return 0;
+&#125;</code></pre>
+<h2 id="J-Fine-Logic"><a href="#J-Fine-Logic" class="headerlink" title="J Fine Logic"></a>J Fine Logic</h2><p><strong>题意：</strong></p>
 <p>​        给定 $n$ 以及 $m$ 组赢关系，构造最少组排名使得每组赢关系都被至少一组排名所满足。</p>
 <p><strong>思路：</strong></p>
 <p>​        如果是一个有向无环图$(DAG)$，则一组即可；如果有环，则两组即可，从 $1$ 输出到 $n$，然后再从 $n$ 输出到 $1$ 即可。</p>
@@ -1309,7 +1375,7 @@ int main()
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="2023牛客暑期多校训练营3">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="2023牛客暑期多校训练营3">
                         
                         <span class="card-title">2023牛客暑期多校训练营3</span>
                     </div>
@@ -1355,7 +1421,7 @@ int main()
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="2023牛客暑期多校训练营2">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="2023牛客暑期多校训练营2">
                         
                         <span class="card-title">2023牛客暑期多校训练营2</span>
                     </div>
