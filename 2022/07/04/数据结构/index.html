@@ -1127,6 +1127,7 @@ int main()
 </li>
 </ul>
 <p><strong>区间异或和最大值：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1847/problem/C">C. Vampiric Powers, anyone?</a></p>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1851/problem/F">F. Lisa and the Martians</a></p>
 <h2 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h2><p><mark>常用函数：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">void init(int n)
 &#123;
@@ -1193,94 +1194,294 @@ auto merge &#x3D; [&amp;](int a,int b,int d) -&gt; void
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/242/">食物链</a></p>
 <p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1850/problem/H">H. The Third Letter</a></p>
-<h2 id="启发式合并"><a href="#启发式合并" class="headerlink" title="启发式合并"></a>启发式合并</h2><h3 id="梦幻布丁"><a href="#梦幻布丁" class="headerlink" title="梦幻布丁"></a>梦幻布丁</h3><p><strong>题目链接：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/2156/">梦幻布丁</a></p>
-<p><strong>题意：</strong>有n个颜色的布丁，每次将所有颜色为a的布丁变为颜色b，问一共有多少种颜色不同的布丁？</p>
-<blockquote>
-<p>显然，根据“启发式合并”的思想，我们要将数量少的布丁合并到数量大的布丁里去。</p>
-<p>因此，可以用单链表存取，每种颜色对应一种单链表，该单链表内存所有该颜色的下标。</p>
-<p>那么就会有两种讨论情况：</p>
-<p>1、如果颜色数量少的合并到颜色数量大的里面，显然可以直接合并，不需要特殊操作。</p>
-<p>2、如果颜色数量大的要合并到颜色数量小的里面去，需要考虑下映射：因为还是需要先将数量少的集合放到数量多的集合里面，那么被保留的颜色应该是那个数量少的颜色，而放到集合大的集合后颜色仍为原本集合大的颜色，因此需要一种映射操作去维护对应颜色归属。</p>
+<h2 id="启发式合并"><a href="#启发式合并" class="headerlink" title="启发式合并"></a>启发式合并</h2><blockquote>
+<p><strong>基本思想：</strong>将小的集合，合并到大的集合里。</p>
+<p><strong>时间复杂度：</strong>$O(nlogn)$</p>
 </blockquote>
-<p><strong>具体过程：</strong></p>
-<p><img src="/images/4.png" alt=""></p>
+<p><strong>模板题讲解：</strong></p>
+<ul>
+<li><strong>题意：</strong><ul>
+<li>给点 $n$ 个数，定义数字相同的为同一颜色，连续相同颜色的数为一段。询问1：将所有数 $x$ 修改为 $y$；询问2：一共有多少段？</li>
+</ul>
+</li>
+<li><strong>思路：</strong><ol>
+<li>如何统计答案？<ul>
+<li>定义两个临界，即 $a[0]$ 与 $a[n]$ 颜色都为 $0$，则临界位置是和上一个位置的颜色是不同的（通俗讲就是第二段颜色的第一个和第一段颜色的最后一个的颜色一定是不相同的），同一段颜色内部（不算第一个）是和上一个位置颜色是相同的。故基于此想法，假设应该有 $n$ 段，用公式：$ans += a[i] \neq a[i - 1]$ 后，可以得到 $n - 1$ 段，为了减少处理边界的情况，人为定义 $a[0]$ 与 $a[n]$ 段是一个不存在的颜色，即又增加了 $2$ 段，故最终正确段数答案应为 $ans - 1$。</li>
+</ul>
+</li>
+<li>将颜色 $x$ 合并到颜色 $y$ 中。<ul>
+<li>若 $size|x| \le size|y|$，正常处理即可；</li>
+<li>若 $size|x| &gt; size|y|$，则会将 $y$ 合并到 $x$ 中，而中间有个映射转换，下面将细讲：<ul>
+<li>将 $y$ 中的颜色对应下标都放到 $x$ 中，并将对应下标都改成与 $x$ 一致，此时原数组中的所有本是 $y$ 颜色的却全部变成了 $x$ 的颜色，这里暂时没什么问题；</li>
+<li>下次如果再用到 $y$ 颜色，本身应该是有 $y$ 颜色的，但原数组是没有 $y$ 颜色的， 但是 $pos[y]$ 是有大小的（上一次是将 $pos[x]$ 给清空了，很符合 将 $x$ 合并成 $y$），因此映射转换在这里。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
-const int N &#x3D; 1e5 + 10,M &#x3D; 1e6 + 10;
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
 
-int n,m;
-int h[M],e[N],ne[N],idx;
-int color[N];
-int ans;
-int p[M];
-int sz[M];
+#define IOS ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr)
+#define cf(_) int _;cin &gt;&gt; _;while(_--)
 
-void add(int a,int b)
+mt19937 mrand(random_device&#123;&#125;());
+int rnd(int x) &#123; return mrand() % x;&#125;
+ll gcd(ll a,ll b)&#123;return b ? gcd(b,a % b) : a;&#125;
+ll fpow(ll a,ll b,ll mod)&#123;ll res &#x3D; 1;a %&#x3D; mod;assert(b &gt;&#x3D; 0);while(b)&#123;if(b &amp; 1)res &#x3D; res * a % mod;a &#x3D; a * a % mod;b &gt;&gt;&#x3D; 1;&#125;return res;&#125;
+
+int main()
 &#123;
-    e[idx] &#x3D; b,ne[idx] &#x3D; h[a],h[a] &#x3D; idx++;
-    sz[a]++;
-&#125;
+    IOS;
+    int n,m;
+    cin &gt;&gt; n &gt;&gt; m;
 
-void merge(int &amp;x,int &amp;y)
-&#123;
-    if(x &#x3D;&#x3D; y)  return;&#x2F;&#x2F;如果x与y相等则直接返回,否则合并会有问题
-    if(sz[x] &gt; sz[y])   swap(x,y);
+    vector&lt;int&gt; a(n + 2);
+    vector&lt;vector&lt;int&gt;&gt; pos(1e6 + 10);
+
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+    &#123;
+        cin &gt;&gt; a[i];
+        pos[a[i]].push_back(i);
+    &#125;
+
+    int ans &#x3D; 0;
+    for(int i &#x3D; 1;i &lt;&#x3D; n + 1;i++)
+        ans +&#x3D; a[i] !&#x3D; a[i - 1];
     
-    for(int i &#x3D; h[x]; ~i;i &#x3D; ne[i])
+    while (m--)
     &#123;
-        int j &#x3D; e[i];
-        ans -&#x3D; (color[j - 1] &#x3D;&#x3D; y) + (color[j + 1] &#x3D;&#x3D; y);
-    &#125;
-    for(int i &#x3D; h[x]; ~i;i &#x3D; ne[i])
-    &#123;
-        int j &#x3D; e[i];
-        color[j] &#x3D; y;
-        if(ne[i] &#x3D;&#x3D; -1)&#x2F;&#x2F;头插法
+        int op,x,y;
+        cin &gt;&gt; op;
+        if(op &#x3D;&#x3D; 1)
         &#123;
-            ne[i] &#x3D; h[y],h[y] &#x3D; h[x];
-            break;
+            cin &gt;&gt; x &gt;&gt; y;
+            if(x &#x3D;&#x3D; y)  continue;
+            if(pos[x].size() &gt; pos[y].size())   swap(pos[x],pos[y]);
+            if(pos[y].empty())  continue;
+
+            int color &#x3D; a[pos[y][0]];
+
+            auto modify &#x3D; [&amp;](int p,int color) -&gt; void
+            &#123;
+                ans -&#x3D; (a[p] !&#x3D; a[p - 1]) + (a[p] !&#x3D; a[p + 1]);
+                a[p] &#x3D; color;
+                ans +&#x3D; (a[p] !&#x3D; a[p - 1]) + (a[p] !&#x3D; a[p + 1]);
+            &#125;;
+
+            for(auto p : pos[x])
+            &#123;
+                modify(p,color);
+                pos[y].push_back(p);
+            &#125;
+            pos[x].clear();
         &#125;
+        else    cout &lt;&lt; ans - 1 &lt;&lt; &quot;\n&quot;;
     &#125;
-    h[x] &#x3D; -1;
-    sz[y] +&#x3D; sz[x],sz[x] &#x3D; 0;
-    swap(x,y);
-&#125;
+    
+    return 0;
+&#125;</code></pre>
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/2156/">梦幻布丁</a></p>
+<h2 id="DSU-on-tree"><a href="#DSU-on-tree" class="headerlink" title="DSU on tree"></a>DSU on tree</h2><blockquote>
+<p>本质上：启发式合并</p>
+</blockquote>
+<p><mark>模板题（解决子树问题）代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+int main()
+&#123;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+	cout.tie(nullptr);
+
+	int n;
+	cin &gt;&gt; n;
+	vector&lt;int&gt; c(n + 1);
+	for(int i &#x3D; 1;i &lt;&#x3D; n;i++)	cin &gt;&gt; c[i];
+
+	vector&lt;vector&lt;int&gt;&gt; g(n + 1);
+	for(int i &#x3D; 1;i &lt; n;i++)
+	&#123;
+		int a,b;
+		cin &gt;&gt; a &gt;&gt; b;
+		g[a].push_back(b);
+		g[b].push_back(a);
+	&#125;
+	&#x2F;&#x2F;l[u],r[u]: dfs序,优化遍历的常数
+	vector&lt;int&gt; sz(n + 1),son(n + 1),l(n + 1),r(n + 1),id(n + 1);
+	int idx &#x3D; 0;
+	function&lt;void(int,int)&gt; dfs1 &#x3D; [&amp;](int u,int fa) -&gt; void
+	&#123;
+		l[u] &#x3D; ++idx,id[idx] &#x3D; u,sz[u] &#x3D; 1;
+
+		for(auto v : g[u])
+		&#123;
+			if(v &#x3D;&#x3D; fa)	continue;
+			dfs1(v,u);
+			sz[u] +&#x3D; sz[v];
+			if(sz[son[u]] &lt; sz[v])	son[u] &#x3D; v;
+		&#125;
+		r[u] &#x3D; idx;
+	&#125;;
+
+	dfs1(1,-1);
+
+	vector&lt;int&gt; cnt(n + 1);
+	vector&lt;ll&gt; ans(n + 1);
+	ll sumcnt &#x3D; 0,maxcnt &#x3D; 0;
+	function&lt;void(int,int,bool)&gt; dfs2 &#x3D; [&amp;](int u,int fa,bool keep) -&gt; void
+	&#123;
+		for(auto v : g[u])
+		&#123;
+			if(v &#x3D;&#x3D; fa || v &#x3D;&#x3D; son[u])	continue;
+			dfs2(v,u,false);
+		&#125;
+
+		if(son[u])	dfs2(son[u],u,true);
+
+		auto add &#x3D; [&amp;](int x) -&gt; void
+		&#123;
+			x &#x3D; c[x];
+			cnt[x]++;
+			if(cnt[x] &gt; maxcnt)	maxcnt &#x3D; cnt[x],sumcnt &#x3D; x;
+			else if(cnt[x] &#x3D;&#x3D; maxcnt)	sumcnt +&#x3D; x;
+		&#125;;
+
+		for(auto v : g[u])
+		&#123;
+			if(v &#x3D;&#x3D; fa || v &#x3D;&#x3D; son[u])	continue;
+			for(int i &#x3D; l[v];i &lt;&#x3D; r[v];i++)	add(id[i]);
+		&#125;
+
+		auto del &#x3D; [&amp;](int x) -&gt; void
+		&#123;
+			x &#x3D; c[x];
+			cnt[x]--;
+		&#125;;
+
+		add(u);
+		ans[u] &#x3D; sumcnt; 
+		if(!keep)&#x2F;&#x2F;删除轻儿子的信息
+		&#123;
+			sumcnt &#x3D; maxcnt &#x3D; 0;
+			for(int i &#x3D; l[u];i &lt;&#x3D; r[u];i++)	del(id[i]);
+		&#125;
+	&#125;;
+
+	dfs2(1,-1,true);
+
+	for(int i &#x3D; 1;i &lt;&#x3D; n;i++)	cout &lt;&lt; ans[i] &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; n];
+	return 0;
+&#125;</code></pre>
+<p><mark>解决路径问题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
 
 int main()
 &#123;
     cin.tie(nullptr)-&gt;sync_with_stdio(false);
 
-    memset(h,-1,sizeof(h));
-    cin &gt;&gt; n &gt;&gt; m;
+    int n,k;
+    cin &gt;&gt; n &gt;&gt; k;
 
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   
+    vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; g(n + 1);
+    for(int i &#x3D; 1;i &lt; n;i++)
     &#123;
-        cin &gt;&gt; color[i];
-        ans +&#x3D; color[i] !&#x3D; color[i - 1];
-        add(color[i],i);
+        int a,b,w;
+        cin &gt;&gt; a &gt;&gt; b &gt;&gt; w;
+        a++,b++;
+        g[a].push_back(&#123;b,w&#125;);
+        g[b].push_back(&#123;a,w&#125;);
     &#125;
-    &#x2F;&#x2F;初始化映射
-    for(int i &#x3D; 1;i &lt; M;i++)   p[i] &#x3D; i;
 
-    while (m--)
+    vector&lt;int&gt; l(n + 1),r(n + 1),id(n + 1),sz(n + 1),son(n + 1);
+    int tot &#x3D; 0;
+    vector&lt;int&gt; dep1(n + 1);&#x2F;&#x2F;边长度
+    vector&lt;ll&gt; dep2(n + 1);&#x2F;&#x2F;权值
+    function&lt;void(int,int)&gt; dfs1 &#x3D; [&amp;](int u,int fa) -&gt; void
     &#123;
-        int op;
-        cin &gt;&gt; op;
-        if(op &#x3D;&#x3D; 1)
+        l[u] &#x3D; ++tot, id[tot] &#x3D; u, sz[u] &#x3D; 1;
+
+        for(auto [v,w] : g[u])
         &#123;
-            int x,y;
-            cin &gt;&gt; x &gt;&gt; y;
-            merge(p[x],p[y]);
+            if(v &#x3D;&#x3D; fa) continue;
+            dep1[v] &#x3D; dep1[u] + 1;
+            dep2[v] &#x3D; dep2[u] + w;
+            
+            dfs1(v,u);
+            sz[u] +&#x3D; sz[v];
+            if(sz[son[u]] &lt; sz[v])  son[u] &#x3D; v;
         &#125;
-        else    cout &lt;&lt; ans &lt;&lt; &quot;\n&quot;;
-    &#125;
+        r[u] &#x3D; tot;
+    &#125;;
 
+    dfs1(1,-1);
+
+    map&lt;ll,int&gt; mp;
+    int ans &#x3D; n + 1;
+    function&lt;void(int,int,bool)&gt; dfs2 &#x3D; [&amp;](int u,int fa,bool keep) -&gt; void
+    &#123;
+        for(auto [v,w] : g[u])
+        &#123;
+            if(v !&#x3D; fa &amp;&amp; v !&#x3D; son[u])  dfs2(v,u,false);
+        &#125;
+
+        if(son[u])  dfs2(son[u],u,true);
+
+        auto query &#x3D; [&amp;](int v) -&gt; void
+        &#123;
+            ll d2 &#x3D; k - dep2[v] + 2 * dep2[u]; 
+            if(mp.count(d2))
+            &#123;
+                ans &#x3D; min(ans,mp[d2] + dep1[v] - 2 * dep1[u]);
+            &#125;
+        &#125;;
+
+        auto add &#x3D; [&amp;](int v) -&gt; void
+        &#123;
+            if(mp.count(dep2[v]))   
+                mp[dep2[v]] &#x3D; min(mp[dep2[v]],dep1[v]);
+            else    mp[dep2[v]] &#x3D; dep1[v];
+        &#125;;
+
+        for(auto [v,w] : g[u])
+        &#123;
+            if(v &#x3D;&#x3D; fa || v &#x3D;&#x3D; son[u])  continue;
+            for(int x &#x3D; l[v];x &lt;&#x3D; r[v];x++) query(id[x]);
+            for(int x &#x3D; l[v];x &lt;&#x3D; r[v];x++) add(id[x]);
+        &#125;
+
+        query(u),add(u);
+        if(!keep)   mp.clear();
+    &#125;;
+
+    
+    dfs2(1,-1,false);
+    if(ans &gt;&#x3D; n + 1)    ans &#x3D; -1;
+    
+    cout &lt;&lt; ans &lt;&lt; &quot;\n&quot;;
+    
     return 0;
 &#125;</code></pre>
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题（解决子树问题）：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/3191/">Lomsat gelral</a></p>
+<p><strong>解决路径问题：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4149">Race</a></p>
 <h2 id="最小表示法"><a href="#最小表示法" class="headerlink" title="最小表示法"></a>最小表示法</h2><blockquote>
-<p>判断两个头尾相接字符串是否相同，并可以求出最小字典序的表示法。</p>
+<p>判断两个头尾相接字符串（循环同构字符串）是否相同，并可以求出最小字典序的表示法。</p>
 <p>时间复杂度：O（n）</p>
 </blockquote>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
@@ -2096,9 +2297,7 @@ int main()
 <p>重/轻儿子：节点个数最多的子树，该节点为其父节点的 重儿子，其余都为 轻儿子（叶节点没有轻重儿子概念）。</p>
 <p>重/轻边：重儿子和它父节点的边称为 重边，轻儿子和它父节点的边称为 轻边。</p>
 <p>重链：由 重边 构成的 <strong>极大</strong>路径。</p>
-<p><mark>推荐题单：</mark></p>
-<p><strong>树链剖分 + 区间最大/最小子段和：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1843/problem/F2">F2. Omsk Metro (hard version)</a></p>
-<p><mark>代码模板：</mark></p>
+<p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -2275,6 +2474,9 @@ int main()
     
     return 0;
 &#125;</code></pre>
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2570/">树链剖分</a></p>
+<p><strong>树链剖分 + 区间最大/最小子段和：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1843/problem/F2">F2. Omsk Metro (hard version)</a></p>
 <h2 id="动态树——LCT（link-cut-tree）"><a href="#动态树——LCT（link-cut-tree）" class="headerlink" title="动态树——LCT（link-cut-tree）"></a>动态树——LCT（link-cut-tree）</h2><p><strong>LCT</strong> 是用于解决 <strong>动态树问题</strong> 的数据结构。</p>
 <blockquote>
 <p><strong>动态树问题：</strong></p>

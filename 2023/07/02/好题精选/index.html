@@ -672,7 +672,7 @@ int main()
 <p>​        给定 $n(n \le 10^5)$ 个点，问有多少个点对，在四条直线上。</p>
 <p><strong>思路：</strong></p>
 <p>​        对于每个点，根据直线方程： $y - y_0 = k(x - x_0)$，即 $y = kx + b$，可以确定这个点在哪四条直线上。用map存四条直线即可（$first$：$k$, $second$：$b$）。最后统计答案就是：对于一条 $\ge 2$ 的点数（假设为 $n$）的直线，对答案的贡献为 $n × (n - 1)$。</p>
-<p><strong>代码：</strong></p>
+<p><mark>代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -709,6 +709,77 @@ int main()
         &#125;
 
         cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+    &#125;
+    return 0;
+&#125;</code></pre>
+<h3 id="题目链接：E-Nastya-and-Potions"><a href="#题目链接：E-Nastya-and-Potions" class="headerlink" title="题目链接：E. Nastya and Potions"></a>题目链接：<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1851/problem/E">E. Nastya and Potions</a></h3><p><strong>题意：</strong></p>
+<p>​        一个炼术师在炼药，一种药需要其他几种药物来合成获取或直接购买，问每个药物最少花多少钱？</p>
+<p><strong>思路：</strong></p>
+<p>​        记忆化搜索。一个药物需要其他药物合成获取，则递归获取其他药物，有根据题目要求，没有环的存在，所以记忆化搜索，递归子结点的情况，然后和购买取个 $min$ 即可。这题比较典吧，当时被给到了一个<mark>记忆化搜索</mark>的 $idea$，然后就会了，不过回过头来，自己想的话，怎样才能想到用这个算法呢？</p>
+<p><mark>代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
+
+#define IOS ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr)
+#define cf(_) int _;cin &gt;&gt; _;while(_--)
+
+mt19937 mrand(random_device&#123;&#125;());
+int rnd(int x) &#123; return mrand() % x;&#125;
+ll gcd(ll a,ll b)&#123;return b ? gcd(b,a % b) : a;&#125;
+ll fpow(ll a,ll b,ll mod)&#123;ll res &#x3D; 1;a %&#x3D; mod;assert(b &gt;&#x3D; 0);while(b)&#123;if(b &amp; 1)res &#x3D; res * a % mod;a &#x3D; a * a % mod;b &gt;&gt;&#x3D; 1;&#125;return res;&#125;
+
+int main()
+&#123;
+    IOS;
+    cf(_)
+    &#123;
+        int n,k;
+        cin &gt;&gt; n &gt;&gt; k;
+    
+        vector&lt;ll&gt; cost(n + 1);
+        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; cost[i];
+
+        vector&lt;int&gt; f(n + 1,-1);
+        for(int i &#x3D; 1,x;i &lt;&#x3D; k;i++)
+        &#123;
+            cin &gt;&gt; x;
+            f[x] &#x3D; 0;
+        &#125;
+
+        vector&lt;vector&lt;int&gt;&gt; g(n + 1);
+        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+        &#123;
+            int cnt;
+            cin &gt;&gt; cnt;
+            if(!cnt)    continue;
+            while(cnt--)
+            &#123;
+                int x;
+                cin &gt;&gt; x;
+                g[i].push_back(x);
+            &#125;
+        &#125;        
+		&#x2F;&#x2F;记忆化搜索
+        function&lt;ll(int)&gt; get &#x3D; [&amp;](int u) -&gt; ll
+        &#123;
+            if(f[u] !&#x3D; -1)  return f[u];
+
+            if(g[u].size() &#x3D;&#x3D; 0)    return f[u] &#x3D; cost[u];
+
+            ll res &#x3D; 0;
+            for(auto v : g[u])
+            &#123;
+                res +&#x3D; get(v);
+            &#125;
+
+            return f[u] &#x3D; min(cost[u],res);
+        &#125;;
+
+        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cout &lt;&lt; get(i) &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; n];
     &#125;
     return 0;
 &#125;</code></pre>
@@ -1136,12 +1207,180 @@ int main()
 <p>1、断言：assert();</p>
 <p>2、随机数</p>
 </blockquote>
+<ol>
+<li><strong>断言</strong></li>
+</ol>
+<ul>
+<li>$assert();$ 括号内用为真的判断语句，如果为假，则会出现 $RE$ 的报错。</li>
+</ul>
+<ol>
+<li><strong>随机数</strong></li>
+</ol>
+<ul>
+<li><p>新学了一个“效率较高”的”随机数算法“，在全局中加入下面代码：</p>
+<ul>
+<li>```c++<br>mt19937 mrand(random_device{}());<br>int rnd(int x) { return mrand() % x;}<pre class="language-none"><code class="language-none">
+- 调用方式（举例如下）：
+
+  - &#96;&#96;&#96;c++
+    cout &lt;&lt; rnd(100);</code></pre>
+</li>
+</ul>
+</li>
+</ul>
 <p><strong>大模拟思路：</strong></p>
 <ul>
 <li>明确存储容器</li>
 <li>函数代码分工</li>
 </ul>
+<h2 id="C-个人通用模板"><a href="#C-个人通用模板" class="headerlink" title="C++个人通用模板"></a>C++个人通用模板</h2><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
+using namespace std;
+
+typedef long long ll;&#x2F;&#x2F;__int128_t
+typedef pair&lt;int,int&gt; pii;
+
+#define IOS ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr)
+#define lowbit(x)   ((x)&amp;(-x))
+#define fi first
+#define se second
+#define pb push_back
+&#x2F;&#x2F;获取最大值&#x2F;最小值
+template &lt;typename T&gt; bool chkMax(T &amp;x, T y) &#123; return (y &gt; x) ? x &#x3D; y, 1 : 0; &#125;
+template &lt;typename T&gt; bool chkMin(T &amp;x, T y) &#123; return (y &lt; x) ? x &#x3D; y, 1 : 0; &#125;
+
+template &lt;typename T&gt; void inline read(T &amp;x) &#123;&#x2F;&#x2F;快读
+    int f &#x3D; 1; x &#x3D; 0; char c &#x3D; getchar();
+    while (c &lt; &#39;0&#39; || c &gt; &#39;9&#39;) &#123; if (c &#x3D;&#x3D; &#39;-&#39;) f &#x3D; -1; c &#x3D; getchar(); &#125;
+    while (c &lt;&#x3D; &#39;9&#39; &amp;&amp; c &gt;&#x3D; &#39;0&#39;) x &#x3D; (x &lt;&lt; 1) + (x &lt;&lt; 3) + (c ^ 48), c &#x3D; getchar();
+    x *&#x3D; f;
+&#125;
+template&lt;typename T&gt; void inline write(T x)&#123;&#x2F;&#x2F;快写
+	if(x &lt; 0) putchar(&#39;-&#39;), x &#x3D; -x;
+	if(x &gt; 9)   write(x &#x2F; 10);
+	putchar(x % 10 + &#39;0&#39;);
+&#125;
+
+mt19937 mrand(random_device&#123;&#125;());
+int rnd(int x) &#123; return mrand() % x;&#125;&#x2F;&#x2F;随机数
+ll gcd(ll a,ll b)&#123;return b ? gcd(b,a % b) : a;&#125;&#x2F;&#x2F;最大公约数
+ll fpow(ll a,ll b,ll mod)&#123;ll res &#x3D; 1;a %&#x3D; mod;assert(b &gt;&#x3D; 0);while(b)&#123;if(b &amp; 1)res &#x3D; res * a % mod;a &#x3D; a * a % mod;b &gt;&gt;&#x3D; 1;&#125;return res;&#125;&#x2F;&#x2F;快速幂
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+    return 0;
+&#125;</code></pre>
+<h2 id="文件读写"><a href="#文件读写" class="headerlink" title="文件读写"></a>文件读写</h2><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    freopen(&quot;in.txt&quot;, &quot;r&quot;, stdin);&#x2F;&#x2F;从文件里面读取数据
+    freopen(&quot;out.txt&quot;, &quot;w&quot;, stdout);&#x2F;&#x2F;将数据写入文件内
+    
+    fclose(stdin);
+    fclose(stdout);
+    return 0;
+&#125;</code></pre>
+<h2 id="基本知识点"><a href="#基本知识点" class="headerlink" title="基本知识点"></a>基本知识点</h2><h3 id="计算空间大小"><a href="#计算空间大小" class="headerlink" title="计算空间大小"></a>计算空间大小</h3><p>1e6个chat为1M</p>
+<p>1e6个int为4M</p>
+<h2 id="在这里写个对拍！"><a href="#在这里写个对拍！" class="headerlink" title="在这里写个对拍！"></a>在这里写个对拍！</h2><p><strong>参考题目链接：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2/">01背包问题</a></p>
+<blockquote>
+<p>首先，正解和暴力解法仍需正常写，不必加任何与文件输入输出流相关的代码。</p>
+<p>而数据代码生成器：</p>
+<p>​    1、封装一个函数用来读文件写入随机数据，并关闭文件。</p>
+<p>​    2、主函数调用system()去执行两份代码，并判断生成的结果是否一致（答案会在system里面写入文件中）。</p>
+</blockquote>
+<p><mark>数据代码生成器：</mark>data_generator.cpp</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+void generate_data()
+&#123;
+    ofstream fout(&quot;input.txt&quot;);
+    int n &#x3D; 10,m &#x3D; rand() % 100 + 50;
+    fout &lt;&lt; n &lt;&lt; &quot; &quot; &lt;&lt; m &lt;&lt; endl;
+    
+    for(int i &#x3D; 0;i &lt; n;i++)
+    &#123;
+        int v &#x3D; rand() % 50 + 10,w &#x3D; rand() % 50 + 10;
+        fout &lt;&lt; v &lt;&lt; &quot; &quot; &lt;&lt; w &lt;&lt; endl;
+    &#125;
+    fout.close();
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+    srand(time(0));
+    for(int i &#x3D; 0;i &lt; 100;i++)
+    &#123;
+        printf(&quot;iteration: %d\n&quot;,i);
+        generate_data();
+        system(&quot;std.exe &lt; input.txt &gt; std_output.txt&quot;);
+        system(&quot;bf.exe &lt; input.txt &gt; bf_output.txt&quot;);
+        if(system(&quot;fc std_output.txt bf_output.txt&quot;))
+        &#123;
+            puts(&quot;Error!&quot;);
+            break;
+        &#125;
+        getchar();&#x2F;&#x2F;每次回车开始下一个数据
+    &#125;
+    return 0;
+&#125;</code></pre>
+<p><mark>正解：</mark>std.cpp</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1010;
+int n,m;
+int v[N],w[N];&#x2F;&#x2F;v表示体积，w表示价值
+int f[N];&#x2F;&#x2F;一维数组
+
+int main()
+&#123;
+    cin &gt;&gt; n &gt;&gt; m;&#x2F;&#x2F;物品个数、背包容量
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; v[i] &gt;&gt; w[i];&#x2F;&#x2F;输入每个物品的体积、价值
+    
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+        for(int j &#x3D; m;j &gt;&#x3D; v[i];j--)&#x2F;&#x2F;逆序更新
+        &#123;
+            f[j] &#x3D; max(f[j],f[j-v[i]] + w[i]);
+        &#125;
+    cout &lt;&lt; f[m] &lt;&lt; endl;
+    return 0;
+&#125;</code></pre>
+<p><mark>暴力：</mark>bf.cpp</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1010;
+int n,m;
+int v[N],w[N];&#x2F;&#x2F;v表示体积，w表示价值
+int f[N];&#x2F;&#x2F;一维数组
+
+int main()
+&#123;
+    cin &gt;&gt; n &gt;&gt; m;&#x2F;&#x2F;物品个数、背包容量
+    for(int i &#x3D; 0;i &lt; n;i++)   cin &gt;&gt; v[i] &gt;&gt; w[i];&#x2F;&#x2F;输入每个物品的体积、价值
+    
+    int res &#x3D; 0;
+    for(int i &#x3D; 0;i &lt; 1 &lt;&lt; n;i++)
+    &#123;
+        int sumv &#x3D; 0,sumw &#x3D; 0;
+        for(int j &#x3D; 0;j &lt; n;j++)
+            if(i &gt;&gt; j &amp; 1)  sumv +&#x3D; v[j],sumw +&#x3D; w[j];
+        if(sumv &lt;&#x3D; m)   res &#x3D; max(res,sumw);
+    &#125;
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+<h2 id=""><a href="#" class="headerlink" title=" "></a> </h2>
                 
             </div>
             <hr/>
