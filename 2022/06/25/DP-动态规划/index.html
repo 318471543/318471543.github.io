@@ -858,35 +858,7 @@ int main()
     cout &lt;&lt; f[V][M];
     return 0;
 &#125;</code></pre>
-<h3 id="有依赖的背包问题"><a href="#有依赖的背包问题" class="headerlink" title="有依赖的背包问题"></a>有依赖的背包问题</h3><p><strong>题目描述：</strong></p>
-<p>有 N 个物品和一个容量是 V 的背包。</p>
-<p>物品之间具有依赖关系，且依赖关系组成一棵树的形状。如果选择一个物品，则必须选择它的父节点。</p>
-<p>如果选择物品5，则必须选择物品1和2。这是因为2是5的父节点，1是2的父节点。</p>
-<p>每件物品的编号是 i，体积是 v<sub>i</sub>，价值是 w<sub>i</sub>，依赖的父节点编号是 p<sub>i</sub>。物品的下标范围是 1…N。</p>
-<p>求解将哪些物品装入背包，可使物品总体积不超过背包容量，且总价值最大。</p>
-<p>输出最大价值。</p>
-<p><strong>输入格式</strong></p>
-<p>第一行有两个整数 N，V，用空格隔开，分别表示物品个数和背包容量。</p>
-<p>接下来有 N 行数据，每行数据表示一个物品。<br>第 i 行有三个整数 v<sub>i</sub>,w<sub>i</sub>,p<sub>i</sub>，用空格隔开，分别表示物品的体积、价值和依赖的物品编号。<br>如果 p<sub>i</sub> = −1，表示根节点。 <strong>数据保证所有物品构成一棵树。</strong></p>
-<p><strong>输出格式</strong></p>
-<p>输出一个整数，表示最大价值。</p>
-<p><strong>数据范围</strong></p>
-<p>1 ≤ N,V ≤ 100<br>1 ≤ v<sub>i</sub>,w<sub>i</sub> ≤ 100</p>
-<p><strong>父节点编号范围：</strong></p>
-<ul>
-<li>内部结点：1 ≤ p<sub>i</sub> ≤ N;</li>
-<li>根节点 p<sub>i</sub>=−1;</li>
-</ul>
-<p><strong>输入样例：</strong></p>
-<pre class="language-none"><code class="language-none">5 7
-2 3 -1
-2 2 1
-3 5 1
-4 7 2
-3 6 2</code></pre>
-<p><strong>输出样例：</strong></p>
-<pre class="language-none"><code class="language-none">11</code></pre>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<h3 id="有依赖的背包问题"><a href="#有依赖的背包问题" class="headerlink" title="有依赖的背包问题"></a>有依赖的背包问题</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -938,6 +910,8 @@ int main()
     cout &lt;&lt; f[root][m] &lt;&lt; endl;
     return 0;
 &#125;</code></pre>
+<p><mark>推荐题单：</mark></p>
+<p>模板题：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/10/">有依赖的背包问题</a></p>
 <h3 id="背包问题求方案数"><a href="#背包问题求方案数" class="headerlink" title="背包问题求方案数"></a>背包问题求方案数</h3><blockquote>
 <p>有 $n$ 个物品，容量为 $m$，每个物品有体积和价值，问最大化价值的方案数有多少种？</p>
 <p>数据范围：</p>
@@ -1041,83 +1015,7 @@ int main()
         &#125;
     return 0;
 &#125;</code></pre>
-<h2 id="线性DP"><a href="#线性DP" class="headerlink" title="线性DP"></a>线性DP</h2><h3 id="数字三角形"><a href="#数字三角形" class="headerlink" title="数字三角形"></a>数字三角形</h3><p><strong>题意：</strong>给定一个如下图所示的数字三角形，从顶部出发，在每一结点可以选择移动至其左下方的结点或移动至其右下方的结点，一直走到底层，要求找出一条路径，使路径上的数字的和最大。</p>
-<blockquote>
-<p>f[i] [j]只能从f[i - 1] [j]和f[i - 1] [j - 1]转移过来，略微处理下边界即可。</p>
-</blockquote>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
-
-using namespace std;
-
-constexpr int INF &#x3D; 1e9;
-
-int main()
-&#123;
-    cin.tie(nullptr)-&gt;sync_with_stdio(false);
-
-    int n;
-    cin &gt;&gt; n;
-
-    vector g(n + 1,vector&lt;int&gt;(n + 1,-INF));
-
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
-        for(int j &#x3D; 1;j &lt;&#x3D; i;j++)
-            cin &gt;&gt; g[i][j];
-    
-    vector f(n + 1,vector&lt;int&gt;(n + 1,-INF));
-    f[1][1] &#x3D; g[1][1];
-    for(int i &#x3D; 2;i &lt;&#x3D; n;i++)
-        for(int j &#x3D; 1;j &lt;&#x3D; i;j++)
-            f[i][j] &#x3D; max(f[i - 1][j],f[i - 1][j - 1]) + g[i][j];
-
-    int res &#x3D; -INF;
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   res &#x3D; max(res,f[n][i]);
-
-    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
-    return 0;
-&#125;</code></pre>
-<h3 id="最长上升子序列"><a href="#最长上升子序列" class="headerlink" title="最长上升子序列"></a>最长上升子序列</h3><p><strong>题意：</strong>给定一个长度为 N（1 ≤ N ≤ 1000） 的数列，求数值严格单调递增的子序列的长度最长是多少。</p>
-<p><mark>DP暴力：</mark></p>
-<blockquote>
-<p>f[i]：以i结尾的最长上升子序列长度。</p>
-<p>思路：枚举上一个数是多少进行递推。</p>
-<p>时间复杂度：O（n$^2$）</p>
-</blockquote>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
-
-using namespace std;
-
-int main()
-&#123;
-    cin.tie(nullptr)-&gt;sync_with_stdio(false);
-
-    int n;
-    cin &gt;&gt; n;
-
-    vector&lt;int&gt; a(n + 1);
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; a[i];
-    vector&lt;int&gt; f(n + 1);
-
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
-    &#123;
-        f[i] &#x3D; 1;
-        for(int j &#x3D; 1;j &lt;&#x3D; i;j++)
-        &#123;
-            if(a[i] &gt; a[j]) f[i] &#x3D; max(f[i],f[j] + 1);
-        &#125;
-    &#125;
-
-    int res &#x3D; 0;
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   res &#x3D; max(res,f[i]);
-    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
-    return 0;
-&#125;</code></pre>
-<h3 id="最长上升子序列II"><a href="#最长上升子序列II" class="headerlink" title="最长上升子序列II"></a>最长上升子序列II</h3><p><strong>题意：</strong>给定一个长度为 N（1 ≤ N ≤ 100000） 的数列，求数值严格单调递增的子序列的长度最长是多少。</p>
-<p><mark>二分：</mark></p>
-<blockquote>
-<p>案例：对于序列1 4 3，长度为2的上升子序列哪个更优呢？答案一定就是：1,3。因为如果后面有个更大的数（比如是4）的话它一定可以接到3的后面，而不能接到1,4的后面。</p>
-<p>受此启发，我们可以处理出每个长度下，该序列结尾数最小的序列，显然该序列一定是单调递增的。当每增加一个数a，我们需要将它插入到一个小于a且最大的数的后面，二分即可。</p>
-</blockquote>
+<h2 id="线性DP"><a href="#线性DP" class="headerlink" title="线性DP"></a>线性DP</h2><p><mark>最长上升子序列模板代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1149,79 +1047,11 @@ int main()
     cout &lt;&lt; len &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
-<h3 id="最长公共子序列"><a href="#最长公共子序列" class="headerlink" title="最长公共子序列"></a>最长公共子序列</h3><p><strong>题意：</strong>给定两个长度分别为 N 和 M 的字符串 A 和 B，求既是 A 的子序列又是 B 的子序列的字符串长度最长是多少。</p>
-<blockquote>
-<p>定义f[i] [j]：表示a的前i个字母，和b的前j个字母的最长公共子序列长度。</p>
-<p>如果a[i] = b[j]，则：f[i] [j] = f[i - 1] [j - 1] + 1，则从f[i - 1] [j - 1]转移过来。</p>
-<p>如果a[i] $\neq$ b[j]，则：f[i] [j]可以从f[i - 1] [j - 1]，f[i - 1] [j]，f[i] [j - 1]中转移过来，其中f[i - 1] [j - 1]已经被f[i] [j - 1]和f[i - 1] [j]包含了，故可以省略。</p>
-</blockquote>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
-
-using namespace std;
-
-int main()
-&#123;
-    cin.tie(nullptr)-&gt;sync_with_stdio(false);
-
-    int n,m;
-    cin &gt;&gt; n &gt;&gt; m;
-    string a,b;
-    cin &gt;&gt; a &gt;&gt; b;
-    a &#x3D; &quot; &quot; + a,b &#x3D; &quot; &quot; + b;&#x2F;&#x2F;令其下标从1开始
-
-    vector f(n + 1,vector&lt;int&gt;(m + 1));
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
-    &#123;
-        for(int j &#x3D; 1;j &lt;&#x3D; m;j++)
-        &#123;
-            if(a[i] &#x3D;&#x3D; b[j])    f[i][j] &#x3D; f[i - 1][j - 1] + 1;
-            else    f[i][j] &#x3D; max(f[i - 1][j],f[i][j - 1]);
-        &#125;
-    &#125;
-
-    cout &lt;&lt; f[n][m] &lt;&lt; &quot;\n&quot;;
-    return 0;
-&#125;</code></pre>
-<h3 id="最短编辑距离"><a href="#最短编辑距离" class="headerlink" title="最短编辑距离"></a>最短编辑距离</h3><p>给定两个字符串 A 和 B，现在要将 A 经过若干操作变为 B，可进行的操作有：</p>
-<ol>
-<li>删除–将字符串 A 中的某个字符删除。</li>
-<li>插入–在字符串 A 的某个位置插入某个字符。</li>
-<li>替换–将字符串 A 中的某个字符替换为另一个字符。</li>
-</ol>
-<p>现在请你求出，将 A 变为 B 至少需要进行多少次操作。</p>
-<blockquote>
-<p>定义：f[i] [j]:将A的前i个字母变成B的前j个字母的最小操作次数。</p>
-<p>1、删除:f[i] [j] = f[i - 1] [j] + 1。A的前i - 1个字母已经和B的前j个字母匹配了，故从此转移。</p>
-<p>2、插入:f[i] [j] = f[i] [j - 1] + 1。A的前i个字母已经和B的前j - 1个字母匹配了，故从此转移。</p>
-<p>3、替换:f[i] [j] = f[i - 1] [j - 1] + (a[i] != b[j])。A的前i - 1个字母已经和B的前j - 1个字母匹配了，最后看第i位和第j位是否相同。</p>
-</blockquote>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
-
-using namespace std;
-
-int main()
-&#123;
-    cin.tie(nullptr)-&gt;sync_with_stdio(false);
-    int n,m;
-    string a,b;
-    cin &gt;&gt; n &gt;&gt; a &gt;&gt; m &gt;&gt; b;
-    a &#x3D; &quot; &quot; + a,b &#x3D; &quot; &quot; + b;
-
-    vector f(n + 1,vector&lt;int&gt;(m + 1));
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   f[i][0] &#x3D; i;
-    for(int i &#x3D; 1;i &lt;&#x3D; m;i++)   f[0][i] &#x3D; i;
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
-        for(int j &#x3D; 1;j &lt;&#x3D; m;j++)
-        &#123;
-            f[i][j] &#x3D; min(f[i - 1][j],f[i][j - 1]) + 1;
-            f[i][j] &#x3D; min(f[i][j],f[i - 1][j - 1] + (a[i] !&#x3D; b[j]));
-        &#125;
-
-    cout &lt;&lt; f[n][m] &lt;&lt; &quot;\n&quot;;
-    return 0;
-&#125; </code></pre>
-<h2 id="区间DP"><a href="#区间DP" class="headerlink" title="区间DP"></a>区间DP</h2><p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/284/">石子合并</a></p>
-<p><strong>题意：</strong> 有N堆石子，每次只能合并相邻的两堆石子，代价为这两堆石子的质量之和，问最终合并为一堆后的代价最小是多少。</p>
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/898/">最长上升子序列 II</a>  <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/899/">最长公共子序列</a>  <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/904/">最短编辑距离</a></p>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1849/problem/D">D. Array Painting</a> </p>
+<p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57356/K">Box</a></p>
+<h2 id="区间DP"><a href="#区间DP" class="headerlink" title="区间DP"></a>区间DP</h2><p><strong>题意：</strong> 有N堆石子，每次只能合并相邻的两堆石子，代价为这两堆石子的质量之和，问最终合并为一堆后的代价最小是多少。</p>
 <blockquote>
 <p>区间合并：三重循环：</p>
 <p>1、枚举区间长度</p>
@@ -1264,6 +1094,8 @@ int main()
     cout &lt;&lt; f[1][n] &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/284/">石子合并</a></p>
 <h2 id="计数类DP"><a href="#计数类DP" class="headerlink" title="计数类DP"></a>计数类DP</h2><blockquote>
 <p>完全背包思想：价值为1,2,3,4,5,…n放到体积为n的背包中。</p>
 <p>根据第i个物品选择的数量划分：</p>
