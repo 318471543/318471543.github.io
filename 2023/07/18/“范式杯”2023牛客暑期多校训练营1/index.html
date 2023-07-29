@@ -6,9 +6,8 @@
     <meta charset="utf-8">
     <meta name="keywords" content="“范式杯”2023牛客暑期多校训练营1, 重生带我走">
     <meta name="description" content="比赛超链接：“范式杯”2023牛客暑期多校训练营1
-D Chocolate
-题意：
-​        在一个坐标系下，每个人可以选择一个点 $(x,y)$ ，然后就可以吃掉从 $(1,1)$到 $(x,y)$ 这块矩形中的所有巧克力，两人轮">
+D Chocolate题意：
+​        在一个坐标系下，每个人可以选择一个点 $(x,y)$ ，然后就可以吃掉从 $(1,1)$到 $(x,y)$ 这块矩形中的所有巧克力，两人轮流">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -485,16 +484,13 @@ D Chocolate
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p><mark>比赛超链接：<a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57355#question">“范式杯”2023牛客暑期多校训练营1</a></mark></p>
-<h2 id="D-Chocolate">D Chocolate</h2>
-<p><strong>题意：</strong></p>
+<h2 id="D-Chocolate"><a href="#D-Chocolate" class="headerlink" title="D Chocolate"></a>D Chocolate</h2><p><strong>题意：</strong></p>
 <p>​        在一个坐标系下，每个人可以选择一个点 $(x,y)$ ，然后就可以吃掉从 $(1,1)$到 $(x,y)$ 这块矩形中的所有巧克力，两人轮流操作，每次至少要吃掉一块巧克力，谁先吃到最后一块巧克力谁就输，每人都采用最优的方案。</p>
 <p><strong>思路：</strong></p>
 <ul>
-<li>
-<p>当 $n = m = 1$ 时，显然后手必败。</p>
+<li><p>当 $n &#x3D; m &#x3D; 1$ 时，显然后手必败。</p>
 </li>
-<li>
-<p>当 $n &gt; 1$ || $m &gt; 1$ 时，假设先手走了 $(1,1)$ 并且后手赢了，那么先手可以抢在后手的必胜态之前到达必胜态（因为 $(1,1)$ 被任意子矩阵包含），故先手必胜。</p>
+<li><p>当 $n &gt; 1$ || $m &gt; 1$ 时，假设先手走了 $(1,1)$ 并且后手赢了，那么先手可以抢在后手的必胜态之前到达必胜态（因为 $(1,1)$ 被任意子矩阵包含），故先手必胜。</p>
 </li>
 </ul>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -516,23 +512,20 @@ int main()
     else    cout &lt;&lt; &quot;Kelin\n&quot;;
     return 0;
 &#125;</code></pre>
-<h2 id="J-Roulette">J Roulette</h2>
-<p><strong>题意：</strong></p>
+
+<h2 id="J-Roulette"><a href="#J-Roulette" class="headerlink" title="J Roulette"></a>J Roulette</h2><p><strong>题意：</strong></p>
 <p>​        赌博游戏：每次赌 $1,2,4,8\cdots 2^{n}$ 元钱，如果赢了会获得该轮赌钱的两倍，并重新开始从 $1$ 元开始赌；如果输了并且下次再赌则需要支付下一个对应幂次的钱（每次获胜的概率都是 $50%$ ）。最初有 $n$ 元钱，你想额外再获取 $m$ 元钱，即变成 $(n + m)$ 元，请问可能性是多少？</p>
 <p><strong>思路：</strong></p>
 <ol>
-<li>首先如果在某次赌博中获胜，则净赚 $1$ 元。
-<ul>
-<li>比如在第 $n$ 轮获胜，则净赚：$2 × 2^{n} - (1 + 2 + 4 + … + 2^{n}) = 2^{n + 1} - (2^{n+1} - 1) = 1$</li>
+<li>首先如果在某次赌博中获胜，则净赚 $1$ 元。<ul>
+<li>比如在第 $n$ 轮获胜，则净赚：$2 × 2^{n} - (1 + 2 + 4 + … + 2^{n}) &#x3D; 2^{n + 1} - (2^{n+1} - 1) &#x3D; 1$</li>
 </ul>
 </li>
-<li>假设我目前有 $x$ 元，可以计算得知我最多能赌 $cnt$ 轮，则获胜的概率是 $1 - (\frac{1}{2})^{cnt}$。
-<ul>
+<li>假设我目前有 $x$ 元，可以计算得知我最多能赌 $cnt$ 轮，则获胜的概率是 $1 - (\frac{1}{2})^{cnt}$。<ul>
 <li>这么多轮有各种各样的胜负情况，唯一输完的概率就是全输：$(\frac{1}{2})^{cnt}$。则获胜的情况就是： $1 - (\frac{1}{2})^{cnt}$。</li>
 </ul>
 </li>
-<li>知道上面的基本信息后，就可以得出思路了：
-<ul>
+<li>知道上面的基本信息后，就可以得出思路了：<ul>
 <li>额外挣 $m$ 元需要赌赢 $m$ 轮。</li>
 <li>随着钱数的增多，可能会在之后的一轮中额外赌多局。</li>
 <li>因此，我们需要求出在 $n \sim n + m - 1$ 这些钱的范围内，分别最多可以赌多少局。由于$m$ 的范围比较大： $m \le 10^9$，我们需要优化一下：即预处理求出最多赌 $x$ 局的情况有多少次 。</li>
@@ -612,8 +605,8 @@ int main()
 
     return 0;
 &#125;</code></pre>
-<h2 id="K-Subdivision">K Subdivision</h2>
-<p><strong>题意：</strong></p>
+
+<h2 id="K-Subdivision"><a href="#K-Subdivision" class="headerlink" title="K Subdivision"></a>K Subdivision</h2><p><strong>题意：</strong></p>
 <p>​        给定一个无向图，每条边的长度为 $1$，问有多少个结点到 $1$ 号点的距离 $\le k $ ？此外，可以进行任意次以下操作：将一条边 $(u,v)$ 删去，并添加两条新边 $(u,w),(w,v)$，其中 $w$ 是新增的点。</p>
 <p><strong>思路：</strong></p>
 <p>​       利用 $BFS$ 建树，对于树边，如果进行删边操作的话并不会使结果更优，因此考虑删去非树边。一条非树边的贡献是 $k - depth[i]$，因此需要求出每个点有多少条非树边；而如果是”叶子结点“，那么贡献只有一份的 $k - depth[i]$，因此需要对这两种情况取 $max$。</p>
@@ -689,6 +682,7 @@ int main()
 
     return 0;
 &#125;</code></pre>
+
 
                 
             </div>

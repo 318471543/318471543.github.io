@@ -5,14 +5,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="好题精选, 重生带我走">
-    <meta name="description" content="根据数据范围，探索写法
-题单推荐：
+    <meta name="description" content="根据数据范围，探索写法题单推荐：
 
 三角形重心
 C. Vampiric Powers, anyone?
 
-讲解——三角形重心：
-**题意：**给了 $n$ 个点，问是否有 $2$ 个三角形，满足重心相等。即重心为$\frac{x_1 + ">
+讲解——三角形重心：题意：给了 $n$ 个点，问是否有 $2$ 个三角形，满足重心相等。即重心为$\frac{x_1 + x_2 + ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -488,14 +486,12 @@ C. Vampiric Powers, anyone?
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="根据数据范围，探索写法">根据数据范围，探索写法</h2>
-<p><mark>题单推荐：</mark></p>
+                <h2 id="根据数据范围，探索写法"><a href="#根据数据范围，探索写法" class="headerlink" title="根据数据范围，探索写法"></a>根据数据范围，探索写法</h2><p><mark>题单推荐：</mark></p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/60254/F">三角形重心</a></li>
 <li><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1847/problem/C">C. Vampiric Powers, anyone?</a></li>
 </ul>
-<h3 id="讲解——三角形重心：">讲解——三角形重心：</h3>
-<p>**题意：**给了 $n$ 个点，问是否有 $2$ 个三角形，满足重心相等。即重心为$\frac{x_1 + x_2 + x_3}{3} = \frac{y_1 + y_2 + y_3}{3}$ 。如果找到的话，请输出对应三角形三点的下标。</p>
+<h3 id="讲解——三角形重心："><a href="#讲解——三角形重心：" class="headerlink" title="讲解——三角形重心："></a>讲解——三角形重心：</h3><p><strong>题意：</strong>给了 $n$ 个点，问是否有 $2$ 个三角形，满足重心相等。即重心为$\frac{x_1 + x_2 + x_3}{3} &#x3D; \frac{y_1 + y_2 + y_3}{3}$ 。如果找到的话，请输出对应三角形三点的下标。</p>
 <p><strong>数据范围：</strong>$ 1 \le n\le 10^5, -1000 \le x_i,y_i \le 1000$ 。</p>
 <p><mark>思路：</mark> 单从 $n$ 的数据范围来看的话，很难做出来。但<strong>一定</strong>请注意到坐标的数据范围。这个数据范围可以 $O(n^2)$，因此可以进一步思考（需要一定的理论分析）：重心一共有 $10^6$ 个，虽然看着枚举三个点的时间复杂度很高，但是如果时间复杂度真的到了 $10^6$ 的时候，是不是答案已经出来了呢？（具体来讲，如果枚举的时间复杂度小于 $10^6$，那么时间够用，不用额外考虑；反正如果时间复杂度已经到了 $10^6$ 还没找到，那是不可能的，因为重心已经基本被遍历完一遍了，一定会出答案。 ）因此，这道题被很多人称为了“<strong>一眼丁真题</strong>”。</p>
 <p><mark>参考代码：</mark></p>
@@ -559,10 +555,10 @@ int main()
     
     return 0;
 &#125;</code></pre>
-<h3 id="讲解——Vampiric-Powers-anyone-：">讲解——Vampiric Powers, anyone?：</h3>
-<p>**题意转化：**给 $n$ 个数和对应的 $a_i$ ，求 $1$ ~ $n$ 区间中连续异或的最大值是多少？（子段连续异或和的最大值）</p>
+
+<h3 id="讲解——Vampiric-Powers-anyone-："><a href="#讲解——Vampiric-Powers-anyone-：" class="headerlink" title="讲解——Vampiric Powers, anyone?："></a>讲解——Vampiric Powers, anyone?：</h3><p><strong>题意转化：</strong>给 $n$ 个数和对应的 $a_i$ ，求 $1$ ~ $n$ 区间中连续异或的最大值是多少？（子段连续异或和的最大值）</p>
 <p><strong>数据范围：</strong> $n \le 10^5$， $0 \le a_i &lt; 2^8$ 。</p>
-<p><mark>清除误区：</mark> **区间异或和的最大值不能用线段树做！**因为类比区间连续子段和的最大值来说：最大值与最大值的和结果是最大值，但是异或的最大值和异或的最大值合起来（异或）不一定就是最大值了！</p>
+<p><mark>清除误区：</mark> <strong>区间异或和的最大值不能用线段树做！</strong>因为类比区间连续子段和的最大值来说：最大值与最大值的和结果是最大值，但是异或的最大值和异或的最大值合起来（异或）不一定就是最大值了！</p>
 <p><mark>思路1：</mark> 需要仔细看到数据范围是 $2^8$，即256，不要以为是 $2^{28}$！看到数值这么小，可以想到枚举数值，但可能有点不太好想怎么枚举数值（有点思维在里面）。这里就直接说结论了：每次存储当前所有的前缀，对于当下枚举到的前缀，我们枚举数值！（这里的数值是已经存在过的前缀异或值），这样的效果等价于 $sum[r]$ ^ $sum[l-1]$，其中 $sum[l - 1]$ 是要枚举的数值！，这样得到的就是所有的子区间的异或值，然后取个 $max$ 即可。</p>
 <p><mark>思路2：</mark> 其实思路1是偏向于思维的，可能不太容易想到，trie这种数据结构可能会想被想到！如果理解了第一个思路的公式，那么显然，我们每次插入的就是前缀和，然后对于当前点进行询问即可。</p>
 <p><mark>思路 1 参考代码：</mark></p>
@@ -602,6 +598,7 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
+
 <p><mark>思路 2 参考代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -673,12 +670,11 @@ int main()
 
     return 0;
 &#125;</code></pre>
-<h2 id="经典永不过时">经典永不过时</h2>
-<h3 id="题目链接：G-The-Morning-Star">题目链接：<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1850/problem/G">G. The Morning Star</a></h3>
-<p><strong>题意：</strong></p>
+
+<h2 id="经典永不过时"><a href="#经典永不过时" class="headerlink" title="经典永不过时"></a>经典永不过时</h2><h3 id="题目链接：G-The-Morning-Star"><a href="#题目链接：G-The-Morning-Star" class="headerlink" title="题目链接：G. The Morning Star"></a>题目链接：<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1850/problem/G">G. The Morning Star</a></h3><p><strong>题意：</strong></p>
 <p>​		给定 $n(n \le 10^5)$ 个点，问有多少个点对，在四条直线上。</p>
 <p><strong>思路：</strong></p>
-<p>​		对于每个点，根据直线方程： $y - y_0 = k(x - x_0)$，即 $y = kx + b$，可以确定这个点在哪四条直线上。用map存四条直线即可（$first$：$k$, $second$：$b$）。最后统计答案就是：对于一条 $\ge 2$ 的点数（假设为 $n$）的直线，对答案的贡献为 $n × (n - 1)$。</p>
+<p>​		对于每个点，根据直线方程： $y - y_0 &#x3D; k(x - x_0)$，即 $y &#x3D; kx + b$，可以确定这个点在哪四条直线上。用map存四条直线即可（$first$：$k$, $second$：$b$）。最后统计答案就是：对于一条 $\ge 2$ 的点数（假设为 $n$）的直线，对答案的贡献为 $n × (n - 1)$。</p>
 <p><mark>代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -719,8 +715,8 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
-<h3 id="题目链接：E-Nastya-and-Potions">题目链接：<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1851/problem/E">E. Nastya and Potions</a></h3>
-<p><strong>题意：</strong></p>
+
+<h3 id="题目链接：E-Nastya-and-Potions"><a href="#题目链接：E-Nastya-and-Potions" class="headerlink" title="题目链接：E. Nastya and Potions"></a>题目链接：<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1851/problem/E">E. Nastya and Potions</a></h3><p><strong>题意：</strong></p>
 <p>​		一个炼术师在炼药，一种药需要其他几种药物来合成获取或直接购买，问每个药物最少花多少钱？</p>
 <p><strong>思路：</strong></p>
 <p>​		记忆化搜索。一个药物需要其他药物合成获取，则递归获取其他药物，有根据题目要求，没有环的存在，所以记忆化搜索，递归子结点的情况，然后和购买取个 $min$ 即可。这题比较典吧，当时被给到了一个<mark>记忆化搜索</mark>的 $idea$，然后就会了，不过回过头来，自己想的话，怎样才能想到用这个算法呢？</p>
@@ -791,19 +787,18 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
-<h2 id="练习数据结构手感">练习数据结构手感</h2>
-<p><mark>题单放送：</mark></p>
+
+
+
+<h2 id="练习数据结构手感"><a href="#练习数据结构手感" class="headerlink" title="练习数据结构手感"></a>练习数据结构手感</h2><p><mark>题单放送：</mark></p>
 <ul>
-<li>
-<p><strong>线段树（最大连续子段和）：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/246/">你能回答这些问题吗</a></p>
+<li><p><strong>线段树（最大连续子段和）：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/246/">你能回答这些问题吗</a></p>
 </li>
-<li>
-<p><strong>树链剖分（树链剖分 + 最大 / 最小连续子段和）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1843/problem/F2">F2. Omsk Metro (hard version)</a></p>
+<li><p><strong>树链剖分（树链剖分 + 最大 &#x2F; 最小连续子段和）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1843/problem/F2">F2. Omsk Metro (hard version)</a></p>
 </li>
 </ul>
 <p><mark>代码参考：</mark></p>
-<h3 id="线段树（最大连续子段和）：">线段树（最大连续子段和）：</h3>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<h3 id="线段树（最大连续子段和）："><a href="#线段树（最大连续子段和）：" class="headerlink" title="线段树（最大连续子段和）："></a>线段树（最大连续子段和）：</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -899,8 +894,8 @@ int main()
 	
 	return 0;
 &#125;</code></pre>
-<h3 id="树链剖分（树链剖分-最大-最小连续子段和）：">树链剖分（树链剖分 + 最大 / 最小连续子段和）：</h3>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+<h3 id="树链剖分（树链剖分-最大-最小连续子段和）："><a href="#树链剖分（树链剖分-最大-最小连续子段和）：" class="headerlink" title="树链剖分（树链剖分 + 最大 &#x2F; 最小连续子段和）："></a>树链剖分（树链剖分 + 最大 &#x2F; 最小连续子段和）：</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -1087,10 +1082,10 @@ int main()
 
     return 0;
 &#125;</code></pre>
-<h2 id="蓝桥杯精选">蓝桥杯精选</h2>
-<h3 id="日期">日期</h3>
-<h4 id="判断平年-闰年">判断平年/闰年</h4>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;stdio.h&gt;
+
+
+
+<h2 id="蓝桥杯精选"><a href="#蓝桥杯精选" class="headerlink" title="蓝桥杯精选"></a>蓝桥杯精选</h2><h3 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h3><h4 id="判断平年-闰年"><a href="#判断平年-闰年" class="headerlink" title="判断平年&#x2F;闰年"></a>判断平年&#x2F;闰年</h4><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;stdio.h&gt;
 int main()
 &#123;
     &#x2F;*1、能被4整除，但不能别100整除
@@ -1102,8 +1097,8 @@ int main()
   if((year % 4 &#x3D;&#x3D; 0 &amp;&amp; year % 100 !&#x3D; 0) ||year % 400 &#x3D;&#x3D; 0);
 &#125;
 </code></pre>
-<h4 id="获取日期字符串">获取日期字符串</h4>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+<h4 id="获取日期字符串"><a href="#获取日期字符串" class="headerlink" title="获取日期字符串"></a>获取日期字符串</h4><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -1133,9 +1128,8 @@ int main()
 
 	return 0;
 &#125;</code></pre>
-<h3 id="搜索">搜索</h3>
-<h4 id="排列">排列</h4>
-<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/844/">排列数字</a></p>
+
+<h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><h4 id="排列"><a href="#排列" class="headerlink" title="排列"></a>排列</h4><p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/844/">排列数字</a></p>
 <p><mark>手写全排列：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -1174,6 +1168,7 @@ int main()
     dfs(0);
     return 0;
 &#125;</code></pre>
+
 <p><mark>调用函数实现：</mark></p>
 <blockquote>
 <p>首先，请记住：next_permutation() 函数！</p>
@@ -1199,8 +1194,8 @@ int main()
     
     return 0;
 &#125;</code></pre>
-<h4 id="组合">组合</h4>
-<blockquote>
+
+<h4 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h4><blockquote>
 <p>与排列所不同的是：需要按照顺序组合，即多加一个参数cur：表示当前要从第几个数开始，有了这种顺序后，就可以不用st数组判重了。</p>
 </blockquote>
 <pre class="language-c++" data-language="c++"><code class="language-c++">void dfs(int cur&#x2F;*当前是第几个数*&#x2F;,int cnt&#x2F;*当前已经选了多少个数*&#x2F;)
@@ -1219,13 +1214,11 @@ int main()
         v.pop_back();
     &#125;
 &#125;&#x2F;&#x2F;如果用dfs(1,0)调用：表示数组元素从1开始,当前已经选了0个数。</code></pre>
-<h2 id="算法中的小技巧">算法中的小技巧</h2>
-<h3 id="技巧一：">技巧一：</h3>
-<p>对于点对的编号数值较大，想开二维数组判重，但是不能开太大？</p>
-<p>**问题案例：**给点 $n$ 个点 $(n \le 10^5)$ ，有 $m$ 条边 $(u,v)$，由于不能加入重边，因此需要判重。而二维数组无法开太大，因此怎么办呢？(题目来源：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1177/">最大半连通子图</a>，<a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/1649748772841508875?type=7&amp;page=0">L2-048 寻宝图</a>，其中：第一道题目需要用到该技巧，第二个题目开动态二维数组也可以，但也可以用该技巧练练手！)</p>
-<p>**解决：**将二维的点对映射成一个数，由于 $(u,v)$ 在 $10^5$ 以内，因此可以根据公式：$u × 1000000ll + v$ 计算出点对的哈希值，然后开一个 $unordered_set$ 来判重即可。</p>
-<h2 id="天梯赛-OR-CAIP（原RoboCom）">天梯赛 OR CAIP（原RoboCom）</h2>
-<blockquote>
+
+<h2 id="算法中的小技巧"><a href="#算法中的小技巧" class="headerlink" title="算法中的小技巧"></a>算法中的小技巧</h2><h3 id="技巧一："><a href="#技巧一：" class="headerlink" title="技巧一："></a>技巧一：</h3><p>对于点对的编号数值较大，想开二维数组判重，但是不能开太大？</p>
+<p><strong>问题案例：</strong>给点 $n$ 个点 $(n \le 10^5)$ ，有 $m$ 条边 $(u,v)$，由于不能加入重边，因此需要判重。而二维数组无法开太大，因此怎么办呢？(题目来源：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1177/">最大半连通子图</a>，<a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/1649748772841508875?type=7&page=0">L2-048 寻宝图</a>，其中：第一道题目需要用到该技巧，第二个题目开动态二维数组也可以，但也可以用该技巧练练手！)</p>
+<p><strong>解决：</strong>将二维的点对映射成一个数，由于 $(u,v)$ 在 $10^5$ 以内，因此可以根据公式：$u × 1000000ll + v$ 计算出点对的哈希值，然后开一个 $unordered_set$ 来判重即可。</p>
+<h2 id="天梯赛-OR-CAIP（原RoboCom）"><a href="#天梯赛-OR-CAIP（原RoboCom）" class="headerlink" title="天梯赛 OR CAIP（原RoboCom）"></a>天梯赛 OR CAIP（原RoboCom）</h2><blockquote>
 <p>常用小技巧：</p>
 <p>1、断言：assert();</p>
 <p>2、随机数</p>
@@ -1240,18 +1233,15 @@ int main()
 <li><strong>随机数</strong></li>
 </ol>
 <ul>
-<li>
-<p>新学了一个“效率较高”的”随机数算法“，在全局中加入下面代码：</p>
+<li><p>新学了一个“效率较高”的”随机数算法“，在全局中加入下面代码：</p>
 <ul>
-<li>
-<pre><code class="language-c++">mt19937 mrand(random_device&#123;&#125;());
+<li><pre><code class="c++">mt19937 mrand(random_device&#123;&#125;());
 int rnd(int x) &#123; return mrand() % x;&#125;
 <pre class="language-none"><code class="language-none">
 - 调用方式（举例如下）：
 
   - &#96;&#96;&#96;c++
     cout &lt;&lt; rnd(100);</code></pre>
-
 </code></pre>
 </li>
 </ul>
@@ -1262,8 +1252,7 @@ int rnd(int x) &#123; return mrand() % x;&#125;
 <li>明确存储容器</li>
 <li>函数代码分工</li>
 </ul>
-<h2 id="C-个人通用模板">C++个人通用模板</h2>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<h2 id="C-个人通用模板"><a href="#C-个人通用模板" class="headerlink" title="C++个人通用模板"></a>C++个人通用模板</h2><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -1301,8 +1290,8 @@ int main()
     cin.tie(nullptr)-&gt;sync_with_stdio(false);
     return 0;
 &#125;</code></pre>
-<h2 id="文件读写">文件读写</h2>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+<h2 id="文件读写"><a href="#文件读写" class="headerlink" title="文件读写"></a>文件读写</h2><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -1315,12 +1304,10 @@ int main()
     fclose(stdout);
     return 0;
 &#125;</code></pre>
-<h2 id="基本知识点">基本知识点</h2>
-<h3 id="计算空间大小">计算空间大小</h3>
-<p>1e6个chat为1M</p>
+
+<h2 id="基本知识点"><a href="#基本知识点" class="headerlink" title="基本知识点"></a>基本知识点</h2><h3 id="计算空间大小"><a href="#计算空间大小" class="headerlink" title="计算空间大小"></a>计算空间大小</h3><p>1e6个chat为1M</p>
 <p>1e6个int为4M</p>
-<h2 id="在这里写个对拍！">在这里写个对拍！</h2>
-<p><strong>参考题目链接：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2/">01背包问题</a></p>
+<h2 id="在这里写个对拍！"><a href="#在这里写个对拍！" class="headerlink" title="在这里写个对拍！"></a>在这里写个对拍！</h2><p><strong>参考题目链接：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2/">01背包问题</a></p>
 <blockquote>
 <p>首先，正解和暴力解法仍需正常写，不必加任何与文件输入输出流相关的代码。</p>
 <p>而数据代码生成器：</p>
@@ -1373,6 +1360,7 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
+
 <p><mark>随机数据生成器：generate_data.cpp</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -1401,6 +1389,9 @@ int main()
     fout.close();
     return 0;
 &#125;</code></pre>
+
+
+
 <p><mark>正解：std.cpp</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -1424,6 +1415,7 @@ int main()
     cout &lt;&lt; f[m] &lt;&lt; endl;
     return 0;
 &#125;</code></pre>
+
 <p><mark>暴力：bf.cpp</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 

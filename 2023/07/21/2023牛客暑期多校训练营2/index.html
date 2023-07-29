@@ -6,11 +6,10 @@
     <meta charset="utf-8">
     <meta name="keywords" content="2023牛客暑期多校训练营2, 重生带我走">
     <meta name="description" content="比赛超链接：2023牛客暑期多校训练营2
-E Square
-题意：
+E Square题意：
 ​		给定一个数 $x$，请找一个数 $y$ 使得 $y^2$ 的前缀含有 $x$。
 思路：
-​		比如给一个数 $4$，优先会想到 $2^2 = 4,7^2 = 49,2">
+​		比如给一个数 $4$，优先会想到 $2^2 &amp;#x3D; 4,7^2 &amp;#">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -487,11 +486,10 @@ E Square
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p><mark>比赛超链接：<a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57356">2023牛客暑期多校训练营2</a></mark></p>
-<h2 id="E-Square">E Square</h2>
-<p><strong>题意：</strong></p>
+<h2 id="E-Square"><a href="#E-Square" class="headerlink" title="E Square"></a>E Square</h2><p><strong>题意：</strong></p>
 <p>​		给定一个数 $x$，请找一个数 $y$ 使得 $y^2$ 的前缀含有 $x$。</p>
 <p><strong>思路：</strong></p>
-<p>​		比如给一个数 $4$，优先会想到 $2^2 = 4,7^2 = 49,20^2 = 400,\cdots$，因此，会优先考虑 $4,40,400,4000,\cdots$，然后对其开根号，由于精度问题，但只会上下浮动两个数（向下取整和向上取整），因此按照此思路模拟即可。</p>
+<p>​		比如给一个数 $4$，优先会想到 $2^2 &#x3D; 4,7^2 &#x3D; 49,20^2 &#x3D; 400,\cdots$，因此，会优先考虑 $4,40,400,4000,\cdots$，然后对其开根号，由于精度问题，但只会上下浮动两个数（向下取整和向上取整），因此按照此思路模拟即可。</p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -536,13 +534,13 @@ int main()
 
     return 0;
 &#125;</code></pre>
-<h2 id="G-Link-with-Centrally-Symmetric-Strings">G Link with Centrally Symmetric Strings</h2>
-<p><strong>题意：</strong></p>
+
+<h2 id="G-Link-with-Centrally-Symmetric-Strings"><a href="#G-Link-with-Centrally-Symmetric-Strings" class="headerlink" title="G Link with Centrally Symmetric Strings"></a>G Link with Centrally Symmetric Strings</h2><p><strong>题意：</strong></p>
 <p>​		给点一个串，问该串是否可以分成若干个由题意描述的中心对称子串。</p>
 <p><strong>思路：</strong></p>
 <p>​		$manacher + dp$。</p>
 <ul>
-<li>需要略微修改 $manacher$ 的板子，即重定义匹配规则，令 $pl$ 字符串与 $pr$ 字符串匹配（参考下面代码），然后由于存在自己跟自己相同的字符（如 $o,s,x,z$ ），也有不相同的可以匹配，那么就需要修改一个条件：<code>p[i] = i &lt;= r ? min(p[mid * 2 - i],r - i + 1) : 1;</code>，将默认最小的 $1$ 改为 $0$，因为模板是求回文串的，一定是相同字母和相同字母匹配，所以省略了自己跟自己匹配，故最初从 $p[i]$ 从 $1$ 开始。</li>
+<li>需要略微修改 $manacher$ 的板子，即重定义匹配规则，令 $pl$ 字符串与 $pr$ 字符串匹配（参考下面代码），然后由于存在自己跟自己相同的字符（如 $o,s,x,z$ ），也有不相同的可以匹配，那么就需要修改一个条件：<code>p[i] = i &lt;= r ? min(p[mid * 2 - i],r - i + 1) : 1;</code>，将默认最小的 $1$ 改为 $0$，因为模板是求回文串的，一定是相同字母和相同字母匹配，所以省略了自己跟自己匹配，故最初从 $p[i]$ 从 $1$ 开始。 </li>
 <li>接着是跑 $DP$。不过这个 $DP$ 比较简单，定义：$f[i]$：前 $i$ 个字符都能匹配的状态（即 $0$ 或 $1$）。在 $manacher$ 板子里加上 <code>f[i + p[i]] |= f[i - p[i] - 1]</code> 即可，最终答案为 $f[n]$。</li>
 </ul>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -610,8 +608,10 @@ int main()
 
     return 0;
 &#125;</code></pre>
-<h2 id="I-Link-with-Gomoku">I Link with Gomoku</h2>
-<p><strong>题意：</strong></p>
+
+
+
+<h2 id="I-Link-with-Gomoku"><a href="#I-Link-with-Gomoku" class="headerlink" title="I Link with Gomoku"></a>I Link with Gomoku</h2><p><strong>题意：</strong></p>
 <p>​		模拟五子棋的过程，使其变成“平局”的局面。</p>
 <p><strong>思路：</strong></p>
 <p>​		一种构造方法就是：</p>
@@ -679,6 +679,7 @@ int main()
 
     return 0;
 &#125;</code></pre>
+
 
                 
             </div>

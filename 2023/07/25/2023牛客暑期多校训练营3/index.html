@@ -6,9 +6,8 @@
     <meta charset="utf-8">
     <meta name="keywords" content="2023牛客暑期多校训练营3, 重生带我走">
     <meta name="description" content="比赛超链接：2023牛客暑期多校训练营3
-A World Fragments I
-题意：
-​		给定两个二进制数 $x$ 和 $y$，为使 $x$ 变换成 $y$，可以选取 $x$ 二进制表示中的一位上的数字进行 $+/-$，问最快什么时候">
+A World Fragments I题意：
+​		给定两个二进制数 $x$ 和 $y$，为使 $x$ 变换成 $y$，可以选取 $x$ 二进制表示中的一位上的数字进行 $+&amp;#x2F;-$，问最快">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -485,11 +484,10 @@ A World Fragments I
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p><mark>比赛超链接：<a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57357">2023牛客暑期多校训练营3</a></mark></p>
-<h2 id="A-World-Fragments-I">A World Fragments I</h2>
-<p><strong>题意：</strong></p>
-<p>​		给定两个二进制数 $x$ 和 $y$，为使 $x$ 变换成 $y$，可以选取 $x$ 二进制表示中的一位上的数字进行 $+/-$，问最快什么时候变成 $y$？</p>
+<h2 id="A-World-Fragments-I"><a href="#A-World-Fragments-I" class="headerlink" title="A World Fragments I"></a>A World Fragments I</h2><p><strong>题意：</strong></p>
+<p>​		给定两个二进制数 $x$ 和 $y$，为使 $x$ 变换成 $y$，可以选取 $x$ 二进制表示中的一位上的数字进行 $+&#x2F;-$，问最快什么时候变成 $y$？</p>
 <p><strong>思路：</strong></p>
-<p>​		如果 $x = y$，则 $0$ 次即可，否则判断 $x$ 二进制位上是否有 $1$，有 $1$ 才可以变换，则最小次数为绝对值之差，否则为 $-1$。</p>
+<p>​		如果 $x &#x3D; y$，则 $0$ 次即可，否则判断 $x$ 二进制位上是否有 $1$，有 $1$ 才可以变换，则最小次数为绝对值之差，否则为 $-1$。 </p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -526,16 +524,17 @@ int main()
     else    cout &lt;&lt; abs(x - y);
     return 0;
 &#125;</code></pre>
-<h2 id="H-Until-the-Blue-Moon-Rises">H Until the Blue Moon Rises</h2>
-<p><strong>题意：</strong></p>
+
+
+
+<h2 id="H-Until-the-Blue-Moon-Rises"><a href="#H-Until-the-Blue-Moon-Rises" class="headerlink" title="H Until the Blue Moon Rises"></a>H Until the Blue Moon Rises</h2><p><strong>题意：</strong></p>
 <p>​		给定 $n$ 个数，每次同时令一个数 $+$ 1，一个数 $-$ 1，问是否最终可以令每个数都是质数？</p>
 <p><strong>思路：</strong></p>
-<p>​		由于每次操作，$\sum_{i=1}^{n}a_i$ 不变，那么分类讨论：</p>
+<p>​		由于每次操作，$\sum_{i&#x3D;1}^{n}a_i$ 不变，那么分类讨论：</p>
 <ol>
-<li>如果 $\sum_{i=1}^{n}a_i \le 2n$ ，则一定不行；（连最小的 $2$ 都凑不齐）；</li>
-<li>如果 $n = 1$，判断其是否为质数；</li>
-<li>如果 $n = 2$：
-<ul>
+<li>如果 $\sum_{i&#x3D;1}^{n}a_i \le 2n$ ，则一定不行；（连最小的 $2$ 都凑不齐）；</li>
+<li>如果 $n &#x3D; 1$，判断其是否为质数；</li>
+<li>如果 $n &#x3D; 2$：<ul>
 <li>如果二者之和为奇数：则一定一个为 $2$，另一个为奇数，只需判断那个奇数是否为质数即可；</li>
 <li>如果二者之和为偶数：则一定可以凑出来两个质数（当时手推的）；</li>
 </ul>
@@ -603,8 +602,10 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
-<h2 id="D-Ama-no-Jaku">D Ama no Jaku</h2>
-<p><strong>题意：</strong></p>
+
+
+
+<h2 id="D-Ama-no-Jaku"><a href="#D-Ama-no-Jaku" class="headerlink" title="D Ama no Jaku"></a>D Ama no Jaku</h2><p><strong>题意：</strong></p>
 <p>​		给定一个矩阵，每次可以把一行或一列全部翻转（即 $1$ 变成 $0$，$0$ 变成 $1$），问最少几次？</p>
 <p><strong>思路：</strong></p>
 <p>​		先将第一行变为相同字符，之后判断每行相同情况，看看哪个少就全都变成哪个字符即可（注意下细节就行了）。</p>
@@ -670,8 +671,10 @@ int main()
     cout &lt;&lt; mi &lt;&lt; &#39;\n&#39;;
     return 0;
 &#125;</code></pre>
-<h2 id="J-Fine-Logic">J Fine Logic</h2>
-<p><strong>题意：</strong></p>
+
+
+
+<h2 id="J-Fine-Logic"><a href="#J-Fine-Logic" class="headerlink" title="J Fine Logic"></a>J Fine Logic</h2><p><strong>题意：</strong></p>
 <p>​		给定 $n$ 以及 $m$ 组赢关系，构造最少组排名使得每组赢关系都被至少一组排名所满足。</p>
 <p><strong>思路：</strong></p>
 <p>​		如果是一个有向无环图$(DAG)$，则一组即可；如果有环，则两组即可，从 $1$ 输出到 $n$，然后再从 $n$ 输出到 $1$ 即可。</p>
@@ -742,6 +745,7 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
+
 
                 
             </div>
