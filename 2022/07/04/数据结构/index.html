@@ -2816,6 +2816,99 @@ int main()
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2768/">后缀自动机</a></p>
 <p><strong>线段树 + 后缀自动机：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/33188/H">Hacker</a></p>
+<h2 id="支配树"><a href="#支配树" class="headerlink" title="支配树"></a>支配树</h2><blockquote>
+<p><strong>定义：</strong></p>
+<p>对于一张有向图，我们确定一个起点 $S$，对于一个点 $k$，称 $x$ 为其支配点当且仅当，删去点 $x$ 后，$S$ 无法到达 $k$，即 $S$ 到达 $k$ 的所有路径都必须通过 $x$。</p>
+<p>$Lengauer-Tarjan$ 算法分为三步：</p>
+<ol>
+<li>求出 $dfs$ 树，得到每个点 $k$ 的 $dfs$ 序 $d_k$。</li>
+<li>求解半支配点。</li>
+<li>求解支配点。</li>
+</ol>
+<p><strong>时间复杂度：</strong>$O(nlogn)$</p>
+<p><strong>使用指南：</strong></p>
+<p>$idom[i]$ 数组：$i$ 的支配点是谁，即 $i$ 被谁支配；</p>
+<p>$vector<vector<int>&gt; domain_tree$：支配树（DAG），支配树上的点会被从根节点到该点上路径上所有的点所支配。</p>
+</blockquote>
+<p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">struct DominationTree&#x2F;&#x2F;支配树
+&#123;
+   int n,idx;
+   vector&lt;vector&lt;int&gt;&gt; g,fg,hg,domain_tree;&#x2F;&#x2F;原图,反图,半支配树,支配树
+   vector&lt;int&gt; dfn,ord,fa;&#x2F;&#x2F;ord:dfs序列;
+   vector&lt;int&gt; uni,mn,idom,sdom;&#x2F;&#x2F;idom为支配点
+
+   DominationTree(int _n):n(_n),idx(0),g(n + 1),fg(n + 1),hg(n + 1),domain_tree(n + 1)
+   &#123;
+       dfn.resize(n + 1),ord.resize(n + 1),fa.resize(n + 1);
+       uni.resize(n + 1),mn.resize(n + 1),idom.resize(n + 1),sdom.resize(n + 1);
+   &#125;
+   void add(int a,int b)
+   &#123;
+       g[a].push_back(b);
+       fg[b].push_back(a);
+   &#125;
+   void tarjan(int u)
+   &#123;
+       ord[dfn[u] &#x3D; ++idx] &#x3D; u;
+       for(auto v : g[u])
+           if(!dfn[v])
+           &#123;
+               fa[v] &#x3D; u;
+               tarjan(v);
+           &#125;
+   &#125;
+   int query_uni(int u)
+   &#123;
+       if(u &#x3D;&#x3D; uni[u]) return u;
+       int res &#x3D; query_uni(uni[u]);
+       if(dfn[sdom[mn[uni[u]]]] &lt; dfn[sdom[mn[u]]])    mn[u] &#x3D; mn[uni[u]];
+       return uni[u] &#x3D; res;
+   &#125;
+   &#x2F;&#x2F;求以st为起点的所有点的支配点
+   void contract(int st)
+   &#123;
+       tarjan(st);
+       for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   sdom[i] &#x3D; uni[i] &#x3D; mn[i] &#x3D; i;
+       for(int i &#x3D; idx;i &gt;&#x3D; 2;i--)
+       &#123;
+           int u &#x3D; ord[i];
+           for(auto v : fg[u])
+           &#123;
+               if(!dfn[v]) continue;
+               query_uni(v);
+               if(dfn[sdom[mn[v]]] &lt; dfn[sdom[u]]) sdom[u] &#x3D; sdom[mn[v]];
+           &#125;
+           uni[u] &#x3D; fa[u];&#x2F;&#x2F;半支配点的求解过程
+           hg[sdom[u]].push_back(u);&#x2F;&#x2F;维护半支配树
+           for(auto v : hg[u &#x3D; fa[u]])
+           &#123;
+               query_uni(v);
+               idom[v] &#x3D; u &#x3D;&#x3D; sdom[mn[v]] ? u : mn[v];
+           &#125;
+           hg[u].clear();
+       &#125;
+
+       for(int i &#x3D; 2;i &lt;&#x3D; idx;i++)
+       &#123;
+           int u &#x3D; ord[i];
+           if(idom[u] ^ sdom[u])   idom[u] &#x3D; idom[idom[u]];
+       &#125;
+
+       &#x2F;&#x2F;建立支配树
+       for(int i &#x3D; idx;i &gt;&#x3D; 2;i--)
+           domain_tree[idom[ord[i]]].push_back(ord[i]);
+       &#125;
+&#125;;
+
+int main()
+&#123;
+    DominationTree dtree(n);
+    dtree.contract(1);&#x2F;&#x2F;调用(1为起点)
+&#125;</code></pre>
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5180">【模板】支配树</a></p>
+<p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57357/E">Koraidon, Miraidon and DFS Shortest Path</a></p>
 
                 
             </div>
