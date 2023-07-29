@@ -942,7 +942,7 @@ int main()
 <ul>
 <li>在原串中，不管是奇数还是偶数的回文串，在新串中都对应长度为奇数的回文串。</li>
 <li>细节方面：若原串空间为 $n(即数组下标为[0,n - 1])$，则新串空间长度需为 $2n + 3(即数组下标为[0,2n+2])$。</li>
-<li><strong>具体而言，只需考虑 $[1,n]$，其中 $n$ 为更新后的长度，即 $n_{新} &#x3D; 2n_{原} + 1$，为奇数，该区间串的内容为：”#a#a#”(以 $aa$ 字符串为例)。</strong></li>
+<li><strong>具体而言，只需考虑 $[1,n]$，其中 $n$ 为更新后的长度，即 $n_{新} &#x3D; 2n_{原} + 1$ 为奇数，该区间串的内容为：”#a#a#”(以 $aa$ 字符串为例)。</strong></li>
 </ul>
 <p><strong>数组含义：</strong></p>
 <ul>
@@ -958,19 +958,13 @@ int main()
 int n;
 char a[N &lt;&lt; 1],s[N &lt;&lt; 1];
 int p[N &lt;&lt; 1];&#x2F;&#x2F;以i为中心的最大回文半径
-
-void init()
-&#123;
-    n &#x3D; 0;
-    int len &#x3D; strlen(a);
-    s[0] &#x3D; &#39;$&#39;;
-    for(int i &#x3D; 0;i &lt; len;i++) s[++n] &#x3D; &#39;#&#39;,s[++n] &#x3D; a[i];
-    s[++n] &#x3D; &#39;#&#39;,s[n + 1] &#x3D; &#39;^&#39;;
-&#125;
-
 void manacher()
 &#123;
-    init();
+    s[0] &#x3D; &#39;$&#39;;&#x2F;&#x2F;构造新字符串
+    int len &#x3D; strlen(a);
+    for(int i &#x3D; 0;i &lt; len;i++) s[++n] &#x3D; &#39;#&#39;,s[++n] &#x3D; a[i];
+    s[++n] &#x3D; &#39;#&#39;,s[n + 1] &#x3D; &#39;^&#39;;
+    &#x2F;&#x2F;manacher匹配
     int mid &#x3D; 0,r &#x3D; 0;
     for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
     &#123;
