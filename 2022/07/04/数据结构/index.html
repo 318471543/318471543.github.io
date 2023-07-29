@@ -800,37 +800,33 @@ int main()
 <h3 id="KMP-1"><a href="#KMP-1" class="headerlink" title="KMP"></a>KMP</h3><blockquote>
 <p><strong>KMP算法</strong>是可以在<strong>文本串s</strong>中快速查找<strong>模式串p</strong>的一种算法。</p>
 </blockquote>
-<p><mark>模板：</mark></p>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
-using namespace std;
-const int N &#x3D; 1e5+10,M &#x3D; 1e6+10;
-int n,m;
-char p[N],s[M];
-int ne[N];&#x2F;&#x2F;最长相等前后缀长度
-int main()&#x2F;&#x2F;下面两个过程基本是类似的
-&#123;&#x2F;&#x2F;p为小的模板串，n为其大小;s为大的模式串，m为其大小
-    cin &gt;&gt; n &gt;&gt; p + 1 &gt;&gt; m &gt;&gt; s + 1;&#x2F;&#x2F;字符串输入是从下标1开始的
-    &#x2F;&#x2F;求next的过程
+<p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">auto KMP &#x3D; [&amp;](string p,string s) -&gt; vector&lt;int&gt;
+&#123;
+    vector&lt;int&gt; res;
+    int n &#x3D; p.size(),m &#x3D; s.size();
+    p &#x3D; &quot; &quot; + p,s &#x3D; &quot; &quot; + s;
+
+    vector&lt;int&gt; ne(n + 1);
     for(int i &#x3D; 2,j &#x3D; 0;i &lt;&#x3D; n;i++)
-    &#123;&#x2F;&#x2F;i &#x3D; 2原因是next[1]不用算
+    &#123;
         while(j &amp;&amp; p[i]!&#x3D;p[j+1])    j &#x3D; ne[j];
         if(p[i]&#x3D;&#x3D;p[j+1])    j++;
-        ne[i] &#x3D; j;&#x2F;&#x2F;因为字符串下标从1开始，这个j就非常好用
+        ne[i] &#x3D; j;
     &#125;
-    &#x2F;&#x2F;KMP匹配过程
+
     for(int i &#x3D; 1,j &#x3D; 0;i &lt;&#x3D; m;i++)
-    &#123;&#x2F;&#x2F;下面循环退出条件:j变为0(退无可退)或是匹配成功
-        while(j &amp;&amp; s[i]!&#x3D;p[j+1])    j &#x3D; ne[j];&#x2F;&#x2F;当不匹配，将j移动到ne[j]，“移动最小距离”
+    &#123;
+        while(j &amp;&amp; s[i]!&#x3D;p[j+1])    j &#x3D; ne[j];
         if(s[i]&#x3D;&#x3D;p[j+1])    j++;
-        if(j&#x3D;&#x3D;n)
+        if(j&#x3D;&#x3D;n)&#x2F;&#x2F;匹配成功
         &#123;
-            printf(&quot;%d &quot;,i-n);&#x2F;&#x2F;这一个比较好理解
-            j &#x3D; ne[j];&#x2F;&#x2F;匹配成功后继续移动到最小距离
+            res.push_back(i - n);&#x2F;&#x2F;匹配的下标从0开始
+            j &#x3D; ne[j];
         &#125;
     &#125;
-    return 0;
-&#125;
-</code></pre>
+    return res;
+&#125;;</code></pre>
 <p><mark>模板题：</mark><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/833/">KMP字符串</a></p>
 <h3 id="EX-KMP"><a href="#EX-KMP" class="headerlink" title="EX-KMP"></a>EX-KMP</h3><p><mark>Z函数：</mark>求一个字符串str以第 i 位开始的后缀与str的最长公共前缀（lcp）</p>
 <p>使用z[i]表示第i位开始的后缀与str的最长公共前缀</p>

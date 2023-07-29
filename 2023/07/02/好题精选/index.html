@@ -1293,45 +1293,81 @@ int main()
 <p>​    1、封装一个函数用来读文件写入随机数据，并关闭文件。</p>
 <p>​    2、主函数调用system()去执行两份代码，并判断生成的结果是否一致（答案会在system里面写入文件中）。</p>
 </blockquote>
-<p><mark>数据代码生成器：</mark>data_generator.cpp</p>
+<p><mark>文件共计7个：</mark></p>
+<ul>
+<li><strong>main.cpp</strong>    对拍执行函数（已经含有对其他文件的编译功能）</li>
+<li><strong>generate_data.cpp</strong>    生成随机数据的文件</li>
+<li>input.txt    存放数据生成的文件</li>
+<li><strong>std.cpp</strong>    正解</li>
+<li>std_output.txt    正解的输出结果</li>
+<li><strong>bf.cpp</strong>    暴力解法</li>
+<li>bf.output.txt    暴力解法的生成结果</li>
+</ul>
+<p>搭好框架后，只需写好正解$(std.cpp)$、暴力解法$(bf.cpp)$、以及生成随机数据$(generate_data)$的代码即可！</p>
+<p><mark>总执行函数： main.cpp</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
-void generate_data()
-&#123;
-    ofstream fout(&quot;input.txt&quot;);
-    int n &#x3D; 10,m &#x3D; rand() % 100 + 50;
-    fout &lt;&lt; n &lt;&lt; &quot; &quot; &lt;&lt; m &lt;&lt; endl;
-    
-    for(int i &#x3D; 0;i &lt; n;i++)
-    &#123;
-        int v &#x3D; rand() % 50 + 10,w &#x3D; rand() % 50 + 10;
-        fout &lt;&lt; v &lt;&lt; &quot; &quot; &lt;&lt; w &lt;&lt; endl;
-    &#125;
-    fout.close();
-&#125;
-
 int main()
-&#123;
-    cin.tie(nullptr)-&gt;sync_with_stdio(false);
-    srand(time(0));
-    for(int i &#x3D; 0;i &lt; 100;i++)
+&#123;    
+    auto compile &#x3D; [&amp;]() -&gt; void
     &#123;
-        printf(&quot;iteration: %d\n&quot;,i);
-        generate_data();
-        system(&quot;std.exe &lt; input.txt &gt; std_output.txt&quot;);
-        system(&quot;bf.exe &lt; input.txt &gt; bf_output.txt&quot;);
-        if(system(&quot;fc std_output.txt bf_output.txt&quot;))
+        printf(&quot;编译中:\n&quot;);
+        system(&quot;g++ generate_data.cpp -o generate_data&quot;);
+        system(&quot;g++ std.cpp -o std&quot;);
+        system(&quot;g++ bf.cpp -o bf&quot;);
+        printf(&quot;编译结束!\n&quot;);
+    &#125;;
+
+    compile();&#x2F;&#x2F;编译C++文件
+
+    for(int i &#x3D; 1;i &lt;&#x3D; 100;i++)
+    &#123;
+        printf(&quot;Test: %d\n&quot;,i);
+
+        system(&quot;generate_data.exe&quot;);&#x2F;&#x2F;生成数据
+        system(&quot;std.exe &lt; input.txt &gt; std_output.txt&quot;);&#x2F;&#x2F;生成正解
+        system(&quot;bf.exe &lt; input.txt &gt; bf_output.txt&quot;);&#x2F;&#x2F;生成暴力解
+        if(system(&quot;fc std_output.txt bf_output.txt&quot;))&#x2F;&#x2F;判断是否一致
         &#123;
             puts(&quot;Error!&quot;);
             break;
         &#125;
+        
         getchar();&#x2F;&#x2F;每次回车开始下一个数据
     &#125;
     return 0;
 &#125;</code></pre>
-<p><mark>正解：</mark>std.cpp</p>
+<p><mark>随机数据生成器：generate_data.cpp</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
+
+#define IOS ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr)
+#define cf(_) int _;cin &gt;&gt; _;while(_--)
+
+mt19937 mrand(random_device&#123;&#125;());
+int rnd(int x) &#123; return mrand() % x;&#125;
+ll gcd(ll a,ll b)&#123;return b ? gcd(b,a % b) : a;&#125;
+ll fpow(ll a,ll b,ll mod)&#123;ll res &#x3D; 1;a %&#x3D; mod;assert(b &gt;&#x3D; 0);while(b)&#123;if(b &amp; 1)res &#x3D; res * a % mod;a &#x3D; a * a % mod;b &gt;&gt;&#x3D; 1;&#125;return res;&#125;
+
+int main()
+&#123;
+    ofstream fout(&quot;input.txt&quot;);
+    int n &#x3D; rnd(100);
+    fout &lt;&lt; n &lt;&lt; endl;
+    
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   fout &lt;&lt; rnd(100) &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; n];
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   fout &lt;&lt; rnd(2) &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; n];
+
+    fout.close();
+    return 0;
+&#125;</code></pre>
+<p><mark>正解：std.cpp</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1354,7 +1390,7 @@ int main()
     cout &lt;&lt; f[m] &lt;&lt; endl;
     return 0;
 &#125;</code></pre>
-<p><mark>暴力：</mark>bf.cpp</p>
+<p><mark>暴力：bf.cpp</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1377,10 +1413,10 @@ int main()
             if(i &gt;&gt; j &amp; 1)  sumv +&#x3D; v[j],sumw +&#x3D; w[j];
         if(sumv &lt;&#x3D; m)   res &#x3D; max(res,sumw);
     &#125;
-    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+    cout &lt;&lt; res &lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
-<h2 id=""><a href="#" class="headerlink" title=" "></a> </h2>
+
                 
             </div>
             <hr/>
