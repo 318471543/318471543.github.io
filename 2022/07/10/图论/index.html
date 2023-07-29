@@ -5,7 +5,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="图论, 重生带我走">
-    <meta name="description" content="搜索排列模板题：排列数字
+    <meta name="description" content="搜索
+排列
+模板题：排列数字
 手写全排列：
 #include&amp;lt;bits&amp;#x2F;stdc++.h&amp;gt;
 
@@ -14,8 +16,7 @@ using namespace std;
 const int N &amp;#x3D; 20;
 
 int n;
-int st[N];
-">
+int st[N]">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -491,7 +492,9 @@ int st[N];
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h2><h3 id="排列"><a href="#排列" class="headerlink" title="排列"></a>排列</h3><p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/844/">排列数字</a></p>
+                <h2 id="搜索">搜索</h2>
+<h3 id="排列">排列</h3>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/844/">排列数字</a></p>
 <p><mark>手写全排列：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -555,7 +558,8 @@ int main()
     
     return 0;
 &#125;</code></pre>
-<h3 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h3><blockquote>
+<h3 id="组合">组合</h3>
+<blockquote>
 <p>与排列所不同的是：需要按照顺序组合，即多加一个参数cur：表示当前要从第几个数开始，有了这种顺序后，就可以不用st数组判重了。</p>
 </blockquote>
 <pre class="language-c++" data-language="c++"><code class="language-c++">void dfs(int cur&#x2F;*当前是第几个数*&#x2F;,int cnt&#x2F;*当前已经选了多少个数*&#x2F;)
@@ -574,7 +578,9 @@ int main()
         v.pop_back();
     &#125;
 &#125;&#x2F;&#x2F;如果用dfs(1,0)调用：表示数组元素从1开始,当前已经选了0个数。</code></pre>
-<h2 id="树"><a href="#树" class="headerlink" title="树"></a>树</h2><h3 id="给定中、后序遍历，求层次序"><a href="#给定中、后序遍历，求层次序" class="headerlink" title="给定中、后序遍历，求层次序"></a>给定中、后序遍历，求层次序</h3><p><strong>题目链接：</strong><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/994805069361299456"><strong>L2-006 树的遍历</strong></a></p>
+<h2 id="树">树</h2>
+<h3 id="给定中、后序遍历，求层次序">给定中、后序遍历，求层次序</h3>
+<p><strong>题目链接：</strong><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/994805069361299456"><strong>L2-006 树的遍历</strong></a></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -638,7 +644,8 @@ int main()
 
     return 0;
 &#125;</code></pre>
-<h3 id="给定中、前序遍历，求层次序"><a href="#给定中、前序遍历，求层次序" class="headerlink" title="给定中、前序遍历，求层次序"></a>给定中、前序遍历，求层次序</h3><p><strong>题目链接：</strong><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/994805065406070784"><strong>L2-011 玩转二叉树</strong></a></p>
+<h3 id="给定中、前序遍历，求层次序">给定中、前序遍历，求层次序</h3>
+<p><strong>题目链接：</strong><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/994805065406070784"><strong>L2-011 玩转二叉树</strong></a></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -709,7 +716,10 @@ int main()
     &#x2F;&#x2F; for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; tr[i].l &lt;&lt; &quot; &quot; &lt;&lt; tr[i].r &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
-<h2 id="最短路"><a href="#最短路" class="headerlink" title="最短路"></a>最短路</h2><h3 id="Dijkstra"><a href="#Dijkstra" class="headerlink" title="Dijkstra"></a>Dijkstra</h3><h4 id="朴素版Dijkstra"><a href="#朴素版Dijkstra" class="headerlink" title="朴素版Dijkstra"></a>朴素版Dijkstra</h4><p>适用于<strong>稠密图</strong>(m ≈ n<sup>2</sup>)，用邻接矩阵存储。时间复杂度：O(n<sup>2</sup>)</p>
+<h2 id="最短路">最短路</h2>
+<h3 id="Dijkstra">Dijkstra</h3>
+<h4 id="朴素版Dijkstra">朴素版Dijkstra</h4>
+<p>适用于<strong>稠密图</strong>(m ≈ n<sup>2</sup>)，用邻接矩阵存储。时间复杂度：O(n<sup>2</sup>)</p>
 <p><mark>代码模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -751,7 +761,8 @@ int main()
     &#125;
     printf(&quot;%d\n&quot;,dijkstra());
 &#125;</code></pre>
-<h4 id="堆优化版Dijkstra"><a href="#堆优化版Dijkstra" class="headerlink" title="堆优化版Dijkstra"></a>堆优化版Dijkstra</h4><p>适用于<strong>稀疏图</strong>(m ≈ n)，用邻接表存储。时间复杂度：O(mlog(n))</p>
+<h4 id="堆优化版Dijkstra">堆优化版Dijkstra</h4>
+<p>适用于<strong>稀疏图</strong>(m ≈ n)，用邻接表存储。时间复杂度：O(mlog(n))</p>
 <p><mark>代码模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -811,7 +822,8 @@ int main()
     printf(&quot;%d\n&quot;,dijkstra());
     return 0;
 &#125;</code></pre>
-<h3 id="bellman-ford"><a href="#bellman-ford" class="headerlink" title="bellman-ford"></a>bellman-ford</h3><p><mark>代码模板：</mark></p>
+<h3 id="bellman-ford">bellman-ford</h3>
+<p><mark>代码模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -855,7 +867,8 @@ int main()
     else    printf(&quot;%d\n&quot;,dist[n]);
     return 0;
 &#125;</code></pre>
-<h3 id="spfa"><a href="#spfa" class="headerlink" title="spfa"></a>spfa</h3><p><mark>代码模板：</mark></p>
+<h3 id="spfa">spfa</h3>
+<p><mark>代码模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -916,7 +929,8 @@ int main()
     else printf(&quot;%d\n&quot;,t);
     return 0;
 &#125;</code></pre>
-<h3 id="Floyd"><a href="#Floyd" class="headerlink" title="Floyd"></a>Floyd</h3><p><mark>代码模板：</mark></p>
+<h3 id="Floyd">Floyd</h3>
+<p><mark>代码模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -962,7 +976,9 @@ int main()
     
     return 0;
 &#125;</code></pre>
-<h2 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h2><h3 id="Prim"><a href="#Prim" class="headerlink" title="Prim"></a>Prim</h3><blockquote>
+<h2 id="最小生成树">最小生成树</h2>
+<h3 id="Prim">Prim</h3>
+<blockquote>
 <p>时间复杂度：$O(n^2)$</p>
 </blockquote>
 <p><mark>模板：</mark></p>
@@ -1012,7 +1028,8 @@ int main()
     else    printf(&quot;%d\n&quot;,t);
     return 0;
 &#125;</code></pre>
-<h3 id="Kruskal"><a href="#Kruskal" class="headerlink" title="Kruskal"></a>Kruskal</h3><blockquote>
+<h3 id="Kruskal">Kruskal</h3>
+<blockquote>
 <p>时间复杂度：$O(mlogm)$</p>
 </blockquote>
 <p><mark>代码模板：</mark></p>
@@ -1072,9 +1089,10 @@ int main()
     Kruskal();
     return 0;
 &#125;</code></pre>
-<h2 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h2><blockquote>
+<h2 id="拓扑排序">拓扑排序</h2>
+<blockquote>
 <p><mark>应用：</mark></p>
-<p>​    拓扑排序可以判断图中是否有环，还可以用来判断图是否是一条链。</p>
+<p>​	拓扑排序可以判断图中是否有环，还可以用来判断图是否是一条链。</p>
 <p><mark>手算流程：</mark></p>
 <p>一个有向图，如果图中有入度为 0 的点，就把这个点删掉，同时也删掉这个点所连的边。</p>
 <p>一直进行上面出处理，如果所有点都能被删掉，则这个图可以进行拓扑排序。</p>
@@ -1140,19 +1158,24 @@ int main()
 &#125;</code></pre>
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/850/">有向图的拓扑序列</a></p>
-<h2 id="二分图"><a href="#二分图" class="headerlink" title="二分图"></a>二分图</h2><blockquote>
+<h2 id="二分图">二分图</h2>
+<blockquote>
 <p>将所有点分成两个集合，使得所有边只出现在集合之间，就是二分图。</p>
 </blockquote>
 <p>下图即为一个二分图：</p>
 <p><img src="/images/1.png" alt="二分图"></p>
-<h3 id="染色法判定二分图"><a href="#染色法判定二分图" class="headerlink" title="染色法判定二分图"></a>染色法判定二分图</h3><blockquote>
+<h3 id="染色法判定二分图">染色法判定二分图</h3>
+<blockquote>
 <p><strong>算法流程：</strong></p>
 <ul>
-<li><p>染色可以使用数字 $1$ 和 $2$ 区分不同颜色，用 $0$ 表示未染色。</p>
+<li>
+<p>染色可以使用数字 $1$ 和 $2$ 区分不同颜色，用 $0$ 表示未染色。</p>
 </li>
-<li><p>遍历所有点，每次将未染色的点进行 $dfs$, 数字 $1$ 和 $2$ 可以用 $3 - c$ 快速交替！</p>
+<li>
+<p>遍历所有点，每次将未染色的点进行 $dfs$, 数字 $1$ 和 $2$ 可以用 $3 - c$ 快速交替！</p>
 </li>
-<li><p>最后，染色失败相当于存在相邻的2个点染了相同的颜色。</p>
+<li>
+<p>最后，染色失败相当于存在相邻的2个点染了相同的颜色。</p>
 </li>
 </ul>
 <p><strong>时间复杂度：</strong>$O(N+M)$</p>
@@ -1216,7 +1239,8 @@ int main()
 &#125;</code></pre>
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/862/">染色法判定二分图</a></p>
-<h3 id="二分图的最大匹配"><a href="#二分图的最大匹配" class="headerlink" title="二分图的最大匹配"></a>二分图的最大匹配</h3><p><strong>基本定义：</strong></p>
+<h3 id="二分图的最大匹配">二分图的最大匹配</h3>
+<p><strong>基本定义：</strong></p>
 <p>匹配：在图论中，一个「匹配」是一个边的集合，其中任意两条边都没有公共顶点。</p>
 <p>最大匹配：一个图所有匹配中，所含匹配边数最多的匹配，称为这个图的最大匹配。</p>
 <blockquote>
@@ -1291,12 +1315,14 @@ int main()
 &#125;</code></pre>
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/863/">二分图的最大匹配</a></p>
-<h2 id="Tarjan"><a href="#Tarjan" class="headerlink" title="Tarjan"></a>Tarjan</h2><h3 id="有向图的强连通分量"><a href="#有向图的强连通分量" class="headerlink" title="有向图的强连通分量"></a>有向图的强连通分量</h3><p><strong>基本定义：</strong></p>
+<h2 id="Tarjan">Tarjan</h2>
+<h3 id="有向图的强连通分量">有向图的强连通分量</h3>
+<p><strong>基本定义：</strong></p>
 <p>对于一个有向图，<strong>连通分量</strong>：对于分量中任意两点 $u$ 、$v$，必然可以从 $u$ 走到  $v$，且从 $v$ 走到 $u$ 。</p>
 <p><strong>强连通分量</strong>：极大连通分量。</p>
 <blockquote>
-<p><strong>主要功能：</strong>通过缩点的方式，将任意有向图转换成有向无环图（DAG），又称拓扑图。</p>
-<p><strong>注意：</strong>做完 $tarjan$ 算法之后,拓扑序一定是按照强连通分量节点编号递减的顺序，因此不需要再做一遍拓扑排序。</p>
+<p>**主要功能：**通过缩点的方式，将任意有向图转换成有向无环图（DAG），又称拓扑图。</p>
+<p>**注意：**做完 $tarjan$ 算法之后,拓扑序一定是按照强连通分量节点编号递减的顺序，因此不需要再做一遍拓扑排序。</p>
 </blockquote>
 <p>定义两个时间戳概念；</p>
 <ul>
@@ -1440,31 +1466,38 @@ int main()
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1176/">受欢迎的牛</a></p>
 <p><strong>$tarjan + dp$：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1177/">最大半连通子图</a>，其中 $dp$ 问题类似于<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/11/">背包问题求方案数</a></p>
-<h3 id="无向图的双连通分量"><a href="#无向图的双连通分量" class="headerlink" title="无向图的双连通分量"></a>无向图的双连通分量</h3><p><strong>基本定义：</strong></p>
+<h3 id="无向图的双连通分量">无向图的双连通分量</h3>
+<p><strong>基本定义：</strong></p>
 <ul>
-<li><p>边双连通分量 $(e-DCC)$</p>
+<li>
+<p>边双连通分量 $(e-DCC)$</p>
 <ul>
-<li><p>极大的不包含<strong>桥</strong>（桥：去掉一条边，会使其变得不连通）的连通块，被称为边双连通分量。那么在一个边双连通分量中，不管删除哪条边，该区域仍然连通。</p>
+<li>
+<p>极大的不包含<strong>桥</strong>（桥：去掉一条边，会使其变得不连通）的连通块，被称为边双连通分量。那么在一个边双连通分量中，不管删除哪条边，该区域仍然连通。</p>
 <p><img src="/images/11.png" alt="11"></p>
 </li>
 </ul>
 </li>
-<li><p>点双连通分量 $(v-DCC)$</p>
+<li>
+<p>点双连通分量 $(v-DCC)$</p>
 <ul>
-<li><p>极大的不包含<strong>割点</strong>的连通块，被称为点双连通分量。</p>
+<li>
+<p>极大的不包含<strong>割点</strong>的连通块，被称为点双连通分量。</p>
 <p><img src="/images/12.png" alt="12"></p>
 </li>
 </ul>
 </li>
 </ul>
-<h4 id="边双连通分量"><a href="#边双连通分量" class="headerlink" title="边双连通分量"></a>边双连通分量</h4><blockquote>
+<h4 id="边双连通分量">边双连通分量</h4>
+<blockquote>
 <p><strong>边双连通分量：</strong></p>
-<p>1、如何找到桥？<br>桥 $\Longleftrightarrow $ $dfn[x] &lt; low[y]$</p>
+<p>1、如何找到桥？<br>
+桥 $\Longleftrightarrow $ $dfn[x] &lt; low[y]$</p>
 <p><strong>结论：</strong></p>
 <p>1、对于有向图，最少加多少条边可以使其变成强连通分量呢？</p>
 <p>答案为：$max(p,q)$ 。其中 $p,q$ 分别表示出度为 $0$ 和入度为 $0$ 的连通块数。</p>
 <p>2、对于无向图，最小加多少条边可以使其变成边双连通分量呢？</p>
-<p>答案为：<strong>$\lfloor \frac{cnt + 1}{2} \rfloor$</strong>，其中 $cnt$ 是缩完点后，度数为 $1$ 的点的个数。 </p>
+<p>答案为：<strong>$\lfloor \frac{cnt + 1}{2} \rfloor$</strong>，其中 $cnt$ 是缩完点后，度数为 $1$ 的点的个数。</p>
 </blockquote>
 <p><mark>模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">int dfn[N],low[N],timestamp;
@@ -1588,8 +1621,10 @@ int main()
 &#125;</code></pre>
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/397/">冗余路径</a></p>
-<h4 id="点双连通分量"><a href="#点双连通分量" class="headerlink" title="点双连通分量"></a>点双连通分量</h4><blockquote>
-<p><strong>点双连通分量：</strong><br>1、如何求割点？</p>
+<h4 id="点双连通分量">点双连通分量</h4>
+<blockquote>
+<p><strong>点双连通分量：</strong><br>
+1、如何求割点？</p>
 <p>$low[y] \ge dfn[x]$</p>
 <ul>
 <li>如果 $x$ 不是根节点，那么 $x$ 是割点。</li>
@@ -1711,7 +1746,8 @@ int main()
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1185/">电力</a></p>
 <p><strong>按点双连通分量缩点：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/398/">矿场搭建</a></p>
-<h2 id="最近公共祖先-LCA"><a href="#最近公共祖先-LCA" class="headerlink" title="最近公共祖先(LCA)"></a>最近公共祖先(LCA)</h2><p><mark>模板：</mark></p>
+<h2 id="最近公共祖先-LCA">最近公共祖先(LCA)</h2>
+<p><mark>模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1806,9 +1842,12 @@ depth[i]:表示深度
 *&#x2F;</code></pre>
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1174/">祖孙询问</a></p>
-<h3 id="树上差分"><a href="#树上差分" class="headerlink" title="树上差分"></a>树上差分</h3><p><mark>推荐题单：</mark></p>
+<h3 id="树上差分">树上差分</h3>
+<p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/354/">闇の連鎖</a></p>
-<h2 id="网络流"><a href="#网络流" class="headerlink" title="网络流"></a>网络流</h2><h3 id="EK算法求最大流"><a href="#EK算法求最大流" class="headerlink" title="EK算法求最大流"></a>EK算法求最大流</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<h2 id="网络流">网络流</h2>
+<h3 id="EK算法求最大流">EK算法求最大流</h3>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -1874,7 +1913,8 @@ int main()
     printf(&quot;%d\n&quot;,EK());
     return 0;
 &#125;</code></pre>
-<h3 id="Dinic算法求最大流"><a href="#Dinic算法求最大流" class="headerlink" title="Dinic算法求最大流"></a>Dinic算法求最大流</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<h3 id="Dinic算法求最大流">Dinic算法求最大流</h3>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 

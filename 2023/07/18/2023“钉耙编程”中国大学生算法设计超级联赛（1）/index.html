@@ -6,8 +6,9 @@
     <meta charset="utf-8">
     <meta name="keywords" content="2023“钉耙编程”中国大学生算法设计超级联赛（1）, 重生带我走">
     <meta name="description" content="比赛超链接：2023“钉耙编程”中国大学生算法设计超级联赛（1）
-1002 City Upgrading题意：
-​        有一个树，树上每个点有一个权值。选择树上的一个结点并花费一个权值后，会将该结点的信息传给邻边。问将信息传递给整">
+1002 City Upgrading
+题意：
+​        有一个树，树上每个点有一个权值。选择树上的一个结点并花费一个权值后，会将该结点的信息传给邻边。问将信息传递给">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -484,14 +485,17 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p><mark>比赛超链接：<a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/contest/problems?cid=1094">2023“钉耙编程”中国大学生算法设计超级联赛（1）</a></mark></p>
-<h2 id="1002-City-Upgrading"><a href="#1002-City-Upgrading" class="headerlink" title="1002 City Upgrading"></a>1002 City Upgrading</h2><p><strong>题意：</strong></p>
+<h2 id="1002-City-Upgrading">1002 City Upgrading</h2>
+<p><strong>题意：</strong></p>
 <p>​        有一个树，树上每个点有一个权值。选择树上的一个结点并花费一个权值后，会将该结点的信息传给邻边。问将信息传递给整个树的最小权值是多少？</p>
 <p><strong>思路：</strong></p>
 <p>​       看到这道题目，很容易想到<strong>树形DP</strong>的模板题：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/287/">没有上司的舞会</a>。</p>
 <ol>
-<li><p>DP状态定义如下：</p>
+<li>
+<p>DP状态定义如下：</p>
 <ul>
-<li>$f[u][num]$：以 $u$ 为根的子树信息被全部传递，且当前结点 $u$ 的状态为 $num$ 的集合（ $num$ 取值：0,1,2）。<ul>
+<li>$f[u][num]$：以 $u$ 为根的子树信息被全部传递，且当前结点 $u$ 的状态为 $num$ 的集合（ $num$ 取值：0,1,2）。
+<ul>
 <li>$num = 0$：当前结点 $u$ 信息被父节点传递。</li>
 <li>$num = 1$：当前结点 $u$ 信息被自己传递。</li>
 <li>$num = 2$：当前结点 $u$ 信息被子结点传递。</li>
@@ -499,7 +503,8 @@
 </li>
 </ul>
 </li>
-<li><p>分析转移公式：</p>
+<li>
+<p>分析转移公式：</p>
 <ul>
 <li>$f[u][0] += min(f[v][1],f[v][2])$</li>
 <li>$f[u][1] += min(f[v][0] - a[u],f[v][1],f[v]][2])$</li>
@@ -584,10 +589,11 @@ int main()
 
     return 0;
 &#125;</code></pre>
-<h2 id="1005-Cyclically-Isomorphic"><a href="#1005-Cyclically-Isomorphic" class="headerlink" title="1005 Cyclically Isomorphic"></a>1005 Cyclically Isomorphic</h2><p><strong>题意：</strong></p>
+<h2 id="1005-Cyclically-Isomorphic">1005 Cyclically Isomorphic</h2>
+<p><strong>题意：</strong></p>
 <p>​         给定 $n$ 个字符串，长度均为 $m$，随后 $q$ 个询问，每次询问两个字符串是否是“循环同构的”？</p>
 <p><strong>思路：</strong></p>
-<p>​        比较容易想到一个 $O(n)$ 算法求最小表示法的一个模板题：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/160/">项链</a></p>
+<p>​		比较容易想到一个 $O(n)$ 算法求最小表示法的一个模板题：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/160/">项链</a></p>
 <p><mark>方法一：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -751,7 +757,8 @@ int main()
 
     return 0;
 &#125;</code></pre>
-<h2 id="1009-Assertion"><a href="#1009-Assertion" class="headerlink" title="1009 Assertion"></a>1009 Assertion</h2><p><strong>题意：</strong></p>
+<h2 id="1009-Assertion">1009 Assertion</h2>
+<p><strong>题意：</strong></p>
 <p>​        将 $m$ 分成 $n$ 份，是否至少有一份的数 $\ge$ d，如果是输出“Yes”，否则输出“No”。</p>
 <p><strong>思路：</strong></p>
 <p>​       先均分（即 $\frac{m}{n}$ 个），如果有余数的话则加 $1$，然后判断这个值是否 $\ge$ d 即可。</p>

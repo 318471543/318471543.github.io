@@ -5,7 +5,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="数论, 重生带我走">
-    <meta name="description" content="线性筛法模板代码：
+    <meta name="description" content="线性筛法
+模板代码：
 #include&amp;lt;bits/stdc++.h&gt;
 
 using namespace std;
@@ -15,7 +16,7 @@ const int N = 1e8+10;
 int primes[N],cnt;
 bool st[N];
 
-void ">
+void">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -491,7 +492,8 @@ void ">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="线性筛法"><a href="#线性筛法" class="headerlink" title="线性筛法"></a>线性筛法</h2><p><mark>模板代码：</mark></p>
+                <h2 id="线性筛法">线性筛法</h2>
+<p><mark>模板代码：</mark></p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;bits/stdc++.h></span></span>
 
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -523,7 +525,8 @@ void ">
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/870/">筛质数</a></p>
-<h2 id="最大公约数"><a href="#最大公约数" class="headerlink" title="最大公约数"></a>最大公约数</h2><p><mark>模板代码：</mark></p>
+<h2 id="最大公约数">最大公约数</h2>
+<p><mark>模板代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -546,7 +549,8 @@ int main()
     return 0;
 &#125;</code></pre>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/874/">最大公约数</a></p>
-<h2 id="扩展欧几里得"><a href="#扩展欧几里得" class="headerlink" title="扩展欧几里得"></a>扩展欧几里得</h2><p>当方程符合ax + by = gcd(a,b)时，可以用扩展欧几里得算法求($x_0$,$y_0$)，模板如下：</p>
+<h2 id="扩展欧几里得">扩展欧几里得</h2>
+<p>当方程符合ax + by = gcd(a,b)时，可以用扩展欧几里得算法求($x_0$,$y_0$)，模板如下：</p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">ll exgcd(ll a,ll b,ll&amp; x,ll&amp; y)
 &#123;
     if(!b)
@@ -566,8 +570,11 @@ int main()
     return &#123;d,y,x - a &#x2F; b * y&#125;;
 &#125;</code></pre>
 <p><strong>题单推荐：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104008/problem/E">Draw a triangle</a></p>
-<h2 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h2><blockquote>
-<p>1∼N 中与 N 互质的数的个数被称为欧拉函数，记为 ϕ(N)。<br>若在算数基本定理中，$N=p_1^{a_1}p_2^{a_2}…p_m^{a_m}$，则：<br>ϕ(N) = $N×\frac{p_1−1}{p_1}×\frac{p_2−1}{p_2}×…×\frac{p_m−1}{p_m}$</p>
+<h2 id="欧拉函数">欧拉函数</h2>
+<blockquote>
+<p>1∼N 中与 N 互质的数的个数被称为欧拉函数，记为 ϕ(N)。<br>
+若在算数基本定理中，$N=p_1^{a_1}p_2^{a_2}…p_m^{a_m}$，则：<br>
+ϕ(N) = $N×\frac{p_1−1}{p_1}×\frac{p_2−1}{p_2}×…×\frac{p_m−1}{p_m}$</p>
 </blockquote>
 <p><mark>模板代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">ll get_euler(int n)
@@ -588,19 +595,21 @@ int main()
 <blockquote>
 <p>若gcd(a,m) = 1，则$a^{ϕ(m)}$ ≡ 1（mod m）</p>
 </blockquote>
-<p><mark>扩展欧拉定理（欧拉降幂）：</mark></p>
-<script type="math/tex; mode=display">
-a^b\equiv
-\begin{cases}
-a^{b\bmod\varphi(p)},\,&\gcd(a,\,p)=1\\
-a^b,&\gcd(a,\,p)\ne1,\,b<\varphi(p)\\
-a^{b\bmod\varphi(p)+\varphi(p)},&\gcd(a,\,p)\ne1,\,b\ge\varphi(p)
-\end{cases}
-\pmod p</script><p><mark>复习下模运算的基本规则：</mark></p>
+<p><mark>扩展欧拉定理（欧拉降幂）：</mark><br>
+$$<br>
+a^b\equiv<br>
+\begin{cases}<br>
+a^{b\bmod\varphi(p)},,&amp;\gcd(a,,p)=1\<br>
+a^b,&amp;\gcd(a,,p)\ne1,,b&lt;\varphi(p)\<br>
+a^{b\bmod\varphi(p)+\varphi(p)},&amp;\gcd(a,,p)\ne1,,b\ge\varphi(p)<br>
+\end{cases}<br>
+\pmod p<br>
+$$<br>
+<mark>复习下模运算的基本规则：</mark></p>
 <ul>
 <li>(a + b) % p = (a % p + b % p) % p</li>
 <li>(a – b) % p = (a % p – b % p) % p</li>
-<li>(a <em> b) % p = (a % p </em> b % p) % p</li>
+<li>(a * b) % p = (a % p * b % p) % p</li>
 <li>($a^b$) % p = ((a % p)$^b$) % p</li>
 </ul>
 <p><strong>模板题：</strong></p>
@@ -608,26 +617,32 @@ a^{b\bmod\varphi(p)+\varphi(p)},&\gcd(a,\,p)\ne1,\,b\ge\varphi(p)
 <p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/30825/J">大数乘法</a></p>
 <p><strong>进阶题单：</strong></p>
 <p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/33540/E">西楼暮，一帘疏雨</a></p>
-<h2 id="中国剩余定理"><a href="#中国剩余定理" class="headerlink" title="中国剩余定理"></a>中国剩余定理</h2><p>中国剩余定理 (Chinese Remainder Theorem, CRT) 可求解如下形式的一元线性同余方程组（其中$m_1,m_2,…m_k$两两互质)：</p>
-<script type="math/tex; mode=display">
-f_{[i][j]} =
-\left\{
-\begin{array}{rcl}
-x       &      \equiv    & a_1(mod\;m_1)\\
-x       &   \equiv    & a_2(mod\;m_2)\\
-       &   \vdots    &                  \\
-x       &   \equiv    & a_k(mod\; m_k)\\
-\end{array} \right.</script><p><mark>求x的过程：</mark></p>
+<h2 id="中国剩余定理">中国剩余定理</h2>
+<p>中国剩余定理 (Chinese Remainder Theorem, CRT) 可求解如下形式的一元线性同余方程组（其中$m_1,m_2,…m_k$两两互质)：<br>
+$$<br>
+f_{[i][j]} =<br>
+\left{<br>
+\begin{array}{rcl}<br>
+x       &amp;  	\equiv    &amp; a_1(mod;m_1)\<br>
+x       &amp;   \equiv    &amp; a_2(mod;m_2)\<br>
+&amp;   \vdots    &amp; 				 \<br>
+x       &amp;   \equiv    &amp; a_k(mod; m_k)\<br>
+\end{array} \right.<br>
+$$<br>
+<mark>求x的过程：</mark></p>
 <ul>
 <li>计算所有模数的乘积M</li>
-<li>对于第i个方程：<ul>
+<li>对于第i个方程：
+<ul>
 <li>计算$M_i = \frac{M}{m_i}$</li>
 <li>计算$M_i$在模$n_i$意义下的逆元$M_i^{-1}$</li>
 </ul>
 </li>
-<li>方程组在模M意义下的唯一解为：$x = \sum_{i=1}^{k}a_iM_iM_i^{-1}(mod\;n)$</li>
+<li>方程组在模M意义下的唯一解为：$x = \sum_{i=1}^{k}a_iM_iM_i^{-1}(mod;n)$</li>
 </ul>
-<h2 id="组合数"><a href="#组合数" class="headerlink" title="组合数"></a>组合数</h2><h3 id="组合数I"><a href="#组合数I" class="headerlink" title="组合数I"></a>组合数I</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<h2 id="组合数">组合数</h2>
+<h3 id="组合数I">组合数I</h3>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -659,7 +674,8 @@ int main()
     
     return 0;
 &#125;</code></pre>
-<h3 id="组合数II"><a href="#组合数II" class="headerlink" title="组合数II"></a>组合数II</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<h3 id="组合数II">组合数II</h3>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -699,7 +715,8 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
-<h3 id="组合数III"><a href="#组合数III" class="headerlink" title="组合数III"></a>组合数III</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<h3 id="组合数III">组合数III</h3>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
 
 typedef long long ll;
@@ -748,7 +765,8 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
-<h3 id="组合数IV"><a href="#组合数IV" class="headerlink" title="组合数IV"></a>组合数IV</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<h3 id="组合数IV">组合数IV</h3>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 
 using namespace std;
@@ -834,8 +852,9 @@ int main()
 上面get函数方法计算
 3、高精度模板结束
 *&#x2F;</code></pre>
-<h2 id="容斥原理"><a href="#容斥原理" class="headerlink" title="容斥原理"></a>容斥原理</h2><p><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimages.cnblogs.com%2Fcnblogs_com%2Flinyujun%2F787954%2Fo_16.gif&amp;refer=http%3A%2F%2Fimages.cnblogs.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1670726264&amp;t=4d012cf5da77d83716f3afdce6dd9149" alt="img"></p>
-<p>  　<font color='red'> 代码模板说明：</font>一般用容斥原理求的结果是多个集合的并集。但为了代码的简洁，我下面的代码求的是多个集合的并集以外的部分，即全集 - 并集的结果。因为下面的计算公式是:n - ? + ?? - ??? + ???? - …。其与求并集的”奇加偶减“相反，并且还多了个n，那么我们可以用n - (n - ? + ?? - …)，即可得到这种形式：? - ?? + ??? - …的并集！</p>
+<h2 id="容斥原理">容斥原理</h2>
+<p><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimages.cnblogs.com%2Fcnblogs_com%2Flinyujun%2F787954%2Fo_16.gif&amp;refer=http%3A%2F%2Fimages.cnblogs.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1670726264&amp;t=4d012cf5da77d83716f3afdce6dd9149" alt="img"></p>
+<p><font color='red'> 代码模板说明：</font>一般用容斥原理求的结果是多个集合的并集。但为了代码的简洁，我下面的代码求的是多个集合的并集以外的部分，即全集 - 并集的结果。因为下面的计算公式是:n - ? + ?? - ??? + ??? - …。其与求并集的”奇加偶减“相反，并且还多了个n，那么我们可以用n - (n - ? + ?? - …)，即可得到这种形式：? - ?? + ??? - …的并集！</p>
 <p><mark>模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">void dfs(int i,int x,int flag)&#x2F;&#x2F;参数含义:i:数组下标,这里从1开始;x:当前的数;flag:加或减
 &#123;
@@ -848,24 +867,32 @@ int main()
     dfs(i + 1,x,flag);
     if(x &lt;&#x3D; n &#x2F; v[i])    dfs(i + 1,x * v[i],-flag);
 &#125;&#x2F;&#x2F;对应的调用方式：dfs(1,1,1);</code></pre>
-<h2 id="博弈论"><a href="#博弈论" class="headerlink" title="博弈论"></a>博弈论</h2><h3 id="SG函数"><a href="#SG函数" class="headerlink" title="SG函数"></a>SG函数</h3><h4 id="SG打表"><a href="#SG打表" class="headerlink" title="SG打表"></a>SG打表</h4><p>​        针对打表题（推荐题单有，但为了防止该题后期无法查看，这里将详细写出题意和打表方法），内容如下：</p>
+<h2 id="博弈论">博弈论</h2>
+<h3 id="SG函数">SG函数</h3>
+<h4 id="SG打表">SG打表</h4>
+<p>​		针对打表题（推荐题单有，但为了防止该题后期无法查看，这里将详细写出题意和打表方法），内容如下：</p>
 <p><strong>题意：</strong></p>
-<p>​        一共有 $n$ 个敌人，有两种操作：</p>
+<p>​		一共有 $n$ 个敌人，有两种操作：</p>
 <ul>
-<li><p>如果当前连续的敌人剩余个数 $\le k$ ，则会直接消灭这些敌人；</p>
+<li>
+<p>如果当前连续的敌人剩余个数 $\le k$ ，则会直接消灭这些敌人；</p>
 </li>
-<li><p>选择连续 $k$ 个敌人破坏，但需要保证选完之后会分成左右两个非空序列（通俗讲，就是从中间拿走 $k$ 个，分成了左右两堆）。</p>
+<li>
+<p>选择连续 $k$ 个敌人破坏，但需要保证选完之后会分成左右两个非空序列（通俗讲，就是从中间拿走 $k$ 个，分成了左右两堆）。</p>
 <p>谁无法操作，谁就输。问是先手的 $Alice$ 胜还是后手的 $Bob$ 胜？（数据范围：$1 \le T \le 10000,2 \le k \le 10^7,0 \le n \le 10^9$）</p>
 </li>
 </ul>
 <p><strong>思路：</strong></p>
-<p>​        看到这种数据范围，可以想到一定是个规律题，但这个需要用 $SG$ 函数打表。打表方法如下：</p>
+<p>​		看到这种数据范围，可以想到一定是个规律题，但这个需要用 $SG$ 函数打表。打表方法如下：</p>
 <ul>
-<li><p>记忆化搜索函数：$f[i][j]$，最初初始化为 $-1$，表示还没有使用过；</p>
+<li>
+<p>记忆化搜索函数：$f[i][j]$，最初初始化为 $-1$，表示还没有使用过；</p>
 </li>
-<li><p>如果当前没有敌人或当前敌人数恰好为 $k + 1$，则均无法进行操作，故其 $sg$ 值为 $0$；如果当前敌人数目 $n \le k$ ，则先手必胜，即$sg$ 值赋为 $1$；</p>
+<li>
+<p>如果当前没有敌人或当前敌人数恰好为 $k + 1$，则均无法进行操作，故其 $sg$ 值为 $0$；如果当前敌人数目 $n \le k$ ，则先手必胜，即$sg$ 值赋为 $1$；</p>
 </li>
-<li><p>之后每次会分成两堆，枚举两堆分别为多少个，将其$sg$ 值异或放到哈希表中，最后求 $mex$ 即可。</p>
+<li>
+<p>之后每次会分成两堆，枚举两堆分别为多少个，将其$sg$ 值异或放到哈希表中，最后求 $mex$ 即可。</p>
 <p>下面是打表情况：</p>
 </li>
 </ul>
@@ -940,84 +967,109 @@ int main()
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/895/">集合-Nim游戏</a></p>
 <p><strong>练习打表：</strong><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=7287">Alice Game</a></p>
-<h2 id="矩阵快速幂"><a href="#矩阵快速幂" class="headerlink" title="矩阵快速幂"></a>矩阵快速幂</h2><p><strong>模板题：</strong></p>
+<h2 id="矩阵快速幂">矩阵快速幂</h2>
+<p><strong>模板题：</strong></p>
 <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1962">斐波那契数列</a></p>
-<p><strong>下面是推导过程：</strong></p>
-<script type="math/tex; mode=display">
-F_n = \left[
- \begin{matrix}
-   f_{n} & f_{n+1} \\
-  \end{matrix}
-  \right]</script><script type="math/tex; mode=display">
-F_{n+1} = \left[
- \begin{matrix}
-   f_{n+1} & f_{n+2} \\
-  \end{matrix}
-  \right]</script><script type="math/tex; mode=display">
-令 F_{n} * A = F_{n+1}</script><script type="math/tex; mode=display">
-即\left[
- \begin{matrix}
-   f_{n} & f_{n+1} \\
-  \end{matrix}
-  \right]
-  \left[
- \begin{matrix}
-   0 & 1 \\
-   1 & 1 \\
-  \end{matrix}
-  \right]
-   = \left[
- \begin{matrix}
-   f_{n+1} & f_{n+2} \\
-  \end{matrix}
-  \right]</script><script type="math/tex; mode=display">
-故 F_{n} = F_1 * A^{n-1}</script><script type="math/tex; mode=display">
-A = \left[
- \begin{matrix}
-   0 & 1 \\
-   1 & 1 \\
-  \end{matrix}
-  \right]</script><p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1305/">斐波那契前 n 项和</a></p>
-<p><strong>下面是推导过程：</strong></p>
-<script type="math/tex; mode=display">
-F_n = \left[
- \begin{matrix}
-   f_{n} & f_{n+1} & S_{n} \\
-  \end{matrix}
-  \right]</script><script type="math/tex; mode=display">
-F_{n+1} = \left[
- \begin{matrix}
-   f_{n+1} & f_{n+2} & S_{n+1} \\
-  \end{matrix}
-  \right]</script><script type="math/tex; mode=display">
-令 F_{n} * A = F_{n+1}</script><script type="math/tex; mode=display">
-即\left[
- \begin{matrix}
-   f_{n} & f_{n+1} & S_{n}\\
-  \end{matrix}
-  \right]
-  \left[
- \begin{matrix}
-   0 & 1 & 0\\
-   1 & 1 & 1\\
-   0 & 0 & 1
-  \end{matrix}
-  \right]
-   = \left[
- \begin{matrix}
-   f_{n+1} & f_{n+2} & S_{n+1}\\
-  \end{matrix}
-  \right]</script><script type="math/tex; mode=display">
-故 F_{n} = F_1 * A^{n-1}</script><script type="math/tex; mode=display">
-A = \left[
- \begin{matrix}
-   0 & 1 & 0\\
-   1 & 1 & 1\\
-   0 & 0 & 1
-  \end{matrix}
-  \right]</script><h2 id="数论分块"><a href="#数论分块" class="headerlink" title="数论分块"></a>数论分块</h2><p><strong>一、寻找规律</strong></p>
+<p><strong>下面是推导过程：</strong><br>
+$$<br>
+F_n = \left[<br>
+\begin{matrix}<br>
+f_{n} &amp; f_{n+1} \<br>
+\end{matrix}<br>
+\right]<br>
+$$</p>
+<p>$$<br>
+F_{n+1} = \left[<br>
+\begin{matrix}<br>
+f_{n+1} &amp; f_{n+2} \<br>
+\end{matrix}<br>
+\right]<br>
+$$</p>
+<p>$$<br>
+令 F_{n} * A = F_{n+1}<br>
+$$</p>
+<p>$$<br>
+即\left[<br>
+\begin{matrix}<br>
+f_{n} &amp; f_{n+1} \<br>
+\end{matrix}<br>
+\right]<br>
+\left[<br>
+\begin{matrix}<br>
+0 &amp; 1 \<br>
+1 &amp; 1 \<br>
+\end{matrix}<br>
+\right]<br>
+= \left[<br>
+\begin{matrix}<br>
+f_{n+1} &amp; f_{n+2} \<br>
+\end{matrix}<br>
+\right]<br>
+$$</p>
+<p>$$<br>
+故 F_{n} = F_1 * A^{n-1}<br>
+$$</p>
+<p>$$<br>
+A = \left[<br>
+\begin{matrix}<br>
+0 &amp; 1 \<br>
+1 &amp; 1 \<br>
+\end{matrix}<br>
+\right]<br>
+$$</p>
+<p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1305/">斐波那契前 n 项和</a></p>
+<p><strong>下面是推导过程：</strong><br>
+$$<br>
+F_n = \left[<br>
+\begin{matrix}<br>
+f_{n} &amp; f_{n+1} &amp; S_{n} \<br>
+\end{matrix}<br>
+\right]<br>
+$$</p>
+<p>$$<br>
+F_{n+1} = \left[<br>
+\begin{matrix}<br>
+f_{n+1} &amp; f_{n+2} &amp; S_{n+1} \<br>
+\end{matrix}<br>
+\right]<br>
+$$</p>
+<p>$$<br>
+令 F_{n} * A = F_{n+1}<br>
+$$</p>
+<p>$$<br>
+即\left[<br>
+\begin{matrix}<br>
+f_{n} &amp; f_{n+1} &amp; S_{n}\<br>
+\end{matrix}<br>
+\right]<br>
+\left[<br>
+\begin{matrix}<br>
+0 &amp; 1 &amp; 0\<br>
+1 &amp; 1 &amp; 1\<br>
+0 &amp; 0 &amp; 1<br>
+\end{matrix}<br>
+\right]<br>
+= \left[<br>
+\begin{matrix}<br>
+f_{n+1} &amp; f_{n+2} &amp; S_{n+1}\<br>
+\end{matrix}<br>
+\right]<br>
+$$</p>
+<p>$$<br>
+故 F_{n} = F_1 * A^{n-1}<br>
+$$</p>
+<p>$$<br>
+A = \left[<br>
+\begin{matrix}<br>
+0 &amp; 1 &amp; 0\<br>
+1 &amp; 1 &amp; 1\<br>
+0 &amp; 0 &amp; 1<br>
+\end{matrix}<br>
+\right]<br>
+$$</p>
+<h2 id="数论分块">数论分块</h2>
+<p><strong>一、寻找规律</strong></p>
 <p>当n = 20：</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -1068,30 +1120,30 @@ A = \left[
 </tr>
 </tbody>
 </table>
-</div>
 <p>明显，存在很多个区间，使得某个区间内（区间长度可能为1），有连续的 $\frac{n}{i} $ 数值相同。</p>
 <p><strong>二、给出结论</strong></p>
 <blockquote>
     假如说一个区间的左端点是L，那么它的右端点是n / n / L。
 </blockquote>
-
-
 <p>例如：当L = 7时，n / L = 20 / 7 = 2，n / (n / L) = 20 / 2 = 10符合。</p>
 <p><strong>三、给出证明</strong></p>
-<p><mark>证明该式子 $\lfloor \frac{n}{i} \rfloor$ 最多只有 2$\sqrt{n}$ 个取值</mark><br>分段讨论：</p>
+<p><mark>证明该式子 $\lfloor \frac{n}{i} \rfloor$ 最多只有 2$\sqrt{n}$ 个取值</mark><br>
+分段讨论：</p>
 <ul>
 <li>当 i&lt;= $\sqrt{n}$ 时，因为 i 是 1 到 $\sqrt{n}$ 的整数，所以最多只有 $\sqrt{n}$ 个不同的$\sqrt{\frac{n}{i}}$ 值。</li>
 <li>当 i &gt; $\sqrt{n}$ 时，$\sqrt{\frac{n}{i}}$ &lt;= $\sqrt{n}$，又因为式子取整了，所以式子只能取1 到 $\sqrt{n}$ 的整数，故最多也只有 $\sqrt{n}$ 个不同的 $\sqrt{\frac{n}{i}}$ 值。</li>
 </ul>
 <p>综上所述， $\lfloor \frac{n}{i} \rfloor$ 最多只有 2$\sqrt{n}$ 个取值</p>
 <p><strong>四、记住结论，拓展应用</strong></p>
-<script type="math/tex; mode=display">\sum_{i=1}^{n} \lfloor \frac{n}{i} \rfloor</script><pre class="language-c++" data-language="c++"><code class="language-c++">int sum &#x3D; 0;
+<p>$$ \sum_{i=1}^{n} \lfloor \frac{n}{i} \rfloor $$</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">int sum &#x3D; 0;
 for(int l &#x3D; 1,r;l &lt;&#x3D; n;l &#x3D; r + 1)
 &#123;
     r &#x3D; n &#x2F; (n &#x2F; l);
     sum +&#x3D; (r - l + 1) * (n &#x2F; l);
 &#125;</code></pre>
-<script type="math/tex; mode=display">\sum_{i=1}^{n} \lfloor \frac{n}{i} \rfloor * i</script><p>在一段区间内的 n / i 的值是相同的，而在区间内对 i 的求和是一个明确了左端点和右端点的等差数列求和，代码如下：</p>
+<p>$$ \sum_{i=1}^{n} \lfloor \frac{n}{i} \rfloor * i $$</p>
+<p>在一段区间内的 n / i 的值是相同的，而在区间内对 i 的求和是一个明确了左端点和右端点的等差数列求和，代码如下：</p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">int sum &#x3D; 0;
 for(int l &#x3D; 1,r;l &lt;&#x3D; n;l &#x3D; r + 1)
 &#123;
@@ -1100,7 +1152,8 @@ for(int l &#x3D; 1,r;l &lt;&#x3D; n;l &#x3D; r + 1)
 &#125;</code></pre>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/201/">余数之和</a></p>
 <p><strong>进阶题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1706/problem/D2">Chopping Carrots (Hard Version)</a></p>
-<h2 id="莫比乌斯反演"><a href="#莫比乌斯反演" class="headerlink" title="莫比乌斯反演"></a>莫比乌斯反演</h2><p><mark>线性筛法求莫比乌斯函数：</mark></p>
+<h2 id="莫比乌斯反演">莫比乌斯反演</h2>
+<p><mark>线性筛法求莫比乌斯函数：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">int cnt,primes[N],mu[N],sum[N];
 bool st[N];
 
@@ -1119,9 +1172,11 @@ void init()
     &#125;
     for(int i &#x3D; 1;i &lt; N;i++)    sum[i] &#x3D; sum[i - 1] + mu[i];&#x2F;&#x2F;莫比乌斯前缀和
 &#125;</code></pre>
-<p><mark>推荐题单：</mark><br><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/2704/">problem b</a></p>
+<p><mark>推荐题单：</mark><br>
+<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/2704/">problem b</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1360/">约数个数和</a></p>
-<h2 id="Pollard-rho"><a href="#Pollard-rho" class="headerlink" title="Pollard rho"></a>Pollard rho</h2><blockquote>
+<h2 id="Pollard-rho">Pollard rho</h2>
+<blockquote>
 <p><strong>Pollard-Rho算法</strong>是John Pollard发明的一种能快速找到大整数的一个非1、非自身的因子的算法。</p>
 <p>非平凡因数：除了 $1$ 和本身以外的因数。</p>
 <p><strong>时间复杂度：</strong>$O(n^{\frac{1}{4}})$</p>
@@ -1284,12 +1339,12 @@ int main()
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4718">【模板】Pollard rho 算法</a></p>
 <p><strong>测试模板速度：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1033/problem/D">D. Divisors</a></p>
-<h2 id="康托展开"><a href="#康托展开" class="headerlink" title="康托展开"></a>康托展开</h2><h3 id="康托展开-1"><a href="#康托展开-1" class="headerlink" title="康托展开"></a>康托展开</h3><p>  把一个集合产生的全排列按照字典序排序，第X个排列的计算公式如下：</p>
+<h2 id="康托展开">康托展开</h2>
+<h3 id="康托展开-2">康托展开</h3>
+<p>把一个集合产生的全排列按照字典序排序，第X个排列的计算公式如下：</p>
 <blockquote>
     X = a[n] * (n - 1)! + a[n - 1] * (n - 2)! + ... + a[2] * 1! + a[1] * 0!
 </blockquote>
-
-
 <p>其中，a[i]表示原数的第i位在当前未出现的元素中排在第几个（从0开始）。</p>
 <p><mark>代码模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">ll res &#x3D; 1;&#x2F;&#x2F;因为算法是从0开始的，故按排名的话需要先初始化为1
@@ -1298,10 +1353,11 @@ int main()
         res +&#x3D;  query(a[i]) * fact[n - i];
         add(a[i],1);
     &#125;</code></pre>
-<h3 id="逆康托展开"><a href="#逆康托展开" class="headerlink" title="逆康托展开"></a>逆康托展开</h3><p>  由于没能找到比较好的博客去介绍逆康托的相关使用，下面粗略的给出求解的一种思路和朴素的算法（<del>不是</del>）。</p>
+<h3 id="逆康托展开">逆康托展开</h3>
+<p>由于没能找到比较好的博客去介绍逆康托的相关使用，下面粗略的给出求解的一种思路和朴素的算法（<del>不是</del>）。</p>
 <p><strong>一、思路？</strong></p>
 <p>如果4的全排列中排名第6的排列是？</p>
-<p>首先初始化：6 — = 5</p>
+<p>首先初始化：6 – = 5</p>
 <p>其次，5 / 3！ =  0 余 5 说明第一位前面没有比自己小的数，故第一位是1</p>
 <p>然后取出上次计算得到的余数，令 5 / 2！=  2 余1，说明第二位前面有两个数比自己小，故第二位是4</p>
 <p>继续：1 / 1！=  1，余数为0，说明第三位前面有1个比自己小的数，故第三位是3</p>
@@ -1325,39 +1381,44 @@ for(int i &#x3D; n,r &#x3D; 0;i &gt;&#x3D; 1;i--)
 &#125;
 for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   std::cout &lt;&lt; res[i] &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; n];</code></pre>
 <p>综合<strong>康托展开</strong>和<strong>逆康托展开</strong>的例题奉上：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3014">[USACO11FEB]Cow Line S</a></p>
-<h2 id="结论总结"><a href="#结论总结" class="headerlink" title="结论总结"></a>结论总结</h2><h3 id="模数范围"><a href="#模数范围" class="headerlink" title="模数范围"></a>模数范围</h3><blockquote>
-    一个数n，如果对mod(1 &le; mod &le; n)取模的话，得到的模数x范围为：[0，(x - 1) / 2]。</blockquote>
-
-
+<h2 id="结论总结">结论总结</h2>
+<h3 id="模数范围">模数范围</h3>
+<blockquote>
+    一个数n，如果对mod(1 &le; mod &le; n)取模的话，得到的模数x范围为：[0，(x - 1) / 2]。</blockquote>
 <blockquote>
       相反，如果想要得到模数为x的数，原数n必须大于等于2 * x + 1。
 </blockquote>
-
-
-
 <p><strong>推荐题单：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1617/problem/C">C. Paprika and Permutation</a></p>
-<h3 id="矩阵旋转坐标变换"><a href="#矩阵旋转坐标变换" class="headerlink" title="矩阵旋转坐标变换"></a>矩阵旋转坐标变换</h3><blockquote>
+<h3 id="矩阵旋转坐标变换">矩阵旋转坐标变换</h3>
+<blockquote>
     一个n*n的矩阵，顺时针旋转 0，90，180，270度的坐标变换公式：<br>
-    0&deg;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;(x,y)<br>
+	0&deg;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;(x,y)<br>
     90&deg;:&nbsp;&nbsp;&nbsp;(y,n - x + 1)<br>
     180&deg;: (n - x + 1,n - y + 1)<br>
     270&deg;: (n - y + 1,x)<br>
 </blockquote>
-
-
 <p><strong>推荐题目：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1703/problem/E">E. Mirror Grid</a></p>
-<h3 id="排列"><a href="#排列" class="headerlink" title="排列"></a>排列</h3><p>  <strong>定义：</strong>设（a<sub>1</sub>,a<sub>2</sub>,…,a<sub>n</sub>）是{1,2,…,n}的一个全排列，若对任意的i∈{1,2,…,n}都有a<sub>i</sub>  &ne; i，则称（a<sub>1</sub>,a<sub>2</sub>,…,a<sub>n</sub>）是{1,2,…,n}的错位排列。</p>
+<h3 id="排列">排列</h3>
+<p>**定义：**设（a<sub>1</sub>,a<sub>2</sub>,…,a<sub>n</sub>）是{1,2,…,n}的一个全排列，若对任意的i∈{1,2,…,n}都有a<sub>i</sub>  ≠ i，则称（a<sub>1</sub>,a<sub>2</sub>,…,a<sub>n</sub>）是{1,2,…,n}的错位排列。</p>
 <p><mark>错排公式：</mark></p>
 <p>f [ 0 ] = 1 , f [ 1 ] = 0 , f [ 2 ] = 1</p>
 <p>f[ n ] = ( n − 1 ) ∗ ( f [ n − 1 ] + f [ n − 2 ] )</p>
 <p><strong>例题推荐：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4071">排列计数</a></p>
-<h2 id="零碎知识点"><a href="#零碎知识点" class="headerlink" title="零碎知识点"></a>零碎知识点</h2><h3 id="向上取整转换为向下取整："><a href="#向上取整转换为向下取整：" class="headerlink" title="向上取整转换为向下取整："></a>向上取整转换为向下取整：</h3><p>$\lceil \frac{L}{P} \rceil$  =  $\lfloor \frac{L + P - 1}{P} \rfloor $</p>
-<h3 id="线性回归方程"><a href="#线性回归方程" class="headerlink" title="线性回归方程"></a>线性回归方程</h3><p>线性回归：假设有一堆点（$x<em>i,y_i$），求一条直线 $y^{‘} = Ax + B$ 使得 $\sum</em>{i=1}^{n}(y<em>{i} - y</em>{‘}(x_i))^{2}$ 最小。</p>
-<p>令$\overline{x}$ = $\frac{\sum<em>{i = 1}^{n}x_i}{n}$，令$\overline{y}$ = $\frac{\sum</em>{i = 1}^{n}y_i}{n}$，则：</p>
-<script type="math/tex; mode=display">
-A =\frac{\sum_{i=1}^{n}(x_i-\overline{x})(y_i-\overline{y})}{\sum_{i=1}^{n}(x_i-\overline{x})^2} = \frac{\sum_{i=1}^{n}x_iy_i-n\overline{x}\overline{y}}{\sum_{i=1}^{n}x_i^2-n(\overline{x})^2}\\
-B = \overline{y} - A\overline{x}\\</script><h3 id="连续区间的和-异或和公式："><a href="#连续区间的和-异或和公式：" class="headerlink" title="连续区间的和 / 异或和公式："></a>连续区间的和 / 异或和公式：</h3><blockquote>
+<h2 id="零碎知识点">零碎知识点</h2>
+<h3 id="向上取整转换为向下取整：">向上取整转换为向下取整：</h3>
+<p>$\lceil \frac{L}{P} \rceil$  =  $\lfloor \frac{L + P - 1}{P} \rfloor $</p>
+<h3 id="线性回归方程">线性回归方程</h3>
+<p>线性回归：假设有一堆点（$x_i,y_i$），求一条直线 $y^{‘} = Ax + B$ 使得 $\sum_{i=1}^{n}(y_{i} - y_{’}(x_i))^{2}$ 最小。</p>
+<p>令$\overline{x}$ = $\frac{\sum_{i = 1}^{n}x_i}{n}$，令$\overline{y}$ = $\frac{\sum_{i = 1}^{n}y_i}{n}$，则：<br>
+$$<br>
+A =\frac{\sum_{i=1}^{n}(x_i-\overline{x})(y_i-\overline{y})}{\sum_{i=1}^{n}(x_i-\overline{x})^2} = \frac{\sum_{i=1}^{n}x_iy_i-n\overline{x}\overline{y}}{\sum_{i=1}^{n}x_i^2-n(\overline{x})^2}\<br>
+B = \overline{y} - A\overline{x}\<br>
+$$</p>
+<h3 id="连续区间的和-异或和公式：">连续区间的和 / 异或和公式：</h3>
+<blockquote>
 <p>区间[l,r]的所有数之和 = sum[r] - sum[l - 1]</p>
+</blockquote>
+<blockquote>
 <p>区间[l,r]的所有数异或 = sxor[r] ^ sxor[l - 1]</p>
 </blockquote>
 
