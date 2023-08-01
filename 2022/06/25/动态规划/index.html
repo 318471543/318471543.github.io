@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="DP-动态规划, 重生带我走">
+    <meta name="keywords" content="动态规划, 重生带我走">
     <meta name="description" content="背包九讲01背包
 有 N 个物品和一个容量为 V 的背包，问将哪些物品放入背包可使价值最大？
 数据范围：
@@ -38,7 +38,7 @@
 
     
 
-    <title>DP-动态规划 | 重生带我走</title>
+    <title>动态规划 | 重生带我走</title>
     <link rel="icon" type="image/jpeg" href="/favicon.jpg">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -328,12 +328,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">DP-动态规划</h1>
+                    <h1 class="description center-align post-title">动态规划</h1>
                 </div>
             </div>
         </div>
@@ -1586,8 +1586,7 @@ int main()
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/903/">滑雪</a></p>
 <p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1851/problem/E">E. Nastya and Potions</a></p>
-<h2 id="bitset"><a href="#bitset" class="headerlink" title="bitset"></a>bitset</h2><blockquote>
-<p><strong>语法：</strong></p>
+<h2 id="bitset"><a href="#bitset" class="headerlink" title="bitset"></a>bitset</h2><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><blockquote>
 <p>__builtin_popcount(x)；&#x2F;&#x2F; x 二进制中 1 的个数（$x$ 为 $unsigned\ int$ 类型）</p>
 <p>__builtin_popcountll(x)；&#x2F;&#x2F; x 二进制中 1 的个数（$x$ 为 $unsigned\ long\ long$ 类型）</p>
 <br>
@@ -1607,7 +1606,6 @@ int main()
 <p>31 - __builtin_clz(x) &#x3D; log2(x)；&#x2F;&#x2F;如果没有log2函数，可以用前面的公式获取其log2向下取整</p>
 <p><strong>时间复杂度：</strong>$O(1)$</p>
 </blockquote>
-<p><mark>代码如下：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1630,7 +1628,7 @@ int main()
 &#125;</code></pre>
 
 <blockquote>
-<p>$bitset<N> b$；&#x2F;&#x2F;N为常数</p>
+<p>$bitset$&lt;$N$&gt; $b$；&#x2F;&#x2F;N为常数</p>
 <p>$b[i] &#x3D; 1$;&#x2F;&#x2F;可以直接通过数组赋值</p>
 </blockquote>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -1648,6 +1646,89 @@ int main()
     cout &lt;&lt; b[1] &lt;&lt; &quot; &quot; &lt;&lt; b[2] &lt;&lt; &quot; &quot; &lt;&lt; b[3];
     return 0;
 &#125;</code></pre>
+
+
+
+<blockquote>
+<p><strong>常用函数：</strong></p>
+<p>$b.any() $</p>
+<p>$b.none()$</p>
+<p>$b.count()$</p>
+<p><strong>时间复杂度：</strong>$O(\frac{n}{w})$</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">bitset&lt;1000&gt; b;
+cout &lt;&lt; b.any() &lt;&lt; &quot;\n&quot;;
+cout &lt;&lt; b.none() &lt;&lt; &#39;\n&#39;;
+b[1] &#x3D; 1;
+cout &lt;&lt; b.count() &lt;&lt; &quot;\n&quot;;</code></pre>
+
+
+
+<blockquote>
+<p><strong>位运算：</strong></p>
+<p>&amp; , | , ^ , ~ , &lt;&lt; , &gt;&gt;</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">bitset&lt;32&gt; a,b;
+a[1] &#x3D; 1;
+b[2] &#x3D; 1;
+a &#x3D; a | b;
+a &#x3D; a &lt;&lt; 2;
+cout &lt;&lt; a.to_string();</code></pre>
+
+
+
+<blockquote>
+<p>$a.set(x)$ &#x2F;&#x2F;将 $x$ 位赋值为 $1$</p>
+<p>$a.set()$ &#x2F;&#x2F;将每一位都赋值为 $1$</p>
+<p>$a.reset(x)$ &#x2F;&#x2F;将 $x$ 位赋值为 $0$</p>
+<p>$a.reset()$ &#x2F;&#x2F;将每一位都赋值为 $0$</p>
+<p>$a.flip(x)$ &#x2F;&#x2F;将 $x$ 位翻转（即 $0$ 变 $1$，$1$ 变 $0$）</p>
+<p>$a.flip()$ &#x2F;&#x2F;将每一位都翻转</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">bitset&lt;32&gt; a,b;
+a.set(2);
+a.set();
+cout &lt;&lt; a.to_string() &lt;&lt; &quot;\n&quot;;
+a.reset(1);
+a.reset();
+cout &lt;&lt; a.to_string() &lt;&lt; &quot;\n&quot;;</code></pre>
+
+
+
+<blockquote>
+<p>$a.to$_$string()$ &#x2F;&#x2F;将 $bitset$ 用字符串的形式输出</p>
+<p>$bitset$&lt;$64$&gt; $b(s)$ &#x2F;&#x2F;把字符串当成参数，放入 $bitset$ 中</p>
+<p>$a.to$_$ullong()$ &#x2F;&#x2F;返回 $bitset$ 对应的 $unsigned\ long\ long$ 数值</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">string s &#x3D; &quot;1011&quot;;
+bitset&lt;64&gt; b(s);
+cout &lt;&lt; b.to_string() &lt;&lt; &#39;\n&#39;;
+cout &lt;&lt; b.to_ullong() &lt;&lt; &quot;\n&quot;;</code></pre>
+
+
+
+<blockquote>
+<p>$a$._Find_first()；从低位开始找第一个等于 $1$ 的位置</p>
+<p>a._Find_next(i)；从 $i$ 后面找第一个等于 $1$ 的位置，找不到就返回 $a.size()$</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">bitset&lt;32&gt; a,b;
+for(int i &#x3D; a._Find_first();i !&#x3D; a.size();i &#x3D; a._Find_next(i))
+&#123;
+	cout &lt;&lt; i &lt;&lt; &quot; &quot;;
+&#125;</code></pre>
+
+
+
+<blockquote>
+<p>auto pa &#x3D; (unsigned long long*)&a;</p>
+<p>解释：$0$ ~ $63$ 为低位置，$64$ ~ $127$ 为下一位置，$\cdots$</p>
+<p>因此：$pa[0]$ 即为低 $64$ 位的无符号整型数，$pa[1]$ 为 $64$ ~ $127$ 位的无符号整型数，$\cdots$</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">bitset&lt;1280&gt; a,b;
+a[2] &#x3D; 1;
+auto pa &#x3D; (unsigned long long*)&amp;a;
+a[65] &#x3D; 1;
+cout &lt;&lt; pa[0] &lt;&lt; &quot; &quot; &lt;&lt; pa[1];</code></pre>
 
 
 
@@ -1678,7 +1759,7 @@ int main()
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://318471543.github.io/2022/06/25/DP-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">http://318471543.github.io/2022/06/25/DP-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</a>
+                    <a href="http://318471543.github.io/2022/06/25/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">http://318471543.github.io/2022/06/25/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</a>
                 </span>
             </div>
             <div class="reprint__notice">
