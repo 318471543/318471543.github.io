@@ -900,20 +900,27 @@ int main()
 <pre class="language-c++" data-language="c++"><code class="language-c++">struct Hash
 &#123;
     int base,mod;
-    vector&lt;ll&gt; h,pw;
+    vector&lt;ll&gt; h,fh,pw;
     Hash(int _base,int _mod):base(_base),mod(_mod)&#123;&#125;
 
     void init()&#123;&#x2F;&#x2F;初始化
-        h.resize(n + 1),pw.resize(n + 1);
+        h.resize(n + 1),fh.resize(n + 2),pw.resize(n + 1);
         pw[0] &#x3D; 1;
         for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   pw[i] &#x3D; pw[i - 1] * base % mod;
-        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   h[i] &#x3D; (h[i - 1] * base % mod + a[i]) % mod;
+        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   h[i] &#x3D; (h[i - 1] * base % mod + s[i]) % mod;
+        for(int i &#x3D; n;i &gt;&#x3D; 1;i--)   fh[i] &#x3D; (fh[i + 1] * base % mod + s[i]) % mod;
     &#125;
-    ll get(int l,int r)&#123;&#x2F;&#x2F;获取区间哈希值
+    ll getz(int l,int r)&#123;&#x2F;&#x2F;获取区间正哈希值
         return (h[r] - h[l - 1] * pw[r - l + 1] % mod + mod) % mod;
     &#125;
-    bool equ(int l1,int r1,int l2,int r2)&#123;&#x2F;&#x2F;比较两区间哈希值是否一致
-        return get(l1,r1) &#x3D;&#x3D; get(l2,r2);
+    ll getf(int l,int r)&#123;&#x2F;&#x2F;获取区间反哈希值
+        return (fh[l] - fh[r + 1] * pw[r - l + 1] % mod + mod) % mod;
+    &#125;
+    bool equ(int l,int r)&#123;&#x2F;&#x2F;比较该区间正反哈希值是否一致
+        return getz(l,r) &#x3D;&#x3D; getf(l,r);
+    &#125;
+    bool equ(int l1,int r1,int l2,int r2)&#123;&#x2F;&#x2F;比较两区间正哈希值是否一致
+        return getz(l1,r1) &#x3D;&#x3D; getz(l2,r2);
     &#125;
 &#125;h1(131,998&#39;244&#39;353),h2(13331,1e9 + 7);</code></pre>
 
@@ -930,7 +937,7 @@ typedef long long ll;
 const int N &#x3D; 1e5 + 10;
 
 int n,q;
-char a[N];
+char s[N];
 
 struct Hash
 &#123;
@@ -942,7 +949,7 @@ struct Hash
         h.resize(n + 1),pw.resize(n + 1);
         pw[0] &#x3D; 1;
         for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   pw[i] &#x3D; pw[i - 1] * base % mod;
-        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   h[i] &#x3D; (h[i - 1] * base % mod + a[i]) % mod;
+        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   h[i] &#x3D; (h[i - 1] * base % mod + s[i]) % mod;
     &#125;
     ll get(int l,int r)&#123;&#x2F;&#x2F;获取区间哈希值
         return (h[r] - h[l - 1] * pw[r - l + 1] % mod + mod) % mod;
@@ -957,7 +964,7 @@ int main()
     cin.tie(nullptr)-&gt;sync_with_stdio(false);
 
     cin &gt;&gt; n &gt;&gt; q;
-    cin &gt;&gt; a + 1;
+    cin &gt;&gt; s + 1;
 
     h1.init();
     h2.init();
@@ -1138,6 +1145,213 @@ int main()
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/3190/">Manacher算法</a></p>
 <p><strong>$Manacher$ + 差分：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/33540/A">花非花</a></p>
 <p><strong>$Manacher$ + 简单 $dp$：</strong>[Link with Centrally Symmetric Strings](Link with Centrally Symmetric Strings)</p>
+<h2 id="回文自动机（PAM）"><a href="#回文自动机（PAM）" class="headerlink" title="回文自动机（PAM）"></a>回文自动机（PAM）</h2><blockquote>
+<p>Palindrome Automaton（回文自动机，回文树）是一种能够识别所有回文子串的数据结构。</p>
+<p><strong>时间复杂度：</strong>线性</p>
+</blockquote>
+<p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">struct PAM
+&#123;
+    int last,idx;
+    vector&lt;array&lt;int,26&gt;&gt; tr;
+    vector&lt;int&gt; fail,len,cnt;
+
+    PAM():last(0),idx(0)&#123;
+        fail.resize(n + 2),len.resize(n + 2),tr.resize(n + 2),cnt.resize(n + 2);
+    &#125;
+    int newnode(int l)&#123;&#x2F;&#x2F;新增一个结点，长度为l
+        len[idx] &#x3D; l;
+        tr[idx].fill(0);
+        return idx++;
+    &#125;
+    void init()&#123;
+        idx &#x3D; last &#x3D; 0;
+        newnode(0),newnode(-1);&#x2F;&#x2F;偶根长度为0，奇根长度为-1
+        s[0] &#x3D; -1,fail[0] &#x3D; 1;&#x2F;&#x2F;偶根的失配边指向奇根，奇根的失配边指向偶根
+    &#125;
+    int get_fail(int p,int i)&#123;
+        while(s[i - len[p] - 1] !&#x3D; s[i])    p &#x3D; fail[p];
+        return p;
+    &#125;
+    void insert(int i)&#123;
+        int u &#x3D; s[i] - &#39;a&#39;,p &#x3D; get_fail(last,i);
+        if(!tr[p][u])
+        &#123;
+            int now &#x3D; newnode(len[p] + 2);
+            fail[now] &#x3D; tr[get_fail(fail[p],i)][u];
+            tr[p][u] &#x3D; now;
+        &#125;
+        last &#x3D; tr[p][u];
+        cnt[last]++;
+    &#125;
+&#125;;</code></pre>
+
+<p><mark>模板题1代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
+
+#define IOS ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr)
+#define cf(_) int _;cin &gt;&gt; _;while(_--)
+
+mt19937 mrand(random_device&#123;&#125;());
+int rnd(int x) &#123; return mrand() % x;&#125;
+ll gcd(ll a,ll b)&#123;return b ? gcd(b,a % b) : a;&#125;
+ll fpow(ll a,ll b,ll mod)&#123;ll res &#x3D; 1;a %&#x3D; mod;assert(b &gt;&#x3D; 0);while(b)&#123;if(b &amp; 1)res &#x3D; res * a % mod;a &#x3D; a * a % mod;b &gt;&gt;&#x3D; 1;&#125;return res;&#125;
+
+const int N &#x3D; 3e5 + 10;
+
+int n;
+char s[N];
+
+struct PAM
+&#123;
+    int last,idx;
+    vector&lt;array&lt;int,26&gt;&gt; tr;
+    vector&lt;int&gt; fail,len,cnt;
+
+    PAM():last(0),idx(0)&#123;
+    fail.resize(n + 2),len.resize(n + 2),tr.resize(n + 2),cnt.resize(n + 2);
+    &#125;
+    int newnode(int l)&#123;&#x2F;&#x2F;新增一个结点，长度为l
+        len[idx] &#x3D; l;
+        tr[idx].fill(0);
+        return idx++;
+    &#125;
+    void init()&#123;
+        idx &#x3D; last &#x3D; 0;
+        newnode(0),newnode(-1);&#x2F;&#x2F;偶根长度为0，奇根长度为-1
+        s[0] &#x3D; -1,fail[0] &#x3D; 1;&#x2F;&#x2F;偶根的失配边指向奇根，奇根的失配边指向偶根
+    &#125;
+    int get_fail(int p,int i)&#123;
+        while(s[i - len[p] - 1] !&#x3D; s[i])    p &#x3D; fail[p];
+        return p;
+    &#125;
+    void insert(int i)&#123;
+        int u &#x3D; s[i] - &#39;a&#39;,p &#x3D; get_fail(last,i);
+        if(!tr[p][u])&#123;
+            int now &#x3D; newnode(len[p] + 2);
+            fail[now] &#x3D; tr[get_fail(fail[p],i)][u];
+            tr[p][u] &#x3D; now;
+        &#125;
+        last &#x3D; tr[p][u];
+        cnt[last]++;
+    &#125;
+&#125;;
+
+int main()
+&#123;
+    IOS;
+    cin &gt;&gt; n &gt;&gt; s + 1;
+
+    PAM pam;
+    pam.init();
+
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   pam.insert(i);
+
+    for(int i &#x3D; pam.idx - 1;~i;i--)
+        pam.cnt[pam.fail[i]] +&#x3D; pam.cnt[i];
+
+    ll res &#x3D; 0;
+    for(int i &#x3D; 2;i &lt; pam.idx;i++)  res &#x3D; max(res,(ll)pam.len[i] * pam.cnt[i]);
+
+    cout &lt;&lt; res;
+    return 0;
+&#125;</code></pre>
+
+<p><mark>模板题2代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
+
+#define IOS ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr)
+#define cf(_) int _;cin &gt;&gt; _;while(_--)
+
+mt19937 mrand(random_device&#123;&#125;());
+int rnd(int x) &#123; return mrand() % x;&#125;
+ll gcd(ll a,ll b)&#123;return b ? gcd(b,a % b) : a;&#125;
+ll fpow(ll a,ll b,ll mod)&#123;ll res &#x3D; 1;a %&#x3D; mod;assert(b &gt;&#x3D; 0);while(b)&#123;if(b &amp; 1)res &#x3D; res * a % mod;a &#x3D; a * a % mod;b &gt;&gt;&#x3D; 1;&#125;return res;&#125;
+
+const int N &#x3D; 3e5 + 10;
+
+int n;
+char s[N];
+
+struct PAM
+&#123;
+    int last,idx;
+    vector&lt;array&lt;int,26&gt;&gt; tr;
+    vector&lt;int&gt; fail,len,cnt,mask;
+
+    PAM():last(0),idx(0)&#123;
+    fail.resize(n + 2),len.resize(n + 2),tr.resize(n + 2),mask.resize(n + 2),cnt.resize(n + 2);
+    &#125;
+    int newnode(int l)&#123;&#x2F;&#x2F;新增一个结点，长度为l
+        len[idx] &#x3D; l;
+        tr[idx].fill(0);
+        return idx++;
+    &#125;
+    void init()&#123;
+        idx &#x3D; last &#x3D; 0;
+        newnode(0),newnode(-1);&#x2F;&#x2F;偶根长度为0，奇根长度为-1
+        s[0] &#x3D; -1,fail[0] &#x3D; 1;&#x2F;&#x2F;偶根的失配边指向奇根，奇根的失配边指向偶根
+    &#125;
+    int get_fail(int p,int i)&#123;
+        while(s[i - len[p] - 1] !&#x3D; s[i])    p &#x3D; fail[p];
+        return p;
+    &#125;
+    void insert(int i)&#123;
+        int u &#x3D; s[i] - &#39;a&#39;,p &#x3D; get_fail(last,i);
+        if(!tr[p][u])&#123;
+            int now &#x3D; newnode(len[p] + 2);
+            mask[now] &#x3D; mask[p] | (1 &lt;&lt; u);
+            fail[now] &#x3D; tr[get_fail(fail[p],i)][u];
+            tr[p][u] &#x3D; now;   
+        &#125;
+        last &#x3D; tr[p][u];
+        cnt[last]++;
+    &#125;
+&#125;;
+
+int main()
+&#123;
+    IOS;
+    cin &gt;&gt; s + 1;
+    n &#x3D; strlen(s + 1);
+
+    PAM pam;
+    pam.init();
+
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   pam.insert(i);
+
+    auto count &#x3D; [&amp;](int x) -&gt; int
+    &#123;
+        int res &#x3D; 0;
+        while(x)    x -&#x3D; (x &amp; -x),res++;
+        return res;
+    &#125;;
+
+    for(int i &#x3D; pam.idx - 1;~i;i--)
+        pam.cnt[pam.fail[i]] +&#x3D; pam.cnt[i];
+    
+    ll res &#x3D; 0;
+    for(int i &#x3D; 2;i &lt; pam.idx;i++)
+    &#123;
+        res +&#x3D; pam.cnt[i] * count(pam.mask[i]);
+    &#125;
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark><br><strong>模板题1：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/33548/F">[APIO2014]回文串</a></p>
+<p><strong>模板题2：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/33548/G">Colorful String</a></p>
+<p><strong>PAM + Hash：</strong><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=7327">String Magic (Hard Version)</a></p>
 <h2 id="Trie"><a href="#Trie" class="headerlink" title="Trie"></a>Trie</h2><blockquote>
 <p>字典树。用来存储和查询字符串（01串）。</p>
 </blockquote>
@@ -1945,6 +2159,7 @@ int main()
 <p><strong>模板题（区间加乘操作）：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1279/">维护序列</a></p>
 <p><strong>抽象出加乘公式：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57356/H">0 and 1 in BIT</a></p>
 <p><strong>区间加乘 + 势能线段树：</strong><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=7284">Easy problem I</a></p>
+<p><strong>洛谷题单：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/training/1124">Limit の线段树题单</a></p>
 <h3 id="主席树"><a href="#主席树" class="headerlink" title="主席树"></a>主席树</h3><blockquote>
 <p><strong>结构体定义：</strong></p>
 <p>struct Node​</p>
@@ -2040,7 +2255,129 @@ int main()
 
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/257/">第K小数</a></p>
-<h3 id="权值线段树"><a href="#权值线段树" class="headerlink" title="权值线段树"></a>权值线段树</h3><h3 id="动态开点线段树"><a href="#动态开点线段树" class="headerlink" title="动态开点线段树"></a>动态开点线段树</h3><h3 id="势能线段树"><a href="#势能线段树" class="headerlink" title="势能线段树"></a>势能线段树</h3><p><strong>问题引入：</strong></p>
+<h3 id="权值线段树"><a href="#权值线段树" class="headerlink" title="权值线段树"></a>权值线段树</h3><p><mark>推荐题单：</mark></p>
+<h3 id="动态开点线段树"><a href="#动态开点线段树" class="headerlink" title="动态开点线段树"></a>动态开点线段树</h3><p><mark>模板题1（逆序对）代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+const int N &#x3D; 5e5 + 10;
+
+int n,idx,root;
+int a[N];
+struct Node
+&#123;
+    int l,r;
+    int cnt;
+&#125;tr[N * 24];
+
+void modify(int &amp;u,int l,int r,int pos)
+&#123;
+    if(!u)  u &#x3D; ++idx;
+    tr[u].cnt++;
+    if(l &#x3D;&#x3D; r)  return;
+    int mid &#x3D; l + r &gt;&gt; 1;
+    if(pos &lt;&#x3D; mid)  modify(tr[u].l,l,mid,pos);
+    else    modify(tr[u].r,mid + 1,r,pos);
+&#125;
+
+int query(int u,int l,int r,int ql,int qr)
+&#123;
+    if(!u)  return 0;
+    if(ql &lt;&#x3D; l &amp;&amp; qr &gt;&#x3D; r)  return tr[u].cnt;
+    int mid &#x3D; l + r &gt;&gt; 1;
+    int res &#x3D; 0;
+    if(ql &lt;&#x3D; mid)  res +&#x3D; query(tr[u].l,l,mid,ql,qr);
+    if(qr &gt; mid)    res +&#x3D; query(tr[u].r,mid + 1,r,ql,qr);
+    return res;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    cin &gt;&gt; n;
+
+    ll res &#x3D; 0;
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   
+    &#123;
+        cin &gt;&gt; a[i];
+        modify(root,0,1e9,a[i]);
+        res +&#x3D; query(root,0,1e9,a[i] + 1,1e9);
+    &#125;
+
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+<p><strong>模板题2思路：</strong></p>
+<p><strong>题意：</strong>	给定 $n$ 个数，问有多少个不同的连续区间，满足其区间和在 $[L,R]$ 范围内？</p>
+<p><strong>思路：</strong>	$L \le sum[r] - sum[l - 1] \le R$，即 $sum[r] - R \le sum[l - 1] \le sum[r] - L$。即每插入一个数（假设下标为 $pos$），则询问前面 $[0,pos - 1]$ 内，有多少数在 $[sum[pos] - R,sum[pos] - L]$ 内。</p>
+<p><mark>模板题2代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+const int N &#x3D; 1e5 + 10;
+int n,idx,L,R,root;
+int a[N];
+ll sum[N];
+ll lc &#x3D; -1e10,rc &#x3D; 1e10;
+struct Node
+&#123;
+    int l,r;
+    int cnt;
+&#125;tr[N * 21];
+
+void modify(int &amp;u,ll l,ll r,ll pos)
+&#123;
+    if(!u)  u &#x3D; ++idx;
+    tr[u].cnt ++;
+    if(l &#x3D;&#x3D; r)  return;
+    ll mid &#x3D; l + r &gt;&gt; 1;
+    if(pos &lt;&#x3D; mid)  modify(tr[u].l,l,mid,pos);
+    else    modify(tr[u].r,mid + 1,r,pos);
+&#125;
+
+int query(int u,ll l,ll r,ll ql,ll qr)
+&#123;
+    if(!u)  return 0;
+    if(ql &lt;&#x3D; l &amp;&amp; qr &gt;&#x3D; r)  return tr[u].cnt;
+    ll mid &#x3D; l + r &gt;&gt; 1;
+    int res &#x3D; 0;
+    if(ql &lt;&#x3D; mid)   res +&#x3D; query(tr[u].l,l,mid,ql,qr);
+    if(qr &gt; mid)    res +&#x3D; query(tr[u].r,mid + 1,r,ql,qr);
+    return res;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    cin &gt;&gt; n &gt;&gt; L &gt;&gt; R;
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; a[i],sum[i] &#x3D; sum[i - 1] + a[i];
+
+    modify(root,lc,rc,0);
+
+    ll res &#x3D; 0;
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+    &#123;
+        res +&#x3D; query(root,lc,rc,sum[i] - R,sum[i] - L);
+        modify(root,lc,rc,sum[i]);
+    &#125;
+
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题1：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1908">逆序对</a></p>
+<p><strong>模板题2：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5459">回转寿司</a></p>
+<h3 id="势能线段树"><a href="#势能线段树" class="headerlink" title="势能线段树"></a>势能线段树</h3><p><strong>问题引入：</strong></p>
 <p>​	1、给定一个区间[l,r]，将其中每个数开根号并向下取整。</p>
 <p>​	2、查询区间和。</p>
 <p><mark>思路：</mark></p>
@@ -2254,7 +2591,107 @@ int main()
 <p><strong>模板题1：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/19917/D">势能线段树模板题一</a></p>
 <p><strong>模板题2：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/19917/C">势能线段树模板题二</a></p>
 <p><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=7284">Easy problem I</a></p>
-<h3 id="李超线段树"><a href="#李超线段树" class="headerlink" title="李超线段树"></a>李超线段树</h3><h2 id="ST表"><a href="#ST表" class="headerlink" title="ST表"></a>ST表</h2><blockquote>
+<h3 id="李超线段树"><a href="#李超线段树" class="headerlink" title="李超线段树"></a>李超线段树</h3><h3 id="线段树优化建图"><a href="#线段树优化建图" class="headerlink" title="线段树优化建图"></a>线段树优化建图</h3><p><img src="/images/16.png"></p>
+<p><mark>模板题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+#include &lt;functional&gt;
+#include &lt;queue&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;ll,int&gt; pli;
+
+const int N &#x3D; 100010, M &#x3D; 17 * N + N * 4 * 4 + 2 * N, P &#x3D; 400000;
+const ll INF &#x3D; 1e18;
+
+struct Node &#123;
+    int l, r;
+&#125;tr[N &lt;&lt; 3]; &#x2F;&#x2F; 两棵树一起开 同一个真实结点在两棵树里面的叶子结点编号差值相同 用偏移量
+int e[M], ne[M], h[N &lt;&lt; 3], idx;
+int w[M]; 
+int mp[N]; &#x2F;&#x2F; 真实结点编号到线段树结点编号的映射
+int n, m, S;
+ll dis[N &lt;&lt; 3];
+bool st[N &lt;&lt; 3];
+
+void insert(int u, int v, int d) &#123;
+    e[idx] &#x3D; v, ne[idx] &#x3D; h[u], w[idx] &#x3D; d, h[u] &#x3D; idx++;
+&#125;
+
+void build(int u, int l, int r) &#123;
+    tr[u] &#x3D; &#123;l, r&#125;;
+    if (l &#x3D;&#x3D; r) return void(mp[l] &#x3D; u);
+    int mid &#x3D; l + r &gt;&gt; 1;
+    insert(u, u &lt;&lt; 1, 0), insert(u, u &lt;&lt; 1 | 1, 0); &#x2F;&#x2F; 出树往子节点连
+    insert((u &lt;&lt; 1) + P, u + P, 0), insert((u &lt;&lt; 1 | 1) + P, u + P, 0); &#x2F;&#x2F; 入树往父节点连
+    build(u &lt;&lt; 1, l, mid), build(u &lt;&lt; 1 | 1, mid + 1, r);
+&#125;
+
+void modify(int u, int l, int r, int v, int w, int op) &#123;
+    if (tr[u].l &gt;&#x3D; l &amp;&amp; tr[u].r &lt;&#x3D; r) &#123; &#x2F;&#x2F; 连边区间完全包含结点区间
+        if (op &#x3D;&#x3D; 2) insert(v + P, u, w); &#x2F;&#x2F; 入树叶子结点连出树区间结点
+        if (op &#x3D;&#x3D; 3) insert(u + P, v, w); &#x2F;&#x2F; 入树区间结点连出树叶子结点
+        return;
+    &#125;
+    int mid &#x3D; tr[u].l + tr[u].r &gt;&gt; 1;
+    if (l &lt;&#x3D; mid) modify(u &lt;&lt; 1, l, r, v, w, op);
+    if (r &gt; mid) modify(u &lt;&lt; 1 | 1, l, r, v, w, op);
+&#125;
+
+int main() &#123;
+    cin.tie(0), cout.tie(0)-&gt;sync_with_stdio(false);
+    
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; S;
+    
+    memset(h, -1, sizeof h);
+    build(1, 1, n);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++) &#123;
+        insert(mp[i], mp[i] + P, 0);
+        insert(mp[i] + P, mp[i], 0); &#x2F;&#x2F; 入树出树叶子结点互连
+    &#125;
+    
+    while (m--) &#123;
+        int op, u, v, l, r, w;
+        cin &gt;&gt; op;
+        if (op &#x3D;&#x3D; 1) cin &gt;&gt; u &gt;&gt; v &gt;&gt; w, insert(mp[u] + P, mp[v], w); &#x2F;&#x2F; 单点连单点直接连
+        else cin &gt;&gt; v &gt;&gt; l &gt;&gt; r &gt;&gt; w, modify(1, l, r, mp[v], w, op);
+    &#125;
+    
+    function&lt;void(int)&gt; dijkstra &#x3D; [&amp;](int S) &#123;
+        memset(dis, 0x3f, sizeof dis);
+        priority_queue&lt;pli, vector&lt;pli&gt;, greater&lt;pli&gt;&gt; heap;
+        dis[S] &#x3D; 0;
+        heap.push(&#123;0, S&#125;);
+        while (heap.size()) &#123;
+            auto tt &#x3D; heap.top();
+            heap.pop();
+            int t &#x3D; tt.second;
+            if (st[t]) continue;
+            st[t] &#x3D; true;
+            for (int i &#x3D; h[t]; ~i; i &#x3D; ne[i]) &#123;
+                int j &#x3D; e[i];
+                if (dis[j] &gt; dis[t] + w[i]) &#123;
+                    dis[j] &#x3D; dis[t] + w[i];
+                    heap.push(&#123;dis[j], j&#125;);
+                &#125;
+            &#125;
+        &#125;
+    &#125;;
+
+    dijkstra(mp[S] + P);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++) &#123;
+        if (dis[mp[i]] &gt; INF &#x2F; 2) cout &lt;&lt; &quot;-1 &quot;;
+        else cout &lt;&lt; dis[mp[i]] &lt;&lt; &#39; &#39;;
+    &#125;
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF786B">Legacy</a></p>
+<h2 id="ST表"><a href="#ST表" class="headerlink" title="ST表"></a>ST表</h2><blockquote>
 <p><strong>RMQ</strong>（Range Maximum&#x2F;Minimum Query）问题，即区间最值查询问题，是指对于长度为 n 的数组a，查询数组a中下标在 [ i , j ] 里的最大值或最小值。</p>
 <p>ST算法是一个非常有名的在线处理RMQ问题的算法，它在 O ( n log ⁡ n ) 时间内进行预处理，然后可以在 O ( 1 )  时间内回答每个查询，其本质是倍增与动态规划的思想。要注意的是：ST算法只适用于静态区间求最值。</p>
 </blockquote>
