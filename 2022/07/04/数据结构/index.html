@@ -2862,6 +2862,77 @@ int main()
     return 0;
 &#125;</code></pre>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1275/">天才的记忆</a></p>
+<h2 id="莫队"><a href="#莫队" class="headerlink" title="莫队"></a>莫队</h2><p><mark>模板题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 50010,M &#x3D; 200010,S &#x3D; 1000010;
+int n,m,len;
+int w[N],ans[M];
+struct Query
+&#123;
+    int id,l,r;
+&#125;q[M];
+int cnt[S];
+
+int get(int x)
+&#123;
+    return x &#x2F; len;
+&#125;
+
+
+void add(int x,int&amp; res)
+&#123;
+    if(!cnt[x])   res++;
+    cnt[x]++;
+&#125;
+
+void del(int x,int&amp; res)
+&#123;
+    cnt[x]--;
+    if(!cnt[x]) res--;
+&#125;
+
+bool cmp(const Query&amp; x,const Query&amp; y)
+&#123;
+    int x1 &#x3D; get(x.l),x2 &#x3D; get(y.l);
+    if(x1 !&#x3D; x2)    return x1 &lt; x2;
+    return x.r &lt; y.r;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+    cin &gt;&gt; n;
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)    cin &gt;&gt; w[i];
+    
+    cin &gt;&gt; m;
+    len &#x3D; max(1,(int)sqrt(n));
+    
+    for(int i &#x3D; 1;i &lt;&#x3D; m;i++)
+    &#123;
+        cin &gt;&gt; q[i].l &gt;&gt; q[i].r;
+        q[i].id &#x3D; i;
+    &#125;
+    sort(q + 1,q + m + 1,cmp);
+
+    int res &#x3D; 0;
+    for(int k &#x3D; 1,r &#x3D; 0,l &#x3D; 1;k &lt;&#x3D; m;k++)
+    &#123;
+        int id &#x3D; q[k].id,ql &#x3D; q[k].l,qr &#x3D; q[k].r;
+        while(r + 1 &lt;&#x3D; qr)    add(w[++r],res);
+        while(r &gt; qr)    del(w[r--],res);
+        while(l + 1 &lt;&#x3D; ql)    del(w[l++],res);
+        while(l &gt; ql)    add(w[--l],res);
+        ans[id] &#x3D; res;
+    &#125;
+
+    for(int i &#x3D; 1;i &lt;&#x3D; m;i++)    cout &lt;&lt; ans[i] &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2494/">HH的项链</a></p>
 <h2 id="珂朵莉树"><a href="#珂朵莉树" class="headerlink" title="珂朵莉树"></a>珂朵莉树</h2><p><strong>珂朵莉树</strong>（Chtholly Tree）起源于<a target="_blank" rel="noopener" href="https://codeforces.com/contest/896/problem/C">CF896C</a>，那道题要求我们实现一种数据结构，可以较快地实现：</p>
 <ul>
 <li><p>区间加</p>
