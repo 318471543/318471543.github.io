@@ -914,26 +914,36 @@ int main()
 <pre class="language-c++" data-language="c++"><code class="language-c++">struct Hash
 &#123;
     int base_x,base_y;
-    vector&lt;vector&lt;ll&gt;&gt; h;
+    vector&lt;vector&lt;ll&gt;&gt; h,fh;
     vector&lt;ll&gt; px,py;
     Hash(int _base_x, int _base_y): base_x(_base_x), base_y(_base_y) &#123;&#125;
 
     void init() &#123;&#x2F;&#x2F;初始化
-        h.resize(n + 1), px.resize(n + 1), py.resize(m + 1);
-        for(int i &#x3D; 0;i &lt;&#x3D; m;i++)   h[i].resize(m + 1);
+        h.resize(n + 2), fh.resize(n + 2), px.resize(n + 1), py.resize(m + 1);
+        for(int i &#x3D; 0;i &lt;&#x3D; n + 1;i++)   h[i].resize(m + 2),fh[i].resize(m + 2);
         px[0] &#x3D; 1;
         for (int i &#x3D; 1; i &lt;&#x3D; n; i++) px[i] &#x3D; px[i - 1] * base_x;
         py[0] &#x3D; 1;
         for (int i &#x3D; 1; i &lt;&#x3D; m; i++) py[i] &#x3D; py[i - 1] * base_y;
-        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   
+        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
             for(int j &#x3D; 1;j &lt;&#x3D; m;j++)
                 h[i][j] &#x3D; h[i - 1][j] * base_x + h[i][j - 1] * base_y - h[i - 1][j - 1] * base_x * base_y + s[i][j];
-    &#125;
-    ll get(int x1, int y1, int x2, int y2) &#123;&#x2F;&#x2F;获取矩阵区间 [x1,y1] -&gt; [x2,y2] 的哈希值
+        for(int i &#x3D; n;i &gt;&#x3D; 1;i--)
+            for(int j &#x3D; m;j &gt;&#x3D; 1;j--)
+                fh[i][j] &#x3D; fh[i + 1][j] * base_x + fh[i][j + 1] * base_y - fh[i + 1][j + 1] * base_x * base_y + s[i][j];
+    &#125;   
+    ll getz(int x1, int y1, int x2, int y2) &#123;&#x2F;&#x2F;获取矩阵区间: [x1,y1] -&gt; [x2,y2] 的正哈希值
         ll X &#x3D; px[x2 - x1 + 1], Y &#x3D; py[y2 - y1 + 1];
         return h[x2][y2] - h[x2][y1 - 1] * Y - h[x1 - 1][y2] * X + h[x1 - 1][y1 - 1] * X * Y;
     &#125;;
-&#125;h1(131,149),h2(13&#39;331,941);</code></pre>
+    ll getf(int x1, int y1, int x2, int y2) &#123;&#x2F;&#x2F;获取矩阵区间: [x1,y1] -&gt; [x2,y2] 的反哈希值
+        ll X &#x3D; px[x2 - x1 + 1],Y &#x3D; py[y2 - y1 + 1];
+        return fh[x1][y1] - fh[x1][y2 + 1] * Y - fh[x2 + 1][y1] * X + fh[x2 + 1][y2 + 1] * X * Y;
+    &#125;
+    bool equ(int l1, int r1, int l2, int r2) &#123;&#x2F;&#x2F;判断矩阵区间: [l1,r1] -&gt; [l2,r2] 的正反哈希值是否一致
+        return getz(l1, r1, l2, r2) &#x3D;&#x3D; getf(l1, r1, l2, r2);
+    &#125;
+&#125;h1(131,149),h2(13&#39;331,1e9 + 7);</code></pre>
 <h3 id="一维哈希"><a href="#一维哈希" class="headerlink" title="一维哈希"></a>一维哈希</h3><blockquote>
 <p>区间 $[l,r]$ 内的哈希值：$h[r] - h[l - 1] × pw[r - l + 1]$</p>
 </blockquote>
@@ -1013,7 +1023,7 @@ struct Hash
 
     void init() &#123;&#x2F;&#x2F;初始化
         h.resize(n + 1), px.resize(n + 1), py.resize(m + 1);
-        for(int i &#x3D; 0;i &lt;&#x3D; m;i++)   h[i].resize(m + 1);
+        for(int i &#x3D; 0;i &lt;&#x3D; n;i++)   h[i].resize(m + 1);
         px[0] &#x3D; 1;
         for (int i &#x3D; 1; i &lt;&#x3D; n; i++) px[i] &#x3D; px[i - 1] * base_x;
         py[0] &#x3D; 1;
@@ -1155,10 +1165,128 @@ int main()
     cout &lt;&lt; res - 1 &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
+<p><strong>Manacher + 二分哈希探讨：</strong></p>
+<ul>
+<li>做题需要具备：<ul>
+<li>二维Hash模板</li>
+<li>一维 $manacher$ 转二维 $manacher$ 的建图方式</li>
+</ul>
+</li>
+<li>然后对于建完后的图，讨论哪些是有效的 $n × n$ 的回文子矩阵，哈希模数取对即可。</li>
+<li>还有一个细节就是开 $long long$，因为经过计算， $n × n$ 的矩阵中，最多有 $n × n + (n - 1) × (n - 1) + \cdots + 1 × 1$ 个，因此，该题极限数据 $n = 2000$ 的情况下，是会有 $2668667000$ 个子矩阵满足条件，会超过 $int$ 的最大值（$2147483647$）。</li>
+</ul>
+<p><mark>代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
+
+#define IOS ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr)
+#define cf(_) int _;cin &gt;&gt; _;while(_--)
+
+mt19937 mrand(random_device&#123;&#125;());
+int rnd(int x) &#123; return mrand() % x;&#125;
+ll gcd(ll a,ll b)&#123;return b ? gcd(b,a % b) : a;&#125;
+ll fpow(ll a,ll b,ll mod)&#123;ll res &#x3D; 1;a %&#x3D; mod;assert(b &gt;&#x3D; 0);while(b)&#123;if(b &amp; 1)res &#x3D; res * a % mod;a &#x3D; a * a % mod;b &gt;&gt;&#x3D; 1;&#125;return res;&#125;
+
+const int N &#x3D; 4010;
+int n,m;
+char a[N][N],s[N][N];
+
+struct Hash
+&#123;
+    int base_x,base_y;
+    vector&lt;vector&lt;ll&gt;&gt; h,fh;
+    vector&lt;ll&gt; px,py;
+    Hash(int _base_x, int _base_y): base_x(_base_x), base_y(_base_y) &#123;&#125;
+
+    void init() &#123;&#x2F;&#x2F;初始化
+        h.resize(n + 2), fh.resize(n + 2), px.resize(n + 1), py.resize(m + 1);
+        for(int i &#x3D; 0;i &lt;&#x3D; n + 1;i++)   h[i].resize(m + 2),fh[i].resize(m + 2);
+        px[0] &#x3D; 1;
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++) px[i] &#x3D; px[i - 1] * base_x;
+        py[0] &#x3D; 1;
+        for (int i &#x3D; 1; i &lt;&#x3D; m; i++) py[i] &#x3D; py[i - 1] * base_y;
+        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+            for(int j &#x3D; 1;j &lt;&#x3D; m;j++)
+                h[i][j] &#x3D; h[i - 1][j] * base_x + h[i][j - 1] * base_y - h[i - 1][j - 1] * base_x * base_y + s[i][j];
+        for(int i &#x3D; n;i &gt;&#x3D; 1;i--)
+            for(int j &#x3D; m;j &gt;&#x3D; 1;j--)
+                fh[i][j] &#x3D; fh[i + 1][j] * base_x + fh[i][j + 1] * base_y - fh[i + 1][j + 1] * base_x * base_y + s[i][j];
+    &#125;   
+    ll getz(int x1, int y1, int x2, int y2) &#123;&#x2F;&#x2F;获取矩阵区间: [x1,y1] -&gt; [x2,y2] 的正哈希值
+        ll X &#x3D; px[x2 - x1 + 1], Y &#x3D; py[y2 - y1 + 1];
+        return h[x2][y2] - h[x2][y1 - 1] * Y - h[x1 - 1][y2] * X + h[x1 - 1][y1 - 1] * X * Y;
+    &#125;;
+    ll getf(int x1, int y1, int x2, int y2) &#123;&#x2F;&#x2F;获取矩阵区间: [x1,y1] -&gt; [x2,y2] 的反哈希值
+        ll X &#x3D; px[x2 - x1 + 1],Y &#x3D; py[y2 - y1 + 1];
+        return fh[x1][y1] - fh[x1][y2 + 1] * Y - fh[x2 + 1][y1] * X + fh[x2 + 1][y2 + 1] * X * Y;
+    &#125;
+    bool equ(int l1, int r1, int l2, int r2) &#123;&#x2F;&#x2F;判断矩阵区间: [l1,r1] -&gt; [l2,r2] 的正反哈希值是否一致
+        return getz(l1, r1, l2, r2) &#x3D;&#x3D; getf(l1, r1, l2, r2);
+    &#125;
+&#125;h1(131,149),h2(13&#39;331,1e9 + 7);
+
+int main()
+&#123;
+    IOS;
+    cin &gt;&gt; n &gt;&gt; m;
+
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; a[i] + 1;
+
+    auto init &#x3D; [&amp;]() -&gt; void
+    &#123;
+        n &#x3D; n * 2 + 1,m &#x3D; m * 2 + 1;
+        for(int i &#x3D; 0;i &lt;&#x3D; n + 1;i++)   s[i][0] &#x3D; &#39;$&#39;;
+        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+        &#123;
+            for(int j &#x3D; 1,idx &#x3D; 1;j &lt;&#x3D; m;)
+            &#123;
+                if(i &amp; 1)  s[i][j++] &#x3D; &#39;#&#39;;
+                else    s[i][j++] &#x3D; &#39;#&#39;, s[i][j++] &#x3D; a[i &#x2F; 2][idx++];
+            &#125;
+        &#125;
+        for(int i &#x3D; 0; i &lt;&#x3D; n + 1; i++)   s[i][m + 1] &#x3D; &#39;^&#39;;
+        for(int i &#x3D; 0; i &lt;&#x3D; m; i++) s[0][i] &#x3D; &#39;$&#39;;
+        for(int i &#x3D; 0; i &lt;&#x3D; m; i++) s[n + 1][i] &#x3D; &#39;^&#39;;
+        s[n + 1][0] &#x3D; &#39;$&#39;;
+    &#125;;
+
+    init();
+    &#x2F;&#x2F; for(int i &#x3D; 0;i &lt;&#x3D; n + 1;i++)   cout &lt;&lt; s[i] &lt;&lt; endl;
+
+    h1.init();
+    h2.init();
+
+    auto check &#x3D; [&amp;](int l1,int r1,int l2,int r2) -&gt; bool
+    &#123;
+        if(l1 &lt;&#x3D; 0 || r1 &lt;&#x3D; 0 || l2 &gt; n || r2 &gt; m)    return false;
+        return h1.equ(l1,r1,l2,r2) &amp;&amp; h2.equ(l1,r1,l2,r2);
+    &#125;;
+   
+    ll res &#x3D; 0;
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+    &#123;
+        int mid &#x3D; 0,r &#x3D; 0;
+        vector&lt;int&gt; p(m + 1);
+        for(int j &#x3D; 1;j &lt;&#x3D; m;j++)
+        &#123;
+            p[j] &#x3D; j &lt;&#x3D; r ? min((int)p[mid * 2 - j],r - j + 1) : 1;
+            while(check(i - p[j],j - p[j],i + p[j],j + p[j])) p[j]++;
+            if(j + p[j] - 1 &gt; r)    r &#x3D; j + p[j] - 1,mid &#x3D; j;
+            if((s[i][j] &#x3D;&#x3D; &#39;#&#39; &amp;&amp; s[i - 1][j - 1] !&#x3D; &#39;#&#39;) || s[i][j] !&#x3D; &#39;#&#39;)  res +&#x3D; p[j] &#x2F; 2;
+        &#125;
+    &#125;
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/3190/">Manacher算法</a></p>
 <p><strong>$Manacher$ + 差分：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/33540/A">花非花</a></p>
 <p><strong>$Manacher$ + 简单 $dp$：</strong><a href="Link with Centrally Symmetric Strings">Link with Centrally Symmetric Strings</a></p>
+<p><strong>$Manacher$ + 二维哈希：</strong> <a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57357/G">Beautiful Matrix</a></p>
 <h2 id="回文自动机（PAM）"><a href="#回文自动机（PAM）" class="headerlink" title="回文自动机（PAM）"></a>回文自动机（PAM）</h2><blockquote>
 <p>Palindrome Automaton（回文自动机，回文树）是一种能够识别所有回文子串的数据结构。</p>
 <p><strong>时间复杂度：</strong>线性</p>
