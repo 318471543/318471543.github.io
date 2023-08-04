@@ -1084,6 +1084,116 @@ int main()
     return 0;
 &#125;</code></pre>
 
+<h4 id="Kruskal-重构树"><a href="#Kruskal-重构树" class="headerlink" title="Kruskal 重构树"></a>Kruskal 重构树</h4><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+struct Edges
+&#123;
+    int a,b,w;
+    bool operator&lt; (const Edges &amp;E) const
+    &#123;
+        return w &gt; E.w;
+    &#125;
+&#125;;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n,m;
+    cin &gt;&gt; n &gt;&gt; m;
+
+    vector&lt;Edges&gt; e(m + 1);
+    for(int i &#x3D; 1;i &lt;&#x3D; m;i++)   
+    &#123;
+        cin &gt;&gt; e[i].a &gt;&gt; e[i].b &gt;&gt; e[i].w;
+    &#125;
+
+    vector&lt;int&gt; p(n + m + 1);
+    iota(p.begin(),p.end(),0);
+
+    function&lt;int(int)&gt; find &#x3D; [&amp;](int x) -&gt; int
+    &#123;
+        return x &#x3D;&#x3D; p[x] ? x : p[x] &#x3D; find(p[x]);
+    &#125;;
+
+    vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; g(n + m + 1);
+    vector&lt;int&gt; cost(n + m + 1);
+    int tot &#x3D; n;
+    auto Kruskal &#x3D; [&amp;]() -&gt; void
+    &#123;    
+        sort(e.begin() + 1,e.end());
+        for(int i &#x3D; 1;i &lt;&#x3D; m;i++)
+        &#123;
+            int a &#x3D; find(e[i].a),b &#x3D; find(e[i].b),w &#x3D; e[i].w;
+            if(a !&#x3D; b)
+            &#123;
+                cost[++tot] &#x3D; w;
+                p[a] &#x3D; p[b] &#x3D; tot;
+                g[a].emplace_back(tot,w);
+                g[tot].emplace_back(a,w);
+                g[b].emplace_back(tot,w);
+                g[tot].emplace_back(b,w);
+            &#125;
+        &#125;
+    &#125;;
+
+    Kruskal();
+    vector&lt;int&gt; depth(tot + 1);
+    vector&lt;vector&lt;int&gt;&gt; fa(tot + 1,vector&lt;int&gt;(16));
+    function&lt;void(int,int)&gt; dfs &#x3D; [&amp;](int u,int dep) -&gt; void
+    &#123;
+        depth[u] &#x3D; dep;
+        for(auto [v,w] : g[u])
+        &#123;
+            if(depth[v])  continue;
+            fa[v][0] &#x3D; u;
+            dfs(v,dep + 1);
+        &#125;
+    &#125;;
+
+    for(int i &#x3D; tot;i &gt;&#x3D; 1;i--)
+        if(!depth[i])
+            dfs(i,1);
+
+    for(int i &#x3D; 1;i &lt;&#x3D; 15; i++)
+        for(int j &#x3D; 1;j &lt;&#x3D; tot; j++)
+            fa[j][i] &#x3D; fa[fa[j][i - 1]][i - 1];
+
+    auto lca &#x3D; [&amp;](int a,int b) -&gt; int
+    &#123;
+        if(find(a) !&#x3D; find(b))  return -1;
+        if(depth[a] &lt; depth[b]) swap(a,b);
+
+        for(int i &#x3D; 15;i &gt;&#x3D; 0;i--)
+            if(depth[fa[a][i]] &gt;&#x3D; depth[b])  
+                a &#x3D; fa[a][i];
+        if(a &#x3D;&#x3D; b)  return cost[a];
+        for(int i &#x3D; 15;i &gt;&#x3D; 0;i--)
+            if(fa[a][i] !&#x3D; fa[b][i])
+            &#123;
+                a &#x3D; fa[a][i];
+                b &#x3D; fa[b][i];
+            &#125;
+        return cost[fa[a][0]];
+    &#125;;
+
+    int q;
+    cin &gt;&gt; q;
+    while (q--)
+    &#123;
+        int a,b;
+        cin &gt;&gt; a &gt;&gt; b;
+
+        cout &lt;&lt; lca(a,b) &lt;&lt; &quot;\n&quot;;
+    &#125;
+    
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1967">货车运输</a></p>
 <h2 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h2><blockquote>
 <p><mark>应用：</mark></p>
 <p>​	拓扑排序可以判断图中是否有环，还可以用来判断图是否是一条链。</p>
