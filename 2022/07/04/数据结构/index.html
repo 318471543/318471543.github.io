@@ -10,7 +10,8 @@
 
 核心代码：
 for(int i &amp;#x3D; 1; i&amp;lt;&amp;#x3D;n;i++)     s[i] &amp;#x3D; s[i-1]+ a[i];
-一维异或和">
+
+一维异或">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -491,11 +492,13 @@ for(int i &amp;#x3D; 1; i&amp;lt;&amp;#x3D;n;i++)     s[i] &amp;#x3D; s[i-1]+ a[
 </blockquote>
 <p><mark>核心代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">for(int i &#x3D; 1; i&lt;&#x3D;n;i++)     s[i] &#x3D; s[i-1]+ a[i];</code></pre>
+
 <h3 id="一维异或和"><a href="#一维异或和" class="headerlink" title="一维异或和"></a>一维异或和</h3><blockquote>
 <p>求区间 $[l,r]$ 之间的异或和：$s[r]$ ^ $s[l - 1]$</p>
 </blockquote>
 <p><mark>核心代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">for(int i &#x3D; 1;i &lt;&#x3D; n;i++)	sum[i] &#x3D; sum[i - 1] ^ a[i];</code></pre>
+
 <h3 id="二维前缀和"><a href="#二维前缀和" class="headerlink" title="二维前缀和"></a>二维前缀和</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -523,10 +526,11 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
+
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/798/">子矩阵的和</a></p>
 <h2 id="差分"><a href="#差分" class="headerlink" title="差分"></a>差分</h2><h3 id="一维差分"><a href="#一维差分" class="headerlink" title="一维差分"></a>一维差分</h3><blockquote>
 <p>核心代码：</p>
-<p>在区间[l,r]加上一个数c：b[l] += c,b[r + 1] -= c;</p>
+<p>在区间[l,r]加上一个数c：b[l] +&#x3D; c,b[r + 1] -&#x3D; c;</p>
 </blockquote>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
 #include &lt;cstring&gt;
@@ -556,6 +560,7 @@ int main()
     for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   printf(&quot;%d &quot;,b[i]);
     return 0;
 &#125;</code></pre>
+
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/799/">差分</a></p>
 <h3 id="二维差分"><a href="#二维差分" class="headerlink" title="二维差分"></a>二维差分</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
@@ -596,6 +601,7 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
+
 <h2 id="二分"><a href="#二分" class="headerlink" title="二分"></a>二分</h2><h3 id="整数二分："><a href="#整数二分：" class="headerlink" title="整数二分："></a>整数二分：</h3><pre class="language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;第一种:
 while(l &lt; r)
 &#123;
@@ -610,29 +616,33 @@ while(l &lt; r)
 	if(check(mid))	r &#x3D; mid;
 	else	l &#x3D; mid + 1;
 &#125;</code></pre>
+
 <p><mark>推荐题单：</mark></p>
-<p><strong>二分 + 双指针 / 二分套二分：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1852/problem/A">A. Ntarsis’ Set</a></p>
+<p><strong>二分 + 双指针 &#x2F; 二分套二分：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1852/problem/A">A. Ntarsis’ Set</a></p>
 <h3 id="浮点数二分："><a href="#浮点数二分：" class="headerlink" title="浮点数二分："></a>浮点数二分：</h3><pre class="language-c++" data-language="c++"><code class="language-c++">while(l + eps &lt; r)
 &#123;
     double mid &#x3D; (l + r) &#x2F; 2;
     if(check(mid))	l &#x3D; mid;
     else	r &#x3D; mid;
 &#125;</code></pre>
+
+
+
 <h2 id="三分"><a href="#三分" class="headerlink" title="三分"></a>三分</h2><blockquote>
 <p>三分时间复杂度：O（n$^2$）</p>
 <p>三分与二分的思想类似，也是通过不断缩小答案可能的区间范围，来找到最终答案所在的位置。</p>
 <p>三分一般被用来查找某类单峰函数的峰值。</p>
-<p>三分需要找三等分点：M1 = (R - L) / 3 + L,M2 = (R - L) / 3 + 2L。</p>
+<p>三分需要找三等分点：M1 &#x3D; (R - L) &#x2F; 3 + L,M2 &#x3D; (R - L) &#x2F; 3 + 2L。</p>
 </blockquote>
 <p><strong>注意：</strong></p>
 <blockquote>
 <p>但也有某类单峰函数不能用三分！</p>
 <p>某些问题的函数可能是单峰的，但峰值两边并非严格递增（递减）的，即有可能出现”平台“（）一条与x轴平行的直线。</p>
 </blockquote>
-<p><img src="/images/2.png" alt=""></p>
+<p><img src="/images/2.png"></p>
 <blockquote>
 <p>什么时候使用三分？</p>
-<p>​    即一个函数，在考虑的范围[l,r]内是单峰的，并且从峰值往左右两边都是要<strong>严格</strong>单调递增或<strong>严格</strong>单调递减的。</p>
+<p>​	即一个函数，在考虑的范围[l,r]内是单峰的，并且从峰值往左右两边都是要<strong>严格</strong>单调递增或<strong>严格</strong>单调递减的。</p>
 </blockquote>
 <h3 id="整数三分"><a href="#整数三分" class="headerlink" title="整数三分"></a>整数三分</h3><p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1355/problem/E">E. Restorer Distance</a></p>
 <blockquote>
@@ -688,6 +698,7 @@ int main()
     cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
+
 <h3 id="浮点数三分"><a href="#浮点数三分" class="headerlink" title="浮点数三分"></a>浮点数三分</h3><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3382">【模板】三分法</a></p>
 <blockquote>
 <p>模板记忆口诀：哪个情况更糟就删去哪一部分（每次会删去三分之一的区间）：</p>
@@ -730,6 +741,7 @@ int main()
     cout &lt;&lt; fixed &lt;&lt; setprecision(5) &lt;&lt; l &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
+
 <h4 id="浮点三分法求凹函数："><a href="#浮点三分法求凹函数：" class="headerlink" title="浮点三分法求凹函数："></a>浮点三分法求凹函数：</h4><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -766,11 +778,11 @@ int main()
     cout &lt;&lt; fixed &lt;&lt; setprecision(5) &lt;&lt; l &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
+
 <h2 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h2><p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/801/">最长连续不重复子序列</a></p>
 <p><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=7314">Simple Set Problem</a></p>
-<h2 id="KMP"><a href="#KMP" class="headerlink" title="KMP"></a>KMP</h2><div class="table-container">
-<table>
+<h2 id="KMP"><a href="#KMP" class="headerlink" title="KMP"></a>KMP</h2><table>
 <thead>
 <tr>
 <th>算法</th>
@@ -778,8 +790,7 @@ int main()
 <th>扩展KMP</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>数据维护</td>
 <td>ne[i]表示P[1,i]中相等前后缀的最大长度</td>
 <td>z[i]表示S与其后缀S[i,n]的最长公共前缀的长度</td>
@@ -794,9 +805,7 @@ int main()
 <td>O(n)</td>
 <td>O(n)</td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <h3 id="KMP-1"><a href="#KMP-1" class="headerlink" title="KMP"></a>KMP</h3><blockquote>
 <p><strong>KMP算法</strong>是可以在<strong>文本串s</strong>中快速查找<strong>模式串p</strong>的一种算法。</p>
 </blockquote>
@@ -827,11 +836,12 @@ int main()
     &#125;
     return res;
 &#125;;</code></pre>
+
 <p><mark>模板题：</mark><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/833/">KMP字符串</a></p>
 <h3 id="EX-KMP"><a href="#EX-KMP" class="headerlink" title="EX-KMP"></a>EX-KMP</h3><p><mark>Z函数：</mark>求一个字符串str以第 i 位开始的后缀与str的最长公共前缀（lcp）</p>
 <p>使用z[i]表示第i位开始的后缀与str的最长公共前缀</p>
 <p><mark>扩展KMP：</mark>给两个字符串str1、str2，求出str1的每一个后缀与str2的最长公共前缀，时间复杂度：O（n）</p>
-<p><strong>推荐视频教学：</strong><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Y54y1o7Ca?spm_id_from=333.337.search-card.all.click&amp;vd_source=3d7e149b792ef13210101958098b6da2">扩展 KMP(Z 函数)</a></p>
+<p><strong>推荐视频教学：</strong><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Y54y1o7Ca?spm_id_from=333.337.search-card.all.click&vd_source=3d7e149b792ef13210101958098b6da2">扩展 KMP(Z 函数)</a></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5410">【模板】扩展 KMP（Z 函数）</a></p>
 <p><mark>模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -883,6 +893,9 @@ int main()
 	printf(&quot;%lld\n&quot;,res);
 	return 0;
 &#125;</code></pre>
+
+
+
 <h2 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h2><p><mark>封装模板（一维双哈希）：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">struct Hash
 &#123;
@@ -910,6 +923,7 @@ int main()
         return getz(l1,r1) &#x3D;&#x3D; getz(l2,r2);
     &#125;
 &#125;h1(131,998&#39;244&#39;353),h2(13331,1e9 + 7);</code></pre>
+
 <p><mark>封装模板（二维哈希）：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">struct Hash
 &#123;
@@ -944,6 +958,9 @@ int main()
         return getz(l1, r1, l2, r2) &#x3D;&#x3D; getf(l1, r1, l2, r2);
     &#125;
 &#125;h1(131,149),h2(13&#39;331,1e9 + 7);</code></pre>
+
+
+
 <h3 id="一维哈希"><a href="#一维哈希" class="headerlink" title="一维哈希"></a>一维哈希</h3><blockquote>
 <p>区间 $[l,r]$ 内的哈希值：$h[r] - h[l - 1] × pw[r - l + 1]$</p>
 </blockquote>
@@ -999,6 +1016,7 @@ int main()
     
     return 0;
 &#125;</code></pre>
+
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/843/">字符串哈希</a></p>
 <p><a target="_blank" rel="noopener" href="https://codeforces.com/gym/103729/problem/J">https://codeforces.com/gym/103729/problem/J</a></p>
@@ -1081,6 +1099,7 @@ int main() &#123;
     
     return 0;
 &#125;</code></pre>
+
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/158/">矩阵</a></p>
 <h2 id="Manacher算法"><a href="#Manacher算法" class="headerlink" title="Manacher算法"></a>Manacher算法</h2><blockquote>
@@ -1089,7 +1108,7 @@ int main() &#123;
 <ul>
 <li>在原串中，不管是奇数还是偶数的回文串，在新串中都对应长度为奇数的回文串。</li>
 <li>细节方面：若原串空间为 $n(即数组下标为[0,n - 1])$，则新串空间长度需为 $2n + 3(即数组下标为[0,2n+2])$。</li>
-<li><strong>具体而言，只需考虑 $[1,n]$，其中 $n$ 为更新后的长度，即 $n<em>{新} = 2n</em>{原} + 1$ 为奇数，该区间串的内容为：”#a#a#”(以 $aa$ 字符串为例)。</strong></li>
+<li><strong>具体而言，只需考虑 $[1,n]$，其中 $n$ 为更新后的长度，即 $n_{新} &#x3D; 2n_{原} + 1$ 为奇数，该区间串的内容为：”#a#a#”(以 $aa$ 字符串为例)。</strong></li>
 </ul>
 <p><strong>数组含义：</strong></p>
 <ul>
@@ -1120,6 +1139,7 @@ void manacher()
         if(i + p[i] - 1 &gt; r)    r &#x3D; i + p[i] - 1,mid &#x3D; i;
     &#125;
 &#125;</code></pre>
+
 <p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -1165,6 +1185,7 @@ int main()
     cout &lt;&lt; res - 1 &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
+
 <p><strong>Manacher + 二分哈希探讨：</strong></p>
 <ul>
 <li>做题需要具备：<ul>
@@ -1173,7 +1194,7 @@ int main()
 </ul>
 </li>
 <li>然后对于建完后的图，讨论哪些是有效的 $n × n$ 的回文子矩阵，哈希模数取对即可。</li>
-<li>还有一个细节就是开 $long long$，因为经过计算， $n × n$ 的矩阵中，最多有 $n × n + (n - 1) × (n - 1) + \cdots + 1 × 1$ 个，因此，该题极限数据 $n = 2000$ 的情况下，是会有 $2668667000$ 个子矩阵满足条件，会超过 $int$ 的最大值（$2147483647$）。</li>
+<li>还有一个细节就是开 $long long$，因为经过计算， $n × n$ 的矩阵中，最多有 $n × n + (n - 1) × (n - 1) + \cdots + 1 × 1$ 个，因此，该题极限数据 $n &#x3D; 2000$ 的情况下，是会有 $2668667000$ 个子矩阵满足条件，会超过 $int$ 的最大值（$2147483647$）。</li>
 </ul>
 <p><mark>代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -1282,10 +1303,11 @@ int main()
     cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
+
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/3190/">Manacher算法</a></p>
 <p><strong>$Manacher$ + 差分：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/33540/A">花非花</a></p>
-<p><strong>$Manacher$ + 简单 $dp$：</strong><a href="Link with Centrally Symmetric Strings">Link with Centrally Symmetric Strings</a></p>
+<p><strong>$Manacher$ + 简单 $dp$：</strong>[Link with Centrally Symmetric Strings](Link with Centrally Symmetric Strings)</p>
 <p><strong>$Manacher$ + 二维哈希：</strong> <a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57357/G">Beautiful Matrix</a></p>
 <h2 id="回文自动机（PAM）"><a href="#回文自动机（PAM）" class="headerlink" title="回文自动机（PAM）"></a>回文自动机（PAM）</h2><blockquote>
 <p>Palindrome Automaton（回文自动机，回文树）是一种能够识别所有回文子串的数据结构。</p>
@@ -1327,6 +1349,7 @@ int main()
         cnt[last]++;
     &#125;
 &#125;;</code></pre>
+
 <p><mark>模板题1代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -1402,6 +1425,7 @@ int main()
     cout &lt;&lt; res;
     return 0;
 &#125;</code></pre>
+
 <p><mark>模板题2代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -1488,6 +1512,7 @@ int main()
     cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
+
 <p><mark>推荐题单：</mark><br><strong>模板题1：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/33548/F">[APIO2014]回文串</a></p>
 <p><strong>模板题2：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/33548/G">Colorful String</a></p>
 <p><strong>PAM + Hash：</strong><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=7327">String Magic (Hard Version)</a></p>
@@ -1545,6 +1570,7 @@ int main()
     
     return 0;
 &#125;</code></pre>
+
 <h3 id="存储01串"><a href="#存储01串" class="headerlink" title="存储01串"></a>存储01串</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
 const int N &#x3D; 1e5+10,M &#x3D; 31 * N;
@@ -1593,12 +1619,13 @@ int main()
     &#125;
     printf(&quot;%d\n&quot;,ans);
 &#125;</code></pre>
+
 <h3 id="可持久化Trie"><a href="#可持久化Trie" class="headerlink" title="可持久化Trie"></a>可持久化Trie</h3><blockquote>
 <p>可持久化的前提：本身的拓扑结构不变。</p>
 </blockquote>
 <p><strong>最大异或和思路：</strong></p>
 <ul>
-<li>公式可转化为：$a[p] \oplus a[p + 1] \oplus \cdots \oplus a[N] \oplus x = s[N] \oplus s[p - 1] \oplus x = s[p - 1] \oplus b$，其中 $b = s[N] \oplus x$ 为定值，即在区间 $[l - 1,r - 1]$ 之间找一个位置，使得 $s[p - 1] \oplus b$ 最大。 </li>
+<li>公式可转化为：$a[p] \oplus a[p + 1] \oplus \cdots \oplus a[N] \oplus x &#x3D; s[N] \oplus s[p - 1] \oplus x &#x3D; s[p - 1] \oplus b$，其中 $b &#x3D; s[N] \oplus x$ 为定值，即在区间 $[l - 1,r - 1]$ 之间找一个位置，使得 $s[p - 1] \oplus b$ 最大。 </li>
 <li>对于$[1,R]$ 查询与 $x$ 异或的最大值，只需看 $root[R - 1]$ 这个版本即可；而题目要求的是 $[L,R]$ 这个区间，因此，需要判断最优的那个结点里面是否最大值下标是大于等于 $L - 1$ 的，因此需要在每个结点里面存一个最大下标。</li>
 </ul>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -1677,6 +1704,7 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
+
 <p><mark>推荐题单：</mark></p>
 <ul>
 <li><strong>模板题1（存储字符串）：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/837/">Trie字符串统计</a></li>
@@ -1695,6 +1723,7 @@ int find(int x)
 &#123;
 	return x &#x3D;&#x3D; p[x] ? p[x] &#x3D; find(p[x]);
 &#125;</code></pre>
+
 <p><mark>封装模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;
 struct DSU &#123;
@@ -1720,13 +1749,14 @@ struct DSU &#123;
     bool same(T x, T y) &#123; return find(x) &#x3D;&#x3D; find(y); &#125;&#x2F;&#x2F;判断是否在同一集合
     T size(T x) &#123; return sz[find(x)]; &#125;&#x2F;&#x2F;获取集合大小
 &#125;;</code></pre>
+
 <p><mark>推荐题单：</mark></p>
 <p>并查集 + 坐标转换：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1252/">格子游戏</a></p>
 <p><strong>二维坐标转化为一维坐标公式：</strong></p>
-<p>当(x,y)是从(0,0)点开始的时候：x * n + y    (0,1,2,3,4,5,6,7,8,……)</p>
-<p>当(x,y)是从(1,1)点开始的时候：(x - 1) * n + y    (1,2,3,4,5,6,7,8,9,……)</p>
+<p>当(x,y)是从(0,0)点开始的时候：x * n + y	(0,1,2,3,4,5,6,7,8,……)</p>
+<p>当(x,y)是从(1,1)点开始的时候：(x - 1) * n + y	(1,2,3,4,5,6,7,8,9,……)</p>
 <h3 id="带权并查集"><a href="#带权并查集" class="headerlink" title="带权并查集"></a>带权并查集</h3><p>集合合并时，需要更新  $d[px]$ 的值，更新过程如下：</p>
-<p><img src="/images/3.png" alt=""></p>
+<p><img src="/images/3.png"></p>
 <p><mark>模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">function&lt;int(int)&gt; find &#x3D; [&amp;](int x) -&gt; int
 &#123;
@@ -1748,6 +1778,7 @@ auto merge &#x3D; [&amp;](int a,int b,int d) -&gt; void
         dist[pa] &#x3D; dist[b] - dist[a] + d;
     &#125;
 &#125;;</code></pre>
+
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/242/">食物链</a></p>
 <p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1850/problem/H">H. The Third Letter</a></p>
@@ -1763,7 +1794,7 @@ auto merge &#x3D; [&amp;](int a,int b,int d) -&gt; void
 </li>
 <li><strong>思路：</strong><ol>
 <li>如何统计答案？<ul>
-<li>定义两个临界，即 $a[0]$ 与 $a[n]$ 颜色都为 $0$，则临界位置是和上一个位置的颜色是不同的（通俗讲就是第二段颜色的第一个和第一段颜色的最后一个的颜色一定是不相同的），同一段颜色内部（不算第一个）是和上一个位置颜色是相同的。故基于此想法，假设应该有 $n$ 段，用公式：$ans += a[i] \neq a[i - 1]$ 后，可以得到 $n - 1$ 段，为了减少处理边界的情况，人为定义 $a[0]$ 与 $a[n]$ 段是一个不存在的颜色，即又增加了 $2$ 段，故最终正确段数答案应为 $ans - 1$。</li>
+<li>定义两个临界，即 $a[0]$ 与 $a[n]$ 颜色都为 $0$，则临界位置是和上一个位置的颜色是不同的（通俗讲就是第二段颜色的第一个和第一段颜色的最后一个的颜色一定是不相同的），同一段颜色内部（不算第一个）是和上一个位置颜色是相同的。故基于此想法，假设应该有 $n$ 段，用公式：$ans +&#x3D; a[i] \neq a[i - 1]$ 后，可以得到 $n - 1$ 段，为了减少处理边界的情况，人为定义 $a[0]$ 与 $a[n]$ 段是一个不存在的颜色，即又增加了 $2$ 段，故最终正确段数答案应为 $ans - 1$。</li>
 </ul>
 </li>
 <li>将颜色 $x$ 合并到颜色 $y$ 中。<ul>
@@ -1845,6 +1876,7 @@ int main()
     
     return 0;
 &#125;</code></pre>
+
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/2156/">梦幻布丁</a></p>
 <p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1851/problem/G">G. Vlad and the Mountains</a></p>
@@ -1942,6 +1974,7 @@ int main()
 	for(int i &#x3D; 1;i &lt;&#x3D; n;i++)	cout &lt;&lt; ans[i] &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; n];
 	return 0;
 &#125;</code></pre>
+
 <p><mark>解决路径问题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -2035,6 +2068,7 @@ int main()
     
     return 0;
 &#125;</code></pre>
+
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题（解决子树问题）：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/3191/">Lomsat gelral</a></p>
 <p><strong>解决路径问题：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4149">Race</a></p>
@@ -2084,6 +2118,7 @@ int main()
         puts(a + x);
     &#125;
 &#125;</code></pre>
+
 <p><mark>推荐题单：</mark></p>
 <p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/160/">项链</a></p>
 <h2 id="树状数组"><a href="#树状数组" class="headerlink" title="树状数组"></a>树状数组</h2><blockquote>
@@ -2113,6 +2148,7 @@ ll sum(int x)
     &#125;
     return res;
 &#125;</code></pre>
+
 <p><mark>封装树状数组：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">template &lt;typename T&gt;
 struct Fenwick&#x2F;&#x2F;树状数组
@@ -2136,6 +2172,7 @@ struct Fenwick&#x2F;&#x2F;树状数组
         return res;
     &#125;
 &#125;;</code></pre>
+
 <p><mark>推荐题单：</mark></p>
 <p><strong>树状数组求逆序对的数量：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/790/">逆序对的数量</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/243/">楼兰图腾</a></p>
@@ -2144,20 +2181,20 @@ struct Fenwick&#x2F;&#x2F;树状数组
 <li><p>懒标记有两种更新方式，即先乘后加和先加后乘，其中先乘后加容易维护懒标记，而另一种不容易维护，故采用前者方式，即表示为：$sum × mul + add $，初始默认 $mul$ 为 $1$，$add$ 为 $0$。</p>
 <ul>
 <li>对于加法：$sum × mul + add + add’$，只需将 $add$ 更新为 $add + add’$ 即可，非常容易维护；</li>
-<li>对于乘法：$(sum × mul + add) × mul’ = sum × mul × mul’ + add × mul’$，即将 $mul$ 更新为 $mul × mul’$，将 $add$ 更新为 $add × mul’$即可，也非常好维护。</li>
+<li>对于乘法：$(sum × mul + add) × mul’ &#x3D; sum × mul × mul’ + add × mul’$，即将 $mul$ 更新为 $mul × mul’$，将 $add$ 更新为 $add × mul’$即可，也非常好维护。</li>
 </ul>
 </li>
 <li><p>因此 $pushdown$ 的具体如下：</p>
 <ul>
-<li>$sum = sum × mul + add × len$，其中 $len$ 为该区间的长度；</li>
-<li>更新 $mul$：$u.mul = u.mul * mul$；</li>
+<li>$sum &#x3D; sum × mul + add × len$，其中 $len$ 为该区间的长度；</li>
+<li>更新 $mul$：$u.mul &#x3D; u.mul * mul$；</li>
 <li>更新 $add$：由于先乘后加，因此 $u.add × mul + add$；</li>
 </ul>
 </li>
-<li><p>由于既有加的修改，又有乘的修改，这里采用了一个小技巧，即合并这两个修改为一个 $modify$，对于 $sum = sum × mul + add$：</p>
+<li><p>由于既有加的修改，又有乘的修改，这里采用了一个小技巧，即合并这两个修改为一个 $modify$，对于 $sum &#x3D; sum × mul + add$：</p>
 <ul>
-<li>加法：$sum = sum × 1 + add = sum + add$；</li>
-<li>乘法：$sum = sum × mul + 0 = sum × add$；</li>
+<li>加法：$sum &#x3D; sum × 1 + add &#x3D; sum + add$；</li>
+<li>乘法：$sum &#x3D; sum × mul + 0 &#x3D; sum × add$；</li>
 </ul>
 <p>因此，即把单独的加法与乘法综合为既有加法，又有乘法的修改：</p>
 <ul>
@@ -2280,6 +2317,7 @@ int main()
     
     return 0;
 &#125;</code></pre>
+
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题（区间最大连续子段和 + 单点修改）：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/246/">你能回答这些问题吗</a></p>
 <p><strong>模板题（区间加乘操作）：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1279/">维护序列</a></p>
@@ -2290,8 +2328,8 @@ int main()
 <p><strong>结构体定义：</strong></p>
 <p>struct Node​</p>
 <p>{</p>
-<p>​    int l,r; //表示左右子节点的下标</p>
-<p>​    int cnt; //当前区间中一共有多少个数</p>
+<p>​	int l,r; &#x2F;&#x2F;表示左右子节点的下标</p>
+<p>​	int cnt; &#x2F;&#x2F;当前区间中一共有多少个数</p>
 <p>};</p>
 <p><strong>注意：</strong>可持久化线段树（又称主席树）难以进行区间修改操作。</p>
 <p><strong>时间复杂度：</strong>$O(nlogn)$</p>
@@ -2378,6 +2416,7 @@ int main()
     
     return 0;
 &#125;</code></pre>
+
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/257/">第K小数</a></p>
 <h3 id="权值线段树"><a href="#权值线段树" class="headerlink" title="权值线段树"></a>权值线段树</h3><p><mark>推荐题单：</mark></p>
@@ -2436,9 +2475,10 @@ int main()
     cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
+
 <p><strong>模板题2思路：</strong></p>
-<p><strong>题意：</strong>    给定 $n$ 个数，问有多少个不同的连续区间，满足其区间和在 $[L,R]$ 范围内？</p>
-<p><strong>思路：</strong>    $L \le sum[r] - sum[l - 1] \le R$，即 $sum[r] - R \le sum[l - 1] \le sum[r] - L$。即每插入一个数（假设下标为 $pos$），则询问前面 $[0,pos - 1]$ 内，有多少数在 $[sum[pos] - R,sum[pos] - L]$ 内。</p>
+<p><strong>题意：</strong>	给定 $n$ 个数，问有多少个不同的连续区间，满足其区间和在 $[L,R]$ 范围内？</p>
+<p><strong>思路：</strong>	$L \le sum[r] - sum[l - 1] \le R$，即 $sum[r] - R \le sum[l - 1] \le sum[r] - L$。即每插入一个数（假设下标为 $pos$），则询问前面 $[0,pos - 1]$ 内，有多少数在 $[sum[pos] - R,sum[pos] - L]$ 内。</p>
 <p><mark>模板题2代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -2497,21 +2537,23 @@ int main()
     cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
+
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题1：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1908">逆序对</a></p>
 <p><strong>模板题2：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5459">回转寿司</a></p>
 <h3 id="势能线段树"><a href="#势能线段树" class="headerlink" title="势能线段树"></a>势能线段树</h3><p><strong>问题引入：</strong></p>
-<p>​    1、给定一个区间[l,r]，将其中每个数开根号并向下取整。</p>
-<p>​    2、查询区间和。</p>
+<p>​	1、给定一个区间[l,r]，将其中每个数开根号并向下取整。</p>
+<p>​	2、查询区间和。</p>
 <p><mark>思路：</mark></p>
-<p>​    可以发现，对于一个数1e9，每次将其开根号，可以依次得到：</p>
+<p>​	可以发现，对于一个数1e9，每次将其开根号，可以依次得到：</p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">1000000000
 31622
 177
 13
 3
 1</code></pre>
-<p>​    所以每个数最多开5次根号即可变成1，因此我们需要维护一个区间最大值，当最大值为1时，之后就不再进行修改了。所以可以在modify递归的时候去”暴力“进行计算取根号，递归到叶子节点后修改下数值，一但一段区间的最大值为1，就不用再递归修改了。</p>
+
+<p>​	所以每个数最多开5次根号即可变成1，因此我们需要维护一个区间最大值，当最大值为1时，之后就不再进行修改了。所以可以在modify递归的时候去”暴力“进行计算取根号，递归到叶子节点后修改下数值，一但一段区间的最大值为1，就不用再递归修改了。</p>
 <blockquote>
 <p>因为区间中每个数字都是不相同的，就算知道了区间和sum，也不知道开方后的区间和sum，所以区间开方不支持使用lazy的本质在于，无法使用懒标记快速更新整段区间信息。</p>
 </blockquote>
@@ -2593,6 +2635,7 @@ int main()
     
     return 0;
 &#125;</code></pre>
+
 <p><mark>模板题2代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt; 
 
@@ -2707,11 +2750,12 @@ int main()
     
     return 0;
 &#125;</code></pre>
+
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题1：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/19917/D">势能线段树模板题一</a></p>
 <p><strong>模板题2：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/19917/C">势能线段树模板题二</a></p>
 <p><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=7284">Easy problem I</a></p>
-<h3 id="李超线段树"><a href="#李超线段树" class="headerlink" title="李超线段树"></a>李超线段树</h3><h3 id="线段树优化建图"><a href="#线段树优化建图" class="headerlink" title="线段树优化建图"></a>线段树优化建图</h3><p><img src="/images/16.png" alt=""></p>
+<h3 id="李超线段树"><a href="#李超线段树" class="headerlink" title="李超线段树"></a>李超线段树</h3><h3 id="线段树优化建图"><a href="#线段树优化建图" class="headerlink" title="线段树优化建图"></a>线段树优化建图</h3><p><img src="/images/16.png"></p>
 <p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
 #include &lt;cstring&gt;
@@ -2808,10 +2852,11 @@ int main() &#123;
     &#125;
     return 0;
 &#125;</code></pre>
+
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF786B">Legacy</a></p>
 <h2 id="ST表"><a href="#ST表" class="headerlink" title="ST表"></a>ST表</h2><blockquote>
-<p><strong>RMQ</strong>（Range Maximum/Minimum Query）问题，即区间最值查询问题，是指对于长度为 n 的数组a，查询数组a中下标在 [ i , j ] 里的最大值或最小值。</p>
+<p><strong>RMQ</strong>（Range Maximum&#x2F;Minimum Query）问题，即区间最值查询问题，是指对于长度为 n 的数组a，查询数组a中下标在 [ i , j ] 里的最大值或最小值。</p>
 <p>ST算法是一个非常有名的在线处理RMQ问题的算法，它在 O ( n log ⁡ n ) 时间内进行预处理，然后可以在 O ( 1 )  时间内回答每个查询，其本质是倍增与动态规划的思想。要注意的是：ST算法只适用于静态区间求最值。</p>
 </blockquote>
 <p><mark>模板：</mark></p>
@@ -2861,6 +2906,7 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
+
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1275/">天才的记忆</a></p>
 <h2 id="莫队"><a href="#莫队" class="headerlink" title="莫队"></a>莫队</h2><p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -2931,6 +2977,7 @@ int main()
     for(int i &#x3D; 1;i &lt;&#x3D; m;i++)    cout &lt;&lt; ans[i] &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
+
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2494/">HH的项链</a></p>
 <h2 id="珂朵莉树"><a href="#珂朵莉树" class="headerlink" title="珂朵莉树"></a>珂朵莉树</h2><p><strong>珂朵莉树</strong>（Chtholly Tree）起源于<a target="_blank" rel="noopener" href="https://codeforces.com/contest/896/problem/C">CF896C</a>，那道题要求我们实现一种数据结构，可以较快地实现：</p>
@@ -2942,7 +2989,7 @@ int main()
 <li><p>求区间第k大值</p>
 </li>
 <li><p>求区间n次方和</p>
-<p><img src="/images/9.webp" alt=""></p>
+<p><img src="/images/9.webp"></p>
 </li>
 </ul>
 <p><mark>模板题：</mark></p>
@@ -3004,6 +3051,7 @@ struct ODT&#x2F;&#x2F;珂朵莉树
         return res;
     &#125;
 &#125;;</code></pre>
+
 <p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -3129,14 +3177,17 @@ int main()
     
     return 0;
 &#125;</code></pre>
+
 <p><strong>注意：</strong> 往集合里插入结构体的时候，如果有缺省的构造函数，即如下：</p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">Node(int _l,int _r &#x3D; -1,ll _v &#x3D; 0):l(_l),r(_r),v(_v)&#123;&#125;</code></pre>
+
 <p>并且使用如下方式插入：</p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">S.insert(&#123;i,i,a[i]&#125;);</code></pre>
+
 <p>则会出现问题！即它只接收我第一个参数，后面的全给忽视了！！！</p>
 <p><img src="/images/5.png" alt="5"></p>
 <p>因此一定要注意插入的时候用带上结构体。当然如果不定义构造函数，就可以直接用大括号插入。</p>
-<h2 id="平衡树"><a href="#平衡树" class="headerlink" title="平衡树"></a>平衡树</h2><h3 id="Treap"><a href="#Treap" class="headerlink" title="Treap"></a>Treap</h3><p>Treap = Tree + Heap</p>
+<h2 id="平衡树"><a href="#平衡树" class="headerlink" title="平衡树"></a>平衡树</h2><h3 id="Treap"><a href="#Treap" class="headerlink" title="Treap"></a>Treap</h3><p>Treap &#x3D; Tree + Heap</p>
 <p>右旋：</p>
 <p><img src="/images/8.gif" alt="右旋"></p>
 <p>左旋：</p>
@@ -3286,6 +3337,7 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
+
 <h3 id="Splay"><a href="#Splay" class="headerlink" title="Splay"></a>Splay</h3><p>Splay保证中序遍历是当前序列的顺序。</p>
 <h2 id="树链剖分"><a href="#树链剖分" class="headerlink" title="树链剖分"></a>树链剖分</h2><blockquote>
 <p>算法流程：<br>        1、通过dfs1确定深度、父节点、子树大小；</p>
@@ -3298,8 +3350,8 @@ int main()
 <p><mark>细节：</mark></p>
 <p>dfs序：优先遍历重儿子。</p>
 <p><mark>树链剖分中的几个定义：</mark></p>
-<p>重/轻儿子：节点个数最多的子树，该节点为其父节点的 重儿子，其余都为 轻儿子（叶节点没有轻重儿子概念）。</p>
-<p>重/轻边：重儿子和它父节点的边称为 重边，轻儿子和它父节点的边称为 轻边。</p>
+<p>重&#x2F;轻儿子：节点个数最多的子树，该节点为其父节点的 重儿子，其余都为 轻儿子（叶节点没有轻重儿子概念）。</p>
+<p>重&#x2F;轻边：重儿子和它父节点的边称为 重边，轻儿子和它父节点的边称为 轻边。</p>
 <p>重链：由 重边 构成的 <strong>极大</strong>路径。</p>
 <p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -3478,9 +3530,125 @@ int main()
     
     return 0;
 &#125;</code></pre>
+
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2570/">树链剖分</a></p>
-<p><strong>树链剖分 + 区间最大/最小子段和：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1843/problem/F2">F2. Omsk Metro (hard version)</a></p>
+<p><strong>树链剖分 + 区间最大&#x2F;最小子段和：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1843/problem/F2">F2. Omsk Metro (hard version)</a></p>
+<h2 id="点分治"><a href="#点分治" class="headerlink" title="点分治"></a>点分治</h2><blockquote>
+<p><strong>时间复杂度：</strong>$O(nlogn)$</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1e4 + 10, M &#x3D; N * 2;
+
+int n, m;
+int h[N], e[M], w[M], ne[M], idx;
+bool st[N];
+int p[N], q[N];
+
+void add(int a, int b, int c)
+&#123;
+    e[idx] &#x3D; b, w[idx] &#x3D; c, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
+&#125;
+
+int get_size(int u, int fa)
+&#123;
+    if (st[u])   return 0;
+    int res &#x3D; 1;
+    for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i])
+        if (e[i] !&#x3D; fa) 
+            res +&#x3D; get_size(e[i], u);
+    return res;
+&#125;
+
+int get_wc(int u, int fa, int tot, int&amp; wc)
+&#123;
+    if (st[u])  return 0;
+    int sum &#x3D; 1, ms &#x3D; 0;
+    for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i])
+    &#123;
+        int j &#x3D; e[i];
+        if(j &#x3D;&#x3D; fa) continue;
+        int t &#x3D; get_wc(j, u, tot, wc);
+        ms &#x3D; max(ms, t);
+        sum +&#x3D; t;
+    &#125;
+    ms &#x3D; max(ms, tot - sum);
+    if (ms &lt;&#x3D; tot &#x2F; 2)   wc &#x3D; u;
+    return sum;
+&#125;
+
+void get_dist(int u, int fa, int dist, int&amp; qt)
+&#123;
+    if (st[u])  return;
+    q[qt ++] &#x3D; dist;
+    for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i])
+        if(e[i] !&#x3D; fa)
+            get_dist(e[i], u, dist + w[i], qt);
+&#125;
+
+int get(int a[], int k)
+&#123;
+    sort(a, a + k);
+    int res &#x3D; 0;
+    for (int i &#x3D; k - 1, j &#x3D; -1; i &gt;&#x3D; 0; i --)
+    &#123;
+        while (j + 1 &lt; i &amp;&amp; a[j + 1] + a[i] &lt;&#x3D; m)   j++;
+        j &#x3D; min(j, i - 1);
+        res +&#x3D; j + 1;
+    &#125;
+    return res;
+&#125;
+
+int calc(int u)
+&#123;
+    if (st[u])  return 0;
+    int res &#x3D; 0;
+    get_wc(u, -1, get_size(u, -1), u);
+    st[u] &#x3D; true; &#x2F;&#x2F; 删除重心
+
+    int pt &#x3D; 0;
+    for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i])
+    &#123;
+        int j &#x3D; e[i], qt &#x3D; 0;
+        get_dist(j, -1, w[i], qt);
+        res -&#x3D; get(q, qt);
+        for (int k &#x3D; 0; k &lt; qt; k++)
+        &#123;
+            if(q[k] &lt;&#x3D; m)   res++;
+            p[pt++] &#x3D; q[k];
+        &#125;
+    &#125;
+    res +&#x3D; get(p, pt);
+
+    for(int i &#x3D; h[u]; ~i; i &#x3D; ne[i])    res +&#x3D; calc(e[i]);
+    return res;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    while (cin &gt;&gt; n &gt;&gt; m, n || m)
+    &#123;
+        memset(st, 0, sizeof(st));
+        memset(h, -1, sizeof(h));
+        idx &#x3D; 0;
+        for (int i &#x3D; 0; i &lt; n - 1; i++)
+        &#123;
+            int a, b, c;
+            cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+            add(a, b, c),add(b, a, c);
+        &#125;
+        cout &lt;&lt; calc(0) &lt;&lt; &quot;\n&quot;;
+    &#125;
+    
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark><br><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/254/">树</a></p>
 <h2 id="动态树——LCT（link-cut-tree）"><a href="#动态树——LCT（link-cut-tree）" class="headerlink" title="动态树——LCT（link-cut-tree）"></a>动态树——LCT（link-cut-tree）</h2><p><strong>LCT</strong> 是用于解决 <strong>动态树问题</strong> 的数据结构。</p>
 <blockquote>
 <p><strong>动态树问题：</strong></p>
@@ -3501,7 +3669,7 @@ int main()
 <p><strong>性质：每条实链用一个splay维护，中序遍历按深度严格递增。</strong></p>
 <p>注意：区分<strong>树根</strong>和<strong>splay的根</strong>。</p>
 <p>一些辅助树构成了Link Cut Tree(LCT)，其维护的是整个森林。</p>
-<p><img src="/images/6.png" alt=""></p>
+<p><img src="/images/6.png"></p>
 <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3690">【模板】动态树（Link Cut Tree）</a></p>
 <p>给定 n 个点以及每个点的权值，要你处理接下来的 m个操作。<br>操作有四种，操作从 0 到 3 编号。点从 1 到 n 编号。</p>
 <ul>
@@ -3654,6 +3822,7 @@ int main()
     
     return 0;
 &#125;</code></pre>
+
 <h2 id="AC自动机"><a href="#AC自动机" class="headerlink" title="AC自动机"></a>AC自动机</h2><p><strong>模板题：</strong></p>
 <p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/1284/">搜索关键词</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/1287/">单词</a></p>
@@ -3740,6 +3909,7 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
+
 <h2 id="后缀数组"><a href="#后缀数组" class="headerlink" title="后缀数组"></a>后缀数组</h2><h2 id="后缀自动机"><a href="#后缀自动机" class="headerlink" title="后缀自动机"></a>后缀自动机</h2><blockquote>
 <p>功能非常强大的数据结构，主要应用如下：</p>
 <ol>
@@ -3750,6 +3920,44 @@ int main()
 <li>最长公共子串。</li>
 </ol>
 </blockquote>
+<p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">struct SAM
+&#123;
+    int tot,last;
+    struct Node
+    &#123;
+        int len,fa;
+        int ch[26];
+        void init()&#123;&#x2F;&#x2F;结点初始化
+            len &#x3D; fa &#x3D; 0;
+            memset(ch,0,sizeof(ch));
+        &#125;
+    &#125;node[N];
+    SAM() &#123;tot &#x3D; 1,last &#x3D; 1;&#125;
+    void init() &#123;&#x2F;&#x2F;清空区间[1,tot]
+        for(int i &#x3D; 1;i &lt;&#x3D; tot;i++) node[i].init();
+        tot &#x3D; last &#x3D; 1;
+    &#125;
+    void extend(int c) &#123;&#x2F;&#x2F;添加一个字符(c - &#39;a&#39;)
+        int p &#x3D; last,np &#x3D; last &#x3D; ++tot;
+        node[np].len &#x3D; node[p].len + 1;
+        for(;p &amp;&amp; !node[p].ch[c];p &#x3D; node[p].fa)    node[p].ch[c] &#x3D; np;
+        if(!p)  node[np].fa &#x3D; 1;
+        else
+        &#123;
+            int q &#x3D; node[p].ch[c];
+            if(node[q].len &#x3D;&#x3D; node[p].len + 1)   node[np].fa &#x3D; q;
+            else
+            &#123;
+                int nq &#x3D; ++ tot;
+                node[nq] &#x3D; node[q],node[nq].len &#x3D; node[p].len + 1;
+                node[q].fa &#x3D; node[np].fa &#x3D; nq;
+                for(;p &amp;&amp; node[p].ch[c] &#x3D;&#x3D; q;p &#x3D; node[p].fa)    node[p].ch[c] &#x3D; nq;
+            &#125;
+        &#125;
+    &#125;
+&#125;sam;</code></pre>
+
 <p><mark>模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -3815,7 +4023,8 @@ int main()
     dfs(1);
     printf(&quot;%lld\n&quot;,ans);
 &#125;</code></pre>
-<p>​         后缀自动机学了好几遍，总是难以理解，最后看了个视频，差不多理解每个变量的含义了，安利一下：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV145411N7Qp?spm_id_from=333.1007.top_right_bar_window_history.content.click&amp;vd_source=3d7e149b792ef13210101958098b6da2">[OI]完全搞懂后缀自动机(SAM)</a></p>
+
+<p>​         后缀自动机学了好几遍，总是难以理解，最后看了个视频，差不多理解每个变量的含义了，安利一下：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV145411N7Qp?spm_id_from=333.1007.top_right_bar_window_history.content.click&vd_source=3d7e149b792ef13210101958098b6da2">[OI]完全搞懂后缀自动机(SAM)</a></p>
 <p><strong>推荐博客：</strong><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/410131141">算法学习笔记(85): 后缀自动机</a></p>
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2768/">后缀自动机</a></p>
@@ -3832,7 +4041,7 @@ int main()
 <p><strong>时间复杂度：</strong>$O(nlogn)$</p>
 <p><strong>使用指南：</strong></p>
 <p>$idom[i]$ 数组：$i$ 的支配点是谁，即 $i$ 被谁支配；</p>
-<p>$vector<vector<int>&gt; domain_tree$：支配树（DAG），支配树上的点会被从根节点到该点上路径上所有的点所支配。</p>
+<p>$vector&lt;vector<int>&gt; domain_tree$：支配树（DAG），支配树上的点会被从根节点到该点上路径上所有的点所支配。</p>
 </blockquote>
 <p><mark>封装模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">struct DominationTree&#x2F;&#x2F;支配树
@@ -3910,6 +4119,7 @@ int main()
     DominationTree dtree(n);
     dtree.contract(1);&#x2F;&#x2F;调用(1为起点)
 &#125;</code></pre>
+
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5180">【模板】支配树</a></p>
 <p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57357/E">Koraidon, Miraidon and DFS Shortest Path</a></p>

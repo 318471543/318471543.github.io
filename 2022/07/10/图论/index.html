@@ -757,64 +757,100 @@ int main()
     printf(&quot;%d\n&quot;,dijkstra());
 &#125;</code></pre>
 
-<h4 id="堆优化版Dijkstra"><a href="#堆优化版Dijkstra" class="headerlink" title="堆优化版Dijkstra"></a>堆优化版Dijkstra</h4><p>适用于<strong>稀疏图</strong>(m ≈ n)，用邻接表存储。时间复杂度：O(mlog(n))</p>
-<p><mark>代码模板：</mark></p>
+<h4 id="堆优化版Dijkstra"><a href="#堆优化版Dijkstra" class="headerlink" title="堆优化版Dijkstra"></a>堆优化版Dijkstra</h4><blockquote>
+<p>适用于<strong>稀疏图</strong>(m ≈ n)，用邻接表存储。</p>
+<p><strong>时间复杂度：</strong>$O(mlog(n))$</p>
+</blockquote>
+<p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">vector&lt;vector&lt;pii&gt;&gt; g(n + 1);&#x2F;&#x2F;存储方式
+auto dijkstra &#x3D; [&amp;](int st) -&gt; vector&lt;int&gt;&#x2F;&#x2F;返回从st点到其他点的最短距离
+&#123;
+    priority_queue&lt;pii,vector&lt;pii&gt;,greater&lt;pii&gt;&gt; heap;
+    heap.push(&#123;0,st&#125;);
+    vector&lt;bool&gt; vis(n + 1);
+    vector&lt;int&gt; dist(n + 1,0x3f3f3f3f);
+    dist[st] &#x3D; 0;
+    while (heap.size())
+    &#123;
+        auto t &#x3D; heap.top();
+        heap.pop();
+        int u &#x3D; t.second;
+        if(vis[u])    continue;
+        vis[u] &#x3D; true;
+
+        for(auto [v,w] : g[u])
+        &#123;
+            if(dist[v] &gt; dist[u] + w)
+            &#123;
+                dist[v] &#x3D; dist[u] + w;
+                heap.push(&#123;dist[v],v&#125;);
+            &#125;
+        &#125;
+    &#125;
+    return dist;
+&#125;;</code></pre>
+
+<p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
-typedef pair&lt;int,int&gt; PII;
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
 
-const int N &#x3D; 2e5+10;
+#define IOS ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr)
+#define cf(_) int _;cin &gt;&gt; _;while(_--)
 
-int n,m;
-int h[N],w[N],e[N],ne[N],idx;&#x2F;&#x2F;权重:weight
-int dist[N];
-bool st[N];
-
-void add(int a,int b,int c)
-&#123;
-    e[idx] &#x3D; b,w[idx] &#x3D; c,ne[idx] &#x3D; h[a],h[a] &#x3D; idx++;&#x2F;&#x2F;w[]权值
-&#125;
-
-int dijkstra()
-&#123;
-    memset(dist,0x3f,sizeof dist);
-    dist[1] &#x3D; 0;
-    priority_queue&lt;PII,vector&lt;PII&gt;,greater&lt;PII&gt;&gt; heap;
-    heap.push(&#123;0,1&#125;);&#x2F;&#x2F;把一号点放进来，距离是0，编号是1,顺序不能颠倒
-    while (heap.size())
-    &#123;
-        auto t &#x3D; heap.top();&#x2F;&#x2F;每次找到当前距离最小的点
-        heap.pop();
-        int ver &#x3D; t.second,distance &#x3D; t.first;&#x2F;&#x2F;用ver表示点的编号，distance表示距离
-        if(st[ver]) continue;
-        st[ver] &#x3D; true;
-        for (int i &#x3D; h[ver]; i !&#x3D; -1; i&#x3D; ne[i])
-        &#123;
-            int j &#x3D; e[i];
-            if(dist[j] &gt; distance + w[i])
-            &#123;
-                dist[j] &#x3D; distance + w[i];
-                heap.push(&#123;dist[j],j&#125;);
-            &#125;
-        &#125;
-    &#125;
-    if(dist[n]&#x3D;&#x3D;0x3f3f3f3f) return -1;
-    return dist[n];
-&#125;
+mt19937 mrand(random_device&#123;&#125;());
+int rnd(int x) &#123; return mrand() % x;&#125;
+ll gcd(ll a,ll b)&#123;return b ? gcd(b,a % b) : a;&#125;
+ll fpow(ll a,ll b,ll mod)&#123;ll res &#x3D; 1;a %&#x3D; mod;assert(b &gt;&#x3D; 0);while(b)&#123;if(b &amp; 1)res &#x3D; res * a % mod;a &#x3D; a * a % mod;b &gt;&gt;&#x3D; 1;&#125;return res;&#125;
 
 int main()
 &#123;
-    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
-    memset(h,-1,sizeof (h));
+    IOS;
+    int n,m;
+    cin &gt;&gt; n &gt;&gt; m;
+
+    vector&lt;vector&lt;pii&gt;&gt; g(n + 1);
     while (m--)
     &#123;
-        int a,b,c;
-        scanf(&quot;%d%d%d&quot;,&amp;a,&amp;b,&amp;c);
-        add(a,b,c);
+        int a,b,w;
+        cin &gt;&gt; a &gt;&gt; b &gt;&gt; w;
+        g[a].push_back(&#123;b,w&#125;);
     &#125;
-    printf(&quot;%d\n&quot;,dijkstra());
+    
+    auto dijkstra &#x3D; [&amp;](int st) -&gt; vector&lt;int&gt;&#x2F;&#x2F;返回从st点到其他点的最短距离
+    &#123;
+        priority_queue&lt;pii,vector&lt;pii&gt;,greater&lt;pii&gt;&gt; heap;
+        heap.push(&#123;0,st&#125;);
+        vector&lt;bool&gt; vis(n + 1);
+        vector&lt;int&gt; dist(n + 1,0x3f3f3f3f);
+        dist[st] &#x3D; 0;
+        while (heap.size())
+        &#123;
+            auto t &#x3D; heap.top();
+            heap.pop();
+            int u &#x3D; t.second;
+            if(vis[u])    continue;
+            vis[u] &#x3D; true;
+    
+            for(auto [v,w] : g[u])
+            &#123;
+                if(dist[v] &gt; dist[u] + w)
+                &#123;
+                    dist[v] &#x3D; dist[u] + w;
+                    heap.push(&#123;dist[v],v&#125;);
+                &#125;
+            &#125;
+        &#125;
+        return dist;
+    &#125;;
+
+    auto dist &#x3D; dijkstra(1);
+
+    if(dist[n] &#x3D;&#x3D; 0x3f3f3f3f)   cout &lt;&lt; -1 &lt;&lt; &quot;\n&quot;;
+    else    cout &lt;&lt; dist[n];
     return 0;
 &#125;</code></pre>
 
@@ -2085,6 +2121,87 @@ int main()
     return 0;
 &#125;</code></pre>
 
+<h2 id="2-SAT"><a href="#2-SAT" class="headerlink" title="2-SAT"></a>2-SAT</h2><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 2e6 + 10,M &#x3D; 2e6 + 10;
+
+int n, m;
+int h[N], e[M], ne[M], idx;
+int dfn[N], low[N], timestamps, stk[N], top;
+int id[N], cnt;
+bool in_stk[N];
+
+void add(int a, int b)
+&#123;
+    e[idx] &#x3D; b, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
+&#125;
+
+void tarjan(int u)
+&#123;
+    dfn[u] &#x3D; low[u] &#x3D; ++ timestamps;
+    stk[++top] &#x3D; u, in_stk[u] &#x3D; true;
+    for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i])
+    &#123;
+        int j &#x3D; e[i];
+        if(!dfn[j])
+        &#123;
+            tarjan(j);
+            low[u] &#x3D; min(low[u], low[j]);
+        &#125;
+        else if (in_stk[j]) low[u] &#x3D; min(low[u], dfn[j]);
+    &#125;
+
+    if(low[u] &#x3D;&#x3D; dfn[u])
+    &#123;
+        int y;
+        ++ cnt;
+        do
+        &#123;
+            y &#x3D; stk[top--], in_stk[y] &#x3D; false, id[y] &#x3D; cnt;
+        &#125; while (y !&#x3D; u);
+        
+    &#125;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+    memset(h, -1, sizeof(h));
+
+    while (m--)
+    &#123;
+        int i, a, j, b;
+        scanf(&quot;%d%d%d%d&quot;, &amp;i, &amp;a, &amp;j, &amp;b);
+        i--, j--;
+        add(2 * i + !a, 2 * j + b);
+        add(2 * j + !b, 2 * i + a);
+    &#125;
+
+    for (int i &#x3D; 0; i &lt; n * 2; i++)
+        if(!dfn[i]) 
+            tarjan(i);
+    
+    for (int i &#x3D; 0; i &lt; n; i++)
+        if (id[i * 2] &#x3D;&#x3D; id[i * 2 + 1])
+        &#123;
+            puts(&quot;IMPOSSIBLE&quot;);
+            return 0;
+        &#125;
+
+    puts(&quot;POSSIBLE&quot;);
+    for (int i &#x3D; 0; i &lt; n; i++)
+        if (id[i * 2] &lt; id[i * 2 + 1])  printf(&quot;0 &quot;);
+        else    printf(&quot;1 &quot;);
+    
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong> <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/2404/">2-SAT 问题</a></p>
 
                 
             </div>

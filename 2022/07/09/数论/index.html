@@ -591,7 +591,7 @@ int main()
 
 <p><mark>欧拉定理：</mark></p>
 <blockquote>
-<p>若gcd(a,m) &#x3D; 1，则$a^{ϕ(m)}$ ≡ 1（mod m）</p>
+<p>若gcd(a,p) &#x3D; 1，则$a^{ϕ(p)}$ ≡ 1（mod p）</p>
 </blockquote>
 <p><mark>扩展欧拉定理（欧拉降幂）：</mark><br>$$<br>a^b\equiv<br>\begin{cases}<br>a^{b\bmod\varphi(p)},,&amp;\gcd(a,,p)&#x3D;1\<br>a^b,&amp;\gcd(a,,p)\ne1,,b&lt;\varphi(p)\<br>a^{b\bmod\varphi(p)+\varphi(p)},&amp;\gcd(a,,p)\ne1,,b\ge\varphi(p)<br>\end{cases}<br>\pmod p<br>$$<br><mark>复习下模运算的基本规则：</mark></p>
 <ul>
@@ -615,7 +615,95 @@ int main()
 </li>
 <li>方程组在模M意义下的唯一解为：$x &#x3D; \sum_{i&#x3D;1}^{k}a_iM_iM_i^{-1}(mod;n)$</li>
 </ul>
-<h2 id="组合数"><a href="#组合数" class="headerlink" title="组合数"></a>组合数</h2><h3 id="组合数I"><a href="#组合数I" class="headerlink" title="组合数I"></a>组合数I</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<h2 id="高斯消元"><a href="#高斯消元" class="headerlink" title="高斯消元"></a>高斯消元</h2><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 110;
+const double eps &#x3D; 1e-8;
+
+int n;
+double a[N][N];
+
+int gauss()
+&#123;
+    int r,c;
+    for(r &#x3D; 1,c &#x3D; 1;c &lt;&#x3D; n;c++)&#x2F;&#x2F;行:row;列:column
+    &#123;
+        &#x2F;&#x2F;找主元
+        int t &#x3D; r;
+        for(int i &#x3D; r + 1;i &lt;&#x3D; n;i++)
+            if(abs(a[i][c]) &gt; abs(a[t][c])) 
+                t &#x3D; i;
+
+        if(abs(a[t][c]) &lt; eps)  continue;
+
+        &#x2F;&#x2F;交换
+        if(t !&#x3D; r)  swap(a[r],a[t]);
+
+        &#x2F;&#x2F;消
+        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+        &#123;
+            if(i !&#x3D; r &amp;&amp; abs(a[i][c]) &gt; eps)
+            &#123;
+                double delta &#x3D; a[i][c] &#x2F; a[r][c];
+                for(int k &#x3D; c;k &lt;&#x3D; n + 1;k++)
+                &#123;
+                    a[i][k] -&#x3D; delta * a[r][k];
+                &#125;
+            &#125;
+        &#125;
+        r++;
+
+    &#125;
+
+    if(r &lt;&#x3D; n)
+    &#123;
+        for(int i &#x3D; r;i &lt;&#x3D; n;i++)
+            if(abs(a[i][n + 1]) &gt; eps)
+                return -1;&#x2F;&#x2F;无解
+    
+        return -2;&#x2F;&#x2F;无穷解
+    &#125;
+    &#x2F;&#x2F;转换成单位矩阵
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+    &#123;
+        a[i][n + 1] &#x2F;&#x3D; a[i][i];
+        if(abs(a[i][n + 1]) &lt; eps)&#x2F;&#x2F;修正出现-0.00的情况
+            a[i][n + 1] &#x3D; 0;
+    &#125;
+    
+    return 0;
+&#125;
+
+int main()
+&#123;
+    cin &gt;&gt; n;
+    
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+        for(int j &#x3D; 1;j &lt;&#x3D; n + 1;j++)
+            cin &gt;&gt; a[i][j];
+
+    int t &#x3D; gauss();
+    if(t &#x3D;&#x3D; -1) cout &lt;&lt; &quot;No solution&quot; &lt;&lt; &quot;\n&quot;;
+    else if(t &#x3D;&#x3D; -2) cout &lt;&lt; &quot;Infinite group solutions&quot; &lt;&lt; &quot;\n&quot;;
+    else
+    &#123;
+        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   
+            cout &lt;&lt; fixed &lt;&lt; setprecision(2) &lt;&lt; a[i][n + 1] &lt;&lt; &quot;\n&quot;;
+    &#125;
+
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/885/">高斯消元解线性方程组</a></p>
+<h2 id="组合数"><a href="#组合数" class="headerlink" title="组合数"></a>组合数</h2><h3 id="组合数I"><a href="#组合数I" class="headerlink" title="组合数I"></a>组合数I</h3><blockquote>
+<p><strong>计算：</strong>$C_a^{b}\ %\ mod$，其中 $1 \le b \le a \le 2000$ </p>
+<p><strong>方法：</strong>递推：$C_{a}^{b} &#x3D; C_{a - 1}^{b - 1} + C_{a - 1}^{b}$</p>
+<p><strong>时间复杂度：</strong>$O(n^2)$ </p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -648,7 +736,12 @@ int main()
     return 0;
 &#125;</code></pre>
 
-<h3 id="组合数II"><a href="#组合数II" class="headerlink" title="组合数II"></a>组合数II</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<h3 id="组合数II"><a href="#组合数II" class="headerlink" title="组合数II"></a>组合数II</h3><blockquote>
+<p><strong>计算：</strong>$C_a^{b}\ %\ mod$，其中 $1 \le b \le a \le 10^5$ </p>
+<p><strong>方法：</strong>公式：$C_{a}^{b} &#x3D; \frac{a!}{b!(a - b)!}$</p>
+<p><strong>时间复杂度：</strong>$O(nlog(mod))$</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -691,7 +784,10 @@ int main()
 
 
 
-<h3 id="组合数III"><a href="#组合数III" class="headerlink" title="组合数III"></a>组合数III</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<h3 id="组合数III"><a href="#组合数III" class="headerlink" title="组合数III"></a>组合数III</h3><blockquote>
+<p><strong>计算：</strong>$C_a^{b}\ %\ mod$，其中 $1 \le b \le a \le 10^{18}$，$mod$ 为质数 </p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
 
 typedef long long ll;
@@ -1227,6 +1323,54 @@ int main()
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4718">【模板】Pollard rho 算法</a></p>
 <p><strong>测试模板速度：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1033/problem/D">D. Divisors</a></p>
+<h2 id="BSGS"><a href="#BSGS" class="headerlink" title="BSGS"></a>BSGS</h2><h3 id="BSGS-1"><a href="#BSGS-1" class="headerlink" title="BSGS"></a>BSGS</h3><blockquote>
+<p>求满足 $a^x \equiv b(mod\ p)$ 的最小非负整数 $x$，$a$ 与 $p$ 互质。</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+int BSGS(int a, int b ,int p)
+&#123;
+    if (1 % p &#x3D;&#x3D; b % p) return 0;
+    int k &#x3D; sqrt(p) + 1;
+    unordered_map&lt;int, int&gt; hash;
+    for (int i &#x3D; 0, j &#x3D; b % p; i &lt; k; i++)
+    &#123;
+        hash[j] &#x3D; i;
+        j &#x3D; (ll)j * a % p;
+    &#125;
+    int ak &#x3D; 1;
+    for (int i &#x3D; 0; i &lt; k; i++) ak &#x3D; (ll)ak * a % p;
+
+    for (int i &#x3D; 1, j &#x3D; ak; i &lt;&#x3D; k; i++)
+    &#123;
+        if (hash.count(j))  return (ll)i * k - hash[j];
+        j &#x3D; (ll)j * ak % p;
+    &#125;
+    return -1;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int a, p, b;
+    while (cin &gt;&gt; a &gt;&gt; p &gt;&gt; b, a || p || b)
+    &#123;
+        int res &#x3D; BSGS(a, b, p);
+        if(res &#x3D;&#x3D; -1)   cout &lt;&lt; &quot;No Solution\n&quot;;
+        else    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+    &#125;
+    
+    return 0;
+&#125;</code></pre>
+
+<h3 id="扩展BSGS"><a href="#扩展BSGS" class="headerlink" title="扩展BSGS"></a>扩展BSGS</h3><blockquote>
+<p>求满足 $a^x \equiv b(mod\ p)$ 的最小非负整数 $x$，$a$ 与 $p$ 不一定互质。</p>
+</blockquote>
 <h2 id="康托展开"><a href="#康托展开" class="headerlink" title="康托展开"></a>康托展开</h2><h3 id="康托展开-1"><a href="#康托展开-1" class="headerlink" title="康托展开"></a>康托展开</h3><p>  把一个集合产生的全排列按照字典序排序，第X个排列的计算公式如下：</p>
 <blockquote>
     X = a[n] * (n - 1)! + a[n - 1] * (n - 2)! + ... + a[2] * 1! + a[1] * 0!
