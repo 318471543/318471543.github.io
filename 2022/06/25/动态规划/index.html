@@ -1130,17 +1130,11 @@ int main()
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/284/">石子合并</a></p>
 <h2 id="计数类DP"><a href="#计数类DP" class="headerlink" title="计数类DP"></a>计数类DP</h2><blockquote>
-<p>完全背包思想：价值为1,2,3,4,5,…n放到体积为n的背包中。</p>
-<p>根据第i个物品选择的数量划分：</p>
-<p>选择0个：f[i - 1] [j]</p>
-<p>选择1个：f[i - 1] [j - i]</p>
-<p>选择2个：f[i - 1] [j - 2i]</p>
-<p>选择3个：f[i - 1] [j - 3i]</p>
-<p>…</p>
-<p>比如当前第i个物品选了2个:</p>
-<p>即对应于:从1~i中选，i选了2个等价于f[i - 1] [j - 2i]，即数量相等</p>
-<p>则:f[i] [j] &#x3D; f[i - 1] [j] + f[i - 1] [j - i] + … + f[i - 1] [j - si]</p>
-<p>用类似于完全背包的优化:f[i] [j - i] &#x3D; f[i - 1] [j - i] + f[i - 1] [j - 2i] + …</p>
+<p><strong>问题描述：</strong>一个正整数 $n$ 可以表示成若干个正整数之和，形如：$n&#x3D;n_1+n_2+…+n_k$，其中 $n_1 \ge n_2 \ge …\ge n_k$。</p>
+</blockquote>
+<p><strong>解法一：</strong></p>
+<blockquote>
+<p>完全背包思想，前 $n$ 个数，每个数选任意个，组成数字 $j$ 的方案。</p>
 <p>故:f[i] [j] &#x3D; f[i - 1] [j] + f[i] [j - i]</p>
 </blockquote>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -1198,6 +1192,9 @@ int main()
     return 0;
 &#125;</code></pre>
 
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题（完全背包）：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/902/">整数划分</a></p>
+<p><strong>蓝桥杯真题（01背包）：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/3420/">砝码称重</a></p>
 <h2 id="数位DP"><a href="#数位DP" class="headerlink" title="数位DP"></a>数位DP</h2><blockquote>
 <p>数位 DP 问题一般给定一个区间 [L,R]，问区间满足的条件的数有多少个。</p>
 <p>可以利用前缀和来求解答案：$∑_{i&#x3D;1}^Rans_i−∑_{i&#x3D;1}^{L−1}ans_i$</p>
