@@ -958,110 +958,150 @@ int main()
     return 0;
 &#125;</code></pre>
 
-<h3 id="spfa"><a href="#spfa" class="headerlink" title="spfa"></a>spfa</h3><p><mark>代码模板：</mark></p>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
-
-using namespace std;
-
-const int N &#x3D; 1E5+10;
-
-int n,m;
-int h[N],w[N],e[N],ne[N],idx;
-int dist[N];
-bool st[N];
-
-void add(int a,int b,int c)
+<h3 id="spfa"><a href="#spfa" class="headerlink" title="spfa"></a>spfa</h3><p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; g(n + 1);&#x2F;&#x2F;存图
+auto spfa &#x3D; [&amp;](int st) -&gt; vector&lt;int&gt;
 &#123;
-    e[idx] &#x3D; b,w[idx] &#x3D; c,ne[idx] &#x3D; h[a],h[a] &#x3D; idx++;
-&#125;
-
-int spfa()
-&#123;
-    memset(dist,0x3f,sizeof(dist));
-    dist[1] &#x3D; 0;
+    vector&lt;int&gt; dist(n + 1,0x3f3f3f3f);
+    vector&lt;bool&gt; vis(n + 1);
     queue&lt;int&gt; q;
-    q.push(1);
-    st[1] &#x3D; true;
-    while (q.size())
+    q.push(st),dist[st] &#x3D; 0,vis[st] &#x3D; true;
+
+    while (!q.empty())
     &#123;
-        int t &#x3D; q.front();
+        auto u &#x3D; q.front();
         q.pop();
-        st[t] &#x3D; false;
-        for (int i &#x3D; h[t]; i !&#x3D; -1; i &#x3D; ne[i])
+        vis[u] &#x3D; false;
+        for(auto [v,w] : g[u])
         &#123;
-            int j &#x3D; e[i];
-            if(dist[j] &gt; dist[t] + w[i])&#x2F;&#x2F;由于这个条件的原因，不会出现同一个点(即a去遍历，又遍历到a点但不会再将a入队了)再次放入队列的情况
+            if(dist[v] &gt; dist[u] + w)
             &#123;
-                dist[j] &#x3D; dist[t] + w[i];
-                if(!st[j])
+                dist[v] &#x3D; dist[u] + w;
+                if(!vis[v])
                 &#123;
-                    q.push(j);
-                    st[j] &#x3D; true;
+                    q.push(v);
+                    vis[v] &#x3D; true;
                 &#125;
             &#125;
         &#125;
-    &#125;  
-    return dist[n]; 
-&#125;
-
-int main()
-&#123;
-    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
-    memset(h,-1,sizeof(h));
-    while (m--)
-    &#123;
-        int a,b,c;
-        scanf(&quot;%d%d%d&quot;,&amp;a,&amp;b,&amp;c);
-        add(a,b,c);
     &#125;
-    int t &#x3D; spfa();
-    if(t &#x3D;&#x3D; 0x3f3f3f3f)   puts(&quot;impossible&quot;);&#x2F;&#x2F;因为队列是从起点开始更新，故直接相等即可
-    else printf(&quot;%d\n&quot;,t);
-    return 0;
-&#125;</code></pre>
+    return dist;
+&#125;;</code></pre>
 
-<h3 id="Floyd"><a href="#Floyd" class="headerlink" title="Floyd"></a>Floyd</h3><p><mark>代码模板：</mark></p>
+<p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
-const int N &#x3D; 210,INF &#x3D; 1e9;
-
-int n,m,Q;
-int d[N][N];
-
-void floyd()
-&#123;
-    for(int k &#x3D; 1;k &lt;&#x3D; n;k++)
-        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
-            for(int j &#x3D; 1;j &lt;&#x3D; n;j++)
-                d[i][j] &#x3D; min(d[i][j],d[i][k]+d[k][j]);
-&#125;
-
 int main()
 &#123;
-    scanf(&quot;%d%d%d&quot;,&amp;n,&amp;m,&amp;Q);
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
 
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
-        for(int j &#x3D; 1;j &lt;&#x3D; n;j++)
-            if(i&#x3D;&#x3D;j)    d[i][j] &#x3D; 0;&#x2F;&#x2F;处理自环
-            else    d[i][j] &#x3D; INF;
+    int n,m;
+    cin &gt;&gt; n &gt;&gt; m;
+
+    vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; g(n + 1);
 
     while (m--)
     &#123;
-        int a,b,w;
-        scanf(&quot;%d%d%d&quot;,&amp;a,&amp;b,&amp;w);
-        d[a][b] &#x3D; min(d[a][b],w);&#x2F;&#x2F;处理重边
+        int a,b,c;
+        cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+        g[a].push_back(&#123;b,c&#125;);
     &#125;
+    
+    auto spfa &#x3D; [&amp;](int st) -&gt; vector&lt;int&gt;
+    &#123;
+        vector&lt;int&gt; dist(n + 1,0x3f3f3f3f);
+        vector&lt;bool&gt; vis(n + 1);
+        queue&lt;int&gt; q;
+        q.push(st),dist[st] &#x3D; 0,vis[st] &#x3D; true;
+
+        while (!q.empty())
+        &#123;
+            auto u &#x3D; q.front();
+            q.pop();
+            vis[u] &#x3D; false;
+            for(auto [v,w] : g[u])
+            &#123;
+                if(dist[v] &gt; dist[u] + w)
+                &#123;
+                    dist[v] &#x3D; dist[u] + w;
+                    if(!vis[v])
+                    &#123;
+                        q.push(v);
+                        vis[v] &#x3D; true;
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+        return dist;
+    &#125;;
+
+    auto dist &#x3D; spfa(1);
+    if(dist[n] &gt; 0x3f3f3f3f &#x2F; 2)    cout &lt;&lt; &quot;impossible\n&quot;;
+    else    cout &lt;&lt; dist[n];  
+    return 0;
+&#125;</code></pre>
+
+<h3 id="Floyd"><a href="#Floyd" class="headerlink" title="Floyd"></a>Floyd</h3><blockquote>
+<p>集合表示：$f[k][i][j]$：表示考虑经过前 $k$ 个点，从 $i$ 到 $j$ 的距离。</p>
+<p>状态转移：</p>
+<ul>
+<li>$f[k - 1][i][j]$：表示不经过点 $k$ ，从点 $i$ 到点 $j$ 的距离；</li>
+<li>$f[k - 1][i][k] + f[k - 1][k][j]$ ：表示经过 $k$ 点，从点 $i$ 到点 $j$ 的距离；</li>
+</ul>
+<p>故状态转移方程：$dist[i][j] &#x3D; min(dist[i][j],dist[i][k] + dist[k][j])$</p>
+<p><strong>时间复杂度：</strong>$O(n^3)$</p>
+</blockquote>
+<p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">vector&lt;vector&lt;int&gt;&gt; dist(n + 1,vector&lt;int&gt;(n + 1,0x3f3f3f3f));
+auto floyd &#x3D; [&amp;]() -&gt; void
+&#123;
+	for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   dist[i][i] &#x3D; 0;
+
+	for(int k &#x3D; 1;k &lt;&#x3D; n;k++)
+   		for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+        	for(int j &#x3D; 1;j &lt;&#x3D; n;j++)
+            	dist[i][j] &#x3D; min(dist[i][j],dist[i][k] + dist[k][j]);
+&#125;;</code></pre>
+
+<p><mark>模板题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n,m,q;
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; q;
+
+    vector&lt;vector&lt;int&gt;&gt; dist(n + 1,vector&lt;int&gt;(n + 1,0x3f3f3f3f));
+    while (m--)
+    &#123;
+        int a,b,c;
+        cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+        dist[a][b] &#x3D; min(dist[a][b],c);
+    &#125;
+    
+    auto floyd &#x3D; [&amp;]() -&gt; void
+    &#123;
+        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   dist[i][i] &#x3D; 0;
+
+        for(int k &#x3D; 1;k &lt;&#x3D; n;k++)
+            for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+                for(int j &#x3D; 1;j &lt;&#x3D; n;j++)
+                    dist[i][j] &#x3D; min(dist[i][j],dist[i][k] + dist[k][j]);
+    &#125;;
 
     floyd();
-
-    while (Q--)
+    while (q--)
     &#123;
         int a,b;
-        scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
-        if(d[a][b] &gt; INF &#x2F; 2)   puts(&quot;impossible&quot;);
-        else    printf(&quot;%d\n&quot;,d[a][b]);
+        cin &gt;&gt; a &gt;&gt; b;
+        if(dist[a][b] &gt; 0x3f3f3f3f &#x2F; 2) cout &lt;&lt; &quot;impossible\n&quot;;
+        else    cout &lt;&lt; dist[a][b] &lt;&lt; &quot;\n&quot;;
     &#125;
     
     return 0;
