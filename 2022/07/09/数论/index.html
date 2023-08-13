@@ -669,7 +669,7 @@ int main()
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/30825/J">大数乘法</a></p>
 <p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/33540/E">西楼暮，一帘疏雨</a></p>
-<h2 id="中国剩余定理"><a href="#中国剩余定理" class="headerlink" title="中国剩余定理"></a>中国剩余定理</h2><p>中国剩余定理 (Chinese Remainder Theorem, CRT) 可求解如下形式的一元线性同余方程组（其中$m_1,m_2,…m_k$两两互质)：<br>$$<br>f_{[i][j]} &#x3D;<br>\left{<br>\begin{array}{rcl}<br>x       &amp;  	\equiv    &amp; a_1(mod;m_1)\<br>x       &amp;   \equiv    &amp; a_2(mod;m_2)\<br>       &amp;   \vdots    &amp; 				 \<br>x       &amp;   \equiv    &amp; a_k(mod; m_k)\<br>\end{array} \right.<br>$$<br><mark>求x的过程：</mark></p>
+<h2 id="中国剩余定理（CRT）"><a href="#中国剩余定理（CRT）" class="headerlink" title="中国剩余定理（CRT）"></a>中国剩余定理（CRT）</h2><p>中国剩余定理 (Chinese Remainder Theorem, CRT) 可求解如下形式的一元线性同余方程组（其中$m_1,m_2,…m_k$两两互质)：<br>$$<br>f_{[i][j]} &#x3D;<br>\left{<br>\begin{array}{rcl}<br>x       &amp;  	\equiv    &amp; a_1(mod;m_1)\<br>x       &amp;   \equiv    &amp; a_2(mod;m_2)\<br>       &amp;   \vdots    &amp; 				 \<br>x       &amp;   \equiv    &amp; a_k(mod; m_k)\<br>\end{array} \right.<br>$$<br><mark>求x的过程：</mark></p>
 <ul>
 <li>计算所有模数的乘积M</li>
 <li>对于第i个方程：<ul>
@@ -679,6 +679,8 @@ int main()
 </li>
 <li>方程组在模M意义下的唯一解为：$x &#x3D; \sum_{i&#x3D;1}^{k}a_iM_iM_i^{-1}(mod;n)$</li>
 </ul>
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/206/">表达整数的奇怪方式</a></p>
 <h2 id="高斯消元"><a href="#高斯消元" class="headerlink" title="高斯消元"></a>高斯消元</h2><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;

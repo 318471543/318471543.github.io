@@ -516,9 +516,8 @@ struct Point
     double len() &#123;return sqrt(*this &amp; *this);&#125;
     Point rotate(double b) &#123;return &#123;x * cos(b) + y * sin(b),-x * sin(b) + y * cos(b)&#125;;&#125;&#x2F;&#x2F;顺时针旋转b角度
 &#125;point[N];</code></pre>
-
-<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="1、前置知识："><a href="#1、前置知识：" class="headerlink" title="1、前置知识："></a>1、前置知识：</h3><p>（1）π &#x3D; acos(-1)</p>
-<p>（2）余弦定理：$c^2 &#x3D; a^2 + b^2$ - 2abcos(θ)</p>
+<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="1、前置知识："><a href="#1、前置知识：" class="headerlink" title="1、前置知识："></a>1、前置知识：</h3><p>（1）π = acos(-1)</p>
+<p>（2）余弦定理：$c^2 = a^2 + b^2$ - 2abcos(θ)</p>
 <h3 id="2、浮点数比较："><a href="#2、浮点数比较：" class="headerlink" title="2、浮点数比较："></a>2、浮点数比较：</h3><pre class="language-c++" data-language="c++"><code class="language-c++">const double eps &#x3D; 1e-8;
 int sign(double x)&#x2F;&#x2F;符号函数
 &#123;
@@ -531,23 +530,20 @@ int cmp(double x,double y)&#x2F;&#x2F;比较函数
     if(fabs(x - y) &lt; eps)	return 0;&#x2F;&#x2F;两数相等
     return x &lt; y ? -1 : 1;
 &#125;</code></pre>
-
-<h3 id="3、向量："><a href="#3、向量：" class="headerlink" title="3、向量："></a>3、向量：</h3><p>3.1、<strong>内积（点积）：</strong>A · B &#x3D; |A| * |B| cos(C)</p>
+<h3 id="3、向量："><a href="#3、向量：" class="headerlink" title="3、向量："></a>3、向量：</h3><p>3.1、<strong>内积（点积）：</strong>A · B = |A| * |B| cos(C)</p>
 <p>（1）几何意义：向量A在向量B上的投影与B的长度的乘积。</p>
 <p>（2）代码实现：</p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">double dot(Point a,Point b)
 &#123;
     return a.x * b.x + a.y * b.y;
 &#125;</code></pre>
-
-<p>3.2、<strong>外积（叉积）：</strong>A × B &#x3D; |A||B|sin（C）</p>
+<p>3.2、<strong>外积（叉积）：</strong>A × B = |A||B|sin（C）</p>
 <p>（1）几何意义：向量A与B张成的平行四边形的有向面积，B在A的逆时针方向为正</p>
 <p>（2）代码实现</p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">double cross(Point a,Point b)
 &#123;
     return a.x * b.y - b.x * a.y;
 &#125;</code></pre>
-
 <p>3.4、<strong>常用函数</strong></p>
 <ul>
 <li><p>3.4.1 <strong>取模</strong></p>
@@ -573,29 +569,26 @@ int cmp(double x,double y)&#x2F;&#x2F;比较函数
 &#123;
     return Point(a.x * cos(angle) + a.y * sin(angle),-a.x * sin(angle) + a.y * cos(angle));
 &#125;</code></pre>
-
-
-
-<p><strong>顺时针旋转公式：</strong></p>
-<script type="math/tex"> (x,y)\begin{pmatrix} cosθ & -sinθ \\ sinθ & cosθ \end{pmatrix} \ </script><span>  = （xcosθ + ysinθ，-xsinθ + ycosθ）</span></p>&nbsp;
-
-<p><strong>逆时针</strong>同理，即顺时针旋转-θ角度，将θ换成-θ即可：</p>
-<script type="math/tex">(x,y)\begin{pmatrix} cosθ & sinθ \\ -sinθ & cosθ \end{pmatrix} \  </script><span>= （xcosθ - ysinθ，xsinθ + ycosθ）</span></p></li></ul></li>
+</li>
 </ul>
+<p>  <strong>顺时针旋转公式：</strong></p>
+<p>  <script type="math/tex"> (x,y)\begin{pmatrix} cosθ & -sinθ \\ sinθ & cosθ \end{pmatrix} \ </script><span>  = （xcosθ + ysinθ，-xsinθ + ycosθ）</span>&lt;/p&gt;&nbsp;</p>
+<p>  <strong>逆时针</strong>同理，即顺时针旋转-θ角度，将θ换成-θ即可：</p>
+<p>  <script type="math/tex">(x,y)\begin{pmatrix} cosθ & sinθ \\ -sinθ & cosθ \end{pmatrix} \  </script><span>= （xcosθ - ysinθ，xsinθ + ycosθ）</span>&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</p>
 <h3 id="4、点与线："><a href="#4、点与线：" class="headerlink" title="4、点与线："></a>4、点与线：</h3><ul>
 <li><p>4.1 <strong>直线定理</strong></p>
 <ul>
-<li>一般式：ax + by + c &#x3D; 0</li>
+<li>一般式：ax + by + c = 0</li>
 <li>点向式：p0 + vt</li>
-<li>斜截式：y &#x3D; kx + b</li>
+<li>斜截式：y = kx + b</li>
 </ul>
 </li>
 <li><p>4.2 <strong>常用操作</strong></p>
 <ul>
-<li><p><strong>判断点在直线上</strong>：A × B &#x3D; 0（用叉积）</p>
+<li><p><strong>判断点在直线上</strong>：A × B = 0（用叉积）</p>
 </li>
 <li><p><strong>两直线相交</strong> </p>
-<p>&#x2F;&#x2F;cross(v,w) &#x3D;&#x3D; 0则两直线平行或者重合</p>
+<p>//cross(v,w) == 0则两直线平行或者重合</p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">Point get_line_intersection(Point p,vector v,Point q,vector w)
 &#123;
     vector u &#x3D; p - q;
@@ -639,23 +632,24 @@ int cmp(double x,double y)&#x2F;&#x2F;比较函数
     double c1 &#x3D; cross(a2 - a1,b1 - a1),c2 &#x3D; cross(a2 - a1,b2 - a1);
     double c3 &#x3D; cross(b2 - b1,a2 - b1),c4 &#x3D; cross(b2 - b1,a1 - b1);
     return sign(c1) * sign(c2) &lt;&#x3D; 0 &amp;&amp; sign(c3) * sign(c4) &lt;&#x3D; 0;
-&#125;</code></pre></li>
+&#125;</code></pre>
+</li>
 </ul>
 </li>
 </ul>
-<h3 id="5、多边形："><a href="#5、多边形：" class="headerlink" title="5、多边形："></a>5、多边形：</h3><p>​	5.1 三角形</p>
-<p>​	5.1.1 面积</p>
+<h3 id="5、多边形："><a href="#5、多边形：" class="headerlink" title="5、多边形："></a>5、多边形：</h3><p>​    5.1 三角形</p>
+<p>​    5.1.1 面积</p>
 <ul>
 <li>叉积</li>
-<li>海伦公式<ul>
-<li>p &#x3D; (a + b + c) &#x2F; 2</li>
-<li>S &#x3D; sqrt((p - a) * (p - b) * (p - c))；</li>
-</ul>
-</li>
-</ul>
-<p> 5.1.2 三角形四心</p>
+<li><p>海伦公式</p>
 <ul>
-<li>外心：外接圆圆心<ul>
+<li>p = (a + b + c) / 2</li>
+<li>S = sqrt((p - a) <em> (p - b) </em> (p - c))；</li>
+</ul>
+<p>5.1.2 三角形四心</p>
+</li>
+<li><p>外心：外接圆圆心</p>
+<ul>
 <li>三边中垂线交点。到三角形三个顶点的距离相等。</li>
 </ul>
 </li>
@@ -723,7 +717,6 @@ int main()
     cout &lt;&lt; resx &lt;&lt; &quot; &quot; &lt;&lt; resy &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
-
 <p><strong>第二种方法：</strong>是用叉乘和象限判断，待考古。。。</p>
 <p><strong>板题：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/53417/G">数四边形</a></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -787,7 +780,6 @@ int main()
     
     return 0;
 &#125;</code></pre>
-
 <h2 id="凸包"><a href="#凸包" class="headerlink" title="凸包"></a>凸包</h2><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
 #include&lt;algorithm&gt;
 #include&lt;iomanip&gt;
@@ -865,7 +857,6 @@ int main()
     cout &lt;&lt; fixed &lt;&lt; setprecision(2) &lt;&lt; res;
     return 0;
 &#125;</code></pre>
-
 <h2 id="半平面交"><a href="#半平面交" class="headerlink" title="半平面交"></a>半平面交</h2><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
 #include&lt;algorithm&gt;
 #include&lt;cmath&gt;
@@ -987,7 +978,6 @@ int main()
     cout &lt;&lt; fixed &lt;&lt; setprecision(3) &lt;&lt; half_plane_intersection();
     return 0;
 &#125;</code></pre>
-
 <h2 id="最小圆覆盖"><a href="#最小圆覆盖" class="headerlink" title="最小圆覆盖"></a>最小圆覆盖</h2><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
 #include&lt;cmath&gt;
 #include&lt;algorithm&gt;
@@ -1107,7 +1097,6 @@ int main()
     cout &lt;&lt; c.p.x &lt;&lt; &quot; &quot; &lt;&lt; c.p.y &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
-
 <h2 id="三维计算几何基础与三维凸包"><a href="#三维计算几何基础与三维凸包" class="headerlink" title="三维计算几何基础与三维凸包"></a>三维计算几何基础与三维凸包</h2><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
 #include&lt;cmath&gt;
 #include&lt;iomanip&gt;
@@ -1211,7 +1200,6 @@ int main()
     cout &lt;&lt; fixed &lt;&lt; setprecision(6) &lt;&lt; res ;
     return 0;
 &#125;</code></pre>
-
 <h2 id="旋转卡壳"><a href="#旋转卡壳" class="headerlink" title="旋转卡壳"></a>旋转卡壳</h2><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
 #include&lt;algorithm&gt;
 
@@ -1299,7 +1287,6 @@ int main()
     cout &lt;&lt; rotating_calipers();
     return 0;
 &#125;</code></pre>
-
 <h2 id="三角剖分"><a href="#三角剖分" class="headerlink" title="三角剖分"></a>三角剖分</h2><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
 #include&lt;iomanip&gt;
 #include&lt;cmath&gt;
@@ -1457,7 +1444,6 @@ int main()
     
     return 0;
 &#125;</code></pre>
-
 <h2 id="扫描线——三角形面积并"><a href="#扫描线——三角形面积并" class="headerlink" title="扫描线——三角形面积并"></a>扫描线——三角形面积并</h2><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
 #include&lt;algorithm&gt;
 #include&lt;vector&gt;
@@ -1618,7 +1604,6 @@ int main()
     cout &lt;&lt; fixed &lt;&lt; setprecision(2) &lt;&lt; res;
     return 0;
 &#125;</code></pre>
-
 <h2 id="自适应辛普森积分"><a href="#自适应辛普森积分" class="headerlink" title="自适应辛普森积分"></a>自适应辛普森积分</h2><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
 #include&lt;iomanip&gt;
 #include&lt;cmath&gt;
@@ -1654,9 +1639,6 @@ int main()
     cout &lt;&lt; fixed &lt;&lt; setprecision(6) &lt;&lt; asr(l,r,simpson(l,r));
     return 0;
 &#125;</code></pre>
-
-
-
 
                 
             </div>
