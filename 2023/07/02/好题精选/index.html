@@ -1322,23 +1322,16 @@ bool check3(int x)
 <ul>
 <li>$assert();$ 括号内用为真的判断语句，如果为假，则会出现 $RE$ 的报错。</li>
 </ul>
-<ol>
+<ol start="2">
 <li><strong>随机数</strong></li>
 </ol>
 <ul>
 <li><p>新学了一个“效率较高”的”随机数算法“，在全局中加入下面代码：</p>
-<ul>
-<li><pre><code class="c++">mt19937 mrand(random_device&#123;&#125;());
-int rnd(int x) &#123; return mrand() % x;&#125;
-<pre class="language-none"><code class="language-none">
-- 调用方式（举例如下）：
-
-  - &#96;&#96;&#96;c++
-    cout &lt;&lt; rnd(100);</code></pre>
-</code></pre>
+<pre class="language-c++" data-language="c++"><code class="language-c++">mt19937 mrand(random_device&#123;&#125;());
+int rnd(int x) &#123; return mrand() % x;&#125;</code></pre>
 </li>
-</ul>
-</li>
+<li><p>调用方式（举例如下）：</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">cout &lt;&lt; rnd(100);</code></pre></li>
 </ul>
 <p><strong>大模拟思路：</strong></p>
 <ul>
@@ -1819,14 +1812,14 @@ struct bigint &#123;
 
 
 
-<h2 id="基本知识点"><a href="#基本知识点" class="headerlink" title="基本知识点"></a>基本知识点</h2><h3 id="计算空间大小"><a href="#计算空间大小" class="headerlink" title="计算空间大小"></a>计算空间大小</h3><p>1e6个chat为1M</p>
-<p>1e6个int为4M</p>
+<h2 id="基本知识点"><a href="#基本知识点" class="headerlink" title="基本知识点"></a>基本知识点</h2><h3 id="计算空间大小"><a href="#计算空间大小" class="headerlink" title="计算空间大小"></a>计算空间大小</h3><p>$1e6$ 个 $chat$ 为 $1M$</p>
+<p>$1e6$ 个 $int$ 为 $4M$</p>
 <h2 id="在这里写个对拍！"><a href="#在这里写个对拍！" class="headerlink" title="在这里写个对拍！"></a>在这里写个对拍！</h2><p><strong>参考题目链接：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2/">01背包问题</a></p>
 <blockquote>
 <p>首先，正解和暴力解法仍需正常写，不必加任何与文件输入输出流相关的代码。</p>
 <p>而数据代码生成器：</p>
 <p>​	1、封装一个函数用来读文件写入随机数据，并关闭文件。</p>
-<p>​	2、主函数调用system()去执行两份代码，并判断生成的结果是否一致（答案会在system里面写入文件中）。</p>
+<p>​	2、主函数调用 $system()$ 去执行两份代码，并判断生成的结果是否一致（答案会在 $system$ 里面写入文件中）。</p>
 </blockquote>
 <p><mark>文件共计7个：</mark></p>
 <ul>
