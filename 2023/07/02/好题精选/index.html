@@ -1273,10 +1273,10 @@ int main()
     &#125;
 &#125;&#x2F;&#x2F;如果用dfs(1,0)调用：表示数组元素从1开始,当前已经选了0个数。</code></pre>
 
-<h2 id="算法中的小技巧"><a href="#算法中的小技巧" class="headerlink" title="算法中的小技巧"></a>算法中的小技巧</h2><h3 id="技巧一："><a href="#技巧一：" class="headerlink" title="技巧一："></a>技巧一：</h3><p>对于点对的编号数值较大，想开二维数组判重，但是不能开太大？</p>
+<h2 id="算法中的小技巧"><a href="#算法中的小技巧" class="headerlink" title="算法中的小技巧"></a>算法中的小技巧</h2><h3 id="技巧一：二维数组映射"><a href="#技巧一：二维数组映射" class="headerlink" title="技巧一：二维数组映射"></a>技巧一：二维数组映射</h3><p>对于点对的编号数值较大，想开二维数组判重，但是不能开太大？</p>
 <p><strong>问题案例：</strong>给点 $n$ 个点 $(n \le 10^5)$ ，有 $m$ 条边 $(u,v)$，由于不能加入重边，因此需要判重。而二维数组无法开太大，因此怎么办呢？(题目来源：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1177/">最大半连通子图</a>，<a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/1649748772841508875?type=7&page=0">L2-048 寻宝图</a>，其中：第一道题目需要用到该技巧，第二个题目开动态二维数组也可以，但也可以用该技巧练练手！)</p>
 <p><strong>解决：</strong>将二维的点对映射成一个数，由于 $(u,v)$ 在 $10^5$ 以内，因此可以根据公式：$u × 1000000ll + v$ 计算出点对的哈希值，然后开一个 $unordered_set$ 来判重即可。</p>
-<h3 id="技巧二："><a href="#技巧二：" class="headerlink" title="技巧二："></a>技巧二：</h3><blockquote>
+<h3 id="技巧二：判断-2-的幂次与完全平方数"><a href="#技巧二：判断-2-的幂次与完全平方数" class="headerlink" title="技巧二：判断 $2$ 的幂次与完全平方数"></a>技巧二：判断 $2$ 的幂次与完全平方数</h3><blockquote>
 <p><strong>判断一个数是否为 $2$ 的幂次？</strong></p>
 <ul>
 <li>$check1$：调用函数 <code>__builtin_popcount(x)</code> 判断二进制中 $1$ 的个数是否是1；</li>
@@ -1309,8 +1309,160 @@ bool check3(int x)
     return x * x &#x3D;&#x3D; n;
 &#125;</code></pre>
 
+<h3 id="技巧三：输出路径"><a href="#技巧三：输出路径" class="headerlink" title="技巧三：输出路径"></a>技巧三：输出路径</h3><h4 id="状态转移路径-最短路径："><a href="#状态转移路径-最短路径：" class="headerlink" title="状态转移路径 &#x2F; 最短路径："></a>状态转移路径 &#x2F; 最短路径：</h4><p><strong>题目灵感来源：</strong><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/1556843855285559296/exam/problems/1556843936151740419?type=7&page=0"><strong>变牛的最快方法</strong></a></p>
+<p>该题目是最短编辑路径的变种，只不过加了个输出路径，这是一个关于二维点对的路径输出问题，一般都是逆序获取路径的（如果强行每次用容器将每个过程的路径记录下来，这样是会超内存的！），故总结如下：</p>
+<p><mark>一维路径模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">vector&lt;int&gt; pre(n + 1); &#x2F;&#x2F; 存储方式
+for(auto [v,w] : g[u])
+&#123;
+    if(dist[v] &gt; dist[u] + w)
+    &#123;
+        dist[v] &#x3D; dist[u] + w;
+        heap.push(&#123;dist[v],v&#125;);
+        pre[v] &#x3D; u; &#x2F;&#x2F; 记录
+    &#125;
+&#125;
+vector&lt;int&gt; path; &#x2F;&#x2F; 存储路径
+int t &#x3D; n;
+while(t)
+&#123;
+    path.push_back(t);
+    t &#x3D; pre[t];
+&#125;
+reverse(path.begin(), path.end());
+for (auto x : path) &#x2F;&#x2F; 打印输出路径
+    cout  &lt;&lt; x &lt;&lt; &quot; &quot;;</code></pre>
+
+<p><mark>二维路径模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">int state[N][N]; &#x2F;&#x2F; 当前点的操作是什么
+pii pre[N][N]; &#x2F;&#x2F; 二维点对转移
+
+int x &#x3D; n, y &#x3D; m;
+vector&lt;int&gt; res;
+while(x || y)
+&#123;
+    res.push_back(state[x][y]); &#x2F;&#x2F; 将操作放入容器中
+    int t &#x3D; x;
+    x &#x3D; pre[x][y].first, y &#x3D; pre[t][y].second;
+&#125;</code></pre>
+
+<p><mark>灵感题目代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
+
+#define IOS ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr)
+#define cf(_) int _;cin &gt;&gt; _;while(_--)
+
+mt19937 mrand(random_device&#123;&#125;());
+int rnd(int x) &#123; return mrand() % x;&#125;
+ll gcd(ll a,ll b)&#123;return b ? gcd(b,a % b) : a;&#125;
+ll fpow(ll a,ll b,ll mod)&#123;ll res &#x3D; 1;a %&#x3D; mod;assert(b &gt;&#x3D; 0);while(b)&#123;if(b &amp; 1)res &#x3D; res * a % mod;a &#x3D; a * a % mod;b &gt;&gt;&#x3D; 1;&#125;return res;&#125;
 
 
+const int N &#x3D; 2010;
+struct ANS
+&#123;
+    vector&lt;int&gt; v;
+&#125;;
+&#x2F;&#x2F; ANS res[N][N];
+int state[N][N];
+pii pre[N][N];
+
+int main()
+&#123;
+    IOS;
+    vector&lt;int&gt; a, b;
+    int x;
+    a.push_back(0), b.push_back(0);
+    while (cin &gt;&gt; x)
+    &#123;
+        if(x &#x3D;&#x3D; -1) break;
+        a.push_back(x);
+    &#125;
+    while (cin &gt;&gt; x)
+    &#123;
+        if(x &#x3D;&#x3D; -1) break;
+        b.push_back(x);
+    &#125;
+    int n &#x3D; a.size() - 1, m &#x3D; b.size() - 1;
+
+    vector&lt;vector&lt;int&gt;&gt; f(n + 1, vector&lt;int&gt;(m + 1));
+    &#x2F;*
+    f[i][j]: a的前i个匹配b的前j个
+    删除，修改，插入
+    删除: f[i][j] &#x3D; f[i - 1][j] + 1
+    修改: a[i] !&#x3D; b[j], f[i][j] &#x3D; f[i - 1][j - 1] + 1
+    插入: f[i][j] &#x3D; f[i][j - 1] + 1
+    *&#x2F;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    
+    &#123;
+        f[i][0] &#x3D; i;
+        pre[i][0] &#x3D; &#123;i - 1, 0&#125;;
+        state[i][0] &#x3D; 0;
+        &#x2F;&#x2F; res[i][0].v &#x3D; res[i - 1][0].v;
+        &#x2F;&#x2F; res[i][0].v.push_back(0);
+    &#125;
+    for (int i &#x3D; 1; i &lt;&#x3D; m; i++)    
+    &#123;
+        f[0][i] &#x3D; i;
+        pre[0][i] &#x3D; &#123;0, i - 1&#125;;
+        state[0][i] &#x3D; 3;
+        &#x2F;&#x2F; res[0][i].v &#x3D; res[0][i - 1].v;
+        &#x2F;&#x2F; res[0][i].v.push_back(3);
+    &#125;
+
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        for (int j &#x3D; 1; j &lt;&#x3D; m; j++)
+        &#123;
+            &#x2F;&#x2F; f[i][j] &#x3D; min(f[i - 1][j] + 1, f[i][j - 1] + 1);&#x2F;&#x2F; 删除, 插入
+            &#x2F;&#x2F; f[i][j] &#x3D; min(f[i][j], f[i - 1][j - 1] + (a[i] !&#x3D; b[j]));&#x2F;&#x2F; 修改
+            if (f[i - 1][j] + 1 &lt; f[i][j - 1])
+            &#123;
+                f[i][j] &#x3D; f[i - 1][j] + 1;
+                pre[i][j] &#x3D; &#123;i - 1, j&#125;;
+                state[i][j] &#x3D; 0;
+            &#125;
+            else
+            &#123;
+                f[i][j] &#x3D; f[i][j - 1] + 1;
+                pre[i][j] &#x3D; &#123;i, j - 1&#125;;
+                state[i][j] &#x3D; 3;
+            &#125;
+            
+            if(f[i - 1][j - 1] + (a[i] !&#x3D; b[j]) &lt; f[i][j])
+            &#123;
+                pre[i][j] &#x3D; &#123;i - 1, j - 1&#125;;
+                if (a[i] !&#x3D; b[j])   state[i][j] &#x3D; 1;
+                else    state[i][j] &#x3D; 2;
+
+                f[i][j] &#x3D; f[i - 1][j - 1] + (a[i] !&#x3D; b[j]);
+            &#125;
+        &#125;
+    &#125;
+
+    cout &lt;&lt; f[n][m] &lt;&lt; &quot;\n&quot;;
+    
+    x &#x3D; n;
+    int y &#x3D; m;
+    vector&lt;int&gt; res;
+    while(x || y)
+    &#123;
+        res.push_back(state[x][y]);
+        int t &#x3D; x;
+        x &#x3D; pre[x][y].first, y &#x3D; pre[t][y].second;
+    &#125;
+
+    reverse(res.begin(), res.end());
+    for (auto x : res) cout &lt;&lt; x;
+    return 0;
+&#125;</code></pre>
+
+<h4 id="图-树中某两点间的路径"><a href="#图-树中某两点间的路径" class="headerlink" title="图 &#x2F; 树中某两点间的路径"></a>图 &#x2F; 树中某两点间的路径</h4><p>待更新</p>
 <h2 id="天梯赛-OR-CAIP（原RoboCom）"><a href="#天梯赛-OR-CAIP（原RoboCom）" class="headerlink" title="天梯赛 OR CAIP（原RoboCom）"></a>天梯赛 OR CAIP（原RoboCom）</h2><blockquote>
 <p>常用小技巧：</p>
 <p>1、断言：assert();</p>
@@ -1333,11 +1485,17 @@ int rnd(int x) &#123; return mrand() % x;&#125;</code></pre>
 <li><p>调用方式（举例如下）：</p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">cout &lt;&lt; rnd(100);</code></pre></li>
 </ul>
-<p><strong>大模拟思路：</strong></p>
+<p><strong>3、大模拟思路：</strong></p>
 <ul>
 <li>明确存储容器</li>
 <li>函数代码分工</li>
 </ul>
+<p><strong>4、图上两点之间的所有路径：</strong></p>
+<ul>
+<li>树上两点之间的路径：</li>
+<li>无向有环图两点间的路径（限制距离）：</li>
+</ul>
+<p>感觉可以爆搜， 从起点开始搜，到达终点后，记录路径存下来。如果有对路径长度有所限制，可以在参数上添加。</p>
 <h2 id="C-个人通用模板"><a href="#C-个人通用模板" class="headerlink" title="C++个人通用模板"></a>C++个人通用模板</h2><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
