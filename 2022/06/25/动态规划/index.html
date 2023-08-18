@@ -1046,7 +1046,93 @@ int main()
     return 0;
 &#125;</code></pre>
 
-<h2 id="线性DP"><a href="#线性DP" class="headerlink" title="线性DP"></a>线性DP</h2><p><mark>最长上升子序列模板代码：</mark></p>
+<h2 id="线性DP"><a href="#线性DP" class="headerlink" title="线性DP"></a>线性DP</h2><h3 id="最长上升子序列I"><a href="#最长上升子序列I" class="headerlink" title="最长上升子序列I"></a>最长上升子序列I</h3><blockquote>
+<p><strong>问题描述：</strong>给定一个长度为 $N$ 的数列，求数值严格单调递增的子序列的长度最长是多少？</p>
+<p><strong>数据范围：</strong> $1 \le N \le 1000$</p>
+<p><strong>状态转移：</strong> 定义 $f[i]$ 为以 $i$ 结尾的最长子序列长度，那么上一个状态就是枚举是从哪一个位置转移过来的。</p>
+<p><strong>时间复杂度：</strong>$O(n^2)$</p>
+</blockquote>
+<p><mark>模板题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+	int n;
+	cin &gt;&gt; n;
+
+	vector&lt;int&gt; a(n + 1);
+	for(int i &#x3D; 1; i &lt;&#x3D; n; i++)	cin &gt;&gt; a[i];
+
+	vector&lt;int&gt; f(n + 1, 1);
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+	&#123;
+		for (int j &#x3D; 1; j &lt; i; j++)
+		&#123;
+			if (a[i] &gt; a[j])	f[i] &#x3D; max(f[i], f[j] + 1);
+		&#125;
+	&#125;
+
+	cout &lt;&lt; *max_element(f.begin(), f.end()) &lt;&lt; &quot;\n&quot;;
+	return 0;
+&#125;</code></pre>
+
+<h3 id="最长上升子序列II"><a href="#最长上升子序列II" class="headerlink" title="最长上升子序列II"></a>最长上升子序列II</h3><blockquote>
+<p><strong>问题描述：</strong>给定一个长度为 $N$ 的数列，求数值严格单调递增的子序列的长度最长是多少？</p>
+<p><strong>数据范围：</strong> $1 \le N \le 10^5$</p>
+<p><strong>思路：</strong> 其实跟 $dp$ 没什么关系了，就是对于当前数，将其插入到小于这个数的最大位置的后面即可。</p>
+<p><strong>时间复杂度：</strong>$O(nlogn)$</p>
+</blockquote>
+<p><mark>模板题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+	int n;
+	cin &gt;&gt; n;
+
+	vector&lt;int&gt; a(n + 1);
+	for(int i &#x3D; 1; i &lt;&#x3D; n; i++)	cin &gt;&gt; a[i];
+
+	vector&lt;int&gt; q(n + 1);
+	int len &#x3D; 0;
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+	&#123;
+		int l &#x3D; 0, r &#x3D; len;
+		while (l &lt; r)
+		&#123;
+			int mid &#x3D; l + r + 1 &gt;&gt; 1;
+			if (q[mid] &lt; a[i])	l &#x3D; mid;
+			else	r &#x3D; mid - 1;
+		&#125;
+		q[l + 1] &#x3D; a[i];
+		len &#x3D; max(l + 1, len);
+	&#125;
+
+	&#x2F;&#x2F; for (int i &#x3D; 1; i &lt;&#x3D; len; i++)	cout &lt;&lt; q[i] &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; len];
+	cout &lt;&lt; len &lt;&lt; &quot;\n&quot;;
+	return 0;
+&#125;</code></pre>
+
+<h3 id="最短编辑距离"><a href="#最短编辑距离" class="headerlink" title="最短编辑距离"></a>最短编辑距离</h3><blockquote>
+<p><strong>问题描述：</strong>将字符串 $A$ 经过 插入、删除、替换，变成字符串 $B$ 的最小操作次数是多少？</p>
+<p><strong>数据范围：</strong>$1 \le |s| \le 1000$</p>
+<p><strong>状态转移：</strong> 定义 $f[i][j]$：将 $A$ 的前 $i$个字母变成 $B$ 的前 $j$ 个字母的最小操作次数</p>
+<ul>
+<li>删除：$f[i][j] &#x3D; f[i - 1][j] + 1$</li>
+<li>插入：$f[i][j] &#x3D; f[i][j - 1] + 1$</li>
+<li>替换：$f[i][j] &#x3D; f[i - 1][j - 1] + a[i] !&#x3D; b[j]$</li>
+</ul>
+<p><strong>时间复杂度：</strong>$O(n^2)$</p>
+</blockquote>
+<p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1054,37 +1140,34 @@ using namespace std;
 int main()
 &#123;
     cin.tie(nullptr)-&gt;sync_with_stdio(false);
+    
+    int n,m;
+    string a,b;
+    cin &gt;&gt; n &gt;&gt; a &gt;&gt; m &gt;&gt; b;
+    a &#x3D; &quot; &quot; + a,b &#x3D; &quot; &quot; + b;
 
-    int n;
-    cin &gt;&gt; n;
-
-    vector&lt;int&gt; a(n + 1),q(n + 1);
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; a[i];
-
-    int len &#x3D; 0;
+    vector f(n + 1,vector&lt;int&gt;(m + 1));
+    &#x2F;&#x2F; 预处理
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   f[i][0] &#x3D; i;
+    for(int i &#x3D; 1;i &lt;&#x3D; m;i++)   f[0][i] &#x3D; i;
+    
     for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
-    &#123;
-        int l &#x3D; 0,r &#x3D; len;
-        while (l &lt; r)
+        for(int j &#x3D; 1;j &lt;&#x3D; m;j++)
         &#123;
-            int mid &#x3D; l + r + 1 &gt;&gt; 1;
-            if(q[mid] &lt; a[i])   l &#x3D; mid;
-            else    r &#x3D; mid - 1;
+            f[i][j] &#x3D; min(f[i - 1][j],f[i][j - 1]) + 1;
+            f[i][j] &#x3D; min(f[i][j],f[i - 1][j - 1] + (a[i] !&#x3D; b[j]));
         &#125;
-        len &#x3D; max(len,r + 1);
-        q[r + 1] &#x3D; a[i];
-    &#125;
 
-    cout &lt;&lt; len &lt;&lt; &quot;\n&quot;;
+    cout &lt;&lt; f[n][m] &lt;&lt; &quot;\n&quot;;
     return 0;
-&#125;</code></pre>
+&#125; </code></pre>
 
 <p><mark>推荐题单：</mark></p>
-<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/898/">最长上升子序列 II</a>  <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/899/">最长公共子序列</a>  <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/904/">最短编辑距离</a></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/897/">最长上升子序列</a> <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/898/">最长上升子序列 II</a>  <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/899/">最长公共子序列</a>  <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/904/">最短编辑距离</a></p>
 <p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1849/problem/D">D. Array Painting</a> </p>
 <p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57356/K">Box</a></p>
-<h2 id="区间DP"><a href="#区间DP" class="headerlink" title="区间DP"></a>区间DP</h2><p><strong>题意：</strong> 有N堆石子，每次只能合并相邻的两堆石子，代价为这两堆石子的质量之和，问最终合并为一堆后的代价最小是多少。</p>
-<blockquote>
+<h2 id="区间DP"><a href="#区间DP" class="headerlink" title="区间DP"></a>区间DP</h2><blockquote>
+<p><strong>题意：</strong> 有N堆石子，每次只能合并相邻的两堆石子，代价为这两堆石子的质量之和，问最终合并为一堆后的代价最小是多少。</p>
 <p>区间合并：三重循环：</p>
 <p>1、枚举区间长度</p>
 <p>2、枚举左端点</p>
