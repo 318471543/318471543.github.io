@@ -1977,7 +1977,54 @@ int main()
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1185/">电力</a></p>
 <p><strong>按点双连通分量缩点：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/398/">矿场搭建</a></p>
-<h2 id="最近公共祖先-LCA"><a href="#最近公共祖先-LCA" class="headerlink" title="最近公共祖先(LCA)"></a>最近公共祖先(LCA)</h2><p><mark>模板：</mark></p>
+<h2 id="最近公共祖先-LCA"><a href="#最近公共祖先-LCA" class="headerlink" title="最近公共祖先(LCA)"></a>最近公共祖先(LCA)</h2><blockquote>
+<p><strong>应用：</strong></p>
+<p>1、获取两个点之间的路径与距离，距离：<code>dist[a][b] = depth[a] + depth[b] - 2 × depth[p] </code></p>
+</blockquote>
+<p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">vector&lt;vector&lt;int&gt;&gt; g(n + 1); &#x2F;&#x2F; 存图方式
+vector&lt;vector&lt;int&gt;&gt; fa(n + 1, vector&lt;int&gt;(16));
+vector&lt;int&gt; depth(n + 1, 0x3f3f3f3f);
+auto bfs &#x3D; [&amp;](int root) -&gt; void &#x2F;&#x2F; 初始化
+&#123;
+    queue&lt;int&gt; q;
+    q.push(root);   
+    depth[0] &#x3D; 0, depth[root] &#x3D; 1;
+    while (!q.empty())
+    &#123;
+        auto u &#x3D; q.front();
+        q.pop();
+        for (auto v : g[u])
+        &#123;
+            if (depth[v] &gt; depth[u] + 1)
+            &#123;
+                q.push(v);
+                depth[v] &#x3D; depth[u] + 1;
+                fa[v][0] &#x3D; u;
+                for (int k &#x3D; 1; k &lt;&#x3D; 15; k++)
+                    fa[v][k] &#x3D; fa[fa[v][k - 1]][k - 1];
+            &#125;
+        &#125;
+    &#125;
+&#125;;
+
+auto lca &#x3D; [&amp;](int a, int b) -&gt; int
+&#123;
+    if (depth[a] &lt; depth[b])  swap(a, b);
+
+    for (int k &#x3D; 15; k &gt;&#x3D; 0; k--)
+        if(depth[fa[a][k]] &gt;&#x3D; depth[b])
+            a &#x3D; fa[a][k];
+
+    if (a &#x3D;&#x3D; b) return a;
+
+    for (int k &#x3D; 15; k &gt;&#x3D; 0; k--)
+        if (fa[a][k] !&#x3D; fa[b][k])
+            a &#x3D; fa[a][k], b &#x3D; fa[b][k];
+    return fa[a][0];
+&#125;;</code></pre>
+
+<p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
