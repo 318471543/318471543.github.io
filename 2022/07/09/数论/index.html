@@ -1122,6 +1122,85 @@ int main()
 <p>$$<br>即\left[<br> \begin{matrix}<br>   f_{n} &amp; f_{n+1} &amp; S_{n}\<br>  \end{matrix}<br>  \right]<br>  \left[<br> \begin{matrix}<br>   0 &amp; 1 &amp; 0\<br>   1 &amp; 1 &amp; 1\<br>   0 &amp; 0 &amp; 1<br>  \end{matrix}<br>  \right]<br>   &#x3D; \left[<br> \begin{matrix}<br>   f_{n+1} &amp; f_{n+2} &amp; S_{n+1}\<br>  \end{matrix}<br>  \right]<br>$$</p>
 <p>$$<br>故 F_{n} &#x3D; F_1 * A^{n-1}<br>$$</p>
 <p>$$<br>A &#x3D; \left[<br> \begin{matrix}<br>   0 &amp; 1 &amp; 0\<br>   1 &amp; 1 &amp; 1\<br>   0 &amp; 0 &amp; 1<br>  \end{matrix}<br>  \right]<br>$$</p>
+<h2 id="数学期望"><a href="#数学期望" class="headerlink" title="数学期望"></a>数学期望</h2><p><mark>推荐题单：</mark></p>
+<p><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=7398">塔</a></p>
+<p><mark>塔代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
+
+#define IOS ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr)
+#define cf(_) int _;cin &gt;&gt; _;while(_--)
+
+mt19937 mrand(random_device&#123;&#125;());
+int rnd(int x) &#123; return mrand() % x;&#125;
+ll gcd(ll a,ll b)&#123;return b ? gcd(b,a % b) : a;&#125;
+ll fpow(ll a,ll b,ll mod)&#123;ll res &#x3D; 1;a %&#x3D; mod;assert(b &gt;&#x3D; 0);while(b)&#123;if(b &amp; 1)res &#x3D; res * a % mod;a &#x3D; a * a % mod;b &gt;&gt;&#x3D; 1;&#125;return res;&#125;
+
+const int N &#x3D; 2e5 + 10, mod &#x3D; 998244353;
+ll fact[N],infact[N];
+
+void solve()
+&#123;
+    int n, m, k;
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; k;
+
+    auto C &#x3D; [&amp;](ll n, ll m) -&gt; ll
+    &#123;
+        if(m &gt; n)   return 0;
+        return fact[n] * infact[n - m] % mod * infact[m] % mod;
+    &#125;;
+
+    auto inv &#x3D; [&amp;](ll x) -&gt; ll
+    &#123;
+        return fpow(x, mod - 2, mod);
+    &#125;;
+
+    vector&lt;ll&gt; P(k + 1);
+
+    if (k &#x3D;&#x3D; n) return cout &lt;&lt; n &lt;&lt; &quot;\n&quot;, void();
+
+    ll ding &#x3D; inv(C(n, k));
+    for (int i &#x3D; 0; i &lt;&#x3D; k; i++)
+    &#123;
+        P[i] &#x3D; C(n - i - 1, k - i) * ding % mod;
+    &#125;
+
+    ll res &#x3D; 0;
+    for (int i &#x3D; 0; i &lt;&#x3D; k; i++)
+    &#123;
+        res &#x3D; (res + P[k - i] * (n + i) % mod) % mod;
+    &#125;
+
+    res &#x3D; (n + ((res - n) % mod + mod) % mod * m % mod) % mod;
+
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+&#125;
+
+int main()
+&#123;
+    IOS;
+
+    fact[0] &#x3D; infact[0] &#x3D; 1;
+    for (int i &#x3D; 1; i &lt; N; i++)
+    &#123;
+        fact[i] &#x3D; fact[i - 1] * i % mod;
+        infact[i] &#x3D; fpow(fact[i], mod - 2, mod);
+    &#125;
+    
+    int t;
+    cin &gt;&gt; t;
+
+    while(t--)  solve();
+
+    return 0;
+&#125;</code></pre>
+
+
+
 <h2 id="数论分块"><a href="#数论分块" class="headerlink" title="数论分块"></a>数论分块</h2><p><strong>一、寻找规律</strong></p>
 <p>当n &#x3D; 20：</p>
 <table>
