@@ -846,6 +846,58 @@ int main()
     return 0;
 &#125;</code></pre>
 
+<h3 id="题目链接：同色环"><a href="#题目链接：同色环" class="headerlink" title="题目链接：同色环"></a>题目链接：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/5148/">同色环</a></h3><p><strong>题意：</strong></p>
+<p>​		问 $n × m$ 的地图中，相同颜色的连通块是否有环？</p>
+<p><strong>解析：</strong></p>
+<p>​		其实挺经典的吧，但当时做的时候 $1$ 个小时没写出来。。。明明挺简单的，建议多练，此外这题还有一个<strong>并查集</strong>的做法，建议思考出来！</p>
+<p><mark> $dfs$ 解法：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n, m;
+    cin &gt;&gt; n &gt;&gt; m;
+
+    vector&lt;vector&lt;char&gt;&gt; g(n + 1, vector&lt;char&gt;(m + 1));
+
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        for (int j &#x3D; 1; j &lt;&#x3D; m; j++)
+            cin &gt;&gt; g[i][j];
+
+    int dx[] &#x3D; &#123;-1, 0, 1, 0&#125;, dy[] &#x3D; &#123;0, 1, 0, -1&#125;;
+    vector&lt;vector&lt;bool&gt;&gt; st(n + 1, vector&lt;bool&gt;(m + 1));
+    function&lt;bool(int, int, int)&gt; dfs &#x3D; [&amp;](int x, int y, int fa) -&gt; bool
+    &#123;
+        st[x][y] &#x3D; true;
+        for (int i &#x3D; 0; i &lt; 4; i++)
+        &#123;
+            if ((i ^ 2) &#x3D;&#x3D; fa)  continue;
+            int nx &#x3D; x + dx[i], ny &#x3D; y + dy[i];
+            if (nx &lt; 1 || ny &lt; 1 || nx &gt; n || ny &gt; m)   continue;
+            if (g[nx][ny] !&#x3D; g[x][y])   continue;
+            if (st[nx][ny]) return true;
+            if(dfs(nx, ny, i))   return true;
+        &#125;
+        return false;
+    &#125;;
+
+    bool ok &#x3D; false;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        for (int j &#x3D; 1; j &lt;&#x3D; m; j++)
+            if (!st[i][j])
+                if (dfs(i, j, -1))
+                    ok &#x3D; true;
+
+    cout &lt;&lt; (ok ? &quot;Yes\n&quot; : &quot;No\n&quot;);
+    return 0;
+&#125;</code></pre>
+
+
+
 <h2 id="码量者的题单"><a href="#码量者的题单" class="headerlink" title="码量者的题单"></a>码量者的题单</h2><h3 id="方格类题单"><a href="#方格类题单" class="headerlink" title="方格类题单"></a>方格类题单</h3><p><strong>西安邀请赛银牌题：</strong><a target="_blank" rel="noopener" href="https://qoj.ac/contest/1291/problem/6746">E. Merge the Rectangles</a></p>
 <p><strong>2023牛客暑期多校训练营4：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57358/H">Merge the squares!</a></p>
 <h2 id="练习数据结构手感"><a href="#练习数据结构手感" class="headerlink" title="练习数据结构手感"></a>练习数据结构手感</h2><p><mark>题单放送：</mark></p>
