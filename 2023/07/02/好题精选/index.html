@@ -1009,18 +1009,17 @@ int main()
 
 using namespace std;
 
-typedef pair&lt;int,int&gt; pii;
+typedef pair&lt;int, int&gt; pii;
 
-const int N &#x3D; 2e5 + 10,M &#x3D; N * 2;
-
-int n,idx;
-int h[N],e[M],w[N],ne[M];
-int cnt,id[N],nw[N],fa[N],sz[N],top[N],son[N],depth[N];
+const int N &#x3D; 2e5 + 10, M &#x3D; N * 2;
+int n;
+int h[N], e[M], w[M], ne[M], idx;
+int cnt, id[N], nw[N], fa[N], sz[N], top[N], son[N], depth[N];
 
 void init()
 &#123;
     idx &#x3D; cnt &#x3D; 0;
-    for(int i &#x3D; 0;i &lt;&#x3D; n + 1;i++)   
+    for (int i &#x3D; 0; i &lt;&#x3D; n + 1; i++)
     &#123;
         w[i] &#x3D; nw[i] &#x3D; id[i] &#x3D; son[i] &#x3D; depth[i] &#x3D; top[i] &#x3D; fa[i] &#x3D; 0;
         h[i] &#x3D; -1;
@@ -1029,153 +1028,158 @@ void init()
 
 struct Node
 &#123;
-    int l,r,sum;
-    int lmax,rmax,tmax;
-    int lmin,rmin,tmin;
+    int l, r, sum;
+    int lmax, rmax, tmax;
+    int lmin, rmin, tmin;
 &#125;tr[N &lt;&lt; 2];
 
 struct Query
 &#123;
     char op;
-    int u,v,x;
+    int u, v, x;
 &#125;q[N];
 
-void add(int a,int b)
+
+void add(int a, int b)
 &#123;
-    e[idx] &#x3D; b,ne[idx] &#x3D; h[a],h[a] &#x3D; idx++;
+    e[idx] &#x3D; b, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
 &#125;
 
-void dfs1(int u,int father,int dep)
+void dfs1(int u, int father, int dep)
 &#123;
-    fa[u] &#x3D; father,depth[u] &#x3D; dep,sz[u] &#x3D; 1;
+    fa[u] &#x3D; father, depth[u] &#x3D; dep, sz[u] &#x3D; 1;
 
-    for(int i &#x3D; h[u]; ~i;i &#x3D; ne[i])
+    for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i])
     &#123;
         int j &#x3D; e[i];
-        if(j &#x3D;&#x3D; father) continue;
-        dfs1(j,u,dep + 1);
+        if (j &#x3D;&#x3D; father)    continue;
+        dfs1(j, u, dep + 1);
         sz[u] +&#x3D; sz[j];
-        if(sz[son[u]] &lt; sz[j])  son[u] &#x3D; j;
+        if (sz[son[u]] &lt; sz[j]) son[u] &#x3D; j;
     &#125;
 &#125;
 
-void dfs2(int u,int t)
+void dfs2(int u, int t)
 &#123;
-    id[u] &#x3D; ++cnt,nw[cnt] &#x3D; w[u],top[u] &#x3D; t;
-    if(!son[u]) return;
-    dfs2(son[u],t);
-    for(int i &#x3D; h[u]; ~i;i &#x3D; ne[i])
+    id[u] &#x3D; ++ cnt, nw[cnt] &#x3D; w[u], top[u] &#x3D; t;
+    if (!son[u])    return;
+    dfs2(son[u], t);
+    for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i])
     &#123;
         int j &#x3D; e[i];
-        if(j &#x3D;&#x3D; fa[u] || j &#x3D;&#x3D; son[u])   continue;
-        dfs2(j,j);
-    &#125;
+        if (j &#x3D;&#x3D; fa[u] || j &#x3D;&#x3D; son[u])  continue;
+        dfs2(j, j);
+    &#125;   
 &#125;
 
-void pushup(Node&amp; u,Node&amp; l,Node&amp; r)
+void pushup(Node&amp; u, Node&amp; l, Node&amp; r)
 &#123;
     u.sum &#x3D; l.sum + r.sum;
-    u.lmin &#x3D; min(l.lmin,l.sum + r.lmin); 
-    u.rmin &#x3D; min(r.rmin,r.sum + l.rmin);
-    u.tmin &#x3D; min(&#123;l.tmin,r.tmin,l.rmin + r.lmin&#125;);
+    u.lmin &#x3D; min(l.lmin, l.sum + r.lmin);
+    u.rmin &#x3D; min(r.rmin, r.sum + l.rmin);
+    u.tmin &#x3D; min(&#123;l.tmin, r.tmin, l.rmin + r.lmin&#125;);
 
-    u.lmax &#x3D; max(l.lmax,l.sum + r.lmax);
-    u.rmax &#x3D; max(r.rmax,r.sum + l.rmax);
-    u.tmax &#x3D; max(&#123;l.tmax,r.tmax,l.rmax + r.lmax&#125;);
+    u.lmax &#x3D; max(l.lmax, l.sum + r.lmax);
+    u.rmax &#x3D; max(r.rmax, r.sum + l.rmax);
+    u.tmax &#x3D; max(&#123;l.tmax, r.tmax, l.rmax + r.lmax&#125;);
 &#125;
 
 void pushup(int u)
 &#123;
-    pushup(tr[u],tr[u &lt;&lt; 1],tr[u &lt;&lt; 1 | 1]);
+    pushup(tr[u], tr[u &lt;&lt; 1], tr[u &lt;&lt; 1 | 1]);
 &#125;
 
-void build(int u,int l,int r)
+void build(int u, int l, int r)
 &#123;
-    tr[u] &#x3D; &#123;l,r&#125;;
-    if(l &#x3D;&#x3D; r)  
+    tr[u] &#x3D; &#123;l, r&#125;;
+    if (l &#x3D;&#x3D; r)
     &#123;
         tr[u].sum &#x3D; nw[l];
-        tr[u].lmax &#x3D; tr[u].rmax &#x3D; nw[l],tr[u].tmax &#x3D; max(0,nw[l]);
-        tr[u].lmin &#x3D; tr[u].rmin &#x3D; nw[l],tr[u].tmin &#x3D; min(0,nw[l]);
+        tr[u].lmax &#x3D; tr[u].rmax &#x3D; nw[l], tr[u].tmax &#x3D; max(0, nw[l]);
+        tr[u].lmin &#x3D; tr[u].rmin &#x3D; nw[l], tr[u].tmin &#x3D; min(0, nw[l]);
     &#125;
-    else    
+    else
     &#123;
         int mid &#x3D; l + r &gt;&gt; 1;
-        build(u &lt;&lt; 1,l,mid),build(u &lt;&lt; 1 | 1,mid + 1,r);
+        build(u &lt;&lt; 1, l, mid), build(u &lt;&lt; 1 | 1, mid + 1, r);
         pushup(u);
     &#125;
 &#125;
 
-Node query(int u,int l,int r)
+Node query(int u, int l, int r)
 &#123;
-    if(tr[u].l &gt;&#x3D; l &amp;&amp; tr[u].r &lt;&#x3D; r)    return tr[u];
+    if (tr[u].l &gt;&#x3D; l &amp;&amp; tr[u].r &lt;&#x3D; r)   return tr[u];
     int mid &#x3D; tr[u].l + tr[u].r &gt;&gt; 1;
-    if(r &lt;&#x3D; mid)    return query(u &lt;&lt; 1,l,r);
-    else if(l &gt; mid)    return query(u &lt;&lt; 1 | 1,l,r);
+    if (r &lt;&#x3D; mid)   return query(u &lt;&lt; 1, l, r);
+    else if (l &gt; mid)   return query(u &lt;&lt; 1 | 1, l, r);
+    else
     &#123;
-        auto left &#x3D; query(u &lt;&lt; 1,l,r);
-        auto right &#x3D; query(u &lt;&lt; 1 | 1,l,r);
+        auto left &#x3D; query(u &lt;&lt; 1, l, r);
+        auto right &#x3D; query(u &lt;&lt; 1 | 1, l, r);
         Node res;
-        pushup(res,left,right);
+        pushup(res, left, right);
         return res;
     &#125;
 &#125;
 
-pii queryPath(int u,int v)
+pii queryPath(int u, int v)
 &#123;
-    Node t[2],ans;
-    t[0] &#x3D; t[1] &#x3D; &#123;0,0,0,0,0,0,0,0,0&#125;;
+    Node t[2], ans;
+    t[0] &#x3D; t[1] &#x3D; &#123;0, 0, 0, 0, 0, 0, 0, 0, 0&#125;;
     int flag &#x3D; 1;
     while (top[u] !&#x3D; top[v])
     &#123;
-        if(depth[top[u]] &lt; depth[top[v]])   swap(u,v),flag &#x3D; 1 - flag;
-        auto res &#x3D; query(1,id[top[u]],id[u]);
-        pushup(ans,res,t[flag]),t[flag] &#x3D; ans;
+        if (depth[top[u]] &lt; depth[top[v]])  swap(u ,v), flag &#x3D; 1 - flag;
+        auto res &#x3D; query(1, id[top[u]], id[u]);
+        pushup(ans, res, t[flag]), t[flag] &#x3D; ans;
         u &#x3D; fa[top[u]];
     &#125;
-
-    if(depth[u] &lt; depth[v]) swap(u,v),flag &#x3D; 1 - flag;
-    auto res &#x3D; query(1,id[v],id[u]);
-    pushup(ans,res,t[flag]),t[flag] &#x3D; ans;
-    swap(t[1].lmax,t[1].rmax);
-    swap(t[1].lmin,t[1].rmin);
-    pushup(ans,t[1],t[0]);
-    return &#123;ans.tmin,ans.tmax&#125;;
+    
+    if (depth[u] &lt; depth[v])    swap(u ,v), flag &#x3D; 1 - flag;
+    auto res &#x3D; query(1, id[v], id[u]);
+    pushup(ans, res, t[flag]), t[flag] &#x3D; ans;
+    swap(t[1].lmax, t[1].rmax);
+    swap(t[1].lmin, t[1].rmin);
+    pushup(ans, t[1], t[0]);
+    return &#123;ans.tmin, ans.tmax&#125;;
 &#125;
 
 void solve()
 &#123;
     cin &gt;&gt; n;
+
     init();
 
     int node &#x3D; 1;
     w[node] &#x3D; 1;
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
     &#123;
         char op;
-        int u,v,x;
+        int u, v, x;
         cin &gt;&gt; op;
-        if(op &#x3D;&#x3D; &#39;+&#39;)
+
+        if (op &#x3D;&#x3D; &#39;+&#39;)
         &#123;
             cin &gt;&gt; u &gt;&gt; x;
-            ++node;
+            ++ node;
             w[node] &#x3D; x;
-            add(u,node),add(node,u);
+            add(u, node), add(node, u);
         &#125;
         else    cin &gt;&gt; u &gt;&gt; v &gt;&gt; x;
-        q[i] &#x3D; &#123;op,u,v,x&#125;;
+        q[i] &#x3D; &#123;op, u, v, x&#125;;
     &#125;
 
-    dfs1(1,-1,1);
-    dfs2(1,1);
-    build(1,1,node);
+    dfs1(1, -1, 1);
+    dfs2(1, 1);
+    build(1, 1, node);
 
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
     &#123;
-        if(q[i].op &#x3D;&#x3D; &#39;?&#39;)
+        if (q[i].op &#x3D;&#x3D; &#39;?&#39;)
         &#123;
-            pii res &#x3D; queryPath(q[i].u,q[i].v);
-            if(q[i].x &gt;&#x3D; res.first &amp;&amp; q[i].x &lt;&#x3D; res.second) cout &lt;&lt; &quot;YES\n&quot;;
+            pii res &#x3D; queryPath(q[i].u, q[i].v);
+            if (q[i].x &gt;&#x3D; res.first &amp;&amp; q[i].x &lt;&#x3D; res.second)    cout &lt;&lt; &quot;YES\n&quot;;
             else    cout &lt;&lt; &quot;NO\n&quot;;
         &#125;
     &#125;
