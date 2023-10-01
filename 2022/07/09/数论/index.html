@@ -2004,12 +2004,12 @@ for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   std::cout &lt;&lt; res[i] &lt;&lt; &quo
 <li>(a * b) % p &#x3D; (a % p * b % p) % p</li>
 <li>($a^b$) % p &#x3D; ((a % p)$^b$) % p</li>
 </ul>
-<h3 id="向上取整转换为向下取整："><a href="#向上取整转换为向下取整：" class="headerlink" title="向上取整转换为向下取整："></a>向上取整转换为向下取整：</h3><p>$\lceil \frac{L}{P} \rceil$  &#x3D;  $\lfloor \frac{L + P - 1}{P} \rfloor $</p>
+<h3 id="一个点绕另一个点旋转某角度后的位置："><a href="#一个点绕另一个点旋转某角度后的位置：" class="headerlink" title="一个点绕另一个点旋转某角度后的位置："></a>一个点绕另一个点旋转某角度后的位置：</h3><h3 id="向上取整转换为向下取整："><a href="#向上取整转换为向下取整：" class="headerlink" title="向上取整转换为向下取整："></a>向上取整转换为向下取整：</h3><p>$\lceil \frac{L}{P} \rceil$  &#x3D;  $\lfloor \frac{L + P - 1}{P} \rfloor $</p>
 <ul>
 <li>这个公式对于：$\lceil\frac{-2}{2}\rceil &#x3D; -1$ 会出现问题，因为 $\lfloor\frac{-2 + 2 - 1}{2}\rfloor &#x3D; 0$，因此这个公式对于都是正数是成立，为了确保通用性，建议还是用函数来代替：<ul>
-<li>向上取整函数：<code>\ceil</code></li>
-<li>向下取整函数：<code>\floor</code></li>
-<li>四舍五入函数：<code>\round</code></li>
+<li>向上取整函数：<code>ceil()</code></li>
+<li>向下取整函数：<code>floor()</code></li>
+<li>四舍五入函数：<code>round()</code></li>
 </ul>
 </li>
 </ul>
