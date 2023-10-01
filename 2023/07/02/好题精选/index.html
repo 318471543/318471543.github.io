@@ -555,7 +555,6 @@ int main()
     
     return 0;
 &#125;</code></pre>
-
 <h3 id="讲解——Vampiric-Powers-anyone-："><a href="#讲解——Vampiric-Powers-anyone-：" class="headerlink" title="讲解——Vampiric Powers, anyone?："></a>讲解——Vampiric Powers, anyone?：</h3><p><strong>题意转化：</strong>给 $n$ 个数和对应的 $a_i$ ，求 $1$ ~ $n$ 区间中连续异或的最大值是多少？（子段连续异或和的最大值）</p>
 <p><strong>数据范围：</strong> $n \le 10^5$， $0 \le a_i &lt; 2^8$ 。</p>
 <p><mark>清除误区：</mark> <strong>区间异或和的最大值不能用线段树做！</strong>因为类比区间连续子段和的最大值来说：最大值与最大值的和结果是最大值，但是异或的最大值和异或的最大值合起来（异或）不一定就是最大值了！</p>
@@ -598,7 +597,6 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
-
 <p><mark>思路 2 参考代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -670,11 +668,10 @@ int main()
 
     return 0;
 &#125;</code></pre>
-
 <h2 id="经典永不过时"><a href="#经典永不过时" class="headerlink" title="经典永不过时"></a>经典永不过时</h2><h3 id="题目链接：G-The-Morning-Star"><a href="#题目链接：G-The-Morning-Star" class="headerlink" title="题目链接：G. The Morning Star"></a>题目链接：<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1850/problem/G">G. The Morning Star</a></h3><p><strong>题意：</strong></p>
-<p>​		给定 $n(n \le 10^5)$ 个点，问有多少个点对，在四条直线上。</p>
+<p>​        给定 $n(n \le 10^5)$ 个点，问有多少个点对，在四条直线上。</p>
 <p><strong>思路：</strong></p>
-<p>​		对于每个点，根据直线方程： $y - y_0 &#x3D; k(x - x_0)$，即 $y &#x3D; kx + b$，可以确定这个点在哪四条直线上。用map存四条直线即可（$first$：$k$, $second$：$b$）。最后统计答案就是：对于一条 $\ge 2$ 的点数（假设为 $n$）的直线，对答案的贡献为 $n × (n - 1)$。</p>
+<p>​        对于每个点，根据直线方程： $y - y_0 = k(x - x_0)$，即 $y = kx + b$，可以确定这个点在哪四条直线上。用map存四条直线即可（$first$：$k$, $second$：$b$）。最后统计答案就是：对于一条 $\ge 2$ 的点数（假设为 $n$）的直线，对答案的贡献为 $n × (n - 1)$。</p>
 <p><mark>代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -715,11 +712,10 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
-
 <h3 id="题目链接：E-Nastya-and-Potions"><a href="#题目链接：E-Nastya-and-Potions" class="headerlink" title="题目链接：E. Nastya and Potions"></a>题目链接：<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1851/problem/E">E. Nastya and Potions</a></h3><p><strong>题意：</strong></p>
-<p>​		一个炼术师在炼药，一种药需要其他几种药物来合成获取或直接购买，问每个药物最少花多少钱？</p>
+<p>​        一个炼术师在炼药，一种药需要其他几种药物来合成获取或直接购买，问每个药物最少花多少钱？</p>
 <p><strong>思路：</strong></p>
-<p>​		记忆化搜索。一个药物需要其他药物合成获取，则递归获取其他药物，有根据题目要求，没有环的存在，所以记忆化搜索，递归子结点的情况，然后和购买取个 $min$ 即可。这题比较典吧，当时被给到了一个<mark>记忆化搜索</mark>的 $idea$，然后就会了，不过回过头来，自己想的话，怎样才能想到用这个算法呢？</p>
+<p>​        记忆化搜索。一个药物需要其他药物合成获取，则递归获取其他药物，有根据题目要求，没有环的存在，所以记忆化搜索，递归子结点的情况，然后和购买取个 $min$ 即可。这题比较典吧，当时被给到了一个<mark>记忆化搜索</mark>的 $idea$，然后就会了，不过回过头来，自己想的话，怎样才能想到用这个算法呢？</p>
 <p><mark>代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -787,11 +783,10 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
-
 <h3 id="题目链接：Puzzle-Square-Jam"><a href="#题目链接：Puzzle-Square-Jam" class="headerlink" title="题目链接：Puzzle: Square Jam"></a>题目链接：<a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57363/E">Puzzle: Square Jam</a></h3><p><strong>题目要求做法：</strong></p>
-<p>​		将一个方格，每次用辗转相减法割去一个正方形，最终割法的方案（输出点的坐标和边长）。</p>
+<p>​        将一个方格，每次用辗转相减法割去一个正方形，最终割法的方案（输出点的坐标和边长）。</p>
 <p><strong>经典目的：</strong></p>
-<p>​		比较典吧，但是做的比较少，需要对这类题有经验，提高对方格类型的题目的接受度。</p>
+<p>​        比较典吧，但是做的比较少，需要对这类题有经验，提高对方格类型的题目的接受度。</p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -845,11 +840,10 @@ int main()
 
     return 0;
 &#125;</code></pre>
-
 <h3 id="题目链接：同色环"><a href="#题目链接：同色环" class="headerlink" title="题目链接：同色环"></a>题目链接：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/5148/">同色环</a></h3><p><strong>题意：</strong></p>
-<p>​		问 $n × m$ 的地图中，相同颜色的连通块是否有环？</p>
+<p>​        问 $n × m$ 的地图中，相同颜色的连通块是否有环？</p>
 <p><strong>解析：</strong></p>
-<p>​		其实挺经典的吧，但当时做的时候 $1$ 个小时没写出来。。。明明挺简单的，建议多练，此外这题还有一个<strong>并查集</strong>的做法，建议思考出来！</p>
+<p>​        其实挺经典的吧，但当时做的时候 $1$ 个小时没写出来。。。明明挺简单的，建议多练，此外这题还有一个<strong>并查集</strong>的做法，建议思考出来！</p>
 <p><mark> $dfs$ 解法：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -895,15 +889,14 @@ int main()
     cout &lt;&lt; (ok ? &quot;Yes\n&quot; : &quot;No\n&quot;);
     return 0;
 &#125;</code></pre>
-
 <h3 id="二进制拆位算贡献"><a href="#二进制拆位算贡献" class="headerlink" title="二进制拆位算贡献"></a>二进制拆位算贡献</h3><p><strong>推荐博客：</strong><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/647165385">一类二进制拆位算贡献的题目</a></p>
 <p><strong>问题描述：</strong></p>
 <ul>
-<li><p><strong>计算：</strong> $\sum_{i&#x3D;1}^{n}\sum_{j&#x3D;i}^{n}f(i,j)×(j-i+1)$，其中 $f(i,j) &#x3D; s[i] \bigoplus s[j - 1]$：</p>
+<li><p><strong>计算：</strong> $\sum<em>{i=1}^{n}\sum</em>{j=i}^{n}f(i,j)×(j-i+1)$，其中 $f(i,j) = s[i] \bigoplus s[j - 1]$：</p>
 </li>
 <li><p><strong>做法：</strong><mark>拆位</mark></p>
 </li>
-<li><p><strong>原式 &#x3D;</strong> $\sum_{i&#x3D;1}^{n}\sum_{j&#x3D;i}^{n}\sum_{k&#x3D;0}^{m}2^k×(bit_{ik}\neq bit_{(j-1)k})×(i-(j-1))$</p>
+<li><p><strong>原式 =</strong> $\sum<em>{i=1}^{n}\sum</em>{j=i}^{n}\sum<em>{k=0}^{m}2^k×(bit</em>{ik}\neq bit_{(j-1)k})×(i-(j-1))$</p>
 </li>
 <li><p><strong>时间复杂度：</strong>$O(nlogn)$</p>
 </li>
@@ -940,12 +933,14 @@ int main()
 
     cout &lt;&lt; res &lt;&lt; &#39;\n&#39;;
     return 0;
-&#125;</code></pre></li>
+&#125;</code></pre>
+</li>
 </ul>
 <p><strong>推荐题单：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1879/problem/D">D. Sum of XOR Functions</a></p>
 <h2 id="码量者的题单"><a href="#码量者的题单" class="headerlink" title="码量者的题单"></a>码量者的题单</h2><h3 id="方格类题单"><a href="#方格类题单" class="headerlink" title="方格类题单"></a>方格类题单</h3><p><strong>“蔚来杯”2022牛客暑期多校训练营4：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/33189/H">Wall Builder II</a></p>
 <p><strong>西安邀请赛银牌题：</strong><a target="_blank" rel="noopener" href="https://qoj.ac/contest/1291/problem/6746">E. Merge the Rectangles</a></p>
 <p><strong>2023牛客暑期多校训练营4：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57358/H">Merge the squares!</a></p>
+<p><strong>AtCoder Beginner Contest 322 D：</strong><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/abc322/tasks/abc322_d">D - Polyomino</a></p>
 <p><mark>西安邀请赛银牌题（$by\ jinagly$）：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include &lt;bits&#x2F;stdc++.h&gt;
 
@@ -1003,14 +998,11 @@ int main() &#123;
     
     return 0;
 &#125;</code></pre>
-
-
-
 <h3 id="练习数据结构手感"><a href="#练习数据结构手感" class="headerlink" title="练习数据结构手感"></a>练习数据结构手感</h3><p><mark>题单放送：</mark></p>
 <ul>
 <li><p><strong>线段树（最大连续子段和）：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/246/">你能回答这些问题吗</a></p>
 </li>
-<li><p><strong>树链剖分（树链剖分 + 最大 &#x2F; 最小连续子段和）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1843/problem/F2">F2. Omsk Metro (hard version)</a></p>
+<li><p><strong>树链剖分（树链剖分 + 最大 / 最小连续子段和）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1843/problem/F2">F2. Omsk Metro (hard version)</a></p>
 </li>
 </ul>
 <p><mark>代码参考：</mark></p>
@@ -1110,8 +1102,7 @@ int main()
 	
 	return 0;
 &#125;</code></pre>
-
-<h4 id="树链剖分（树链剖分-最大-最小连续子段和）："><a href="#树链剖分（树链剖分-最大-最小连续子段和）：" class="headerlink" title="树链剖分（树链剖分 + 最大 &#x2F; 最小连续子段和）："></a>树链剖分（树链剖分 + 最大 &#x2F; 最小连续子段和）：</h4><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<h4 id="树链剖分（树链剖分-最大-最小连续子段和）："><a href="#树链剖分（树链剖分-最大-最小连续子段和）：" class="headerlink" title="树链剖分（树链剖分 + 最大 / 最小连续子段和）："></a>树链剖分（树链剖分 + 最大 / 最小连续子段和）：</h4><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -1302,10 +1293,7 @@ int main()
 
     return 0;
 &#125;</code></pre>
-
-
-
-<h2 id="蓝桥杯精选"><a href="#蓝桥杯精选" class="headerlink" title="蓝桥杯精选"></a>蓝桥杯精选</h2><h3 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h3><h4 id="判断平年-闰年"><a href="#判断平年-闰年" class="headerlink" title="判断平年&#x2F;闰年"></a>判断平年&#x2F;闰年</h4><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;stdio.h&gt;
+<h2 id="蓝桥杯精选"><a href="#蓝桥杯精选" class="headerlink" title="蓝桥杯精选"></a>蓝桥杯精选</h2><h3 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h3><h4 id="判断平年-闰年"><a href="#判断平年-闰年" class="headerlink" title="判断平年/闰年"></a>判断平年/闰年</h4><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;stdio.h&gt;
 int main()
 &#123;
     &#x2F;*1、能被4整除，但不能别100整除
@@ -1317,7 +1305,6 @@ int main()
   if((year % 4 &#x3D;&#x3D; 0 &amp;&amp; year % 100 !&#x3D; 0) ||year % 400 &#x3D;&#x3D; 0);
 &#125;
 </code></pre>
-
 <h4 id="获取日期字符串"><a href="#获取日期字符串" class="headerlink" title="获取日期字符串"></a>获取日期字符串</h4><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1348,7 +1335,6 @@ int main()
 
 	return 0;
 &#125;</code></pre>
-
 <h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><h4 id="排列"><a href="#排列" class="headerlink" title="排列"></a>排列</h4><p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/844/">排列数字</a></p>
 <p><mark>手写全排列：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -1388,7 +1374,6 @@ int main()
     dfs(0);
     return 0;
 &#125;</code></pre>
-
 <p><mark>调用函数实现：</mark></p>
 <blockquote>
 <p>首先，请记住：next_permutation() 函数！</p>
@@ -1414,7 +1399,6 @@ int main()
     
     return 0;
 &#125;</code></pre>
-
 <h4 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h4><blockquote>
 <p>与排列所不同的是：需要按照顺序组合，即多加一个参数cur：表示当前要从第几个数开始，有了这种顺序后，就可以不用st数组判重了。</p>
 </blockquote>
@@ -1434,9 +1418,8 @@ int main()
         v.pop_back();
     &#125;
 &#125;&#x2F;&#x2F;如果用dfs(1,0)调用：表示数组元素从1开始,当前已经选了0个数。</code></pre>
-
 <h2 id="算法中的小技巧"><a href="#算法中的小技巧" class="headerlink" title="算法中的小技巧"></a>算法中的小技巧</h2><h3 id="技巧一：二维数组映射"><a href="#技巧一：二维数组映射" class="headerlink" title="技巧一：二维数组映射"></a>技巧一：二维数组映射</h3><p>对于点对的编号数值较大，想开二维数组判重，但是不能开太大？</p>
-<p><strong>问题案例：</strong>给点 $n$ 个点 $(n \le 10^5)$ ，有 $m$ 条边 $(u,v)$，由于不能加入重边，因此需要判重。而二维数组无法开太大，因此怎么办呢？(题目来源：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1177/">最大半连通子图</a>，<a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/1649748772841508875?type=7&page=0">L2-048 寻宝图</a>，其中：第一道题目需要用到该技巧，第二个题目开动态二维数组也可以，但也可以用该技巧练练手！)</p>
+<p><strong>问题案例：</strong>给点 $n$ 个点 $(n \le 10^5)$ ，有 $m$ 条边 $(u,v)$，由于不能加入重边，因此需要判重。而二维数组无法开太大，因此怎么办呢？(题目来源：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1177/">最大半连通子图</a>，<a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/1649748772841508875?type=7&amp;page=0">L2-048 寻宝图</a>，其中：第一道题目需要用到该技巧，第二个题目开动态二维数组也可以，但也可以用该技巧练练手！)</p>
 <p><strong>解决：</strong>将二维的点对映射成一个数，由于 $(u,v)$ 在 $10^5$ 以内，因此可以根据公式：$u × 1000000ll + v$ 计算出点对的哈希值，然后开一个 $unordered_set$ 来判重即可。</p>
 <h3 id="技巧二：判断-2-的幂次与完全平方数"><a href="#技巧二：判断-2-的幂次与完全平方数" class="headerlink" title="技巧二：判断 $2$ 的幂次与完全平方数"></a>技巧二：判断 $2$ 的幂次与完全平方数</h3><blockquote>
 <p><strong>判断一个数是否为 $2$ 的幂次？</strong></p>
@@ -1460,18 +1443,16 @@ bool check3(int x)
 &#123;
     return (x &amp; (x - 1)) &#x3D;&#x3D; 0;
 &#125;</code></pre>
-
 <blockquote>
 <p><strong>判断一个数是否为（完全）平方数？</strong></p>
-<p>将一个数 $n$ 开根号向下取整后得到 $x$，只需判断 $x^2 &#x3D;&#x3D; n$ 。</p>
+<p>将一个数 $n$ 开根号向下取整后得到 $x$，只需判断 $x^2 == n$ 。</p>
 </blockquote>
 <pre class="language-c++" data-language="c++"><code class="language-c++">bool check(ll n)
 &#123;
     ll x &#x3D; sqrt(n);
     return x * x &#x3D;&#x3D; n;
 &#125;</code></pre>
-
-<h3 id="技巧三：输出路径"><a href="#技巧三：输出路径" class="headerlink" title="技巧三：输出路径"></a>技巧三：输出路径</h3><h4 id="状态转移路径-最短路径："><a href="#状态转移路径-最短路径：" class="headerlink" title="状态转移路径 &#x2F; 最短路径："></a>状态转移路径 &#x2F; 最短路径：</h4><p><strong>题目灵感来源：</strong><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/1556843855285559296/exam/problems/1556843936151740419?type=7&page=0"><strong>变牛的最快方法</strong></a></p>
+<h3 id="技巧三：输出路径"><a href="#技巧三：输出路径" class="headerlink" title="技巧三：输出路径"></a>技巧三：输出路径</h3><h4 id="状态转移路径-最短路径："><a href="#状态转移路径-最短路径：" class="headerlink" title="状态转移路径 / 最短路径："></a>状态转移路径 / 最短路径：</h4><p><strong>题目灵感来源：</strong><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/1556843855285559296/exam/problems/1556843936151740419?type=7&amp;page=0"><strong>变牛的最快方法</strong></a></p>
 <p>该题目是最短编辑路径的变种，只不过加了个输出路径，这是一个关于二维点对的路径输出问题，一般都是逆序获取路径的（如果强行每次用容器将每个过程的路径记录下来，这样是会超内存的！），故总结如下：</p>
 <p><mark>一维路径模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">vector&lt;int&gt; pre(n + 1); &#x2F;&#x2F; 存储方式
@@ -1494,7 +1475,6 @@ while(t)
 reverse(path.begin(), path.end());
 for (auto x : path) &#x2F;&#x2F; 打印输出路径
     cout  &lt;&lt; x &lt;&lt; &quot; &quot;;</code></pre>
-
 <p><mark>二维路径模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">int state[N][N]; &#x2F;&#x2F; 当前点的操作是什么
 pii pre[N][N]; &#x2F;&#x2F; 二维点对转移
@@ -1507,7 +1487,6 @@ while(x || y)
     int t &#x3D; x;
     x &#x3D; pre[x][y].first, y &#x3D; pre[t][y].second;
 &#125;</code></pre>
-
 <p><mark>灵感题目代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -1623,7 +1602,6 @@ int main()
     for (auto x : res) cout &lt;&lt; x;
     return 0;
 &#125;</code></pre>
-
 <h2 id="天梯赛-OR-CAIP（原RoboCom）"><a href="#天梯赛-OR-CAIP（原RoboCom）" class="headerlink" title="天梯赛 OR CAIP（原RoboCom）"></a>天梯赛 OR CAIP（原RoboCom）</h2><blockquote>
 <p>常用小技巧：</p>
 <p>1、断言：assert();</p>
@@ -1635,7 +1613,7 @@ int main()
 <ul>
 <li>$assert();$ 括号内用为真的判断语句，如果为假，则会出现 $RE$ 的报错。</li>
 </ul>
-<ol start="2">
+<ol>
 <li><strong>随机数</strong></li>
 </ol>
 <ul>
@@ -1644,18 +1622,19 @@ int main()
 int rnd(int x) &#123; return mrand() % x;&#125;</code></pre>
 </li>
 <li><p>调用方式（举例如下）：</p>
-<pre class="language-c++" data-language="c++"><code class="language-c++">cout &lt;&lt; rnd(100);</code></pre></li>
+<pre class="language-c++" data-language="c++"><code class="language-c++">cout &lt;&lt; rnd(100);</code></pre>
+</li>
 </ul>
 <p><strong>3、大模拟思路：</strong></p>
 <ul>
 <li><p>明确存储容器</p>
 </li>
 <li><p>函数代码分工</p>
-<p>​		虽然这次 $2023RAICOM$ 国赛的模拟能写成来，但却太暴力了，导致超时。。。，即使分工明确又如何，算法思维又是多么的重要！</p>
+<p>​        虽然这次 $2023RAICOM$ 国赛的模拟能写成来，但却太暴力了，导致超时。。。，即使分工明确又如何，算法思维又是多么的重要！</p>
 <p>推荐几道这类比赛（天梯赛、$RAMCOM$）中经典的大模拟题目：</p>
-<p><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/1518582268930473984?type=7&page=1">插松枝</a></p>
-<p><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/1649748772841508872?type=7&page=1">堆宝塔</a></p>
-<p>还有一道是RAICOM国赛的第三题，很经典（因为太暴力会超时 $qwq$）。</p>
+<p><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/1518582268930473984?type=7&amp;page=1">插松枝</a></p>
+<p><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/1649748772841508872?type=7&amp;page=1">堆宝塔</a></p>
+<p>还有一道是RAICOM国赛的第三题，很经典（因为太暴力会超时 $qwq$），<strong>题目链接：</strong><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/1693095794755289088/exam/problems/1693095890628689922?type=7&amp;page=0">RC-u3 兰州拉面派餐系统</a></p>
 </li>
 </ul>
 <p><strong>4、图上两点之间的所有路径：</strong></p>
@@ -1688,8 +1667,8 @@ for (auto x : res)  cout &lt;&lt; x &lt;&lt; &quot; &quot;;</code></pre>
 </li>
 <li><p><mark>无向有环图两点间的路径（最短路径）：</mark></p>
 <p>可以用 $dijkstra$ 或 $bfs$ 预处理出两点的最短路径，跑 $dfs$ 并附带距离参数，如果距离超过最短路径则返回（剪枝），将每次的路径都存下来，在找到目的顶点的时候出来答案即可（不过这样的话，递归太深可能会出现<strong>段错误</strong>）。</p>
-<p>题目灵感来源：<a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/1556843855285559296/exam/problems/1556843936151740418?type=7&page=0">睿抗2022国赛-RC-u3 战利品分配</a></p>
-<p><mark>暴力解法（得分：20 &#x2F; 25）：</mark></p>
+<p>题目灵感来源：<a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/1556843855285559296/exam/problems/1556843936151740418?type=7&amp;page=0">睿抗2022国赛-RC-u3 战利品分配</a></p>
+<p><mark>暴力解法（得分：20 / 25）：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1782,7 +1761,8 @@ int main()
 
     cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
     return 0;
-&#125;</code></pre></li>
+&#125;</code></pre>
+</li>
 </ul>
 <h2 id="C-个人通用模板"><a href="#C-个人通用模板" class="headerlink" title="C++个人通用模板"></a>C++个人通用模板</h2><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -1822,7 +1802,6 @@ int main()
     cin.tie(nullptr)-&gt;sync_with_stdio(false);
     return 0;
 &#125;</code></pre>
-
 <h3 id="究极快读"><a href="#究极快读" class="headerlink" title="究极快读"></a>究极快读</h3><pre class="language-c++" data-language="c++"><code class="language-c++">namespace fastIO &#123;
     const int BUF_SIZE &#x3D; 1 &lt;&lt; 15;
     char buf[BUF_SIZE], * s &#x3D; buf, * t &#x3D; buf;
@@ -1851,7 +1830,6 @@ int main()
     &#125;
 &#125;
 using namespace fastIO;</code></pre>
-
 <h3 id="文件读写"><a href="#文件读写" class="headerlink" title="文件读写"></a>文件读写</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1865,7 +1843,6 @@ int main()
     fclose(stdout);
     return 0;
 &#125;</code></pre>
-
 <h3 id="高精度模板"><a href="#高精度模板" class="headerlink" title="高精度模板"></a>高精度模板</h3><pre class="language-c++" data-language="c++"><code class="language-c++">const int base &#x3D; 1000000000;
 const int base_digits &#x3D; 9;
 
@@ -2255,17 +2232,14 @@ struct bigint &#123;
 		return res;
 	&#125;
 &#125;;</code></pre>
-
-
-
 <h2 id="基本知识点"><a href="#基本知识点" class="headerlink" title="基本知识点"></a>基本知识点</h2><h3 id="计算空间大小"><a href="#计算空间大小" class="headerlink" title="计算空间大小"></a>计算空间大小</h3><p>$1e6$ 个 $chat$ 为 $1M$</p>
 <p>$1e6$ 个 $int$ 为 $4M$</p>
 <h2 id="在这里写个对拍！"><a href="#在这里写个对拍！" class="headerlink" title="在这里写个对拍！"></a>在这里写个对拍！</h2><p><strong>参考题目链接：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2/">01背包问题</a></p>
 <blockquote>
 <p>首先，正解和暴力解法仍需正常写，不必加任何与文件输入输出流相关的代码。</p>
 <p>而数据代码生成器：</p>
-<p>​	1、封装一个函数用来读文件写入随机数据，并关闭文件。</p>
-<p>​	2、主函数调用 $system()$ 去执行两份代码，并判断生成的结果是否一致（答案会在 $system$ 里面写入文件中）。</p>
+<p>​    1、封装一个函数用来读文件写入随机数据，并关闭文件。</p>
+<p>​    2、主函数调用 $system()$ 去执行两份代码，并判断生成的结果是否一致（答案会在 $system$ 里面写入文件中）。</p>
 </blockquote>
 <p><mark>文件共计7个：</mark></p>
 <ul>
@@ -2313,7 +2287,6 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
-
 <p><mark>随机数据生成器：generate_data.cpp</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -2342,9 +2315,6 @@ int main()
     fout.close();
     return 0;
 &#125;</code></pre>
-
-
-
 <p><mark>正解：std.cpp</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -2368,7 +2338,6 @@ int main()
     cout &lt;&lt; f[m] &lt;&lt; endl;
     return 0;
 &#125;</code></pre>
-
 <p><mark>暴力：bf.cpp</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
