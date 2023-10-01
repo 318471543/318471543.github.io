@@ -1005,6 +1005,108 @@ int main() &#123;
     return 0;
 &#125;</code></pre>
 
+<p><mark>AtCoder Beginner Contest 322 D：</mark></p>
+<blockquote>
+<p><strong>思路：</strong></p>
+<ul>
+<li><strong>暴力旋转平移：</strong><ul>
+<li>rotate函数：将 $n×n$ 的矩阵逆时针旋转公式：$s[i][j] &#x3D; s[3 - j][i]$ （即 $da,db,dc$ 循环）</li>
+<li>区间：$[-3, 3]$ 是用来进行平移操作的（即 $dxa,dya,dxb,dyb,dxc,dyc$ 循环）</li>
+</ul>
+</li>
+<li><strong>时间复杂度：</strong>$O(4^3×7^6)$</li>
+</ul>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    array&lt;string, 4&gt; a, b, c;
+    for (int i &#x3D; 0; i &lt; 4;i ++) cin &gt;&gt; a[i];
+    for (int i &#x3D; 0; i &lt; 4;i ++) cin &gt;&gt; b[i];
+    for (int i &#x3D; 0; i &lt; 4;i ++) cin &gt;&gt; c[i];
+
+    auto rotate &#x3D; [&amp;](array&lt;string, 4&gt;&amp; s) -&gt; void
+    &#123;
+        array&lt;string, 4&gt; t;
+        for (int i &#x3D; 0; i &lt; 4; i++)
+            for (int j &#x3D; 0; j &lt; 4; j++)
+                t[3 - j] +&#x3D; s[i][j];
+        s &#x3D; t;
+    &#125;;
+
+    for (int da &#x3D; 0; da &lt; 4; da++)
+    &#123;
+        for (int db &#x3D; 0; db &lt; 4; db++)
+        &#123;
+            for (int dc &#x3D; 0; dc &lt; 4; dc++)
+            &#123;
+                for (int dxa &#x3D; -3; dxa &lt;&#x3D; 3; dxa++)
+                &#123;
+                    for (int dya &#x3D; -3; dya &lt;&#x3D; 3; dya++)
+                    &#123;
+                        for (int dxb &#x3D; -3; dxb &lt;&#x3D; 3; dxb++)
+                        &#123;
+                            for (int dyb &#x3D; -3; dyb &lt;&#x3D; 3; dyb++)
+                            &#123;
+                                for (int dxc &#x3D; -3; dxc &lt;&#x3D; 3; dxc++)
+                                &#123;
+                                    for (int dyc &#x3D; -3; dyc &lt;&#x3D; 3; dyc++)
+                                    &#123;
+                                        array&lt;string, 4&gt; s;
+                                        s.fill(&quot;----&quot;);
+                                        bool ok &#x3D; true;
+                                        auto cover &#x3D; [&amp;](array&lt;string, 4&gt;&amp; t, int dx, int dy) -&gt; void
+                                        &#123;
+                                            for (int i &#x3D; 0; i &lt; 4; i++)
+                                                for (int j &#x3D; 0; j &lt; 4; j++)
+                                                &#123;
+                                                    int nx &#x3D; i + dx, ny &#x3D; j + dy;
+                                                    if (t[i][j] &#x3D;&#x3D; &#39;#&#39;)
+                                                    &#123;
+                                                        if (nx &lt; 0 || nx &gt;&#x3D; 4 || ny &lt; 0 || ny &gt;&#x3D; 4 || s[nx][ny] &#x3D;&#x3D; &#39;#&#39;)
+                                                        &#123;
+                                                            ok &#x3D; false;
+                                                        &#125;
+                                                        else    s[nx][ny] &#x3D; &#39;#&#39;;
+                                                    &#125;
+                                                &#125;
+                                        &#125;;
+
+                                        cover(a, dxa, dya);
+                                        cover(b, dxb, dyb);
+                                        cover(c, dxc, dyc);
+
+                                        for (int i &#x3D; 0; i &lt; 4; i++)
+                                        &#123;
+                                            if (s[i] !&#x3D; &quot;####&quot;) 
+                                                ok &#x3D; false;
+                                        &#125;
+                                        if (ok)
+                                        &#123;
+                                            return cout &lt;&lt; &quot;Yes\n&quot;,0;
+                                        &#125;
+                                    &#125;
+                                &#125;
+                            &#125;
+                        &#125;
+                    &#125;
+                &#125;
+                rotate(c);
+            &#125;
+            rotate(b);
+        &#125;
+        rotate(a);
+    &#125;
+
+    cout &lt;&lt; &quot;No\n&quot;;
+    return 0;
+&#125;</code></pre>
+
 
 
 <h3 id="练习数据结构手感"><a href="#练习数据结构手感" class="headerlink" title="练习数据结构手感"></a>练习数据结构手感</h3><p><mark>题单放送：</mark></p>
