@@ -1739,7 +1739,13 @@ a[2] &#x3D; 1;
 auto pa &#x3D; (unsigned long long*)&amp;a;
 a[65] &#x3D; 1;
 cout &lt;&lt; pa[0] &lt;&lt; &quot; &quot; &lt;&lt; pa[1];</code></pre>
-<h2 id="未分类的DP题单"><a href="#未分类的DP题单" class="headerlink" title="未分类的DP题单"></a>未分类的DP题单</h2><h3 id="类似状态机模型的DP：Box"><a href="#类似状态机模型的DP：Box" class="headerlink" title="类似状态机模型的DP：Box"></a><strong>类似状态机模型的DP：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57356/K">Box</a></h3><h3 id="DP-树状数组优化：三元上升子序列"><a href="#DP-树状数组优化：三元上升子序列" class="headerlink" title="DP + 树状数组优化：三元上升子序列"></a><strong>DP + 树状数组优化：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1637">三元上升子序列</a></h3><blockquote>
+<h2 id="未分类的DP题单"><a href="#未分类的DP题单" class="headerlink" title="未分类的DP题单"></a>未分类的DP题单</h2><p><strong>类似状态机模型的DP：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57356/K">Box</a></p>
+<p><strong>DP + 树状数组优化：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1637">三元上升子序列</a></p>
+<p><strong>非同寻常的DP定义：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1875/problem/D">D. Jellyfish and Mex</a></p>
+<p><strong>不太好想但又可以想到的DP定义：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/1625/C">C. Road Optimization</a></p>
+<hr>
+<p><mark><strong>讲解区：</strong></mark></p>
+<h3 id="类似状态机模型的DP：Box"><a href="#类似状态机模型的DP：Box" class="headerlink" title="类似状态机模型的DP：Box"></a><strong>类似状态机模型的DP：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57356/K">Box</a></h3><h3 id="DP-树状数组优化：三元上升子序列"><a href="#DP-树状数组优化：三元上升子序列" class="headerlink" title="DP + 树状数组优化：三元上升子序列"></a><strong>DP + 树状数组优化：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1637">三元上升子序列</a></h3><blockquote>
 <p><strong>状态定义：</strong>f[i] [j]：以 $a[j]$ 为结尾的长度为 $i$ 的上升子序列的个数</p>
 <p><strong>状态转移：</strong>$f[i][j]= \sum_{k&lt;j,a[k]&lt;a[j]}f[i-1][k]$</p>
 <p><strong>具体来说：</strong>在外层循环 $i$，建立一个树状数组，以 $a[k]$ 为下标存储 $f[i - 1][k]$ 的值。当内层循环到 $j$ 时，$f[i][j] += ask(a[j] - 1)$，然后在转移到下一个 $j$ 之前 $add(a[j], f[i - 1][j])$ 。$j$ 从小到大循环保证了 $k &lt; j$，查询 $f[i - 1][j - 1]$ 的前缀和保证了 $a[k] &lt; a[j]$。</p>
@@ -1851,6 +1857,60 @@ int main()
         
         cout &lt;&lt; f[0] &lt;&lt; &quot;\n&quot;;
     &#125;
+    return 0;
+&#125;</code></pre>
+<h3 id="不太好想但又可以想到的DP定义：C-Road-Optimization"><a href="#不太好想但又可以想到的DP定义：C-Road-Optimization" class="headerlink" title="不太好想但又可以想到的DP定义：C. Road Optimization"></a><strong>不太好想但又可以想到的DP定义：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/1625/C">C. Road Optimization</a></h3><blockquote>
+<p><strong>定义：</strong>$f[i][j]$：前 $i$ 个标志，第 $i$ 个标志未被移除，且已经移除了 $j$ 个标志的答案集合。</p>
+<p><strong>转移：</strong>枚举前一个位置 $k$ ：$f[i][j] = f[k][j - (i - 1 - k)] + (i - 1 - k) * v[k]$，其中 $(i - 1 - k)$ 是从 $k$ 到 $i$ 位置内，所有的移除个数。</p>
+<p><strong>时间复杂度：</strong>$O(n^3)$</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+void solve()
+&#123;
+    int n, m, k;
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; k;
+
+    vector&lt;int&gt; d(n + 2);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; d[i];
+    d[n + 1] &#x3D; m;
+
+    vector&lt;ll&gt; v(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; v[i];
+
+    vector&lt;vector&lt;ll&gt;&gt; f(n + 2, vector&lt;ll&gt;(n + 1, 1e18));
+    f[1][0] &#x3D; 0;
+    for (int i &#x3D; 2; i &lt;&#x3D; n + 1; i++)
+    &#123;
+        for (int j &#x3D; 0; j &lt;&#x3D; k; j++)
+        &#123;
+            for (int z &#x3D; 1;z &lt;&#x3D; i - 1; z++)
+            &#123;
+                int t &#x3D; i - 1 - z;
+                ll w &#x3D; v[z] * (d[i] - d[z]);
+                if (t &gt; j)  continue;
+                f[i][j] &#x3D; min(f[i][j], f[z][j - t] + w);
+            &#125;
+        &#125;
+    &#125;
+
+    ll res &#x3D; 1e18;
+    for (int i &#x3D; 0; i &lt;&#x3D; k; i++)
+        res &#x3D; min(res, f[n + 1][i]);
+
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    solve();
+    
     return 0;
 &#125;</code></pre>
 
