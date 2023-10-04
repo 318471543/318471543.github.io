@@ -1406,6 +1406,60 @@ int main()
     return 0;
 &#125;</code></pre>
 
+<h2 id="思维好题"><a href="#思维好题" class="headerlink" title="思维好题"></a>思维好题</h2><p><mark>题单：</mark></p>
+<ol>
+<li><p><strong>2022ECfinal 第一道签到题（待补…）：</strong><a target="_blank" rel="noopener" href="https://www.matiji.net/exam/brushquestion/12/4316/2B23D2979B4DD4032DFFD3E38ECB93D5">2022ECfinal M Dining Professors</a></p>
+</li>
+<li><p><strong>思维（构造、分类讨论） + 贪心：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1873/problem/G">G. ABBC or BACB</a></p>
+</li>
+</ol>
+<p><mark>2.代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+void solve()
+&#123;
+    string s;
+    cin &gt;&gt; s;
+
+    int cnta &#x3D; 0, cntb &#x3D; 0;
+    vector&lt;int&gt; v;
+    for (int i &#x3D; 0; i &lt; s.size(); i++)
+    &#123;
+        if (s[i] &#x3D;&#x3D; &#39;A&#39;)
+        &#123;
+            cnta ++;
+        &#125;
+        else
+        &#123;
+            v.push_back(cnta);
+            cnta &#x3D; 0;
+            cntb ++;
+        &#125;
+    &#125;
+    if (cnta)   v.push_back(cnta);
+    
+    sort(v.begin(), v.end());
+
+    int res &#x3D; accumulate(v.begin(), v.end(), 0);
+    res -&#x3D; (cntb &gt;&#x3D; v.size() ? 0 : v[0]);
+    cout &lt;&lt; res &lt;&lt; &#39;\n&#39;;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+    int t;
+    cin &gt;&gt; t;
+
+    while (t--)
+    &#123;
+        solve();
+    &#125;
+    return 0;
+&#125;</code></pre>
+
 
 
 <h2 id="蓝桥杯精选"><a href="#蓝桥杯精选" class="headerlink" title="蓝桥杯精选"></a>蓝桥杯精选</h2><h3 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h3><h4 id="判断平年-闰年"><a href="#判断平年-闰年" class="headerlink" title="判断平年&#x2F;闰年"></a>判断平年&#x2F;闰年</h4><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;stdio.h&gt;
