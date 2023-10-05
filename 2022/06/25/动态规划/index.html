@@ -1214,11 +1214,12 @@ int main()
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/284/">石子合并</a></p>
 <h2 id="计数类DP"><a href="#计数类DP" class="headerlink" title="计数类DP"></a>计数类DP</h2><blockquote>
 <p><strong>问题描述：</strong>一个正整数 $n$ 可以表示成若干个正整数之和，形如：$n&#x3D;n_1+n_2+…+n_k$，其中 $n_1 \ge n_2 \ge …\ge n_k$。</p>
+<p><strong>数据范围：</strong> $1 \le n \le 1000$</p>
 </blockquote>
 <p><strong>解法一：</strong></p>
 <blockquote>
 <p>完全背包思想，前 $n$ 个数，每个数选任意个，组成数字 $j$ 的方案。</p>
-<p>故:f[i] [j] &#x3D; f[i - 1] [j] + f[i] [j - i]</p>
+<p>故：$f[i][j] &#x3D; f[i - 1][j] + f[i][j - i]$</p>
 </blockquote>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -1242,12 +1243,14 @@ int main()
     return 0;
 &#125;</code></pre>
 
+<p><strong>解法二：</strong></p>
 <blockquote>
-<p>定义f[i] [j]:总和为i，由j个数组成的所有方案数。</p>
-<p>f[i] [j]可以不重不漏的划分为两大类:</p>
-<p>1、最小值为1 -&gt; f[i - 1] [j - 1]</p>
-<p>2、最小值大于1 -&gt; f[i - j] [j]</p>
-<p>故f[i] [j] &#x3D; f[i - 1] [j - 1] + f[i - j] [j]。</p>
+<p>定义$f[i][j]$：总和为 $i$ ，由 $j$ 个数组成的所有方案数。</p>
+<p>$f[i][j]$ 可以不重不漏的划分为两大类:</p>
+<p>1、最小值为1： $f[i - 1][j - 1]$</p>
+<p>2、最小值大于1：$f[i - j][j]$</p>
+<p>注：由于分成的两大类是不重不漏的，所以对应的最小值大于 $1$ 的情况是合理的。</p>
+<p>故：$f[i][j] &#x3D; f[i - 1][j - 1] + f[i - j][j]$。</p>
 </blockquote>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -1278,7 +1281,104 @@ int main()
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题（完全背包）：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/902/">整数划分</a></p>
 <p><strong>蓝桥杯真题（01背包）：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/3420/">砝码称重</a></p>
+<p><strong>2022年蓝桥杯C++B组国赛：</strong><a target="_blank" rel="noopener" href="https://www.lanqiao.cn/problems/2186/learning/?first_category_id=1&page=1&sort=students_count&second_category_id=3&name=2022">2022</a></p>
 <p><strong>DP（类似背包优化） + 计数：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/909/problem/C">C. Python Indentation</a></p>
+<p><mark>2022年蓝桥杯C++B组国赛 2022 讲解：</mark></p>
+<blockquote>
+<p>题意：将 $2022$ 拆分成 $10$ 个互不相同的正整数之和，问有几种拆分方法？</p>
+<p>思路：</p>
+<ul>
+<li>定义 $dp[i][j][k]$：前 $i$ 个数，用了 $j$ 个数，且总和为 $k$ 的方案数。</li>
+<li>集合划分：第 $i$ 个数选 &#x2F; 不选：</li>
+</ul>
+<ol>
+<li>选：$dp[i][j][k] &#x3D; dp[i - 1][j - 1][k - i]$</li>
+<li>不选：$dp[i][j][k] &#x3D; dp[i - 1][j][k]$</li>
+</ol>
+<ul>
+<li>答案即为：$dp[2022][10][2022]$。</li>
+</ul>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n &#x3D; 2022, m &#x3D; 10;
+    
+    vector&lt;vector&lt;vector&lt;ll&gt;&gt;&gt; f(n + 1, vector&lt;vector&lt;ll&gt;&gt;(m + 1, vector&lt;ll&gt;(n + 1)));
+    &#x2F;*
+    f[i][j][k]: 前 i 个数，选了 j 个数，总和为 k 的方案数。
+    集合划分：第 i 个数选与不选。
+    *&#x2F;
+    for (int i &#x3D; 0; i &lt;&#x3D; n; i++) &#x2F;&#x2F; 初始化，前 i 个数，选了 0 个数，总和为 0 的方案数为 1。
+        f[i][0][0] &#x3D; 1;
+
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        for (int j &#x3D; 1; j &lt;&#x3D; m; j++)
+            for (int k &#x3D; 1; k &lt;&#x3D; n; k++)
+            &#123;
+                if (i &gt;&#x3D; j)
+                &#123;
+                    f[i][j][k] &#x3D; f[i - 1][j][k];
+                    if (k &gt;&#x3D; i)
+                    &#123;
+                        f[i][j][k] +&#x3D; f[i - 1][j - 1][k - i];
+                    &#125;
+                &#125;
+            &#125;
+
+    cout &lt;&lt; f[n][m][n] &lt;&lt; &quot;\n&quot;;
+    
+    return 0;
+&#125;</code></pre>
+
+<p><strong>优化一维后：</strong></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n &#x3D; 2022, m &#x3D; 10;
+    
+    &#x2F;&#x2F; vector&lt;vector&lt;vector&lt;ll&gt;&gt;&gt; f(n + 1, vector&lt;vector&lt;ll&gt;&gt;(m + 1, vector&lt;ll&gt;(n + 1)));
+    vector&lt;vector&lt;ll&gt;&gt; f(m + 1, vector&lt;ll&gt;(n + 1));
+    &#x2F;*
+    f[i][j][k]: 前 i 个数，选了 j 个数，总和为 k 的方案数。
+    集合划分：第 i 个数选与不选。
+    *&#x2F;
+    f[0][0] &#x3D; 1;
+
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        for (int j &#x3D; m; j &gt;&#x3D; 1; j--)
+            for (int k &#x3D; 1; k &lt;&#x3D; n; k++)
+            &#123;
+                if (i &gt;&#x3D; j)
+                &#123;
+                    if (k &gt;&#x3D; i)
+                    &#123;
+                        f[j][k] +&#x3D; f[j - 1][k - i];
+                    &#125;
+                &#125;
+            &#125;
+
+    cout &lt;&lt; f[m][n] &lt;&lt; &quot;\n&quot;;
+    
+    return 0;
+&#125;</code></pre>
+
+
+
 <h2 id="数位DP"><a href="#数位DP" class="headerlink" title="数位DP"></a>数位DP</h2><blockquote>
 <p>数位 DP 问题一般给定一个区间 [L,R]，问区间满足的条件的数有多少个。</p>
 <p>可以利用前缀和来求解答案：$∑_{i&#x3D;1}^Rans_i−∑_{i&#x3D;1}^{L−1}ans_i$</p>
