@@ -1244,23 +1244,23 @@ bool segment_intersection(Line&lt;T&gt; l1, Line&lt;T&gt; l2) &#123; &#x2F;&#x2F
     T c3 &#x3D; cross(l2.b - l2.a, l1.b - l2.a), c4 &#x3D; cross(l2.b - l2.a, l1.a - l2.a);
     return sign(c1) * sign(c2) &lt;&#x3D; 0 &amp;&amp; sign(c3) * sign(c4) &lt;&#x3D; 0;
 &#125;</code></pre>
-<h2 id="极角排序"><a href="#极角排序" class="headerlink" title="极角排序"></a>极角排序</h2><p><mark>模板题：</mark><a target="_blank" rel="noopener" href="https://codeforces.com/contest/598/problem/C">C. Nearest vectors</a></p>
-<p><strong>第一种方法：</strong>利用<code>atan2(y,x)</code>函数直接计算<code>(x,y)</code>的极角，其值域为 (−π,π] 。</p>
+<h2 id="极角排序"><a href="#极角排序" class="headerlink" title="极角排序"></a>极角排序</h2><blockquote>
+<p>利用<code>atan2(y,x)</code>函数直接计算<code>(x,y)</code>的极角，其值域为 (−π,π] 。</p>
+</blockquote>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
-const int N &#x3D; 1e5 + 10;
-const long double pi &#x3D; acos(-1);
+const long double eps &#x3D; 1e-20, pi &#x3D; acos(-1);
 
-struct Node
+template&lt;typename T&gt;
+struct Point
 &#123;
-    long double angle;
+    T angle;
     int id;
-    bool operator&lt;(const Node&amp; o)&#123;
-        return angle &lt; o.angle;
-    &#125;
-&#125;point[N];
+&#125;;
+
+using P &#x3D; Point&lt;long double&gt;;
 
 int main()
 &#123;
@@ -1269,33 +1269,38 @@ int main()
     int n;
     cin &gt;&gt; n;
 
-    for(int i &#x3D; 1,x,y;i &lt;&#x3D; n;i++)   
+    vector&lt;P&gt; a(n);
+    for (int i &#x3D; 0, x, y; i &lt; n; i++)    
     &#123;
         cin &gt;&gt; x &gt;&gt; y;
-        point[i] &#x3D; &#123;atan2(y,x),i&#125;;
+        a[i].angle &#x3D; atan2l(y, x);
+        a[i].id &#x3D; i + 1;
     &#125;
 
-    sort(point + 1,point + n + 1);
-    point[n + 1] &#x3D; point[1];&#x2F;&#x2F;特判最后一个和第一个
-    
-    int resx &#x3D; 0,resy &#x3D; 0;
-    long double res &#x3D; 1e18;
-    for(int i &#x3D; 2;i &lt;&#x3D; n + 1;i++)
+    sort(a.begin(), a.end(), [&amp;](P p1, P p2) -&gt; bool&#123;
+        return p1.angle &lt;&#x3D; p2.angle;
+    &#125;);
+
+    long double mn &#x3D; 1e9;
+    int resa &#x3D; -1, resb &#x3D; -1;
+    for (int i &#x3D; 0; i &lt; n; i++)
     &#123;
-        long double t &#x3D; point[i].angle - point[i - 1].angle;
-        if(t &lt; 0)   t +&#x3D; 2 * pi;&#x2F;&#x2F;最小角度的点减去最大角度的点时可能为负数,加上2pi即为夹角
-        if(t &lt; res)
+        long double c &#x3D; a[(i + 1) % n].angle - a[i].angle;
+        if (c &lt;&#x3D; 0)  c +&#x3D; 2 * pi;
+        if (c &lt;&#x3D; mn)
         &#123;
-            res &#x3D; t;
-            resx &#x3D; point[i].id,resy &#x3D; point[i - 1].id;
+            mn &#x3D; c;
+            resa &#x3D; a[i].id, resb &#x3D; a[(i + 1) % n].id;
         &#125;
     &#125;
 
-    cout &lt;&lt; resx &lt;&lt; &quot; &quot; &lt;&lt; resy &lt;&lt; &quot;\n&quot;;
+    cout &lt;&lt; resa &lt;&lt; &quot; &quot; &lt;&lt; resb &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
-<p><strong>第二种方法：</strong>是用叉乘和象限判断，待考古。。。</p>
-<p><strong>板题：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/53417/G">数四边形</a></p>
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/598/problem/C">C. Nearest vectors</a></p>
+<p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/53417/G">数四边形</a></p>
+<p><mark>数四边形代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
