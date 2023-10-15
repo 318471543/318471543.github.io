@@ -1619,11 +1619,75 @@ int main()
 <p><strong>中等交互题（cf rating：2200）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1867/problem/E2">E2. Salyg1n and Array (hard version)</a></p>
 <h2 id="思维好题"><a href="#思维好题" class="headerlink" title="思维好题"></a>思维好题</h2><p><mark>题单：</mark></p>
 <ol>
-<li><p><strong>2022ECfinal 第一道签到题（待补…）：</strong><a target="_blank" rel="noopener" href="https://www.matiji.net/exam/brushquestion/12/4316/2B23D2979B4DD4032DFFD3E38ECB93D5">2022ECfinal M Dining Professors</a></p>
-</li>
-<li><p><strong>思维（构造、分类讨论） + 贪心：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1873/problem/G">G. ABBC or BACB</a></p>
-</li>
+<li><strong>2022ECfinal 第一道签到题（待补…）：</strong><a target="_blank" rel="noopener" href="https://www.matiji.net/exam/brushquestion/12/4316/2B23D2979B4DD4032DFFD3E38ECB93D5">2022ECfinal M Dining Professors</a></li>
+<li><strong>思维（构造、分类讨论） + 贪心：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1873/problem/G">G. ABBC or BACB</a></li>
 </ol>
+<p><mark>1.分析：</mark></p>
+<blockquote>
+<p><strong>思路：</strong></p>
+<ul>
+<li>对于每个能吃辣的位置，在其前方三个位置+1，表示贡献；</li>
+<li>对这些位置上的贡献进行排序，贡献高的说明对辣的喜爱度也较高，则优先分配辣的；</li>
+<li>最后遍历一遍计算答案即可；</li>
+</ul>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n, m;
+    cin &gt;&gt; n &gt;&gt; m;
+
+    vector&lt;int&gt; a(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; a[i];
+
+    vector&lt;int&gt; b(n + 1);
+
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        if (a[i])
+        &#123;
+            b[i]++;
+            b[i % n + 1]++;
+            b[(i + n - 2) % n + 1]++;
+        &#125;
+    &#125;
+
+    vector&lt;int&gt; p(n + 1);
+    iota(p.begin() + 1, p.end(), 1);
+    sort(p.begin() + 1, p.end(), [&amp;](int i, int j) -&gt; bool&#123;
+        return b[i] &gt; b[j];
+    &#125;);
+
+    b.assign(n + 1, 0);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        if (i &lt;&#x3D; m) 
+            b[p[i]] &#x3D; 1;
+    &#125;
+
+    int res &#x3D; 0;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        int cur &#x3D; i, left &#x3D; (i + n - 2) % n + 1, right &#x3D; i % n + 1;
+
+        if (a[cur] &#x3D;&#x3D; 1)    res +&#x3D; 3;
+        else
+        &#123;
+            if (!b[cur])    res++;
+            if (!b[left])   res++;
+            if (!b[right])  res++;
+        &#125;
+    &#125;
+
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
 <p><mark>2.代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
