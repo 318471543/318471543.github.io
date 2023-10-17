@@ -2776,6 +2776,46 @@ struct bigint &#123;
 <li><code>int</code>：$2147483647$，即 $2e9$ 多，共 $10$ 位。</li>
 <li><code>long long</code>：$9223372036854775807$，即 $9e18$，共 $19$ 位。</li>
 </ul>
+<h3 id="计算区间内相同元素的区间下标和对应值"><a href="#计算区间内相同元素的区间下标和对应值" class="headerlink" title="计算区间内相同元素的区间下标和对应值"></a>计算区间内相同元素的区间下标和对应值</h3><blockquote>
+<p>即将类似字符串 $aabddccc$ 转换为：</p>
+<p>$[1,2] : a$</p>
+<p>$[3,3]: b$</p>
+<p>$[4,5]:d$</p>
+<p>$[6,8]:c$</p>
+<p>下面给出通用方法：</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    string s;
+    s &#x3D; &quot; abccdddc&quot;;
+
+    int n &#x3D; s.size() - 1;
+    
+    int pos &#x3D; 1;&#x2F;&#x2F; 记录开始下标
+    vector&lt;tuple&lt;int, int, char&gt;&gt; v;
+    for (int i &#x3D; 2; i &lt;&#x3D; n; i++) &#x2F;&#x2F; 从第二个开始
+    &#123;
+        if (s[i] !&#x3D; s[i - 1])
+        &#123;
+            v.push_back(&#123;pos, i - 1, s[i - 1]&#125;);
+            pos &#x3D; i;
+        &#125;
+    &#125;
+    v.push_back(&#123;pos, n, s[n]&#125;);
+
+    for (auto [x, y, z] : v)
+        cout &lt;&lt; x &lt;&lt; &quot; &quot; &lt;&lt; y &lt;&lt; &quot; &quot; &lt;&lt; z &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+
+
 <h2 id="在这里写个对拍！"><a href="#在这里写个对拍！" class="headerlink" title="在这里写个对拍！"></a>在这里写个对拍！</h2><p><strong>参考题目链接：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2/">01背包问题</a></p>
 <blockquote>
 <p>首先，正解和暴力解法仍需正常写，不必加任何与文件输入输出流相关的代码。</p>
