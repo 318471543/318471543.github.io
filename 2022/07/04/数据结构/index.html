@@ -3145,11 +3145,30 @@ int main() &#123;
 &#125;</code></pre>
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF786B">Legacy</a></p>
-<h2 id="ST表"><a href="#ST表" class="headerlink" title="ST表"></a>ST表</h2><blockquote>
+<h2 id="ST表"><a href="#ST表" class="headerlink" title="ST表"></a>ST表</h2><p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">vector&lt;vector&lt;int&gt;&gt; f(n + 1, vector&lt;int&gt;(22));
+vector&lt;int&gt; LG2(n + 1);
+auto _init &#x3D; [&amp;]() -&gt; void
+&#123;
+    LG2[1] &#x3D; 0;
+    for(int i &#x3D; 2;i &lt;&#x3D; n;i++)   LG2[i]  &#x3D;LG2[i &gt;&gt; 1] + 1;
+
+    for(int j &#x3D; 0;j &lt;&#x3D; LG2[n];j++)
+        for(int i &#x3D; 1;i + (1 &lt;&lt; j) - 1 &lt;&#x3D; n;i++)
+            if(!j)  f[i][j] &#x3D; a[i];
+            else    f[i][j] &#x3D; max(f[i][j - 1],f[i + (1 &lt;&lt; j - 1)][j - 1]);  
+    return ;
+&#125;;
+auto query &#x3D; [&amp;](int l, int r) -&gt; int
+&#123;
+    int k &#x3D; LG2[r - l + 1];
+    return max(f[l][k],f[r - (1 &lt;&lt; k) + 1][k]);
+&#125;;</code></pre>
+<blockquote>
 <p><strong>RMQ</strong>（Range Maximum/Minimum Query）问题，即区间最值查询问题，是指对于长度为 n 的数组a，查询数组a中下标在 [ i , j ] 里的最大值或最小值。</p>
 <p>ST算法是一个非常有名的在线处理RMQ问题的算法，它在 O ( n log ⁡ n ) 时间内进行预处理，然后可以在 O ( 1 )  时间内回答每个查询，其本质是倍增与动态规划的思想。要注意的是：ST算法只适用于静态区间求最值。</p>
 </blockquote>
-<p><mark>模板：</mark></p>
+<p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
 
 using namespace std;
