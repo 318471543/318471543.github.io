@@ -1657,6 +1657,86 @@ int main()
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/287/">没有上司的舞会</a></p>
 <p><strong>模板题的改版：</strong><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=7276">City Upgrading</a></p>
 <p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1746/problem/D">D. Paths on the Tree</a></p>
+<h2 id="换根DP"><a href="#换根DP" class="headerlink" title="换根DP"></a>换根DP</h2><blockquote>
+<p><strong>题意：</strong>给定一个 $n$ 个点的树，请求出一个结点，使得以这个结点为根时，所有结点的深度之和最大。</p>
+<p><strong>思路：</strong>两遍 $dfs$ 。</p>
+<p>第一遍 $dfs$ 用来预处理，处理每个子树的大小和每个点的深度；</p>
+<p>第二遍 $dfs$ 考虑状态转移，即体现 “换根“ 的地方。令 $f_u$ 为以 $u$ 为根时，所有结点的深度之和。</p>
+<p>$f_v \leftarrow f_u$  可以体现为换根，即以 $u$ 为根转移到以 $v$ 为根。显然在换根的转移过程中，以 $v$ 为根或以 $u$ 为根会导致其子树中的结点的深度产生改变。具体表现为：</p>
+<ul>
+<li>所有在 $u$ 的子树上的结点深度都减少了 $1$，那么总深度和就减少了 $s_v$；</li>
+<li>所有不在 $v$ 的子树上的结点深度都增加了 $1$，那么总深度和就增加了 $n - s_v$；</li>
+</ul>
+<p>因此，可以推出状态转移方程：$f_v = f_u - s_v + n - s_v = f_u + n - 2 × s_v$ 。</p>
+</blockquote>
+<p><mark>模板题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+int main()
+&#123;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+	int n;
+	cin &gt;&gt; n;
+
+	vector&lt;vector&lt;int&gt;&gt; adj(n + 1);
+	for (int i &#x3D; 1; i &lt; n; i++)
+	&#123;
+		int u, v;
+		cin &gt;&gt; u &gt;&gt; v;
+		adj[u].push_back(v);
+		adj[v].push_back(u);
+	&#125;
+
+	vector&lt;int&gt; sz(n + 1), depth(n + 1);
+	function&lt;int(int, int)&gt; dfs1 &#x3D; [&amp;](int u, int fa) -&gt; int
+	&#123;
+		sz[u] &#x3D; 1;
+		for (auto v : adj[u])
+		&#123;
+			if (v &#x3D;&#x3D; fa)	continue;
+			depth[v] &#x3D; depth[u] + 1;
+			sz[u] +&#x3D; dfs1(v, u);
+		&#125;
+		return sz[u];
+	&#125;;
+
+	dfs1(1, -1);
+
+	vector&lt;ll&gt; f(n + 1);
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)	f[1] +&#x3D; depth[i];
+	function&lt;void(int, int)&gt; dfs2 &#x3D; [&amp;](int u, int fa) -&gt; void
+	&#123;
+		for (auto v : adj[u])
+		&#123;
+			if (v &#x3D;&#x3D; fa)	continue;
+			f[v] &#x3D; f[u] - sz[v] + n - sz[v];
+			dfs2(v, u);
+		&#125;
+	&#125;;
+
+	dfs2(1, -1);
+
+	ll res &#x3D; 0, mx &#x3D; 0;
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+	&#123;
+		if (f[i] &gt; mx)
+		&#123;
+			res &#x3D; i;
+			mx &#x3D; f[i];
+		&#125;
+	&#125;
+	
+	cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+	return 0;
+&#125;</code></pre>
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3478">P3478 [POI2008] STA-Station</a></p>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104493/problem/C">C. Tree Permutation</a></p>
 <h2 id="期望DP"><a href="#期望DP" class="headerlink" title="期望DP"></a>期望DP</h2><p><strong>推荐题目：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/33186/I">Chiitoitsu</a></p>
 <h2 id="状态压缩DP"><a href="#状态压缩DP" class="headerlink" title="状态压缩DP"></a>状态压缩DP</h2><h3 id="蒙德里安的梦想"><a href="#蒙德里安的梦想" class="headerlink" title="蒙德里安的梦想"></a>蒙德里安的梦想</h3><p><strong>题目链接：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/293/">蒙德里安的梦想</a></p>
 <blockquote>
