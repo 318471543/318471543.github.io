@@ -2239,6 +2239,69 @@ auto pa &#x3D; (unsigned long long*)&amp;a;
 a[65] &#x3D; 1;
 cout &lt;&lt; pa[0] &lt;&lt; &quot; &quot; &lt;&lt; pa[1];</code></pre>
 
+<p><mark>推荐题单：</mark></p>
+<p>**$bitset$ 优化常数： ** <a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/contest/problem?cid=1095&pid=1007">foreverlasting and fried-chicken</a></p>
+<p><mark>foreverlasting and fried-chicken 代码如下：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+const int N &#x3D; 1010,mod &#x3D; 1000000007;
+
+ll C2[N],C4[N];
+
+void init()
+&#123;
+    for(ll i &#x3D; 4;i &lt; N;i++)
+        C4[i] &#x3D; (i * (i - 3) * (i - 2) * (i - 1) &#x2F; 24) % mod;
+
+    for(ll i &#x3D; 2;i &lt; N;i++)
+        C2[i] &#x3D; (i * (i - 1) &#x2F; 2) % mod;
+&#125;
+
+void solve()
+&#123;
+    int n,m;
+    cin &gt;&gt; n &gt;&gt; m;
+    bitset&lt;1100&gt; bit[1100];
+    while(m--)
+    &#123;
+        int a,b;
+        cin &gt;&gt; a &gt;&gt; b;
+        bit[a][b] &#x3D; bit[b][a] &#x3D; 1;
+    &#125;
+
+    ll res&#x3D;0;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        for (int j &#x3D; i+1; j &lt;&#x3D; n; j++)
+        &#123;
+            ll cnt &#x3D; (bit[i] &amp; bit[j]).count();
+            int t &#x3D; bit[i][j];
+            if(cnt &lt; 4 || t + cnt &lt; 4) continue;
+            res &#x3D; (res + C4[cnt] * (C2[bit[i].count() - 4 - t] + C2[bit[j].count() - 4 - t]) % mod) % mod;
+        &#125;
+    &#125;
+
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+    
+    init();
+    
+    int t;
+    cin &gt;&gt; t;
+
+    while(t--)  solve();
+
+    return 0;
+&#125;</code></pre>
+
 
 
 <h2 id="未分类的DP题单"><a href="#未分类的DP题单" class="headerlink" title="未分类的DP题单"></a>未分类的DP题单</h2><p><strong>类似状态机模型的DP：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57356/K">Box</a></p>
