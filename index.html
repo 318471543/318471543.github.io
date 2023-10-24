@@ -842,17 +842,12 @@ int st[N];
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                线性筛法模板代码：
-#include&lt;bits/stdc++.h>
-
-using namespace std;
-
-const int N = 1e8+10;
-
-int primes[N],cnt;
-bool st[N];
-
-void 
+                                线性筛法封装模板：
+vector&lt;int&gt; primes;
+void init(int n)
+&#123;
+	vector&lt;int&gt; st(n + 1);
+	for (int i &#x3D; 2; i &lt;&#
                             
                         </div>
                         <div class="publish-info">
@@ -902,7 +897,8 @@ void
 
 核心代码：
 for(int i &#x3D; 1; i&lt;&#x3D;n;i++)     s[i] &#x3D; s[i-1]+ a[i];
-一维异或和
+
+一维异或
                             
                         </div>
                         <div class="publish-info">
