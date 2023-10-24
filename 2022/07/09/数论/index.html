@@ -1355,21 +1355,105 @@ int main()
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/895/">集合-Nim游戏</a></p>
 <p><strong>练习打表：</strong><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=7287">Alice Game</a></p>
-<h2 id="矩阵快速幂"><a href="#矩阵快速幂" class="headerlink" title="矩阵快速幂"></a>矩阵快速幂</h2><p><strong>模板题：</strong></p>
-<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1962">斐波那契数列</a></p>
-<p><strong>下面是推导过程：</strong><br>$$<br>F_n &#x3D; \left[<br> \begin{matrix}<br>   f_{n} &amp; f_{n+1} \<br>  \end{matrix}<br>  \right]<br>$$</p>
+<h2 id="矩阵快速幂"><a href="#矩阵快速幂" class="headerlink" title="矩阵快速幂"></a>矩阵快速幂</h2><p><mark>封装 $2 × 2$ 矩阵乘法模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">ll mod;
+struct Matrix
+&#123;
+	ll a1, a2, b1, b2;
+	Matrix(ll _a1, ll _a2, ll _b1, ll _b2): a1(_a1), a2(_a2), b1(_b1), b2(_b2) &#123;&#125;
+	Matrix operator* (const Matrix &amp;y) &#123;
+		Matrix ans((a1 * y.a1 + a2 * y.b1) % mod,
+				   (a1 * y.a2 + a2 * y.b2) % mod,
+				   (b1 * y.a1 + b2 * y.b1) % mod,
+				   (b1 * y.a2 + b2 * y.b2) % mod);
+		return ans;
+	&#125;
+&#125;;
+
+Matrix fpow(Matrix a, ll n)
+&#123;
+	Matrix ans(1, 0, 0, 1);
+	while (n)
+	&#123;
+		if (n &amp; 1)	ans &#x3D; ans * a;
+		a &#x3D; a * a;
+		n &gt;&gt;&#x3D; 1;
+	&#125;
+	return ans;
+&#125;</code></pre>
+
+<p><strong>斐波那契数列——推导过程：</strong><br>$$<br>F_n &#x3D; \left[<br> \begin{matrix}<br>   f_{n} &amp; f_{n+1} \<br>  \end{matrix}<br>  \right]<br>$$</p>
 <p>$$<br>F_{n+1} &#x3D; \left[<br> \begin{matrix}<br>   f_{n+1} &amp; f_{n+2} \<br>  \end{matrix}<br>  \right]<br>$$</p>
 <p>$$<br>令 F_{n} * A &#x3D; F_{n+1}<br>$$</p>
 <p>$$<br>即\left[<br> \begin{matrix}<br>   f_{n} &amp; f_{n+1} \<br>  \end{matrix}<br>  \right]<br>  \left[<br> \begin{matrix}<br>   0 &amp; 1 \<br>   1 &amp; 1 \<br>  \end{matrix}<br>  \right]<br>   &#x3D; \left[<br> \begin{matrix}<br>   f_{n+1} &amp; f_{n+2} \<br>  \end{matrix}<br>  \right]<br>$$</p>
 <p>$$<br>故 F_{n} &#x3D; F_1 * A^{n-1}<br>$$</p>
 <p>$$<br>A &#x3D; \left[<br> \begin{matrix}<br>   0 &amp; 1 \<br>   1 &amp; 1 \<br>  \end{matrix}<br>  \right]<br>$$</p>
-<p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1305/">斐波那契前 n 项和</a></p>
-<p><strong>下面是推导过程：</strong><br>$$<br>F_n &#x3D; \left[<br> \begin{matrix}<br>   f_{n} &amp; f_{n+1} &amp; S_{n} \<br>  \end{matrix}<br>  \right]<br>$$</p>
+<p><strong>斐波那契前 n 项和——推导过程：</strong><br>$$<br>F_n &#x3D; \left[<br> \begin{matrix}<br>   f_{n} &amp; f_{n+1} &amp; S_{n} \<br>  \end{matrix}<br>  \right]<br>$$</p>
 <p>$$<br>F_{n+1} &#x3D; \left[<br> \begin{matrix}<br>   f_{n+1} &amp; f_{n+2} &amp; S_{n+1} \<br>  \end{matrix}<br>  \right]<br>$$</p>
 <p>$$<br>令 F_{n} * A &#x3D; F_{n+1}<br>$$</p>
 <p>$$<br>即\left[<br> \begin{matrix}<br>   f_{n} &amp; f_{n+1} &amp; S_{n}\<br>  \end{matrix}<br>  \right]<br>  \left[<br> \begin{matrix}<br>   0 &amp; 1 &amp; 0\<br>   1 &amp; 1 &amp; 1\<br>   0 &amp; 0 &amp; 1<br>  \end{matrix}<br>  \right]<br>   &#x3D; \left[<br> \begin{matrix}<br>   f_{n+1} &amp; f_{n+2} &amp; S_{n+1}\<br>  \end{matrix}<br>  \right]<br>$$</p>
 <p>$$<br>故 F_{n} &#x3D; F_1 * A^{n-1}<br>$$</p>
 <p>$$<br>A &#x3D; \left[<br> \begin{matrix}<br>   0 &amp; 1 &amp; 0\<br>   1 &amp; 1 &amp; 1\<br>   0 &amp; 0 &amp; 1<br>  \end{matrix}<br>  \right]<br>$$</p>
+<p><mark>推荐题单：</mark></p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1962">斐波那契数列</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1305/">斐波那契前 n 项和</a></p>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104728/problem/I">I. Fujisaki 讨厌数学</a></p>
+<p><mark>I. Fujisaki 讨厌数学 分析：</mark></p>
+<p><strong>推导公式：</strong></p>
+<p>定义 $F1,F2$ 如下：<br>$$<br>F1 &#x3D; \left[<br> \begin{matrix}<br>   x^1 + x^{-1} &amp; x^0+x^{-0} \<br>  \end{matrix}<br>  \right]<br>$$</p>
+<p>$$<br>F2 &#x3D; \left[<br> \begin{matrix}<br>   x^2 + x^{-2} &amp; x^1+x^{-1} \<br>  \end{matrix}<br>  \right]<br>$$</p>
+<p>则：<br>$$<br>F2 &#x3D; \left[<br> \begin{matrix}<br>   x^2 + x^{-2} &amp; x^1+x^{-1} \<br>  \end{matrix}<br>  \right] &#x3D; \left[<br> \begin{matrix}<br>   x^1 + x^{-1} &amp; x^0+x^{-0} \<br>  \end{matrix}<br>  \right]A\<br>  &#x3D; \left[\begin{matrix}x^1+x^{-1} &amp; x^0 + x^{-0}\end{matrix}\right]<br> \left[\begin{matrix}x^1 + x^{-1} &amp; 1<br> \<br> -1 &amp; 0\end{matrix}\right]<br> \<br> &#x3D; \left[\begin{matrix}x^1+x^{-1} &amp; x^0 + x^{-0}\end{matrix}\right]<br> \left[\begin{matrix}k &amp; 1<br> \<br> -1 &amp; 0\end{matrix}\right]<br> \<br>$$<br>如果转成：同为 $2 × 2$ 的矩阵与 $2 × 2$ 的矩阵相乘的话，代码会相对简短些，即改为：<br>$$<br>F_n &#x3D; F_1 × A^{n - 1} \<br>\left[\begin{matrix}x^n+x^{-n} &amp; x^{n - 1} + x^{-(n-1)}\<br>0 &amp; 0<br>\end{matrix}\right]&#x3D;<br>\left[\begin{matrix}k &amp; 2\<br>0 &amp; 0<br>\end{matrix}\right]<br> \left[\begin{matrix}k &amp; 1<br> \<br> -1 &amp; 0\end{matrix}\right]^{n-1}<br>$$<br><strong>代码如下：</strong></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+ll mod;
+struct Matrix
+&#123;
+	ll a1, a2, b1, b2;
+	Matrix(ll _a1, ll _a2, ll _b1, ll _b2): a1(_a1), a2(_a2), b1(_b1), b2(_b2) &#123;&#125;
+	Matrix operator* (const Matrix &amp;y) &#123;
+		Matrix ans((a1 * y.a1 + a2 * y.b1) % mod,
+				   (a1 * y.a2 + a2 * y.b2) % mod,
+				   (b1 * y.a1 + b2 * y.b1) % mod,
+				   (b1 * y.a2 + b2 * y.b2) % mod);
+		return ans;
+	&#125;
+&#125;;
+
+Matrix fpow(Matrix a, ll n)
+&#123;
+	Matrix ans(1, 0, 0, 1);
+	while (n)
+	&#123;
+		if (n &amp; 1)	ans &#x3D; ans * a;
+		a &#x3D; a * a;
+		n &gt;&gt;&#x3D; 1;
+	&#125;
+	return ans;
+&#125;
+
+int main()
+&#123;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+	ll m, k, n;
+	cin &gt;&gt; m &gt;&gt; k &gt;&gt; n;
+	mod &#x3D; m;
+	Matrix M(k, 2, 0, 0);
+	Matrix A(k, 1, -1, 0);
+
+	if (n &#x3D;&#x3D; 0)	return cout &lt;&lt; 2, 0;
+
+	M &#x3D; M * fpow(A, n - 1);
+	cout &lt;&lt; (M.a1 + mod) % mod &lt;&lt; &quot;\n&quot;;
+	return 0;
+&#125;</code></pre>
+
+
+
 <h2 id="数学期望"><a href="#数学期望" class="headerlink" title="数学期望"></a>数学期望</h2><p><mark>推荐题单：</mark></p>
 <p><strong>简单期望题：</strong><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/1705510247604809728/exam/problems/1705514248467492876?type=7&page=0">The 2023 ICPC Asia Regionals Online Contest (2) M Dirty Work</a></p>
 <p><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=7398">塔</a></p>

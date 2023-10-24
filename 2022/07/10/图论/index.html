@@ -2237,7 +2237,10 @@ depth[i]:表示深度
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1174/">祖孙询问</a></p>
 <h3 id="树上差分"><a href="#树上差分" class="headerlink" title="树上差分"></a>树上差分</h3><p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/354/">闇の連鎖</a></p>
-<h2 id="网络流"><a href="#网络流" class="headerlink" title="网络流"></a>网络流</h2><h3 id="EK算法求最大流"><a href="#EK算法求最大流" class="headerlink" title="EK算法求最大流"></a>EK算法求最大流</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<h2 id="网络流"><a href="#网络流" class="headerlink" title="网络流"></a>网络流</h2><h3 id="EK算法求最大流"><a href="#EK算法求最大流" class="headerlink" title="EK算法求最大流"></a>EK算法求最大流</h3><blockquote>
+<p><strong>时间复杂度：</strong>$O(nm^2)$</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -2306,167 +2309,510 @@ int main()
 
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2173/">EK求最大流</a></p>
-<h3 id="Dinic算法求最大流"><a href="#Dinic算法求最大流" class="headerlink" title="Dinic算法求最大流"></a>Dinic算法求最大流</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+<h3 id="Dinic算法求最大流"><a href="#Dinic算法求最大流" class="headerlink" title="Dinic算法求最大流"></a>Dinic算法求最大流</h3><blockquote>
+<p><strong>调用方式：</strong>创建即要确定四个参数：（总点数、总边数、源点、汇点）</p>
+<p><strong>时间复杂度：</strong>$O(n^2m)$</p>
+</blockquote>
+<p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;
+struct FlowGraph
+&#123;
+	int n, m, s, t, idx;
+	vector&lt;T&gt; f;
+	vector&lt;int&gt; h, e, ne, d, cur;
+
+	FlowGraph(int _n, int _m, int _s, int _t): n(_n), m(_m), s(_s), t(_t), idx(0) &#123;
+		d.resize(n + 1), cur.resize(n + 1), h.resize(n + 1, -1);
+		e.resize(2 * m + 1), ne.resize(2 * m + 1), f.resize(2 * m + 1);
+	&#125;
+
+	void addedge(int a, int b, T c) &#123;
+		e[idx] &#x3D; b, f[idx] &#x3D; c, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
+		e[idx] &#x3D; a, f[idx] &#x3D; 0, ne[idx] &#x3D; h[b], h[b] &#x3D; idx++;
+	&#125;
+
+	bool bfs() &#123;
+		queue&lt;int&gt; q;
+		q.push(s);
+		d.assign(n + 1, 0);
+		d[s] &#x3D; 1, cur[s] &#x3D; h[s];
+		while (!q.empty()) &#123;
+			int u &#x3D; q.front();
+			q.pop();
+			for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i]) &#123;
+				int j &#x3D; e[i];
+				if (f[i] &amp;&amp; !d[j]) &#123;
+					d[j] &#x3D; d[u] + 1;
+					cur[j] &#x3D; h[j];
+					if (j &#x3D;&#x3D; t)	return true;
+					q.push(j);
+				&#125;
+			&#125;
+	   &#125;
+	   return false;
+	&#125;
+
+	T dfs(int u, T limit) &#123;
+		if (u &#x3D;&#x3D; t)	return limit;
+		T flow &#x3D; 0;
+		for (int i &#x3D; cur[u]; ~i &amp;&amp; flow &lt; limit; i &#x3D; ne[i]) &#123;
+			cur[u] &#x3D; i;
+			int j &#x3D; e[i];
+			if (d[j] &#x3D;&#x3D; d[u] + 1 &amp;&amp; f[i]) &#123;
+				T k &#x3D; dfs(j, min(f[i], limit - flow));
+				if (!k)	d[j] &#x3D; -1;
+				f[i] -&#x3D; k, f[i ^ 1] +&#x3D; k, flow +&#x3D; k;
+			&#125;
+		&#125;
+		return flow;
+	&#125;
+
+	T dinic() &#123;
+	T flow &#x3D; 0;
+		while (bfs())	flow +&#x3D; dfs(s, numeric_limits&lt;T&gt;::max());
+		return flow;
+	&#125;
+&#125;;</code></pre>
+
+<p><mark>模板题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
-const int N &#x3D; 1e4 + 10,M &#x3D; 2e5 + 10,INF &#x3D; 1e8;
-int n,m,S,T;
-int h[N],e[M],f[M],ne[M],idx;
-int q[N],d[N],cur[N];
+typedef long long ll;
 
-void add(int a,int b,int c)
+template&lt;typename T&gt;
+struct FlowGraph
 &#123;
-    e[idx] &#x3D; b,f[idx] &#x3D; c,ne[idx] &#x3D; h[a],h[a] &#x3D; idx++;
-    e[idx] &#x3D; a,f[idx] &#x3D; 0,ne[idx] &#x3D; h[b],h[b] &#x3D; idx++;
-&#125;
+	int n, m, s, t, idx;
+	vector&lt;T&gt; f;
+	vector&lt;int&gt; h, e, ne, d, cur;
 
-bool bfs()
-&#123;
-    int hh &#x3D; 0,tt &#x3D; 0;
-    memset(d,-1,sizeof(d));
-    q[0] &#x3D; S,d[S] &#x3D; 0,cur[S] &#x3D; h[S];
-    while (hh &lt;&#x3D; tt)
-    &#123;
-        int t &#x3D; q[hh++];
-        for(int i &#x3D; h[t]; ~i;i &#x3D; ne[i])
-        &#123;
-            int ver &#x3D; e[i];
-            if(d[ver] &#x3D;&#x3D; -1 &amp;&amp; f[i])
-            &#123;
-                d[ver] &#x3D; d[t] + 1;
-                cur[ver] &#x3D; h[ver];
-                if(ver &#x3D;&#x3D; T)    return true;
-                q[++tt] &#x3D; ver;
-            &#125;
-        &#125;
-    &#125;
-    return false;
-&#125;
+	FlowGraph(int _n, int _m, int _s, int _t): n(_n), m(_m), s(_s), t(_t), idx(0) &#123;
+		d.resize(n + 1), cur.resize(n + 1), h.resize(n + 1, -1);
+		e.resize(2 * m + 1), ne.resize(2 * m + 1), f.resize(2 * m + 1);
+	&#125;
 
-int find(int u,int limit)&#x2F;&#x2F;其实是一个dfs函数
-&#123;
-    if(u &#x3D;&#x3D; T)  return limit;
-    int flow &#x3D; 0;
-    for(int i &#x3D; cur[u]; ~i &amp;&amp; flow &lt; limit;i &#x3D; ne[i])
-    &#123;
-        cur[u] &#x3D; i;&#x2F;&#x2F;当前弧优化
-        int ver &#x3D; e[i];
-        if(d[ver] &#x3D;&#x3D; d[u] + 1 &amp;&amp; f[i])
-        &#123;
-            int t &#x3D; find(ver,min(f[i],limit - flow));
-            if(!t)  d[ver] &#x3D; -1;
-            f[i] -&#x3D; t,f[i ^ 1] +&#x3D; t,flow +&#x3D; t;
-        &#125;
-    &#125;
-    return flow;
-&#125;
+	void addedge(int a, int b, T c) &#123;
+		e[idx] &#x3D; b, f[idx] &#x3D; c, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
+		e[idx] &#x3D; a, f[idx] &#x3D; 0, ne[idx] &#x3D; h[b], h[b] &#x3D; idx++;
+	&#125;
 
-int dinic()
-&#123;
-    int r &#x3D; 0,flow;
-    while(bfs())    while(flow &#x3D; find(S,INF))   r +&#x3D; flow;&#x2F;&#x2F;只要有增广路，就在当前建好残留网络的分层图里把所有能增广的路径
-    return r;&#x2F;&#x2F;全部搜索出来，然后把所有能增加的流量全部增加起来。
-&#125;
+	bool bfs() &#123;
+		queue&lt;int&gt; q;
+		q.push(s);
+		d.assign(n + 1, 0);
+		d[s] &#x3D; 1, cur[s] &#x3D; h[s];
+		while (!q.empty()) &#123;
+			int u &#x3D; q.front();
+			q.pop();
+			for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i]) &#123;
+				int j &#x3D; e[i];
+				if (f[i] &amp;&amp; !d[j]) &#123;
+					d[j] &#x3D; d[u] + 1;
+					cur[j] &#x3D; h[j];
+					if (j &#x3D;&#x3D; t)	return true;
+					q.push(j);
+				&#125;
+			&#125;
+	   &#125;
+	   return false;
+	&#125;
+
+	T dfs(int u, T limit) &#123;
+		if (u &#x3D;&#x3D; t)	return limit;
+		T flow &#x3D; 0;
+		for (int i &#x3D; cur[u]; ~i &amp;&amp; flow &lt; limit; i &#x3D; ne[i]) &#123;
+			cur[u] &#x3D; i;
+			int j &#x3D; e[i];
+			if (d[j] &#x3D;&#x3D; d[u] + 1 &amp;&amp; f[i]) &#123;
+				T k &#x3D; dfs(j, min(f[i], limit - flow));
+				if (!k)	d[j] &#x3D; -1;
+				f[i] -&#x3D; k, f[i ^ 1] +&#x3D; k, flow +&#x3D; k;
+			&#125;
+		&#125;
+		return flow;
+	&#125;
+
+	T dinic() &#123;
+	T flow &#x3D; 0;
+		while (bfs())	flow +&#x3D; dfs(s, numeric_limits&lt;T&gt;::max());
+		return flow;
+	&#125;
+&#125;;
 
 int main()
 &#123;
-    scanf(&quot;%d%d%d%d&quot;,&amp;n,&amp;m,&amp;S,&amp;T);
-    memset(h,-1,sizeof(h));
-    while (m--)
-    &#123;
-        int a,b,c;
-        scanf(&quot;%d%d%d&quot;,&amp;a,&amp;b,&amp;c);
-        add(a,b,c);
-    &#125;
-    
-    printf(&quot;%d\n&quot;,dinic());
-    return 0;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+	int n, m, s, t;
+	cin &gt;&gt; n &gt;&gt; m &gt;&gt; s &gt;&gt; t;
+	FlowGraph&lt;ll&gt; g(n, m, s, t);
+	for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
+	&#123;
+		int u, v, w;
+		cin &gt;&gt; u &gt;&gt; v &gt;&gt; w;
+		g.addedge(u, v, w);
+	&#125;
+
+	cout &lt;&lt; g.dinic();
+	return 0;
 &#125;</code></pre>
 
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2174/">Dinic&#x2F;ISAP求最大流</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/2183/">试题库问题</a></p>
+<p><strong>二分 + 网络流：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3425">POI2005 KOS-Dicing</a></p>
+<p><mark>试题库代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+template&lt;typename T&gt;
+struct FlowGraph
+&#123;
+	int n, m, s, t, idx;
+	vector&lt;T&gt; f;
+	vector&lt;int&gt; h, e, ne, d, cur;
+
+	FlowGraph(int _n, int _m, int _s, int _t): n(_n), m(_m), s(_s), t(_t), idx(0) &#123;
+		d.resize(n + 1), cur.resize(n + 1), h.resize(n + 1, -1);
+		e.resize(2 * m + 1), ne.resize(2 * m + 1), f.resize(2 * m + 1);
+	&#125;
+
+	void addedge(int a, int b, T c) &#123;
+		e[idx] &#x3D; b, f[idx] &#x3D; c, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
+		e[idx] &#x3D; a, f[idx] &#x3D; 0, ne[idx] &#x3D; h[b], h[b] &#x3D; idx++;
+	&#125;
+
+	bool bfs() &#123;
+		queue&lt;int&gt; q;
+		q.push(s);
+		d.assign(n + 1, 0);
+		d[s] &#x3D; 1, cur[s] &#x3D; h[s];
+		while (!q.empty()) &#123;
+			int u &#x3D; q.front();
+			q.pop();
+			for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i]) &#123;
+				int j &#x3D; e[i];
+				if (f[i] &amp;&amp; !d[j]) &#123;
+					d[j] &#x3D; d[u] + 1;
+					cur[j] &#x3D; h[j];
+					if (j &#x3D;&#x3D; t)	return true;
+					q.push(j);
+				&#125;
+			&#125;
+	   &#125;
+	   return false;
+	&#125;
+
+	T dfs(int u, T limit) &#123;
+		if (u &#x3D;&#x3D; t)	return limit;
+		T flow &#x3D; 0;
+		for (int i &#x3D; cur[u]; ~i &amp;&amp; flow &lt; limit; i &#x3D; ne[i]) &#123;
+			cur[u] &#x3D; i;
+			int j &#x3D; e[i];
+			if (d[j] &#x3D;&#x3D; d[u] + 1 &amp;&amp; f[i]) &#123;
+				T k &#x3D; dfs(j, min(f[i], limit - flow));
+				if (!k)	d[j] &#x3D; -1;
+				f[i] -&#x3D; k, f[i ^ 1] +&#x3D; k, flow +&#x3D; k;
+			&#125;
+		&#125;
+		return flow;
+	&#125;
+
+	T dinic() &#123;
+	T flow &#x3D; 0;
+		while (bfs())	flow +&#x3D; dfs(s, numeric_limits&lt;T&gt;::max());
+		return flow;
+	&#125;
+&#125;;
+
+int main()
+&#123;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+	int k, n;
+	cin &gt;&gt; k &gt;&gt; n;
+
+	int s &#x3D; n + k + 1, t &#x3D; n + k + 2;
+	FlowGraph&lt;ll&gt; g(n + k + 2, n + k + n * k, s, t);
+
+	int tot &#x3D; 0;
+	for (int i &#x3D; 1; i &lt;&#x3D; k; i++)
+	&#123;
+		int x;
+		cin &gt;&gt; x;
+		g.addedge(s, i, x);
+		tot +&#x3D; x;
+	&#125;
+
+	vector&lt;array&lt;int, 3&gt;&gt; edges;
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+	&#123;
+		g.addedge(i + k, t, 1);
+		int cnt;
+		cin &gt;&gt; cnt;
+		for (int j &#x3D; 1; j &lt;&#x3D; cnt; j++)
+		&#123;
+			int x;
+			cin &gt;&gt; x;
+			edges.push_back(&#123;x, i, g.idx&#125;);
+			g.addedge(x, i + k, 1);
+		&#125;
+	&#125;
+
+	if (tot !&#x3D; g.dinic())	cout &lt;&lt; &quot;No Solution!\n&quot;;
+	else
+	&#123;
+		vector&lt;vector&lt;int&gt;&gt; problems(k + 1);
+		for (auto [u, v, id] : edges)
+		&#123;
+			if (!g.f[id])
+			&#123;
+				problems[u].push_back(v);
+			&#125;
+		&#125;
+		for (int i &#x3D; 1; i &lt;&#x3D; k; i++)
+		&#123;
+			cout &lt;&lt; i &lt;&lt; &quot;: &quot;;
+			for (auto x : problems[i])
+				cout &lt;&lt; x &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; &quot;\n&quot;;
+		&#125;
+	&#125;
+	return 0;
+&#125;</code></pre>
+
+<p><mark>POI2005 KOS-Dicing 代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+template&lt;typename T&gt;
+struct FlowGraph
+&#123;
+	int n, m, s, t, idx;
+	vector&lt;T&gt; f;
+	vector&lt;int&gt; h, e, ne, d, cur;
+
+	FlowGraph(int _n, int _m, int _s, int _t): n(_n), m(_m), s(_s), t(_t), idx(0) &#123;
+		d.resize(n + 1), cur.resize(n + 1), h.resize(n + 1, -1);
+		e.resize(2 * m + 1), ne.resize(2 * m + 1), f.resize(2 * m + 1);
+	&#125;
+
+	void addedge(int a, int b, T c) &#123;
+		e[idx] &#x3D; b, f[idx] &#x3D; c, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
+		e[idx] &#x3D; a, f[idx] &#x3D; 0, ne[idx] &#x3D; h[b], h[b] &#x3D; idx++;
+	&#125;
+
+	bool bfs() &#123;
+		queue&lt;int&gt; q;
+		q.push(s);
+		d.assign(n + 1, 0);
+		d[s] &#x3D; 1, cur[s] &#x3D; h[s];
+		while (!q.empty()) &#123;
+			int u &#x3D; q.front();
+			q.pop();
+			for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i]) &#123;
+				int j &#x3D; e[i];
+				if (f[i] &amp;&amp; !d[j]) &#123;
+					d[j] &#x3D; d[u] + 1;
+					cur[j] &#x3D; h[j];
+					if (j &#x3D;&#x3D; t)	return true;
+					q.push(j);
+				&#125;
+			&#125;
+	   &#125;
+	   return false;
+	&#125;
+
+	T dfs(int u, T limit) &#123;
+		if (u &#x3D;&#x3D; t)	return limit;
+		T flow &#x3D; 0;
+		for (int i &#x3D; cur[u]; ~i &amp;&amp; flow &lt; limit; i &#x3D; ne[i]) &#123;
+			cur[u] &#x3D; i;
+			int j &#x3D; e[i];
+			if (d[j] &#x3D;&#x3D; d[u] + 1 &amp;&amp; f[i]) &#123;
+				T k &#x3D; dfs(j, min(f[i], limit - flow));
+				if (!k)	d[j] &#x3D; -1;
+				f[i] -&#x3D; k, f[i ^ 1] +&#x3D; k, flow +&#x3D; k;
+			&#125;
+		&#125;
+		return flow;
+	&#125;
+
+	T dinic() &#123;
+	T flow &#x3D; 0;
+		while (bfs())	flow +&#x3D; dfs(s, numeric_limits&lt;T&gt;::max());
+		return flow;
+	&#125;
+&#125;;
+
+int main()
+&#123;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+	int n, m;
+	cin &gt;&gt; n &gt;&gt; m;
+
+	vector&lt;pair&lt;int, int&gt;&gt; edges(m + 1);
+	for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
+		cin &gt;&gt; edges[i].first &gt;&gt; edges[i].second;
+
+	int l &#x3D; 0, r &#x3D; m;
+
+	auto check &#x3D; [&amp;](int mid) -&gt; bool
+	&#123;
+		int s &#x3D; n + m + 1, t &#x3D; n + m + 2;
+		FlowGraph&lt;ll&gt; g(t, 3 * m + n, s, t);
+		for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
+		&#123;
+			g.addedge(s, i, 1);
+			int u &#x3D; edges[i].first, v &#x3D; edges[i].second;
+			g.addedge(i, m + u, 1);
+			g.addedge(i, m + v, 1);
+		&#125;
+		for (int i &#x3D; 1; i &lt;&#x3D; n; i++)	g.addedge(m + i, t, mid);
+
+		return g.dinic() &#x3D;&#x3D; m;
+	&#125;;
+	while (l &lt; r)
+	&#123;
+		int mid &#x3D; l + r &gt;&gt; 1;
+		if (check(mid))	r &#x3D; mid;
+		else	l &#x3D; mid + 1;
+	&#125;
+	cout &lt;&lt; l &lt;&lt; &quot;\n&quot;;
+
+	int s &#x3D; n + m + 1, t &#x3D; n + m + 2;
+	FlowGraph&lt;ll&gt; g(t, 3 * m + n, s, t);
+	vector&lt;array&lt;int, 3&gt;&gt; used;
+	for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
+	&#123;
+		g.addedge(s, i, 1);
+		int u &#x3D; edges[i].first, v &#x3D; edges[i].second;
+		used.push_back(&#123;i, m + u, g.idx&#125;);
+		g.addedge(i, m + u, 1);
+		used.push_back(&#123;i, m + v, g.idx&#125;);
+		g.addedge(i, m + v, 1);
+	&#125;
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)	g.addedge(m + i, t, l);
+	
+	g.dinic();
+	for (int i &#x3D; 0; i &lt; used.size(); i +&#x3D; 2)
+	&#123;
+		auto [u, v, id] &#x3D; used[i];
+		if (!g.f[id])	cout &lt;&lt; 1 &lt;&lt; &#39;\n&#39;;
+		else	cout &lt;&lt; 0 &lt;&lt; &#39;\n&#39;;
+	&#125;
+	return 0;
+&#125;</code></pre>
+
+
+
 <h4 id="二分图匹配"><a href="#二分图匹配" class="headerlink" title="二分图匹配"></a>二分图匹配</h4><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
-const int N &#x3D; 110,M &#x3D; 5210,INF &#x3D; 1e8;
+typedef long long ll;
 
-int n,m,S,T;
-int h[N],e[M],f[M],ne[M],idx;
-int q[N],d[N],cur[N];
-
-void add(int a,int b,int c)
+template&lt;typename T&gt;
+struct FlowGraph
 &#123;
-    e[idx] &#x3D; b,f[idx] &#x3D; c,ne[idx] &#x3D; h[a],h[a] &#x3D; idx++;
-    e[idx] &#x3D; a,f[idx] &#x3D; 0,ne[idx] &#x3D; h[b],h[b] &#x3D; idx++;
-&#125;
+	int n, m, s, t, idx;
+	vector&lt;T&gt; f;
+	vector&lt;int&gt; h, e, ne, d, cur;
 
-bool bfs()
-&#123;
-    int hh &#x3D; 0,tt &#x3D; 0;
-    memset(d,-1,sizeof(d));
-    q[0] &#x3D; S,d[S] &#x3D; 0,cur[S] &#x3D; h[S];
-    while (hh &lt;&#x3D; tt)
-    &#123;
-        int t &#x3D; q[hh++];
-        for(int i &#x3D; h[t];~i;i &#x3D; ne[i])
-        &#123;
-            int j &#x3D; e[i];
-            if(d[j] &#x3D;&#x3D; -1 &amp;&amp; f[i])
-            &#123;
-                d[j] &#x3D; d[t] + 1;
-                cur[j] &#x3D; h[j];
-                if(j &#x3D;&#x3D; T)  return true;
-                q[++tt] &#x3D; j;
-            &#125;
-        &#125;
-    &#125;
-    return false;
-&#125;
+	FlowGraph(int _n, int _m, int _s, int _t): n(_n), m(_m), s(_s), t(_t), idx(0) &#123;
+		d.resize(n + 1), cur.resize(n + 1), h.resize(n + 1, -1);
+		e.resize(2 * m + 1), ne.resize(2 * m + 1), f.resize(2 * m + 1);
+	&#125;
 
-int find(int u,int limit)
-&#123;
-    if(u &#x3D;&#x3D; T)  return limit;
-    int flow &#x3D; 0;
-    for(int i &#x3D; cur[u]; ~i &amp;&amp; flow &lt; limit;i &#x3D; ne[i])
-    &#123;
-        cur[u] &#x3D; i;
-        int j &#x3D; e[i];
-        if(d[j] &#x3D;&#x3D; d[u] + 1 &amp;&amp; f[i])
-        &#123;
-            int t &#x3D; find(j,min(f[i],limit - flow));
-            if(!t)  d[j] &#x3D; -1;
-            f[i] -&#x3D; t,f[i ^ 1] +&#x3D; t,flow +&#x3D; t;
-        &#125;
-    &#125;
-    return flow;
-&#125;
+	void addedge(int a, int b, T c) &#123;
+		e[idx] &#x3D; b, f[idx] &#x3D; c, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
+		e[idx] &#x3D; a, f[idx] &#x3D; 0, ne[idx] &#x3D; h[b], h[b] &#x3D; idx++;
+	&#125;
 
-int dinic()
-&#123;
-    int r &#x3D; 0,flow;
-    while(bfs())    while(flow &#x3D; find(S,INF))   r +&#x3D; flow;
-    return r;
-&#125;
+	bool bfs() &#123;
+		queue&lt;int&gt; q;
+		q.push(s);
+		d.assign(n + 1, 0);
+		d[s] &#x3D; 1, cur[s] &#x3D; h[s];
+		while (!q.empty()) &#123;
+			int u &#x3D; q.front();
+			q.pop();
+			for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i]) &#123;
+				int j &#x3D; e[i];
+				if (f[i] &amp;&amp; !d[j]) &#123;
+					d[j] &#x3D; d[u] + 1;
+					cur[j] &#x3D; h[j];
+					if (j &#x3D;&#x3D; t)	return true;
+					q.push(j);
+				&#125;
+			&#125;
+	   &#125;
+	   return false;
+	&#125;
+
+	T dfs(int u, T limit) &#123;
+		if (u &#x3D;&#x3D; t)	return limit;
+		T flow &#x3D; 0;
+		for (int i &#x3D; cur[u]; ~i &amp;&amp; flow &lt; limit; i &#x3D; ne[i]) &#123;
+			cur[u] &#x3D; i;
+			int j &#x3D; e[i];
+			if (d[j] &#x3D;&#x3D; d[u] + 1 &amp;&amp; f[i]) &#123;
+				T k &#x3D; dfs(j, min(f[i], limit - flow));
+				if (!k)	d[j] &#x3D; -1;
+				f[i] -&#x3D; k, f[i ^ 1] +&#x3D; k, flow +&#x3D; k;
+			&#125;
+		&#125;
+		return flow;
+	&#125;
+
+	T dinic() &#123;
+	T flow &#x3D; 0;
+		while (bfs())	flow +&#x3D; dfs(s, numeric_limits&lt;T&gt;::max());
+		return flow;
+	&#125;
+&#125;;
 
 int main()
 &#123;
-    scanf(&quot;%d%d&quot;,&amp;m,&amp;n);
-    S &#x3D; 0,T &#x3D; n + 1;
-    memset(h,-1,sizeof(h));
-    for(int i &#x3D; 1;i &lt;&#x3D; m;i++)   add(S,i,1);
-    for(int i &#x3D; m + 1;i &lt;&#x3D; n;i++)   add(i,T,1);
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
 
-    int a,b;
-    while(cin &gt;&gt; a &gt;&gt; b,a !&#x3D; -1)    add(a,b,1);
+	int n, m;
+	cin &gt;&gt; n &gt;&gt; m;
 
-    printf(&quot;%d\n&quot;,dinic());
-    for(int i &#x3D; 0;i &lt; idx;i +&#x3D; 2)
-        if(e[i] &gt; m &amp;&amp; e[i] &lt;&#x3D; n &amp;&amp; !f[i])
-            printf(&quot;%d %d\n&quot;,e[i ^ 1],e[i]);
+	int s &#x3D; n + m + 1, t &#x3D; n + m + 2;
+	FlowGraph&lt;ll&gt; g(t, n + m + n * m * n, s, t);
 
-    return 0;
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+		g.addedge(s, i, 1);
+	
+	for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
+		g.addedge(i + n, t, 1);
+
+	int a, b;
+	vector&lt;array&lt;int, 3&gt;&gt; v;
+	while (cin &gt;&gt; a &gt;&gt; b, a !&#x3D; -1)
+	&#123;
+		v.push_back(&#123;a, b, g.idx&#125;);
+		g.addedge(a, n + b, 1);
+	&#125;
+
+	int tot &#x3D; g.dinic();
+
+	cout &lt;&lt; tot &lt;&lt; &quot;\n&quot;;
+	for (auto [x, y, id] : v)
+	&#123;
+		if (!g.f[id])	cout &lt;&lt; x &lt;&lt; &quot; &quot; &lt;&lt; y &lt;&lt; &#39;\n&#39;;
+	&#125;
+	return 0;
 &#125;</code></pre>
 
 <p><mark>推荐题单：</mark></p>
