@@ -2844,9 +2844,9 @@ struct MinCostGraph &#123;
         for (int i &#x3D; 0; i &lt;&#x3D; n; i++)    h[i] &#x3D; -1;
     &#125;
 
-    void addedge(int a, int b, T c, T d) &#123;
+    void addedge(int a, int b, T c, T d, T f2 &#x3D; 0) &#123;
         e[idx] &#x3D; b, f[idx] &#x3D; c, w[idx] &#x3D; d, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
-        e[idx] &#x3D; a, f[idx] &#x3D; 0, w[idx] &#x3D; -d, ne[idx] &#x3D; h[b], h[b] &#x3D; idx++;
+        e[idx] &#x3D; a, f[idx] &#x3D; f2, w[idx] &#x3D; -d, ne[idx] &#x3D; h[b], h[b] &#x3D; idx++;
     &#125;
 
     bool spfa() &#123;
@@ -3097,6 +3097,284 @@ int main()
 	auto res &#x3D; g1.EK(), ans &#x3D; g2.EK();
 	cout &lt;&lt; res.second &lt;&lt; &quot;\n&quot; &lt;&lt; -ans.second &lt;&lt; &quot;\n&quot;;
 	return 0;
+&#125;</code></pre>
+
+<h4 id="拆点技巧"><a href="#拆点技巧" class="headerlink" title="拆点技巧"></a>拆点技巧</h4><blockquote>
+<p><strong>步骤：</strong></p>
+<p>1、给每个点赋予一个编号 $id[i][j]$</p>
+<p>2、入点编号为：$id[i][j] × 2 - 1$，出点编号为：$id[i][j] × 2$</p>
+<p>3、源点编号：$s &#x3D; tot × 2 + 1$，汇点编号：$tot × 2 + 2$</p>
+</blockquote>
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2193/">数字梯形问题</a></p>
+<p><strong>2023年中国大学生程序设计竞赛女生专场：（有点细节还没搞懂）</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104725/problem/D">D. 金人旧巷市廛喧</a></p>
+<p><mark>模板题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+const int N &#x3D; 2010, M &#x3D; 5200 + 10;
+template&lt;typename T&gt;
+struct MinCostGraph &#123;
+	int n, s, t, idx;
+	T flow, cost;
+	bool st[N];
+	T d[N], incf[N], f[M &lt;&lt; 1], w[M &lt;&lt; 1];
+	int h[N], e[M &lt;&lt; 1], ne[M &lt;&lt; 1], pre[M &lt;&lt; 1];
+
+	void init(int _n, int _s, int _t) &#123;
+		n &#x3D; _n, s &#x3D; _s, t &#x3D; _t, idx &#x3D; 0;
+		for (int i &#x3D; 0; i &lt;&#x3D; n; i++)    h[i] &#x3D; -1;
+	&#125;
+
+	void addedge(int a, int b, T c, T d) &#123;
+		e[idx] &#x3D; b, f[idx] &#x3D; c, w[idx] &#x3D; d, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
+		e[idx] &#x3D; a, f[idx] &#x3D; 0, w[idx] &#x3D; -d, ne[idx] &#x3D; h[b], h[b] &#x3D; idx++;
+	&#125;
+
+	bool spfa() &#123;
+		T inf &#x3D; numeric_limits&lt;T&gt;::max() &#x2F; 2;
+		for (int i &#x3D; 0; i &lt;&#x3D; n; i++)
+			d[i] &#x3D; inf, incf[i] &#x3D; 0;
+
+		queue&lt;int&gt; q;
+		q.push(s), d[s] &#x3D; 0, incf[s] &#x3D; inf;
+		while (!q.empty()) &#123;
+			int u &#x3D; q.front();
+			q.pop();
+
+			st[u] &#x3D; false;
+
+			for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i]) &#123;
+				int j &#x3D; e[i];
+				if (f[i] &amp;&amp; d[j] &gt; d[u] + w[i]) &#123;
+					d[j] &#x3D; d[u] + w[i];
+					pre[j] &#x3D; i;
+					incf[j] &#x3D; min(f[i], incf[u]);
+						if (!st[j]) &#123;
+						q.push(j);
+						st[j] &#x3D; true;
+					&#125;
+				&#125;
+			&#125;
+		&#125;
+
+		return incf[t] &gt; 0;
+	&#125;
+
+	pair&lt;T, T&gt; EK() &#123;
+		flow &#x3D; cost &#x3D; 0;
+		while (spfa()) &#123;
+			T tf &#x3D; incf[t];
+			flow +&#x3D; tf, cost +&#x3D; tf * d[t];
+			for (int i &#x3D; t; i !&#x3D; s; i &#x3D; e[pre[i] ^ 1]) &#123;
+				f[pre[i]] -&#x3D; tf;
+				f[pre[i] ^ 1] +&#x3D; tf;
+			&#125;
+		&#125;
+		return &#123;flow, cost&#125;;
+	&#125;
+&#125;;
+MinCostGraph&lt;ll&gt; g1, g2, g3;
+
+int main()
+&#123;
+    int m, n;
+    cin &gt;&gt; m &gt;&gt; n;
+
+    vector&lt;vector&lt;int&gt;&gt; id(n + 1, vector&lt;int&gt;(m + n + 1));
+    int tot &#x3D; 0;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        for (int j &#x3D; 1; j &lt;&#x3D; m + i - 1; j++)
+        &#123;
+            id[i][j] &#x3D; ++tot;
+        &#125;
+    int s &#x3D; 2 * tot + 1, t &#x3D; 2 * tot + 2;
+    g1.init(t, s, t);
+    g2.init(t, s, t);
+    g3.init(t, s, t);
+
+    &#x2F;&#x2F; 源点向第一行连边
+    for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
+    &#123;
+        g1.addedge(s, id[1][i] * 2 - 1, 1, 0);
+        g2.addedge(s, id[1][i] * 2 - 1, 1, 0);
+        g3.addedge(s, id[1][i] * 2 - 1, 1, 0);
+    &#125;
+
+    &#x2F;&#x2F; 拆点连边
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        for (int j &#x3D; 1, x; j &lt;&#x3D; m + i - 1; j++)
+        &#123;
+            cin &gt;&gt; x;
+            g1.addedge(id[i][j] * 2 - 1, id[i][j] * 2, 1, -x);
+            g2.addedge(id[i][j] * 2 - 1, id[i][j] * 2, m, -x);
+            g3.addedge(id[i][j] * 2 - 1, id[i][j] * 2, m, -x);
+        &#125;
+
+    &#x2F;&#x2F; 出点向下连两条边
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        for (int j &#x3D; 1; j &lt;&#x3D; m + i - 1; j++)
+        &#123;
+            if (i &#x3D;&#x3D; n)
+            &#123;
+                g1.addedge(id[i][j] * 2, t, 1, 0);
+                g2.addedge(id[i][j] * 2, t, m, 0);
+                g3.addedge(id[i][j] * 2, t, m, 0);
+            &#125;
+            else
+            &#123;
+                g1.addedge(id[i][j] * 2, id[i + 1][j] * 2 - 1, 1, 0);
+                g1.addedge(id[i][j] * 2, id[i + 1][j + 1] * 2 - 1, 1, 0);
+                g2.addedge(id[i][j] * 2, id[i + 1][j] * 2 - 1, 1, 0);
+                g2.addedge(id[i][j] * 2, id[i + 1][j + 1] * 2 - 1, 1, 0);
+                g3.addedge(id[i][j] * 2, id[i + 1][j] * 2 - 1, m, 0);
+                g3.addedge(id[i][j] * 2, id[i + 1][j + 1] * 2 - 1, m, 0);
+            &#125;
+        &#125;
+
+    auto res1 &#x3D; g1.EK(), res2 &#x3D; g2.EK(), res3 &#x3D; g3.EK();
+
+    cout &lt;&lt; -res1.second &lt;&lt; &quot;\n&quot; &lt;&lt; -res2.second &lt;&lt; &quot;\n&quot; &lt;&lt; -res3.second &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+<p><mark>D. 金人旧巷市廛喧 代码：</mark></p>
+<blockquote>
+<p>疑问有 $2$：</p>
+<p>1、拆点必须是给定条件的权值，如果我随意赋值会死循环，why？</p>
+<p>2、$EK$ 函数循环里需要加上 $if(d[t] &gt;&#x3D; 0)	return$ ，不加的话会 $wa 43$ ，why？ </p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int, int&gt; pii;
+
+const int N &#x3D; 2010 + 10, M &#x3D; 5100 + 10;
+template&lt;typename T&gt;
+struct MinCostGraph &#123;
+    int n, s, t, idx;
+    T flow, cost;
+    bool st[N];
+    T d[N], incf[N], f[M &lt;&lt; 1], w[M &lt;&lt; 1];
+    int h[N], e[M &lt;&lt; 1], ne[M &lt;&lt; 1], pre[M &lt;&lt; 1];
+
+    void init(int _n, int _s, int _t) &#123;
+        n &#x3D; _n, s &#x3D; _s, t &#x3D; _t, idx &#x3D; 0;
+        for (int i &#x3D; 0; i &lt;&#x3D; n; i++)    h[i] &#x3D; -1;
+    &#125;
+
+    void addedge(int a, int b, T c, T d, T f2 &#x3D; 0) &#123;
+        e[idx] &#x3D; b, f[idx] &#x3D; c, w[idx] &#x3D; d, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
+        e[idx] &#x3D; a, f[idx] &#x3D; f2, w[idx] &#x3D; -d, ne[idx] &#x3D; h[b], h[b] &#x3D; idx++;
+    &#125;
+
+    bool spfa() &#123;
+        T inf &#x3D; numeric_limits&lt;T&gt;::max() &#x2F; 2;
+        for (int i &#x3D; 0; i &lt;&#x3D; n; i++)
+            d[i] &#x3D; inf, incf[i] &#x3D; 0;
+
+        queue&lt;int&gt; q;
+        q.push(s), d[s] &#x3D; 0, incf[s] &#x3D; inf;
+        while (!q.empty()) &#123;
+            int u &#x3D; q.front();
+            q.pop();
+
+            st[u] &#x3D; false;
+
+            for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i]) &#123;
+                int j &#x3D; e[i];
+                if (f[i] &amp;&amp; d[j] &gt; d[u] + w[i]) &#123;
+                    d[j] &#x3D; d[u] + w[i];
+                    pre[j] &#x3D; i;
+                    incf[j] &#x3D; min(f[i], incf[u]);
+                        if (!st[j]) &#123;
+                        q.push(j);
+                        st[j] &#x3D; true;
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+
+        return incf[t] &gt; 0;
+    &#125;
+
+    pair&lt;T, T&gt; EK() &#123;
+        flow &#x3D; cost &#x3D; 0;
+        while (spfa()) &#123;
+            T tf &#x3D; incf[t];
+            if (d[t] &gt;&#x3D; 0)  return &#123;flow, cost&#125;;
+            flow +&#x3D; tf, cost +&#x3D; tf * d[t];
+            for (int i &#x3D; t; i !&#x3D; s; i &#x3D; e[pre[i] ^ 1]) &#123;
+                f[pre[i]] -&#x3D; tf;
+                f[pre[i] ^ 1] +&#x3D; tf;
+            &#125;
+        &#125;
+        return &#123;flow, cost&#125;;
+    &#125;
+&#125;;
+MinCostGraph&lt;ll&gt; g;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n, m, k;
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; k;
+
+    vector&lt;vector&lt;int&gt;&gt; adj(n + 1, vector&lt;int&gt;(m + 1));
+    vector&lt;vector&lt;int&gt;&gt; id(n + 1, vector&lt;int&gt;(m + 1));
+    int tot &#x3D; 0;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        for (int j &#x3D; 1; j &lt;&#x3D; m; j++)
+        &#123;
+            cin &gt;&gt; adj[i][j];
+            id[i][j] &#x3D; ++tot;
+        &#125;
+    
+    int s &#x3D; 2 * tot + 1, t &#x3D; 2 * tot + 2;
+    g.init(t, s, t);
+
+    &#x2F;&#x2F; 源点连边
+    for (int i &#x3D; 1, x, y; i &lt;&#x3D; k; i++)
+    &#123;
+        cin &gt;&gt; x &gt;&gt; y;
+        g.addedge(s, id[x][y] * 2 - 1, 1, 0);
+    &#125;
+
+    &#x2F;&#x2F; 汇点连边
+    for (int i &#x3D; 1, x, y; i &lt;&#x3D; k; i++)
+    &#123;
+        cin &gt;&gt; x &gt;&gt; y;
+        g.addedge(id[x][y] * 2, t, 1, -100);
+    &#125;
+
+    &#x2F;&#x2F; 内部连边
+    int dx[] &#x3D; &#123;-1, 0, 1, 0&#125;, dy[] &#x3D; &#123;0, 1, 0, -1&#125;;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        for (int j &#x3D; 1; j &lt;&#x3D; m; j++)
+        &#123;
+            for (int k &#x3D; 0; k &lt; 4; k++)
+            &#123;
+                int nx &#x3D; i + dx[k], ny &#x3D; j + dy[k];
+                if (nx &lt; 1 || nx &gt; n || ny &lt; 1 || ny &gt; m)   continue;
+
+                g.addedge(id[i][j] * 2, id[nx][ny] * 2 - 1, 1, 0);
+            &#125;
+            &#x2F;&#x2F; 拆点
+            if (adj[i][j] &gt;&#x3D; 0)   
+            &#123;
+                g.addedge(id[i][j] * 2 - 1, id[i][j] * 2, 1, 1 - adj[i][j]);
+            &#125;
+        &#125;
+    auto res &#x3D; g.EK();
+    
+    cout &lt;&lt; -res.second;
+    return 0;
 &#125;</code></pre>
 
 
