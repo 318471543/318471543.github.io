@@ -3279,78 +3279,95 @@ int main()
 &#125;</code></pre>
 
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1275/">天才的记忆</a></p>
-<h2 id="莫队"><a href="#莫队" class="headerlink" title="莫队"></a>莫队</h2><p><mark>模板题代码：</mark></p>
+<h2 id="莫队"><a href="#莫队" class="headerlink" title="莫队"></a>莫队</h2><blockquote>
+<p>问题引入：给点长度为 $n$ 的数组，询问 $m$ 次区间内有多少个数满足 $cnt[x] &#x3D; x$？</p>
+<p>处理方法：莫队离线做法。</p>
+<p>时间复杂度：$O(n\sqrt{n})$</p>
+</blockquote>
+<p><mark>模板题2代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
-const int N &#x3D; 50010,M &#x3D; 200010,S &#x3D; 1000010;
-int n,m,len;
-int w[N],ans[M];
-struct Query
-&#123;
-    int id,l,r;
-&#125;q[M];
-int cnt[S];
-
-int get(int x)
-&#123;
-    return x &#x2F; len;
-&#125;
-
-
-void add(int x,int&amp; res)
-&#123;
-    if(!cnt[x])   res++;
-    cnt[x]++;
-&#125;
-
-void del(int x,int&amp; res)
-&#123;
-    cnt[x]--;
-    if(!cnt[x]) res--;
-&#125;
-
-bool cmp(const Query&amp; x,const Query&amp; y)
-&#123;
-    int x1 &#x3D; get(x.l),x2 &#x3D; get(y.l);
-    if(x1 !&#x3D; x2)    return x1 &lt; x2;
-    return x.r &lt; y.r;
-&#125;
-
 int main()
 &#123;
     cin.tie(nullptr)-&gt;sync_with_stdio(false);
-    cin &gt;&gt; n;
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)    cin &gt;&gt; w[i];
-    
-    cin &gt;&gt; m;
-    len &#x3D; max(1,(int)sqrt(n));
-    
-    for(int i &#x3D; 1;i &lt;&#x3D; m;i++)
+
+    int n, m;
+    cin &gt;&gt; n &gt;&gt; m;
+
+    vector&lt;int&gt; a(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; a[i];
+
+    int block &#x3D; max(1, int(sqrt(n)));
+
+    vector&lt;array&lt;int, 3&gt;&gt; que(m);
+    for (int i &#x3D; 0; i &lt; m; i++)
     &#123;
-        cin &gt;&gt; q[i].l &gt;&gt; q[i].r;
-        q[i].id &#x3D; i;
+        int l, r;
+        cin &gt;&gt; l &gt;&gt; r;
+        que[i] &#x3D; &#123;l, r, i&#125;;
     &#125;
-    sort(q + 1,q + m + 1,cmp);
+
+    sort(que.begin(), que.end(), [&amp;](array&lt;int, 3&gt; a, array&lt;int, 3&gt; b) -&gt; bool&#123;
+        int al &#x3D; a[0] &#x2F; block, bl &#x3D; b[0] &#x2F; block;
+        if (al !&#x3D; bl)   return al &lt; bl;
+        if (al &amp; 1) return a[1] &lt; b[1]; &#x2F;&#x2F; 奇偶优化
+        return a[1] &gt; b[1];
+    &#125;);
+
+    vector&lt;int&gt; ans(m + 1);
 
     int res &#x3D; 0;
-    for(int k &#x3D; 1,r &#x3D; 0,l &#x3D; 1;k &lt;&#x3D; m;k++)
+    vector&lt;int&gt; cnt(1e5 + 2);
+    auto add &#x3D; [&amp;](int x) -&gt; void
     &#123;
-        int id &#x3D; q[k].id,ql &#x3D; q[k].l,qr &#x3D; q[k].r;
-        while(r + 1 &lt;&#x3D; qr)    add(w[++r],res);
-        while(r &gt; qr)    del(w[r--],res);
-        while(l + 1 &lt;&#x3D; ql)    del(w[l++],res);
-        while(l &gt; ql)    add(w[--l],res);
+        x &#x3D; a[x];
+        if (x &gt; 1e5)    return;
+        if (cnt[x] &#x3D;&#x3D; x) 
+        &#123;
+            res--;
+            cnt[x]++;
+        &#125;
+        else
+        &#123;
+            cnt[x]++;
+            if (x &#x3D;&#x3D; cnt[x]) res++;
+        &#125;
+    &#125;;
+
+    auto del &#x3D; [&amp;](int x) -&gt; void
+    &#123;
+        x &#x3D; a[x];
+        if (x &gt; 1e5)    return;
+        if (cnt[x] &#x3D;&#x3D; x) 
+        &#123;
+            res--;
+            cnt[x]--;
+        &#125;
+        else
+        &#123;
+            cnt[x]--;
+            if (cnt[x] &#x3D;&#x3D; x) res++;
+        &#125;
+    &#125;;
+
+    for (int k &#x3D; 0, l &#x3D; 1, r &#x3D; 0; k &lt; m; k++)
+    &#123;
+        auto [ql, qr, id] &#x3D; que[k];
+        while (l &gt; ql)  add(--l);
+        while (r &lt; qr)  add(++r);
+        while (l &lt; ql)  del(l++);
+        while (r &gt; qr)  del(r--);
         ans[id] &#x3D; res;
     &#125;
-
-    for(int i &#x3D; 1;i &lt;&#x3D; m;i++)    cout &lt;&lt; ans[i] &lt;&lt; &quot;\n&quot;;
+    
+    for (int i &#x3D; 0; i &lt; m; i++)    cout &lt;&lt; ans[i] &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
 
 <p><mark>推荐题单：</mark></p>
-<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2494/">HH的项链</a></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2494/">HH的项链</a> <a target="_blank" rel="noopener" href="https://codeforces.com/contest/220/problem/B">B. Little Elephant and Array</a></p>
 <h2 id="珂朵莉树"><a href="#珂朵莉树" class="headerlink" title="珂朵莉树"></a>珂朵莉树</h2><p><strong>珂朵莉树</strong>（Chtholly Tree）起源于<a target="_blank" rel="noopener" href="https://codeforces.com/contest/896/problem/C">CF896C</a>，那道题要求我们实现一种数据结构，可以较快地实现：</p>
 <ul>
 <li><p>区间加</p>
@@ -3710,7 +3727,136 @@ int main()
 &#125;</code></pre>
 
 <h3 id="Splay"><a href="#Splay" class="headerlink" title="Splay"></a>Splay</h3><p>Splay保证中序遍历是当前序列的顺序。</p>
-<h2 id="树链剖分"><a href="#树链剖分" class="headerlink" title="树链剖分"></a>树链剖分</h2><blockquote>
+<h2 id="树链剖分"><a href="#树链剖分" class="headerlink" title="树链剖分"></a>树链剖分</h2><p><mark>封装模板：</mark></p>
+<blockquote>
+<p>调用方式：$HLD\ hld(g);$</p>
+<p>前提：需先建好树：$vector&lt;vector<int>&gt; g$ 或 $vector&lt;vector<pii>&gt; g$</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">struct HLD
+&#123;
+    int n, cnt;
+    vector&lt;int&gt; sz, top, dep, fa, son, id;
+    vector&lt;vector&lt;int&gt;&gt; g;
+    struct Tree                          
+    &#123;
+        int l,r;
+        ll add,sum;
+    &#125;;
+    vector&lt;Tree&gt; tr;
+
+    HLD(const vector&lt;vector&lt;int&gt; &gt; &amp;g, int root &#x3D; 1) : n(int(g.size()) - 1), g(g)  &#123;
+        cnt &#x3D; 0;
+        sz.resize(n + 1), top.resize(n + 1), dep.resize(n + 1);
+        id.resize(n + 1), fa.resize(n + 1), son.resize(n + 1), tr.resize(n &lt;&lt; 2 + 1);
+        dfs1(root, -1, 1);
+        dfs2(root, root);
+        build(root, 1, n);
+    &#125;
+
+    void dfs1(int u,int father,int depth) &#123;
+        dep[u] &#x3D; depth,fa[u] &#x3D; father,sz[u] &#x3D; 1;
+        for(auto v : g[u])
+        &#123;
+            if(v &#x3D;&#x3D; father) continue;
+            dfs1(v,u,depth + 1);
+            sz[u] +&#x3D; sz[v];
+            if(sz[son[u]] &lt; sz[v])  son[u] &#x3D; v;
+        &#125;
+    &#125;
+
+    void dfs2(int u,int t)
+    &#123;
+        id[u] &#x3D; ++cnt, top[u] &#x3D; t;
+        if(!son[u]) return;
+        dfs2(son[u],t);
+        for(auto v : g[u])
+        &#123;
+            if(v &#x3D;&#x3D; fa[u] || v &#x3D;&#x3D; son[u])   continue;
+            dfs2(v,v);
+        &#125;
+    &#125;
+
+    void pushup(int u)
+    &#123;
+        tr[u].sum &#x3D; tr[u &lt;&lt; 1].sum + tr[u &lt;&lt; 1 | 1].sum;
+    &#125;
+
+    void eval(Tree &amp;u,ll add)
+    &#123;
+        u.add +&#x3D; add;
+        u.sum +&#x3D; (u.r - u.l + 1) * add;
+    &#125;
+
+    void pushdown(int u)
+    &#123;
+        eval(tr[u &lt;&lt; 1],tr[u].add);
+        eval(tr[u &lt;&lt; 1 | 1],tr[u].add);
+        tr[u].add &#x3D; 0;
+    &#125;
+
+    void build(int u,int l,int r)
+    &#123;
+        tr[u] &#x3D; &#123;l, r&#125;;
+        if(l &#x3D;&#x3D; r)  return;
+        int mid &#x3D; l + r &gt;&gt; 1;
+        build(u &lt;&lt; 1,l,mid),build(u &lt;&lt; 1 | 1,mid + 1,r);
+        pushup(u);
+    &#125;
+
+    void update(int u, int l, int r, int k, bool ok)
+    &#123;
+        if(l &lt;&#x3D; tr[u].l &amp;&amp; r &gt;&#x3D; tr[u].r)    
+        &#123;
+            if (ok) 
+            &#123;
+                tr[u].sum &#x3D; tr[u].add &#x3D; 0;
+            &#125;
+            else    eval(tr[u],k);
+        &#125;
+        else
+        &#123;
+            pushdown(u);
+            int mid &#x3D; tr[u].l + tr[u].r &gt;&gt; 1;
+            if(l &lt;&#x3D; mid)    update(u &lt;&lt; 1,l,r,k, ok);
+            if(r &gt; mid) update(u &lt;&lt; 1 | 1,l,r,k, ok);
+            pushup(u);
+        &#125;
+    &#125;
+
+    ll query(int u,int l,int r)
+    &#123;
+        if(l &lt;&#x3D; tr[u].l &amp;&amp; r &gt;&#x3D; tr[u].r)    return  tr[u].sum;
+        pushdown(u);
+        int mid &#x3D; tr[u].l + tr[u].r &gt;&gt; 1;
+        ll res &#x3D; 0;
+        if(l &lt;&#x3D; mid)    res +&#x3D; query(u &lt;&lt; 1,l,r);
+        if(r &gt; mid) res +&#x3D; query(u &lt;&lt; 1 | 1,l,r);
+        return res;
+    &#125;
+
+    ll query_path(int u,int v)
+    &#123;
+        ll res &#x3D; 0;
+        while (top[u] !&#x3D; top[v])
+        &#123;
+            if(dep[top[u]] &lt; dep[top[v]])   swap(u,v);
+            res +&#x3D; query(1,id[top[u]],id[u]);
+            u &#x3D; fa[top[u]];
+        &#125;
+        if(dep[u] &lt; dep[v]) swap(u,v);
+        res +&#x3D; query(1,id[v],id[u]);
+        return res;
+    &#125;
+
+    void update_tree(int u,int k, bool ok)
+    &#123;
+        update(1,id[u], id[u] + sz[u] - 1, k, ok);
+    &#125;
+&#125;;</code></pre>
+
+
+
+<blockquote>
 <p>算法流程：<br>        1、通过dfs1确定深度、父节点、子树大小；</p>
 <p>​        2、通过dfs2确定dfs序：id[]、dfs序所对应的权值：nw[]、重链的顶点：top[]；</p>
 <p>​        3、树链剖分的思想类似于最近公共祖先（lca），其是通过重链往上爬的，确定的dfs序：id[]方便得知线段树对应的区间，从而将树上路径的问题转换成线段树区间上的问题。</p>
