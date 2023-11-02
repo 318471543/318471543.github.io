@@ -673,6 +673,56 @@
              <!-- 隐藏某个文章 -->
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
+                    <a href="/2023/11/02/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="基础算法">
+                            
+                            <span class="card-title">基础算法</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                前缀和一维前缀和
+求区间[l,r]之间的和：$s[r] - s[l - 1]$
+
+核心代码：
+for(int i &#x3D; 1; i&lt;&#x3D;n;i++)     s[i] &#x3D; s[i-1]+ a[i];
+一维异或和
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-11-02
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-user fa-fw"></i>
+                                重生带我走
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/">
+                            <span class="chip bg-color">基础算法</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+              <!-- 隐藏某个文章 -->
+            
+             <!-- 隐藏某个文章 -->
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
                     <a href="/2023/07/02/%E5%A5%BD%E9%A2%98%E7%B2%BE%E9%80%89/">
                         <div class="card-image">
                             
@@ -892,13 +942,24 @@ void init(int n)
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                前缀和一维前缀和
-求区间[l,r]之间的和：$s[r] - s[l - 1]$
+                                KMP
 
-核心代码：
-for(int i &#x3D; 1; i&lt;&#x3D;n;i++)     s[i] &#x3D; s[i-1]+ a[i];
 
-一维异或
+
+算法
+KMP
+扩展KMP
+
+
+
+
+数据维护
+ne[i]表示P[1,i]中相等前后缀的最大长度
+z[i]表示S与其后缀S[i,n]的最长公共前缀的长度
+
+
+算法流程
+双指针(i,j)，借助旧状态ne[1~i-1]加速计算新状态n
                             
                         </div>
                         <div class="publish-info">
