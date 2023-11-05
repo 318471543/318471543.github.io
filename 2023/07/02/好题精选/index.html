@@ -1774,6 +1774,119 @@ int main()
 
 <h2 id="模拟题单"><a href="#模拟题单" class="headerlink" title="模拟题单"></a>模拟题单</h2><p><strong>简单模拟 + 细节（有时间可总结一套处理该类问题的通解写在下面）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1877/problem/B">B. Helmets in Night Light</a></p>
 <p><strong>看似二分，实则贪心，但需要一定的模拟过程的功底：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1891/problem/C">C. Smilo and Monsters</a></p>
+<p><strong>2023CCPC桂林签到模拟题：</strong>[<a target="_blank" rel="noopener" href="https://codeforces.com/gym/482805/problem/G]">https://codeforces.com/gym/482805/problem/G]</a>(G. Hard Brackets Problem)</p>
+<p><mark>2023CCPC桂林签到模拟题：</mark></p>
+<blockquote>
+<p><strong>思路：</strong></p>
+<p>1、判断合法性：</p>
+<ul>
+<li>打一次左括号就会自动补全右括号，打右括号就最多只有右括号，因此右括号的总数一定大于等于左括号的总数。但不能直接从前往后遍历判断，而是从后往前遍历！</li>
+</ul>
+<p>2、模拟：</p>
+<ul>
+<li>经过多次思考和试错，发现了一个重要的性质：</li>
+<li>1、如果后面没有了左括号，则要么直接退出，要么打出一些右括号；</li>
+<li>2、如果当前是右括号，前面还有些未匹配完的左括号，则优先给前面未匹配的左括号；如果后面还有左括号，说明这个左括号一定得打出来，就得用右括号去移动。</li>
+</ul>
+<p>虽然这样是过了，但还是感觉有点丑（容易出错可能）。</p>
+<p>从知乎里翻了下别人的“如何评价 2023桂林站”，找到了相关该题的解法，如果合法，直接输出原串就行了，根本不用手动模拟，多出来的右括号直接用来位移，我超牛逼！（赛场上真的太shab了）</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+void solve()
+&#123;
+    string s;
+    cin &gt;&gt; s;
+    auto check &#x3D; [&amp;]() -&gt; bool
+    &#123;
+        int right &#x3D; 0, left &#x3D; 0;
+        for (int i &#x3D; s.size() - 1; i &gt;&#x3D; 0; i--)
+        &#123;
+            if (s[i] &#x3D;&#x3D; &#39;)&#39;)    right++;
+            else    left++;
+            if (left &gt; right)   return false;
+        &#125;
+        return true;
+    &#125;;
+
+    if (!check())   return cout &lt;&lt; &quot;impossible\n&quot;, void();
+
+    cout &lt;&lt; s &lt;&lt; &quot;\n&quot;;
+    &#x2F;*
+    如果)后面有东西，则先打右括号
+    *&#x2F;
+
+    &#x2F;&#x2F; int left &#x3D; 0, right &#x3D; 0;
+    &#x2F;&#x2F; for (auto c : s)
+    &#x2F;&#x2F;     if (c &#x3D;&#x3D; &#39;(&#39;)   left++;
+    &#x2F;&#x2F;     else    right++;
+
+    &#x2F;&#x2F; int n &#x3D; s.size(), cnt &#x3D; 0;
+    &#x2F;&#x2F; string res;
+    &#x2F;&#x2F; for (int i &#x3D; 0; i &lt; n; i++)
+    &#x2F;&#x2F; &#123;
+    &#x2F;&#x2F;     if (s[i] &#x3D;&#x3D; &#39;(&#39;)
+    &#x2F;&#x2F;     &#123;
+    &#x2F;&#x2F;         res.push_back(&#39;(&#39;);
+    &#x2F;&#x2F;         left--;
+    &#x2F;&#x2F;         cnt++;
+    &#x2F;&#x2F;         if (!left)
+    &#x2F;&#x2F;         &#123;
+    &#x2F;&#x2F;             if (right &#x3D;&#x3D; cnt) &#x2F;&#x2F; cnt: 还未匹配的左括号个数
+    &#x2F;&#x2F;             &#123;
+    &#x2F;&#x2F;                 break;
+    &#x2F;&#x2F;             &#125;
+    &#x2F;&#x2F;             else
+    &#x2F;&#x2F;             &#123;
+    &#x2F;&#x2F;                 i++;
+    &#x2F;&#x2F;                 while (i &lt; n)   res.push_back(&#39;)&#39;), i++;
+    &#x2F;&#x2F;                 break;
+    &#x2F;&#x2F;             &#125;   
+    &#x2F;&#x2F;         &#125;
+    &#x2F;&#x2F;     &#125;
+    &#x2F;&#x2F;     else
+    &#x2F;&#x2F;     &#123;
+    &#x2F;&#x2F;         if (!left)
+    &#x2F;&#x2F;         &#123;
+    &#x2F;&#x2F;             if (right &#x3D;&#x3D; cnt) &#x2F;&#x2F; cnt: 还未匹配的左括号个数
+    &#x2F;&#x2F;             &#123;
+    &#x2F;&#x2F;                 break;
+    &#x2F;&#x2F;             &#125;
+    &#x2F;&#x2F;             else
+    &#x2F;&#x2F;             &#123;
+    &#x2F;&#x2F;                 while (i &lt; n)   res.push_back(&#39;)&#39;), i++;
+    &#x2F;&#x2F;                 break;
+    &#x2F;&#x2F;             &#125;   
+    &#x2F;&#x2F;         &#125;
+
+    &#x2F;&#x2F;         if (left)   res.push_back(&#39;)&#39;);
+    &#x2F;&#x2F;         if (cnt)    cnt--;
+    &#x2F;&#x2F;         right--;
+    &#x2F;&#x2F;     &#125;
+    &#x2F;&#x2F; &#125;
+    
+    &#x2F;&#x2F; cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int t;
+    cin &gt;&gt; t;
+
+    while (t--)
+    &#123;
+        solve();
+    &#125;
+    
+    return 0;
+&#125;</code></pre>
+
+
+
 <h2 id="交互题单"><a href="#交互题单" class="headerlink" title="交互题单"></a>交互题单</h2><p><strong>简单交互题（cf rating：1300）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1867/problem/C">C. Salyg1n and the MEX Game</a></p>
 <p><strong>中等交互题（cf rating：2200）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1867/problem/E2">E2. Salyg1n and Array (hard version)</a></p>
 <h2 id="思维好题"><a href="#思维好题" class="headerlink" title="思维好题"></a>思维好题</h2><p><mark>题单：</mark></p>
