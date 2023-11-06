@@ -1102,7 +1102,7 @@ auto spfa &#x3D; [&amp;](int st) -&gt; vector&lt;int&gt;
     return dist;
 &#125;;</code></pre>
 
-<p><mark>模板题代码：</mark></p>
+<p><mark>模板题代码（spfa求最短路）：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1157,6 +1157,66 @@ int main()
     return 0;
 &#125;</code></pre>
 
+<p><mark>模板题代码（spfa判断负环）：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+const int N &#x3D; 1e4+10;
+int n,m;
+int h[N],w[N],e[N],ne[N],idx;
+int dist[N],cnt[N];
+bool st[N];
+void add(int a,int b,int c)
+&#123;
+    e[idx] &#x3D; b,w[idx] &#x3D; c,ne[idx] &#x3D; h[a],h[a] &#x3D; idx++;
+&#125;
+int spfa()
+&#123;
+    queue&lt;int&gt;q;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        st[i] &#x3D; true;
+        q.push(i);
+    &#125;
+    while (q.size())
+    &#123;
+        int t &#x3D; q.front();
+        q.pop();
+        st[t] &#x3D; false;
+        for (int i &#x3D; h[t]; i !&#x3D; -1; i&#x3D; ne[i])
+        &#123;
+            int j &#x3D; e[i];
+            if(dist[j] &gt; dist[t] + w[i])
+            &#123;
+                dist[j] &#x3D; dist[t] + w[i];
+                cnt[j] &#x3D; cnt[t] + 1; 
+                if(cnt[j] &gt;&#x3D; n) return true;
+                if(!st[j])
+                &#123;
+                    q.push(j);
+                    st[j] &#x3D; true;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+    return false;
+&#125;
+int main()
+&#123;
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    memset(h,-1,sizeof(h));
+    while (m--)
+    &#123;
+        int a,b,c;
+        scanf(&quot;%d%d%d&quot;,&amp;a,&amp;b,&amp;c);
+        add(a,b,c);
+    &#125;
+    if(spfa())  puts(&quot;Yes&quot;);
+    else    puts(&quot;No&quot;);
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/853/">spfa求最短路</a>   <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/854/">spfa判断负环</a></p>
 <h3 id="Floyd"><a href="#Floyd" class="headerlink" title="Floyd"></a>Floyd</h3><blockquote>
 <p>集合表示：$f[k][i][j]$：表示考虑经过前 $k$ 个点，从 $i$ 到 $j$ 的距离。</p>
 <p>状态转移：</p>
@@ -3107,7 +3167,7 @@ int main()
 </blockquote>
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2193/">数字梯形问题</a></p>
-<p><strong>2023年中国大学生程序设计竞赛女生专场：（有点细节还没搞懂）</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104725/problem/D">D. 金人旧巷市廛喧</a></p>
+<p><strong>2023年中国大学生程序设计竞赛女生专场：（有细节喔）</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104725/problem/D">D. 金人旧巷市廛喧</a></p>
 <p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -3243,9 +3303,15 @@ int main()
 
 <p><mark>D. 金人旧巷市廛喧 代码：</mark></p>
 <blockquote>
-<p>疑问有 $2$：</p>
+<p>疑问有 $2$（已基本解决）：</p>
 <p>1、拆点必须是给定条件的权值，如果我随意赋值会死循环，why？</p>
+<ul>
+<li>显然，$spfa$ 可以处理负权的边，但不能处理负权回路！而死循环的原因正是出现了负权回路（通过手搓$2×2$ 地图数据，并加上 $spfa$ 判负环模板终于测试出来了负权回路）。</li>
+</ul>
 <p>2、$EK$ 函数循环里需要加上 $if(d[t] &gt;&#x3D; 0)	return$ ，不加的话会 $wa 43$ ，why？ </p>
+<ul>
+<li>该疑问已解决，因为一条物流初始价值为100，如果每次走一格扣一分，最终会变成负数，则不如之前取消这条物流，因此这个特判是根据题目而特殊定的。</li>
+</ul>
 </blockquote>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
