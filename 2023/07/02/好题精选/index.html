@@ -2394,6 +2394,8 @@ int rnd(int x) &#123; return mrand() % x;&#125;</code></pre>
 <li><p>思路：每次都是优先“时间”，即哪个篮子先好，就先用哪个篮子，因此，其实就不难想到用<mark>优先队列</mark>（但当时可能第一题写了10多分钟，总感觉时间不够用，但其实确实得多停下来认真思考一下的，当时还是有点急了）。</p>
 </li>
 <li><p>代码：</p>
+</li>
+</ul>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -2467,8 +2469,96 @@ int main()
 </ul>
 </li>
 </ul>
-</li>
-</ul>
+<p>这里顺便再讲下2023RAICOM国赛第四题（算法：拓扑排序）：</p>
+<blockquote>
+<p><strong>思路：</strong></p>
+<p>1、必须先移动上面的，才能移动下面的，有一直顺序关系，可以联想到拓扑排序；</p>
+<p>2、怎么建图呢？仔细思考可以发现，只需要看一块与上一块直接的关系即可，成环的话就同样建图，大不了 $impossible$。</p>
+<p>3、怎么保证字典序最小？普通的队列里面，都是可以选择从一个入口出发，我们当然要先选择一个编号最小的，从这个点遍历后的其他点进入队列后，不清楚该点的编号大小与队列已存在的编号大小的关系，但仍要选择一个编号最小的当做入口，因此可以想到了用<strong>优先队列</strong>。</p>
+<p>4、如果用之前熟悉的 $vector$ 以及 $map$ 等各类 $STL$，会发现出现各种的<strong>内存超限</strong>，必须全部换成普通的数组，才可以过！</p>
+</blockquote>
+<p>仅使用了一个 $STL$ 中 $set$ 内存超限如下：</p>
+<p><img src="/images/17.png"></p>
+<p>全部换成普通数组（除了优先队列以外，这个不可替换 $qwq$）以后：</p>
+<p><img src="/images/18.png"></p>
+<p><mark>代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int, int&gt; pii;
+
+const int N &#x3D; 1e3 + 10, M &#x3D; 1e6 + 10;
+
+int g[2][N];
+int h[M], e[M], ne[M], idx;
+bool st[M];
+int d[M];
+
+void add(int a, int b)
+&#123;
+    e[idx] &#x3D; b, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n, m;
+    cin &gt;&gt; n &gt;&gt; m;
+
+    memset(h, -1, sizeof(h));
+    
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        for (int j &#x3D; 1; j &lt;&#x3D; m; j++)
+        &#123;
+            cin &gt;&gt; g[i &amp; 1][j];
+            st[g[i &amp; 1][j]] &#x3D; true;
+
+            if (i &gt;&#x3D; 2 &amp;&amp; g[i &amp; 1][j] !&#x3D; g[(i - 1) &amp; 1][j])
+            &#123;
+                int u &#x3D; g[(i - 1) &amp; 1][j], v &#x3D; g[i &amp; 1][j];
+                add(u, v);
+                d[v]++;
+            &#125;
+        &#125;
+
+    auto topsort &#x3D; [&amp;]() -&gt; void
+    &#123;
+        priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt; heap;
+        vector&lt;int&gt; res;
+        int cnt &#x3D; 0;
+        for (int i &#x3D; 1; i &lt;&#x3D; 1e6; i++)
+        &#123;   
+            if (!st[i]) continue;
+            cnt++;
+            if (!d[i])  heap.push(i);
+        &#125;
+
+        while (!heap.empty())
+        &#123;
+            auto t &#x3D; heap.top();
+            heap.pop();
+            res.push_back(t);
+            for (int i &#x3D; h[t]; ~i; i &#x3D; ne[i]) 
+            &#123;
+                int v &#x3D; e[i];
+                if (--d[v] &#x3D;&#x3D; 0)    heap.push(v);
+            &#125;
+        &#125;
+        
+        for (int i &#x3D; 0; i &lt; res.size(); i++)
+            cout &lt;&lt; res[i] &lt;&lt; &quot; \n&quot;[i + 1 &#x3D;&#x3D; res.size() &amp;&amp; res.size() &#x3D;&#x3D; cnt];
+        
+        if (res.size() !&#x3D; cnt) cout &lt;&lt; &quot;Impossible\n&quot;;
+    &#125;;
+
+    topsort();
+
+    return 0;
+&#125;</code></pre>
+
 <p><strong>4、图上两点之间的所有路径：</strong></p>
 <ul>
 <li><p><mark>树上两点之间的路径（暴力法可用 $lca$ 获取）：</mark></p>
