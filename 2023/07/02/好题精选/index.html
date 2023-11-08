@@ -2067,6 +2067,107 @@ int main()
     return 0;
 &#125;</code></pre>
 
+<p><mark>D. Cyclic Operations 讲解：</mark></p>
+<blockquote>
+<p><strong>题意：</strong> 给点长度为 $n$ 的数组，其元素都为 $0$ ，请任选长度为 $k$ 的数组 $l$（每个数互不相同），改变每个元素：$a_{l_i} &#x3D; l_{i % k + 1}$ 后，能得到给的数组 $b$。</p>
+<p><strong>思路：</strong></p>
+<p>已知： $a_{l_i} &#x3D; l_{i%k+1}$</p>
+<p>又由于需要令 $a_j &#x3D; b_j$，即：<br>$a_{l_i} &#x3D; l_{i%k+1} &#x3D; b_{l_i}$</p>
+<p>对于：$b_1,b_2,\cdots b_n$</p>
+<p>要与  $a_1,a_2,\cdots a_n$ 与之对应</p>
+<p>则 $a_1 &#x3D; b_1$，又 $a_{l_i} &#x3D; l_{i%k+1}$，则构造 $k$ 个长度的 $l$ 数组时（$k \ge 2$，$k &#x3D; 1$ 只能顺序 $1,2,\cdots n$）可以构造出 $1,b_1,\cdots$，则满足：$a_{l_i} &#x3D; l_{i%k+1} &#x3D;&gt; a_1 &#x3D; b_1$，可以想象成有一条有向边 $1-&gt;b_1$。</p>
+<p>同理，有：$2-&gt;b_2,3-&gt;b_3,\cdots,n-&gt;b_n$。于是，图就建立好了。</p>
+<p><strong>证明合法性：</strong></p>
+<p>如果 $k &#x3D; 1$：则显然只能是 $1,2,3,\cdots,n$ 的序列；</p>
+<p>如果 $k &gt; 1$：</p>
+<ul>
+<li>如果 $k &lt; $  环长：则需要若干次 $k$ 去尽力填充这个环，当最后一次填满这个环时，一定会覆盖这个环上原本的数；</li>
+<li>如果 $k &gt; $ 环长：则一次就会溢出这个环，同时也会覆盖这个环上原本的数。</li>
+</ul>
+<p>上面所说的覆盖环上原本的数可能书面上写起来比较抽象，不妨在纸上试一试！</p>
+<p><strong>实现细节：</strong> </p>
+<p>细节1：每个点都有一个出边，当一个环是成功的之后，可能有多个点的出边都指向这个环，那么当第二个天进入这个环后需要跳过，不然就会导致死循环；</p>
+<p>细节2：自环问题也是不能忽略的，环的长度必须等于 $k$，如果 $k$ 不为 $1$ 的话，即使每个点各自形成环也是不行的，因为如果能凑出的话需要 $k$ 个数相同，但根据题意是互不相同的，故自环也要考虑。</p>
+</blockquote>
+<p><strong>代码如下：</strong></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+void solve()
+&#123;
+    int n, k;
+    cin &gt;&gt; n &gt;&gt; k;
+
+    vector&lt;int&gt; a(n + 1);
+    vector&lt;vector&lt;int&gt;&gt; adj(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; a[i], adj[i].push_back(a[i]);
+
+    bool ok &#x3D; true;
+    if (k &#x3D;&#x3D; 1)
+    &#123;
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+            if (a[i] !&#x3D; i)  
+            &#123;
+                ok &#x3D; false;
+                break;
+            &#125;
+        return cout &lt;&lt; (ok ? &quot;YES\n&quot; : &quot;NO\n&quot;), void();
+    &#125;
+
+    vector&lt;int&gt; st(n + 1);
+    vector&lt;int&gt; fa(n + 1);
+    function&lt;bool(int)&gt; dfs &#x3D; [&amp;](int u) -&gt; bool
+    &#123;
+        st[u] &#x3D; 1;
+        for (auto v : adj[u])
+        &#123;
+            if (!st[v])
+            &#123;
+                fa[v] &#x3D; u;
+                if(!dfs(v)) return false;
+            &#125;
+            else if (st[v] &#x3D;&#x3D; 2)    continue;
+            else
+            &#123;
+                int x &#x3D; u, len &#x3D; 1;
+                while (x !&#x3D; v)
+                &#123;
+                    x &#x3D; fa[x];
+                    len++;
+                &#125;
+                if (len !&#x3D; k)   return false;
+            &#125;
+        &#125;
+        st[u] &#x3D; 2;
+        return true;
+    &#125;;
+
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        if (!st[i])
+        &#123;
+            ok &#x3D; dfs(i);
+            if (!ok)    break;
+        &#125;
+    
+    cout &lt;&lt; (ok ? &quot;YES\n&quot; : &quot;NO\n&quot;);
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int t;
+    cin &gt;&gt; t;
+
+    while (t--)
+    &#123;
+        solve();
+    &#125;
+    
+    return 0;
+&#125;</code></pre>
+
 
 
 <h2 id="高质量比赛推荐"><a href="#高质量比赛推荐" class="headerlink" title="高质量比赛推荐"></a>高质量比赛推荐</h2><blockquote>
