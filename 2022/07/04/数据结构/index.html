@@ -1887,9 +1887,88 @@ struct Fenwick&#x2F;&#x2F;树状数组
     &#125;
 &#125;;</code></pre>
 
+<p><mark>树状数组查询区间种类数模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+template &lt;typename T&gt;
+struct Fenwick
+&#123;
+    const int n;
+    vector&lt;T&gt; tr;
+    Fenwick(int n):n(n),tr(n + 1)&#123;&#125;
+    void init()&#123;&#x2F;&#x2F;清空树状数组
+    for(int i &#x3D; 0;i &lt;&#x3D; n;i++)   tr[i] &#x3D; 0;
+    &#125;
+    void add(int x,T c)&#123;
+        for(int i &#x3D; x;i &lt;&#x3D; n;i +&#x3D; i &amp; -i)   tr[i] +&#x3D; c;
+    &#125;
+    void add_range(int l,int r,T c)&#123;&#x2F;&#x2F;在区间[l,r]内加上数c
+        add(l,c);
+        add(r + 1,-c);
+    &#125;
+    T sum(int x)&#123;
+        T res &#x3D; 0;
+        for(int i &#x3D; x;i ;i -&#x3D; i &amp; -i)   res +&#x3D; tr[i];
+        return res;
+    &#125;
+&#125;;
+
+struct Q
+&#123;
+    int l, r, id;
+&#125;;
+
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;int&gt; a(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; a[i];
+    
+    int m;
+    cin &gt;&gt; m;
+    
+    vector&lt;Q&gt; q(m + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
+    &#123;
+        cin &gt;&gt; q[i].l &gt;&gt; q[i].r;
+        q[i].id &#x3D; i;
+    &#125;
+
+    sort(q.begin() + 1, q.end(), [&amp;](Q a, Q b) -&gt; bool&#123;
+        return a.r &lt; b.r;
+    &#125;);
+
+    Fenwick&lt;int&gt; fen(n + 1);
+
+    vector&lt;int&gt; ans(m + 1);
+    vector&lt;int&gt; st(1e6 + 1);
+    for (int i &#x3D; 1, j &#x3D; 1; i &lt;&#x3D; m; i++)
+    &#123;
+        for (; j &lt;&#x3D; q[i].r; j++) 
+        &#123;
+            if (st[a[j]])   fen.add(st[a[j]], -1);
+            fen.add(j, 1);
+            st[a[j]] &#x3D; j;   
+        &#125;
+        ans[q[i].id] &#x3D; fen.sum(q[i].r) - fen.sum(q[i].l - 1);
+    &#125;
+
+    for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
+        cout &lt;&lt; ans[i] &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
 <p><mark>推荐题单：</mark></p>
 <p><strong>树状数组求逆序对的数量：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/790/">逆序对的数量</a></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/243/">楼兰图腾</a></p>
+<p><strong>树状数组查询区间种类数模板：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2494/">HH的项链</a></p>
 <p><strong>2023CCPC桂林站铜牌题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/482805/problem/I">I. Barkley II</a></p>
 <p><mark>2023CCPC桂林站铜牌题分析（有很重要的细节）：</mark></p>
 <blockquote>
@@ -3124,7 +3203,7 @@ int main()
     return 0;
 &#125;</code></pre>
 
-<p><mark>模板题1：HH的项链（树状数组写法）</mark></p>
+<p><mark>模板题1：HH的项链</mark></p>
 <blockquote>
 <p><strong>题意：</strong>给定长度为 $n$ 的数组，$q$ 次询问，问区间 $[l, r]$ 内不同数的个数？</p>
 </blockquote>
@@ -3132,76 +3211,65 @@ int main()
 
 using namespace std;
 
-template &lt;typename T&gt;
-struct Fenwick
+const int N &#x3D; 50010,M &#x3D; 200010,S &#x3D; 1000010;
+int n,m,len;
+int w[N],ans[M];
+struct Query
 &#123;
-    const int n;
-    vector&lt;T&gt; tr;
-    Fenwick(int n):n(n),tr(n + 1)&#123;&#125;
-    void init()&#123;&#x2F;&#x2F;清空树状数组
-    for(int i &#x3D; 0;i &lt;&#x3D; n;i++)   tr[i] &#x3D; 0;
-    &#125;
-    void add(int x,T c)&#123;
-        for(int i &#x3D; x;i &lt;&#x3D; n;i +&#x3D; i &amp; -i)   tr[i] +&#x3D; c;
-    &#125;
-    void add_range(int l,int r,T c)&#123;&#x2F;&#x2F;在区间[l,r]内加上数c
-        add(l,c);
-        add(r + 1,-c);
-    &#125;
-    T sum(int x)&#123;
-        T res &#x3D; 0;
-        for(int i &#x3D; x;i ;i -&#x3D; i &amp; -i)   res +&#x3D; tr[i];
-        return res;
-    &#125;
-&#125;;
+    int id,l,r;
+&#125;q[M];
+int cnt[S];
 
-struct Q
+int get(int x)
 &#123;
-    int l, r, id;
-&#125;;
+    return x &#x2F; len;
+&#125;
 
+bool cmp(const Query&amp; a,const Query&amp; b)
+&#123;
+    int i &#x3D; get(a.l),j &#x3D; get(b.l);
+    if(i !&#x3D; j)  return i &lt; j;
+    return a.r &lt; b.r;
+&#125;
+
+void add(int x,int&amp; res)
+&#123;
+    if(!cnt[x]) res++;
+    cnt[x]++;
+&#125;
+
+void del(int x,int&amp; res)
+&#123;
+    cnt[x]--;
+    if(!cnt[x]) res--;
+&#125;
 
 int main()
 &#123;
-    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+    scanf(&quot;%d&quot;,&amp;n);
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   scanf(&quot;%d&quot;,&amp;w[i]);
+    scanf(&quot;%d&quot;,&amp;m);
+    len &#x3D; max(1,(int)sqrt((double) n * n &#x2F; m));
 
-    int n;
-    cin &gt;&gt; n;
-
-    vector&lt;int&gt; a(n + 1);
-    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; a[i];
-    
-    int m;
-    cin &gt;&gt; m;
-    
-    vector&lt;Q&gt; q(m + 1);
-    for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
+    for(int i &#x3D; 0;i &lt; m;i++)
     &#123;
-        cin &gt;&gt; q[i].l &gt;&gt; q[i].r;
-        q[i].id &#x3D; i;
+        int l,r;
+        scanf(&quot;%d%d&quot;,&amp;l,&amp;r);
+        q[i] &#x3D; &#123;i,l,r&#125;;
+    &#125;
+    sort(q,q + m,cmp);
+
+    for(int k &#x3D; 0,i &#x3D; 0,j &#x3D; 1,res &#x3D; 0;k &lt; m;k++)
+    &#123;
+        int id &#x3D; q[k].id,l &#x3D; q[k].l,r &#x3D; q[k].r;
+        while(i &lt; r)    add(w[++i],res);
+        while(i &gt; r)    del(w[i--],res);
+        while(j &lt; l)    del(w[j++],res);
+        while(j &gt; l)    add(w[--j],res);
+        ans[id] &#x3D; res;
     &#125;
 
-    sort(q.begin() + 1, q.end(), [&amp;](Q a, Q b) -&gt; bool&#123;
-        return a.r &lt; b.r;
-    &#125;);
-
-    Fenwick&lt;int&gt; fen(n + 1);
-
-    vector&lt;int&gt; ans(m + 1);
-    vector&lt;int&gt; st(1e6 + 1);
-    for (int i &#x3D; 1, j &#x3D; 1; i &lt;&#x3D; m; i++)
-    &#123;
-        for (; j &lt;&#x3D; q[i].r; j++) 
-        &#123;
-            if (st[a[j]])   fen.add(st[a[j]], -1);
-            fen.add(j, 1);
-            st[a[j]] &#x3D; j;   
-        &#125;
-        ans[q[i].id] &#x3D; fen.sum(q[i].r) - fen.sum(q[i].l - 1);
-    &#125;
-
-    for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
-        cout &lt;&lt; ans[i] &lt;&lt; &quot;\n&quot;;
+    for(int i &#x3D; 0;i &lt; m;i++)    printf(&quot;%d\n&quot;,ans[i]);
     return 0;
 &#125;</code></pre>
 
@@ -3890,295 +3958,6 @@ int main()
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2570/">树链剖分</a></p>
 <p><strong>树链剖分 + 区间最大&#x2F;最小子段和：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1843/problem/F2">F2. Omsk Metro (hard version)</a></p>
-<h2 id="点分治"><a href="#点分治" class="headerlink" title="点分治"></a>点分治</h2><blockquote>
-<p><strong>时间复杂度：</strong>$O(nlogn)$</p>
-</blockquote>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
-
-using namespace std;
-
-const int N &#x3D; 1e4 + 10, M &#x3D; N * 2;
-
-int n, m;
-int h[N], e[M], w[M], ne[M], idx;
-bool st[N];
-int p[N], q[N];
-
-void add(int a, int b, int c)
-&#123;
-    e[idx] &#x3D; b, w[idx] &#x3D; c, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
-&#125;
-
-int get_size(int u, int fa)
-&#123;
-    if (st[u])   return 0;
-    int res &#x3D; 1;
-    for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i])
-        if (e[i] !&#x3D; fa) 
-            res +&#x3D; get_size(e[i], u);
-    return res;
-&#125;
-
-int get_wc(int u, int fa, int tot, int&amp; wc)
-&#123;
-    if (st[u])  return 0;
-    int sum &#x3D; 1, ms &#x3D; 0;
-    for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i])
-    &#123;
-        int j &#x3D; e[i];
-        if(j &#x3D;&#x3D; fa) continue;
-        int t &#x3D; get_wc(j, u, tot, wc);
-        ms &#x3D; max(ms, t);
-        sum +&#x3D; t;
-    &#125;
-    ms &#x3D; max(ms, tot - sum);
-    if (ms &lt;&#x3D; tot &#x2F; 2)   wc &#x3D; u;
-    return sum;
-&#125;
-
-void get_dist(int u, int fa, int dist, int&amp; qt)
-&#123;
-    if (st[u])  return;
-    q[qt ++] &#x3D; dist;
-    for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i])
-        if(e[i] !&#x3D; fa)
-            get_dist(e[i], u, dist + w[i], qt);
-&#125;
-
-int get(int a[], int k)
-&#123;
-    sort(a, a + k);
-    int res &#x3D; 0;
-    for (int i &#x3D; k - 1, j &#x3D; -1; i &gt;&#x3D; 0; i --)
-    &#123;
-        while (j + 1 &lt; i &amp;&amp; a[j + 1] + a[i] &lt;&#x3D; m)   j++;
-        j &#x3D; min(j, i - 1);
-        res +&#x3D; j + 1;
-    &#125;
-    return res;
-&#125;
-
-int calc(int u)
-&#123;
-    if (st[u])  return 0;
-    int res &#x3D; 0;
-    get_wc(u, -1, get_size(u, -1), u);
-    st[u] &#x3D; true; &#x2F;&#x2F; 删除重心
-
-    int pt &#x3D; 0;
-    for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i])
-    &#123;
-        int j &#x3D; e[i], qt &#x3D; 0;
-        get_dist(j, -1, w[i], qt);
-        res -&#x3D; get(q, qt);
-        for (int k &#x3D; 0; k &lt; qt; k++)
-        &#123;
-            if(q[k] &lt;&#x3D; m)   res++;
-            p[pt++] &#x3D; q[k];
-        &#125;
-    &#125;
-    res +&#x3D; get(p, pt);
-
-    for(int i &#x3D; h[u]; ~i; i &#x3D; ne[i])    res +&#x3D; calc(e[i]);
-    return res;
-&#125;
-
-int main()
-&#123;
-    cin.tie(nullptr)-&gt;sync_with_stdio(false);
-
-    while (cin &gt;&gt; n &gt;&gt; m, n || m)
-    &#123;
-        memset(st, 0, sizeof(st));
-        memset(h, -1, sizeof(h));
-        idx &#x3D; 0;
-        for (int i &#x3D; 0; i &lt; n - 1; i++)
-        &#123;
-            int a, b, c;
-            cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;
-            add(a, b, c),add(b, a, c);
-        &#125;
-        cout &lt;&lt; calc(0) &lt;&lt; &quot;\n&quot;;
-    &#125;
-    
-    return 0;
-&#125;</code></pre>
-
-<p><mark>推荐题单：</mark><br><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/254/">树</a></p>
-<h2 id="动态树——LCT（link-cut-tree）"><a href="#动态树——LCT（link-cut-tree）" class="headerlink" title="动态树——LCT（link-cut-tree）"></a>动态树——LCT（link-cut-tree）</h2><p><strong>LCT</strong> 是用于解决 <strong>动态树问题</strong> 的数据结构。</p>
-<blockquote>
-<p><strong>动态树问题：</strong></p>
-<p>维护一个森林，支持删除某条边，加入某条边，并保证加边，删边后仍是森林。我们要维护该森林的一些信息。<br>一般的操作有两点连通性， 两点路径权值和， 连接两点 和 切断某条边、修改信息 等</p>
-</blockquote>
-<p>LCT 则是用多个 Splay 来维护 多个实链，Splay 的特性就使得我们可以进行 树的合并、分割 操作。</p>
-<p><strong>零散知识点：</strong></p>
-<p>将所有边分为<mark>虚边</mark>和<mark>实边</mark>，用splay维护所有实边路径，其中序遍历就是要维护的路径。</p>
-<p>splay本质上：维护所有实边，用splay中的后继与前驱来维护原树中的父子关系。</p>
-<p>虚边：是用splay的根节点来维护。</p>
-<p><strong>实链剖分：</strong></p>
-<p>把树拆分成若干条实链，用splay这种动态数据结构来维护实链。通过对实链的拆分与组合，构造答案。</p>
-<p>一个节点只能选一个儿子做实儿子，其他都是虚儿子。</p>
-<p><strong>实边</strong>：父节点与实儿子之间的边，是双向边。</p>
-<p><strong>虚边</strong>：由虚儿子指向父节点的边，是单向边。（<strong>认父不认子</strong>）</p>
-<p><strong>实链</strong>：由实边构成的链。每条实链的节点深度是严格递增的。</p>
-<p><strong>辅助树</strong>：由若干splay构成，与原树是等价的，只需要维护辅助树。</p>
-<p><strong>性质：每条实链用一个splay维护，中序遍历按深度严格递增。</strong></p>
-<p>注意：区分<strong>树根</strong>和<strong>splay的根</strong>。</p>
-<p>一些辅助树构成了Link Cut Tree(LCT)，其维护的是整个森林。</p>
-<p><img src="/images/6.png"></p>
-<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3690">【模板】动态树（Link Cut Tree）</a></p>
-<p>给定 n 个点以及每个点的权值，要你处理接下来的 m个操作。<br>操作有四种，操作从 0 到 3 编号。点从 1 到 n 编号。</p>
-<ul>
-<li><code>0 x y</code> 代表询问从 x 到 y 的路径上的点的权值的 xor 和。保证 x 到 y 是联通的。</li>
-<li><code>1 x y</code> 代表连接 x 到 y，若 x 到 y 已经联通则无需连接。</li>
-<li><code>2 x y</code> 代表删除边 (<em>x</em>,y)，不保证边 (<em>x</em>,y) 存在。</li>
-<li><code>3 x y</code> 代表将点 x上的权值变成 y。</li>
-</ul>
-<p><mark>代码模板：</mark></p>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
-#include&lt;cstring&gt;
-#include&lt;algorithm&gt;
-
-using namespace std;
-
-const int N &#x3D; 1e5 + 10;
-
-int n,m;
-struct Node
-&#123;
-    int s[2],p,v;
-    int sum,rev;&#x2F;&#x2F;sum:异或和,rev:旋转标记;
-    &#x2F;&#x2F;这里的懒标记表示:当前结点已经旋转过了，但我的子树还未旋转(即我这个点的状态是懒标记操作之后的状态)
-&#125;tr[N];
-int stk[N];
-
-void pushrev(int x)
-&#123;
-    swap(tr[x].s[0],tr[x].s[1]);
-    tr[x].rev ^&#x3D; 1;
-&#125;
-
-void pushup(int x)
-&#123;
-    tr[x].sum &#x3D; tr[tr[x].s[0]].sum ^ tr[x].v ^ tr[tr[x].s[1]].sum;
-&#125;
-
-void pushdown(int x)
-&#123;
-    if(tr[x].rev)
-    &#123;
-        pushrev(tr[x].s[0]),pushrev(tr[x].s[1]);
-        tr[x].rev &#x3D; 0;
-    &#125;
-&#125;
-
-bool isroot(int x)  &#x2F;&#x2F;判断当前点是不是根节点
-&#123;
-    return tr[tr[x].p].s[0] !&#x3D; x &amp;&amp; tr[tr[x].p].s[1] !&#x3D; x;
-&#125;
-
-void rotate(int x)
-&#123;
-    int y &#x3D; tr[x].p,z &#x3D; tr[y].p;
-    int k &#x3D; tr[y].s[1] &#x3D;&#x3D; x;
-    if(!isroot(y))  tr[z].s[tr[z].s[1] &#x3D;&#x3D; y] &#x3D; x;&#x2F;&#x2F;如果y是根节点则不能更新y和它父节点的关系
-    tr[x].p &#x3D; z;
-    tr[y].s[k] &#x3D; tr[x].s[k ^ 1],tr[tr[x].s[k ^ 1]].p &#x3D; y;
-    tr[x].s[k ^ 1] &#x3D; y,tr[y].p &#x3D; x;
-    pushup(y),pushup(x);
-&#125;
-
-void splay(int x)   &#x2F;&#x2F;将x转到根节点
-&#123;&#x2F;&#x2F;可能有从下往上的操作(即不是从上往下递归而来的),所以需要先将路径存到栈里，然后从上往下pushdown一遍
-    int top &#x3D; 0,r &#x3D; x;
-    stk[++top] &#x3D; r;
-    while(!isroot(r))   stk[++top] &#x3D; r &#x3D; tr[r].p;
-    while(top)  pushdown(stk[top--]);
-    while(!isroot(x))
-    &#123;
-        int y &#x3D; tr[x].p,z &#x3D; tr[y].p;
-        if(!isroot(y))
-            if((tr[y].s[1] &#x3D;&#x3D; x) ^ (tr[z].s[1] &#x3D;&#x3D; y))   rotate(x);
-            else    rotate(y);
-        rotate(x);
-    &#125;
-&#125;
-
-void access(int x)  &#x2F;&#x2F;建立一条从根到x的(实边)路径，同时将x变成splay的根节点
-&#123;
-    int z &#x3D; x;
-    for(int y &#x3D; 0;x;y &#x3D; x,x &#x3D; tr[x].p)&#x2F;&#x2F;x沿着实边往上走
-    &#123;
-        splay(x);
-        tr[x].s[1] &#x3D; y,pushup(x);
-    &#125;
-    splay(z);
-&#125;
-
-void makeroot(int x)    &#x2F;&#x2F;将x变成原树的根节点
-&#123;
-    access(x);
-    pushrev(x);
-&#125;
-
-int findroot(int x) &#x2F;&#x2F;找到x所在原树的根节点，再将原树的根节点旋转到splay的根节点
-&#123;
-    access(x);
-    while(tr[x].s[0])   pushdown(x),x &#x3D; tr[x].s[0];
-    splay(x);
-    return x;
-&#125;
-
-void split(int x,int y) &#x2F;&#x2F;给x和y之间的路径建立一个splay，其根节点是y
-&#123;
-    makeroot(x);
-    access(y);
-&#125;
-
-void link(int x,int y)  &#x2F;&#x2F;如果x和y不连通，则加入一条x和y之间的边
-&#123;
-    makeroot(x);
-    if(findroot(y) !&#x3D; x)    tr[x].p &#x3D; y;
-&#125;
-
-void cut(int x,int y)   &#x2F;&#x2F;如果x和y之间存在边，则删除该边
-&#123;
-    makeroot(x);
-    if(findroot(y) &#x3D;&#x3D; x &amp;&amp; tr[y].p &#x3D;&#x3D; x &amp;&amp; !tr[y].s[0])
-    &#123;
-        tr[x].s[1] &#x3D; tr[y].p &#x3D; 0;
-        pushup(x);
-    &#125;
-&#125;
-
-int main()
-&#123;
-    cin.tie(nullptr)-&gt;sync_with_stdio(false);
-    cin &gt;&gt; n &gt;&gt; m;
-
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; tr[i].v;
-    while (m--)
-    &#123;
-        int t,x,y;
-        cin &gt;&gt; t &gt;&gt; x &gt;&gt; y;
-        if(t &#x3D;&#x3D; 0)
-        &#123;
-            split(x,y);
-            cout &lt;&lt; tr[y].sum &lt;&lt; &quot;\n&quot;;
-        &#125;
-        else if(t &#x3D;&#x3D; 1) link(x,y);
-        else if(t &#x3D;&#x3D; 2) cut(x,y);
-        else
-        &#123;
-            splay(x);
-            tr[x].v &#x3D; y;
-            pushup(x);
-        &#125;
-    &#125;
-    
-    return 0;
-&#125;</code></pre>
-
 <h2 id="AC自动机"><a href="#AC自动机" class="headerlink" title="AC自动机"></a>AC自动机</h2><p><mark>封装模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e6 + 10;
 
@@ -4535,6 +4314,295 @@ int main()
 <p><strong>模板：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2768/">后缀自动机</a></p>
 <p><strong>线段树 + 后缀自动机：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/33188/H">Hacker</a></p>
 <p><strong>求解循环同构字符串的最小表示法：</strong><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=7279">Cyclically Isomorphic</a></p>
+<h2 id="点分治"><a href="#点分治" class="headerlink" title="点分治"></a>点分治</h2><blockquote>
+<p><strong>时间复杂度：</strong>$O(nlogn)$</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1e4 + 10, M &#x3D; N * 2;
+
+int n, m;
+int h[N], e[M], w[M], ne[M], idx;
+bool st[N];
+int p[N], q[N];
+
+void add(int a, int b, int c)
+&#123;
+    e[idx] &#x3D; b, w[idx] &#x3D; c, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
+&#125;
+
+int get_size(int u, int fa)
+&#123;
+    if (st[u])   return 0;
+    int res &#x3D; 1;
+    for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i])
+        if (e[i] !&#x3D; fa) 
+            res +&#x3D; get_size(e[i], u);
+    return res;
+&#125;
+
+int get_wc(int u, int fa, int tot, int&amp; wc)
+&#123;
+    if (st[u])  return 0;
+    int sum &#x3D; 1, ms &#x3D; 0;
+    for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i])
+    &#123;
+        int j &#x3D; e[i];
+        if(j &#x3D;&#x3D; fa) continue;
+        int t &#x3D; get_wc(j, u, tot, wc);
+        ms &#x3D; max(ms, t);
+        sum +&#x3D; t;
+    &#125;
+    ms &#x3D; max(ms, tot - sum);
+    if (ms &lt;&#x3D; tot &#x2F; 2)   wc &#x3D; u;
+    return sum;
+&#125;
+
+void get_dist(int u, int fa, int dist, int&amp; qt)
+&#123;
+    if (st[u])  return;
+    q[qt ++] &#x3D; dist;
+    for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i])
+        if(e[i] !&#x3D; fa)
+            get_dist(e[i], u, dist + w[i], qt);
+&#125;
+
+int get(int a[], int k)
+&#123;
+    sort(a, a + k);
+    int res &#x3D; 0;
+    for (int i &#x3D; k - 1, j &#x3D; -1; i &gt;&#x3D; 0; i --)
+    &#123;
+        while (j + 1 &lt; i &amp;&amp; a[j + 1] + a[i] &lt;&#x3D; m)   j++;
+        j &#x3D; min(j, i - 1);
+        res +&#x3D; j + 1;
+    &#125;
+    return res;
+&#125;
+
+int calc(int u)
+&#123;
+    if (st[u])  return 0;
+    int res &#x3D; 0;
+    get_wc(u, -1, get_size(u, -1), u);
+    st[u] &#x3D; true; &#x2F;&#x2F; 删除重心
+
+    int pt &#x3D; 0;
+    for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i])
+    &#123;
+        int j &#x3D; e[i], qt &#x3D; 0;
+        get_dist(j, -1, w[i], qt);
+        res -&#x3D; get(q, qt);
+        for (int k &#x3D; 0; k &lt; qt; k++)
+        &#123;
+            if(q[k] &lt;&#x3D; m)   res++;
+            p[pt++] &#x3D; q[k];
+        &#125;
+    &#125;
+    res +&#x3D; get(p, pt);
+
+    for(int i &#x3D; h[u]; ~i; i &#x3D; ne[i])    res +&#x3D; calc(e[i]);
+    return res;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    while (cin &gt;&gt; n &gt;&gt; m, n || m)
+    &#123;
+        memset(st, 0, sizeof(st));
+        memset(h, -1, sizeof(h));
+        idx &#x3D; 0;
+        for (int i &#x3D; 0; i &lt; n - 1; i++)
+        &#123;
+            int a, b, c;
+            cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+            add(a, b, c),add(b, a, c);
+        &#125;
+        cout &lt;&lt; calc(0) &lt;&lt; &quot;\n&quot;;
+    &#125;
+    
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark><br><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/254/">树</a></p>
+<h2 id="动态树——LCT（link-cut-tree）"><a href="#动态树——LCT（link-cut-tree）" class="headerlink" title="动态树——LCT（link-cut-tree）"></a>动态树——LCT（link-cut-tree）</h2><p><strong>LCT</strong> 是用于解决 <strong>动态树问题</strong> 的数据结构。</p>
+<blockquote>
+<p><strong>动态树问题：</strong></p>
+<p>维护一个森林，支持删除某条边，加入某条边，并保证加边，删边后仍是森林。我们要维护该森林的一些信息。<br>一般的操作有两点连通性， 两点路径权值和， 连接两点 和 切断某条边、修改信息 等</p>
+</blockquote>
+<p>LCT 则是用多个 Splay 来维护 多个实链，Splay 的特性就使得我们可以进行 树的合并、分割 操作。</p>
+<p><strong>零散知识点：</strong></p>
+<p>将所有边分为<mark>虚边</mark>和<mark>实边</mark>，用splay维护所有实边路径，其中序遍历就是要维护的路径。</p>
+<p>splay本质上：维护所有实边，用splay中的后继与前驱来维护原树中的父子关系。</p>
+<p>虚边：是用splay的根节点来维护。</p>
+<p><strong>实链剖分：</strong></p>
+<p>把树拆分成若干条实链，用splay这种动态数据结构来维护实链。通过对实链的拆分与组合，构造答案。</p>
+<p>一个节点只能选一个儿子做实儿子，其他都是虚儿子。</p>
+<p><strong>实边</strong>：父节点与实儿子之间的边，是双向边。</p>
+<p><strong>虚边</strong>：由虚儿子指向父节点的边，是单向边。（<strong>认父不认子</strong>）</p>
+<p><strong>实链</strong>：由实边构成的链。每条实链的节点深度是严格递增的。</p>
+<p><strong>辅助树</strong>：由若干splay构成，与原树是等价的，只需要维护辅助树。</p>
+<p><strong>性质：每条实链用一个splay维护，中序遍历按深度严格递增。</strong></p>
+<p>注意：区分<strong>树根</strong>和<strong>splay的根</strong>。</p>
+<p>一些辅助树构成了Link Cut Tree(LCT)，其维护的是整个森林。</p>
+<p><img src="/images/6.png"></p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3690">【模板】动态树（Link Cut Tree）</a></p>
+<p>给定 n 个点以及每个点的权值，要你处理接下来的 m个操作。<br>操作有四种，操作从 0 到 3 编号。点从 1 到 n 编号。</p>
+<ul>
+<li><code>0 x y</code> 代表询问从 x 到 y 的路径上的点的权值的 xor 和。保证 x 到 y 是联通的。</li>
+<li><code>1 x y</code> 代表连接 x 到 y，若 x 到 y 已经联通则无需连接。</li>
+<li><code>2 x y</code> 代表删除边 (<em>x</em>,y)，不保证边 (<em>x</em>,y) 存在。</li>
+<li><code>3 x y</code> 代表将点 x上的权值变成 y。</li>
+</ul>
+<p><mark>代码模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+
+using namespace std;
+
+const int N &#x3D; 1e5 + 10;
+
+int n,m;
+struct Node
+&#123;
+    int s[2],p,v;
+    int sum,rev;&#x2F;&#x2F;sum:异或和,rev:旋转标记;
+    &#x2F;&#x2F;这里的懒标记表示:当前结点已经旋转过了，但我的子树还未旋转(即我这个点的状态是懒标记操作之后的状态)
+&#125;tr[N];
+int stk[N];
+
+void pushrev(int x)
+&#123;
+    swap(tr[x].s[0],tr[x].s[1]);
+    tr[x].rev ^&#x3D; 1;
+&#125;
+
+void pushup(int x)
+&#123;
+    tr[x].sum &#x3D; tr[tr[x].s[0]].sum ^ tr[x].v ^ tr[tr[x].s[1]].sum;
+&#125;
+
+void pushdown(int x)
+&#123;
+    if(tr[x].rev)
+    &#123;
+        pushrev(tr[x].s[0]),pushrev(tr[x].s[1]);
+        tr[x].rev &#x3D; 0;
+    &#125;
+&#125;
+
+bool isroot(int x)  &#x2F;&#x2F;判断当前点是不是根节点
+&#123;
+    return tr[tr[x].p].s[0] !&#x3D; x &amp;&amp; tr[tr[x].p].s[1] !&#x3D; x;
+&#125;
+
+void rotate(int x)
+&#123;
+    int y &#x3D; tr[x].p,z &#x3D; tr[y].p;
+    int k &#x3D; tr[y].s[1] &#x3D;&#x3D; x;
+    if(!isroot(y))  tr[z].s[tr[z].s[1] &#x3D;&#x3D; y] &#x3D; x;&#x2F;&#x2F;如果y是根节点则不能更新y和它父节点的关系
+    tr[x].p &#x3D; z;
+    tr[y].s[k] &#x3D; tr[x].s[k ^ 1],tr[tr[x].s[k ^ 1]].p &#x3D; y;
+    tr[x].s[k ^ 1] &#x3D; y,tr[y].p &#x3D; x;
+    pushup(y),pushup(x);
+&#125;
+
+void splay(int x)   &#x2F;&#x2F;将x转到根节点
+&#123;&#x2F;&#x2F;可能有从下往上的操作(即不是从上往下递归而来的),所以需要先将路径存到栈里，然后从上往下pushdown一遍
+    int top &#x3D; 0,r &#x3D; x;
+    stk[++top] &#x3D; r;
+    while(!isroot(r))   stk[++top] &#x3D; r &#x3D; tr[r].p;
+    while(top)  pushdown(stk[top--]);
+    while(!isroot(x))
+    &#123;
+        int y &#x3D; tr[x].p,z &#x3D; tr[y].p;
+        if(!isroot(y))
+            if((tr[y].s[1] &#x3D;&#x3D; x) ^ (tr[z].s[1] &#x3D;&#x3D; y))   rotate(x);
+            else    rotate(y);
+        rotate(x);
+    &#125;
+&#125;
+
+void access(int x)  &#x2F;&#x2F;建立一条从根到x的(实边)路径，同时将x变成splay的根节点
+&#123;
+    int z &#x3D; x;
+    for(int y &#x3D; 0;x;y &#x3D; x,x &#x3D; tr[x].p)&#x2F;&#x2F;x沿着实边往上走
+    &#123;
+        splay(x);
+        tr[x].s[1] &#x3D; y,pushup(x);
+    &#125;
+    splay(z);
+&#125;
+
+void makeroot(int x)    &#x2F;&#x2F;将x变成原树的根节点
+&#123;
+    access(x);
+    pushrev(x);
+&#125;
+
+int findroot(int x) &#x2F;&#x2F;找到x所在原树的根节点，再将原树的根节点旋转到splay的根节点
+&#123;
+    access(x);
+    while(tr[x].s[0])   pushdown(x),x &#x3D; tr[x].s[0];
+    splay(x);
+    return x;
+&#125;
+
+void split(int x,int y) &#x2F;&#x2F;给x和y之间的路径建立一个splay，其根节点是y
+&#123;
+    makeroot(x);
+    access(y);
+&#125;
+
+void link(int x,int y)  &#x2F;&#x2F;如果x和y不连通，则加入一条x和y之间的边
+&#123;
+    makeroot(x);
+    if(findroot(y) !&#x3D; x)    tr[x].p &#x3D; y;
+&#125;
+
+void cut(int x,int y)   &#x2F;&#x2F;如果x和y之间存在边，则删除该边
+&#123;
+    makeroot(x);
+    if(findroot(y) &#x3D;&#x3D; x &amp;&amp; tr[y].p &#x3D;&#x3D; x &amp;&amp; !tr[y].s[0])
+    &#123;
+        tr[x].s[1] &#x3D; tr[y].p &#x3D; 0;
+        pushup(x);
+    &#125;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+    cin &gt;&gt; n &gt;&gt; m;
+
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; tr[i].v;
+    while (m--)
+    &#123;
+        int t,x,y;
+        cin &gt;&gt; t &gt;&gt; x &gt;&gt; y;
+        if(t &#x3D;&#x3D; 0)
+        &#123;
+            split(x,y);
+            cout &lt;&lt; tr[y].sum &lt;&lt; &quot;\n&quot;;
+        &#125;
+        else if(t &#x3D;&#x3D; 1) link(x,y);
+        else if(t &#x3D;&#x3D; 2) cut(x,y);
+        else
+        &#123;
+            splay(x);
+            tr[x].v &#x3D; y;
+            pushup(x);
+        &#125;
+    &#125;
+    
+    return 0;
+&#125;</code></pre>
+
 <h2 id="支配树"><a href="#支配树" class="headerlink" title="支配树"></a>支配树</h2><blockquote>
 <p><strong>定义：</strong></p>
 <p>对于一张有向图，我们确定一个起点 $S$，对于一个点 $k$，称 $x$ 为其支配点当且仅当，删去点 $x$ 后，$S$ 无法到达 $k$，即 $S$ 到达 $k$ 的所有路径都必须通过 $x$。</p>

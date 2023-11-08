@@ -668,8 +668,9 @@ while(l &lt; r)
     else	r &#x3D; mid;
 &#125;</code></pre>
 
-<p><mark>推荐题单：</mark></p>
+<h3 id="题单："><a href="#题单：" class="headerlink" title="题单："></a>题单：</h3><p><mark>推荐题单：</mark></p>
 <p><strong>二分 + 双指针 &#x2F; 二分套二分：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1852/problem/A">A. Ntarsis’ Set</a></p>
+<p><strong>考古做两遍的一道 $cf\ C$ 二分好题：二分 + 差分 + 前缀和</strong>  <a target="_blank" rel="noopener" href="https://codeforces.com/contest/1795/problem/C">C. Tea Tasting</a></p>
 <p><strong>$ 2023CCPC $桂林站二分签到题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/482805/problem/M">M. Flipping Cards</a></p>
 <p><mark>细谈CCPC二分签到：</mark></p>
 <p><strong>很签吗？？？不签啊！但从各方面来说，但经典卧槽！</strong></p>
@@ -738,6 +739,73 @@ int main()
     &#125;
     
     cout &lt;&lt; l &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+<p><mark>细谈：C. Tea Tasting</mark></p>
+<blockquote>
+<p><strong>题意：</strong> 有 $n$ 个茶与 $n$ 个人，每个人每次可以喝 $b_i$ 容量的茶，茶也有一定的容量，当然如果茶容量低于某个人所能喝的容量时，这个人可以把剩下的茶全部喝完。喝茶的方式：第一轮，第 $i$ 个人喝第 $i$ 编号的茶；第二轮，第 $i$ 个人喝第 $i - 1$ 编号的茶，以此类推，当然，如果有人该轮喝的是编号为 $1$ 的茶，则之后的回合就停止喝茶了，求所有轮次结束后，每个人共喝了多少茶？</p>
+<p><strong>吐槽（吐槽中带有题解）：</strong> 第一眼看这道题，感觉挺容易暴力的 $O(n^2)$，显然过不了。直来直去的话又想是用某种数据结构来维护？但也好复杂，根本想不清楚。于是无奈看了一眼题解，但只看了第一行！题解说：对于第 $i$ 杯茶，它影响到的就是 $i$ 到 $j$ 这个区间，第 $j$ 个人可能会喝剩下的（qwq）。然后突然我就会写了？对，是真的会写了。口胡一下大致就是给区间 $[l,r]$ 的每个人 $+1$，表示这杯茶他们都能喝到 $b_i$ 容量的茶，最后一个人只能喝剩下的。前者直接差分一下，最后一个人喝剩下了直接加到答案数组里面。$n$ 杯茶，因为具备单调性，每次找的话就用<strong>二分查找</strong>，并用前缀和 $O(1)$ 维护下，整体时间复杂度：$O(n logn)$。</p>
+<p>由于是看了一眼题解才知道从哪入手的，但为什么想的时候没想到？这个着手点并非正面入手的，可以理解成侧面入手。不过当时我也想了从茶开始着手，但是我只想到了第 $i$ 杯茶会影响 $i$ 到 $n$ 这些人，但没有细想这些具体的影响效果。实际想一想可知，找到第一个大于 $a_i$ 容量的位置 $j$，那么从 $i$ 到 $j$ 每个人都会完整享用第 $i$ 杯茶 对应 $b$ 的容量，最后第 $j$ 这个人喝剩下的就行了。这么一想就会有二分的想法，顺带着差分还有前缀和的想法，最后这道题就能想清楚了。</p>
+<p>最后不得不说，还是得从多角度去考虑问题，而且每个角度要分析到可行或不可行的原因！</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+void solve()
+&#123;
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;int&gt; a(n + 1), b(n + 1);
+    vector&lt;ll&gt; sum(n + 2);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; a[i];
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; b[i], sum[i] &#x3D; sum[i - 1] + b[i];
+    sum[n + 1] &#x3D; 1e17;
+
+    vector&lt;ll&gt; res(n + 2), ans(n + 2);
+    auto add &#x3D; [&amp;](int l, int r) -&gt; void
+    &#123;
+        if (l &gt; r)  return;
+        res[l] +&#x3D; 1, res[r + 1] -&#x3D; 1;
+    &#125;;
+
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        int l &#x3D; i, r &#x3D; n + 1;
+        while (l &lt; r)
+        &#123;
+            int mid &#x3D; l + r &gt;&gt; 1;
+            if (sum[mid] - sum[i - 1] &gt; a[i])   r &#x3D; mid;
+            else    l &#x3D; mid + 1;
+        &#125;
+        add(i, l - 1);
+        ans[l] +&#x3D; a[i] - (sum[l - 1] - sum[i - 1]);
+    &#125;
+
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        res[i] +&#x3D; res[i - 1];
+        ans[i] +&#x3D; (ll)res[i] * b[i];
+        cout &lt;&lt; ans[i] &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; n];
+    &#125;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int t;
+    cin &gt;&gt; t;
+
+    while (t--)
+    &#123;
+        solve();
+    &#125;
+    
     return 0;
 &#125;</code></pre>
 
@@ -934,7 +1002,619 @@ int main()
 <p><strong>2023 ICPC 区域赛西安站：（待更新到GYM）</strong></p>
 <h2 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h2><p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/801/">最长连续不重复子序列</a></p>
+<p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57359/G">Go to Play Maimai DX</a></p>
 <p><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=7314">Simple Set Problem</a></p>
+<p><mark>Simple Set Problem 代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
+
+#define IOS ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr)
+#define cf(_) int _;cin &gt;&gt; _;while(_--)
+
+mt19937 mrand(random_device&#123;&#125;());
+int rnd(int x) &#123; return mrand() % x;&#125;
+ll gcd(ll a,ll b)&#123;return b ? gcd(b,a % b) : a;&#125;
+ll fpow(ll a,ll b,ll mod)&#123;ll res &#x3D; 1;a %&#x3D; mod;assert(b &gt;&#x3D; 0);while(b)&#123;if(b &amp; 1)res &#x3D; res * a % mod;a &#x3D; a * a % mod;b &gt;&gt;&#x3D; 1;&#125;return res;&#125;
+
+void solve()
+&#123;
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;pii&gt; v;
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+    &#123;
+        int cnt;
+        cin &gt;&gt; cnt;
+        for(int j &#x3D; 1,x;j &lt;&#x3D; cnt;j++)
+        &#123;
+            cin &gt;&gt; x;
+            v.emplace_back(x,i);
+        &#125;
+    &#125;
+
+    sort(v.begin(),v.end());
+
+    vector&lt;int&gt; st(n + 1);
+    int res &#x3D; 2e9,cnt &#x3D; 0;
+    for(int i &#x3D; 0,j &#x3D; 0;i &lt; v.size() &amp;&amp; j &lt; v.size();)
+    &#123;
+        while(j &lt; v.size() &amp;&amp; cnt &lt; n)    
+        &#123;
+            if(++st[v[j].second] &#x3D;&#x3D; 1)  cnt++;
+            j++;
+        &#125;
+        while(cnt &#x3D;&#x3D; n)
+        &#123;
+            res &#x3D; min(res,v[j - 1].first - v[i].first);
+            if(--st[v[i].second] &#x3D;&#x3D; 0)  cnt--;
+            i++;
+        &#125;
+    &#125;
+
+    if(res &#x3D;&#x3D; 2e9)  res &#x3D; 0;
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+&#125;
+
+int main()
+&#123;
+    IOS;
+
+    int t;
+    cin &gt;&gt; t;
+
+    while(t--)  solve();
+
+    return 0;
+&#125;</code></pre>
+
+<h2 id="高精度"><a href="#高精度" class="headerlink" title="高精度"></a>高精度</h2><h3 id="高精度加法"><a href="#高精度加法" class="headerlink" title="高精度加法"></a>高精度加法</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+#include&lt;vector&gt;
+using namespace std;
+const int N &#x3D; 1e6 + 10;
+vector&lt;int&gt; add(vector&lt;int&gt;&amp;A,vector&lt;int&gt;&amp;B)
+&#123;
+    vector&lt;int&gt; C;
+    int t &#x3D; 0;
+    for (int i &#x3D; 0; i &lt; A.size()|| i &lt; B.size(); i++)
+    &#123;
+        if(i &lt; A.size())    t +&#x3D; A[i];
+        if(i &lt; B.size())    t +&#x3D; B[i];
+        C.push_back(t%10);
+        t &#x2F;&#x3D; 10;
+    &#125;
+    if(t) C.push_back(1);
+    return C;
+&#125;
+
+int main()
+&#123;
+    string a,b;
+    vector&lt;int&gt;A,B;
+    cin &gt;&gt; a &gt;&gt; b;
+    for(int i &#x3D; a.size()-1;i &gt;&#x3D; 0;i--)  A.push_back(a[i]-&#39;0&#39;);
+    for(int i &#x3D; b.size()-1;i &gt;&#x3D; 0;i--)  B.push_back(b[i]-&#39;0&#39;);
+    auto C &#x3D; add(A,B);
+    for (int i &#x3D; C.size() - 1; i &gt;&#x3D; 0; i--) printf(&quot;%d&quot;,C[i]);
+    return 0;
+&#125;</code></pre>
+
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/793/">高精度加法</a></p>
+<h3 id="高精度减法"><a href="#高精度减法" class="headerlink" title="高精度减法"></a>高精度减法</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+bool cmp(vector&lt;int&gt;&amp;A,vector&lt;int&gt;&amp;B)
+&#123;
+    if(A.size()!&#x3D; B.size()) return A.size() &gt; B.size();
+    for(int i &#x3D; A.size() - 1;i &gt;&#x3D; 0;i--)
+    &#123;
+        if(A[i] !&#x3D; B[i])    return A[i] &gt; B[i];
+    &#125;
+    return true;
+&#125;
+vector&lt;int&gt; sub(vector&lt;int&gt; &amp;A,vector&lt;int&gt; &amp;B)
+&#123;
+    vector&lt;int&gt; C;
+    for(int i &#x3D; 0,t &#x3D; 0;i &lt; A.size();i++)
+    &#123;
+        t &#x3D; A[i] - t;
+        if(i &lt; B.size())    t -&#x3D;B[i];
+        C.push_back((t+10)%10);
+        if(t &lt; 0)   t &#x3D; 1;
+        else    t &#x3D; 0;
+    &#125;
+    while(C.size() &gt; 1 &amp;&amp; C.back() &#x3D;&#x3D; 0)    C.pop_back();
+    return C;
+&#125;
+int main()
+&#123;
+    string a,b;
+    vector&lt;int&gt; A,B;
+    cin &gt;&gt; a &gt;&gt; b;
+    for(int i &#x3D; a.size()-1;i &gt;&#x3D; 0;i--) A.push_back(a[i]-&#39;0&#39;);
+    for(int i &#x3D; b.size()-1;i &gt;&#x3D; 0;i--) B.push_back(b[i]-&#39;0&#39;);
+    if(cmp(A,B))
+    &#123;
+        auto C &#x3D; sub(A,B);
+        for(int i &#x3D; C.size()-1;i &gt;&#x3D;0;i--)   printf(&quot;%d&quot;,C[i]);
+    &#125;
+    else
+    &#123;
+        auto C &#x3D; sub(B,A);
+        printf(&quot;-&quot;);
+        for(int i &#x3D; C.size()-1;i &gt;&#x3D;0;i--)   printf(&quot;%d&quot;,C[i]);
+    &#125;
+    return 0;
+&#125;</code></pre>
+
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/794/">高精度减法</a></p>
+<h3 id="高精度乘法"><a href="#高精度乘法" class="headerlink" title="高精度乘法"></a>高精度乘法</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+vector&lt;int&gt; mul(vector&lt;int&gt;&amp;A,int b)
+&#123;
+    vector&lt;int&gt;C;
+    int t &#x3D; 0;
+    for(int i &#x3D; 0; i &lt; A.size() || t;i++)
+    &#123;
+        if(i &lt; A.size())    t +&#x3D; A[i] * b;
+        C.push_back(t % 10);
+        t &#x2F;&#x3D; 10;
+    &#125;
+    while(C.size()&gt;1 &amp;&amp; C.back()&#x3D;&#x3D;0)    C.pop_back();
+    return C;
+&#125;
+int main()
+&#123;
+    string a;
+    int b;
+    cin &gt;&gt; a &gt;&gt; b;
+    vector&lt;int&gt;A;
+    for(int i &#x3D; a.size() - 1;i &gt;&#x3D; 0;i--)    A.push_back(a[i]-&#39;0&#39;);
+    auto C &#x3D; mul(A,b);
+    for(int i &#x3D; C.size()-1;i &gt;&#x3D; 0;i--)  printf(&quot;%d&quot;,C[i]);
+    return 0;
+&#125;</code></pre>
+
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/795/">高精度乘法</a></p>
+<h3 id="高精度除法"><a href="#高精度除法" class="headerlink" title="高精度除法"></a>高精度除法</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+vector&lt;int&gt; div(vector&lt;int&gt;&amp;A,int b,int &amp;r)
+&#123;
+    vector&lt;int&gt;C;
+    r &#x3D; 0;
+    for(int i &#x3D; A.size() - 1;i &gt;&#x3D; 0; i--)
+    &#123;
+        r &#x3D; r*10+A[i];
+        C.push_back(r&#x2F;b);
+        r %&#x3D; b;
+    &#125;
+    reverse(C.begin(),C.end());
+    while(C.size() &gt; 1 &amp;&amp; C.back()&#x3D;&#x3D;0)  C.pop_back();
+    return C;
+&#125;
+int main()
+&#123;
+    string a;
+    int b;
+    cin &gt;&gt; a &gt;&gt; b;
+    vector&lt;int&gt;A;
+    for(int i &#x3D; a.size() -1;i&gt;&#x3D;0;i--)   A.push_back(a[i]-&#39;0&#39;);
+    int r;
+    auto C &#x3D; div(A,b,r);
+    for(int i &#x3D; C.size() - 1;i &gt;&#x3D; 0;i--)    printf(&quot;%d&quot;,C[i]);
+    cout &lt;&lt; endl &lt;&lt; r &lt;&lt; endl;
+    return 0;
+&#125;</code></pre>
+
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/796/">高精度除法</a></p>
+<h3 id="高精度封装模板"><a href="#高精度封装模板" class="headerlink" title="高精度封装模板"></a>高精度封装模板</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include &lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int base &#x3D; 1000000000;
+const int base_digits &#x3D; 9;
+
+struct bigint &#123;
+	std::vector&lt;int&gt; z;
+	int sign;
+
+	bigint() :
+		sign(1) &#123;
+	&#125;
+
+	bigint(long long v) &#123;
+		*this &#x3D; v;
+	&#125;
+
+	bigint(const std::string &amp;s) &#123;
+		read(s);
+	&#125;
+
+	void operator&#x3D;(const bigint &amp;v) &#123;
+		sign &#x3D; v.sign;
+		z &#x3D; v.z;
+	&#125;
+
+	void operator&#x3D;(long long v) &#123;
+		sign &#x3D; 1;
+		if (v &lt; 0)
+			sign &#x3D; -1, v &#x3D; -v;
+		z.clear();
+		for (; v &gt; 0; v &#x3D; v &#x2F; base)
+			z.push_back(v % base);
+	&#125;
+
+	bigint operator+(const bigint &amp;v) const &#123;
+		if (sign &#x3D;&#x3D; v.sign) &#123;
+			bigint res &#x3D; v;
+
+			for (int i &#x3D; 0, carry &#x3D; 0; i &lt; (int) std::max(z.size(), v.z.size()) || carry; ++i) &#123;
+				if (i &#x3D;&#x3D; (int) res.z.size())
+					res.z.push_back(0);
+				res.z[i] +&#x3D; carry + (i &lt; (int) z.size() ? z[i] : 0);
+				carry &#x3D; res.z[i] &gt;&#x3D; base;
+				if (carry)
+					res.z[i] -&#x3D; base;
+			&#125;
+			return res;
+		&#125;
+		return *this - (-v);
+	&#125;
+
+	bigint operator-(const bigint &amp;v) const &#123;
+		if (sign &#x3D;&#x3D; v.sign) &#123;
+			if (abs() &gt;&#x3D; v.abs()) &#123;
+				bigint res &#x3D; *this;
+				for (int i &#x3D; 0, carry &#x3D; 0; i &lt; (int) v.z.size() || carry; ++i) &#123;
+					res.z[i] -&#x3D; carry + (i &lt; (int) v.z.size() ? v.z[i] : 0);
+					carry &#x3D; res.z[i] &lt; 0;
+					if (carry)
+						res.z[i] +&#x3D; base;
+				&#125;
+				res.trim();
+				return res;
+			&#125;
+			return -(v - *this);
+		&#125;
+		return *this + (-v);
+	&#125;
+
+	void operator*&#x3D;(int v) &#123;
+		if (v &lt; 0)
+			sign &#x3D; -sign, v &#x3D; -v;
+		for (int i &#x3D; 0, carry &#x3D; 0; i &lt; (int) z.size() || carry; ++i) &#123;
+			if (i &#x3D;&#x3D; (int) z.size())
+				z.push_back(0);
+			long long cur &#x3D; z[i] * (long long) v + carry;
+			carry &#x3D; (int) (cur &#x2F; base);
+			z[i] &#x3D; (int) (cur % base);
+			&#x2F;&#x2F;asm(&quot;divl %%ecx&quot; : &quot;&#x3D;a&quot;(carry), &quot;&#x3D;d&quot;(a[i]) : &quot;A&quot;(cur), &quot;c&quot;(base));
+		&#125;
+		trim();
+	&#125;
+
+	bigint operator*(int v) const &#123;
+		bigint res &#x3D; *this;
+		res *&#x3D; v;
+		return res;
+	&#125;
+
+	friend std::pair&lt;bigint, bigint&gt; divmod(const bigint &amp;a1, const bigint &amp;b1) &#123;
+		int norm &#x3D; base &#x2F; (b1.z.back() + 1);
+		bigint a &#x3D; a1.abs() * norm;
+		bigint b &#x3D; b1.abs() * norm;
+		bigint q, r;
+		q.z.resize(a.z.size());
+
+		for (int i &#x3D; a.z.size() - 1; i &gt;&#x3D; 0; i--) &#123;
+			r *&#x3D; base;
+			r +&#x3D; a.z[i];
+			int s1 &#x3D; b.z.size() &lt; r.z.size() ? r.z[b.z.size()] : 0;
+			int s2 &#x3D; b.z.size() - 1 &lt; r.z.size() ? r.z[b.z.size() - 1] : 0;
+			int d &#x3D; ((long long) s1 * base + s2) &#x2F; b.z.back();
+			r -&#x3D; b * d;
+			while (r &lt; 0)
+				r +&#x3D; b, --d;
+			q.z[i] &#x3D; d;
+		&#125;
+
+		q.sign &#x3D; a1.sign * b1.sign;
+		r.sign &#x3D; a1.sign;
+		q.trim();
+		r.trim();
+		return std::make_pair(q, r &#x2F; norm);
+	&#125;
+
+	friend bigint sqrt(const bigint &amp;a1) &#123;
+		bigint a &#x3D; a1;
+		while (a.z.empty() || a.z.size() % 2 &#x3D;&#x3D; 1)
+			a.z.push_back(0);
+
+		int n &#x3D; a.z.size();
+		
+		int firstDigit &#x3D; (int) sqrt((double) a.z[n - 1] * base + a.z[n - 2]);
+		int norm &#x3D; base &#x2F; (firstDigit + 1);
+		a *&#x3D; norm;
+		a *&#x3D; norm;
+		while (a.z.empty() || a.z.size() % 2 &#x3D;&#x3D; 1)
+			a.z.push_back(0);
+		
+		bigint r &#x3D; (long long) a.z[n - 1] * base + a.z[n - 2];
+		firstDigit &#x3D; (int) sqrt((double) a.z[n - 1] * base + a.z[n - 2]);
+		int q &#x3D; firstDigit;
+		bigint res;
+ 
+		for(int j &#x3D; n &#x2F; 2 - 1; j &gt;&#x3D; 0; j--) &#123;
+			for(; ; --q) &#123;
+				bigint r1 &#x3D; (r - (res * 2 * base + q) * q) * base * base + (j &gt; 0 ? (long long) a.z[2 * j - 1] * base + a.z[2 * j - 2] : 0);
+				if (r1 &gt;&#x3D; 0) &#123;
+					r &#x3D; r1;
+					break;
+				&#125;
+			&#125;
+			res *&#x3D; base;
+			res +&#x3D; q;
+
+			if (j &gt; 0) &#123;
+				int d1 &#x3D; res.z.size() + 2 &lt; r.z.size() ? r.z[res.z.size() + 2] : 0;
+				int d2 &#x3D; res.z.size() + 1 &lt; r.z.size() ? r.z[res.z.size() + 1] : 0;
+				int d3 &#x3D; res.z.size() &lt; r.z.size() ? r.z[res.z.size()] : 0;
+				q &#x3D; ((long long) d1 * base * base + (long long) d2 * base + d3) &#x2F; (firstDigit * 2);
+			&#125;		   
+		&#125;
+		
+		res.trim();
+		return res &#x2F; norm;
+	&#125;
+
+	bigint operator&#x2F;(const bigint &amp;v) const &#123;
+		return divmod(*this, v).first;
+	&#125;
+
+	bigint operator%(const bigint &amp;v) const &#123;
+		return divmod(*this, v).second;
+	&#125;
+
+	void operator&#x2F;&#x3D;(int v) &#123;
+		if (v &lt; 0)
+			sign &#x3D; -sign, v &#x3D; -v;
+		for (int i &#x3D; (int) z.size() - 1, rem &#x3D; 0; i &gt;&#x3D; 0; --i) &#123;
+			long long cur &#x3D; z[i] + rem * (long long) base;
+			z[i] &#x3D; (int) (cur &#x2F; v);
+			rem &#x3D; (int) (cur % v);
+		&#125;
+		trim();
+	&#125;
+
+	bigint operator&#x2F;(int v) const &#123;
+		bigint res &#x3D; *this;
+		res &#x2F;&#x3D; v;
+		return res;
+	&#125;
+
+	int operator%(int v) const &#123;
+		if (v &lt; 0)
+			v &#x3D; -v;
+		int m &#x3D; 0;
+		for (int i &#x3D; z.size() - 1; i &gt;&#x3D; 0; --i)
+			m &#x3D; (z[i] + m * (long long) base) % v;
+		return m * sign;
+	&#125;
+
+	void operator+&#x3D;(const bigint &amp;v) &#123;
+		*this &#x3D; *this + v;
+	&#125;
+	void operator-&#x3D;(const bigint &amp;v) &#123;
+		*this &#x3D; *this - v;
+	&#125;
+	void operator*&#x3D;(const bigint &amp;v) &#123;
+		*this &#x3D; *this * v;
+	&#125;
+	void operator&#x2F;&#x3D;(const bigint &amp;v) &#123;
+		*this &#x3D; *this &#x2F; v;
+	&#125;
+
+	bool operator&lt;(const bigint &amp;v) const &#123;
+		if (sign !&#x3D; v.sign)
+			return sign &lt; v.sign;
+		if (z.size() !&#x3D; v.z.size())
+			return z.size() * sign &lt; v.z.size() * v.sign;
+		for (int i &#x3D; z.size() - 1; i &gt;&#x3D; 0; i--)
+			if (z[i] !&#x3D; v.z[i])
+				return z[i] * sign &lt; v.z[i] * sign;
+		return false;
+	&#125;
+
+	bool operator&gt;(const bigint &amp;v) const &#123;
+		return v &lt; *this;
+	&#125;
+	bool operator&lt;&#x3D;(const bigint &amp;v) const &#123;
+		return !(v &lt; *this);
+	&#125;
+	bool operator&gt;&#x3D;(const bigint &amp;v) const &#123;
+		return !(*this &lt; v);
+	&#125;
+	bool operator&#x3D;&#x3D;(const bigint &amp;v) const &#123;
+		return !(*this &lt; v) &amp;&amp; !(v &lt; *this);
+	&#125;
+	bool operator!&#x3D;(const bigint &amp;v) const &#123;
+		return *this &lt; v || v &lt; *this;
+	&#125;
+
+	void trim() &#123;
+		while (!z.empty() &amp;&amp; z.back() &#x3D;&#x3D; 0)
+			z.pop_back();
+		if (z.empty())
+			sign &#x3D; 1;
+	&#125;
+
+	bool isZero() const &#123;
+		return z.empty() || (z.size() &#x3D;&#x3D; 1 &amp;&amp; !z[0]);
+	&#125;
+
+	bigint operator-() const &#123;
+		bigint res &#x3D; *this;
+		res.sign &#x3D; -sign;
+		return res;
+	&#125;
+
+	bigint abs() const &#123;
+		bigint res &#x3D; *this;
+		res.sign *&#x3D; res.sign;
+		return res;
+	&#125;
+
+	long long longValue() const &#123;
+		long long res &#x3D; 0;
+		for (int i &#x3D; z.size() - 1; i &gt;&#x3D; 0; i--)
+			res &#x3D; res * base + z[i];
+		return res * sign;
+	&#125;
+
+	friend bigint gcd(const bigint &amp;a, const bigint &amp;b) &#123;
+		return b.isZero() ? a : gcd(b, a % b);
+	&#125;
+	friend bigint lcm(const bigint &amp;a, const bigint &amp;b) &#123;
+		return a &#x2F; gcd(a, b) * b;
+	&#125;
+
+	void read(const std::string &amp;s) &#123;
+		sign &#x3D; 1;
+		z.clear();
+		int pos &#x3D; 0;
+		while (pos &lt; (int) s.size() &amp;&amp; (s[pos] &#x3D;&#x3D; &#39;-&#39; || s[pos] &#x3D;&#x3D; &#39;+&#39;)) &#123;
+			if (s[pos] &#x3D;&#x3D; &#39;-&#39;)
+				sign &#x3D; -sign;
+			++pos;
+		&#125;
+		for (int i &#x3D; s.size() - 1; i &gt;&#x3D; pos; i -&#x3D; base_digits) &#123;
+			int x &#x3D; 0;
+			for (int j &#x3D; std::max(pos, i - base_digits + 1); j &lt;&#x3D; i; j++)
+				x &#x3D; x * 10 + s[j] - &#39;0&#39;;
+			z.push_back(x);
+		&#125;
+		trim();
+	&#125;
+
+	friend std::istream&amp; operator&gt;&gt;(std::istream &amp;stream, bigint &amp;v) &#123;
+		std::string s;
+		stream &gt;&gt; s;
+		v.read(s);
+		return stream;
+	&#125;
+
+	friend std::ostream&amp; operator&lt;&lt;(std::ostream &amp;stream, const bigint &amp;v) &#123;
+		if (v.sign &#x3D;&#x3D; -1)
+			stream &lt;&lt; &#39;-&#39;;
+		stream &lt;&lt; (v.z.empty() ? 0 : v.z.back());
+		for (int i &#x3D; (int) v.z.size() - 2; i &gt;&#x3D; 0; --i)
+			stream &lt;&lt; std::setw(base_digits) &lt;&lt; std::setfill(&#39;0&#39;) &lt;&lt; v.z[i];
+		return stream;
+	&#125;
+
+	static std::vector&lt;int&gt; convert_base(const std::vector&lt;int&gt; &amp;a, int old_digits, int new_digits) &#123;
+		std::vector&lt;long long&gt; p(std::max(old_digits, new_digits) + 1);
+		p[0] &#x3D; 1;
+		for (int i &#x3D; 1; i &lt; (int) p.size(); i++)
+			p[i] &#x3D; p[i - 1] * 10;
+		std::vector&lt;int&gt; res;
+		long long cur &#x3D; 0;
+		int cur_digits &#x3D; 0;
+		for (int i &#x3D; 0; i &lt; (int) a.size(); i++) &#123;
+			cur +&#x3D; a[i] * p[cur_digits];
+			cur_digits +&#x3D; old_digits;
+			while (cur_digits &gt;&#x3D; new_digits) &#123;
+				res.push_back(int(cur % p[new_digits]));
+				cur &#x2F;&#x3D; p[new_digits];
+				cur_digits -&#x3D; new_digits;
+			&#125;
+		&#125;
+		res.push_back((int) cur);
+		while (!res.empty() &amp;&amp; res.back() &#x3D;&#x3D; 0)
+			res.pop_back();
+		return res;
+	&#125;
+
+	typedef std::vector&lt;long long&gt; vll;
+
+	static vll karatsubaMultiply(const vll &amp;a, const vll &amp;b) &#123;
+		int n &#x3D; a.size();
+		vll res(n + n);
+		if (n &lt;&#x3D; 32) &#123;
+			for (int i &#x3D; 0; i &lt; n; i++)
+				for (int j &#x3D; 0; j &lt; n; j++)
+					res[i + j] +&#x3D; a[i] * b[j];
+			return res;
+		&#125;
+
+		int k &#x3D; n &gt;&gt; 1;
+		vll a1(a.begin(), a.begin() + k);
+		vll a2(a.begin() + k, a.end());
+		vll b1(b.begin(), b.begin() + k);
+		vll b2(b.begin() + k, b.end());
+
+		vll a1b1 &#x3D; karatsubaMultiply(a1, b1);
+		vll a2b2 &#x3D; karatsubaMultiply(a2, b2);
+
+		for (int i &#x3D; 0; i &lt; k; i++)
+			a2[i] +&#x3D; a1[i];
+		for (int i &#x3D; 0; i &lt; k; i++)
+			b2[i] +&#x3D; b1[i];
+
+		vll r &#x3D; karatsubaMultiply(a2, b2);
+		for (int i &#x3D; 0; i &lt; (int) a1b1.size(); i++)
+			r[i] -&#x3D; a1b1[i];
+		for (int i &#x3D; 0; i &lt; (int) a2b2.size(); i++)
+			r[i] -&#x3D; a2b2[i];
+
+		for (int i &#x3D; 0; i &lt; (int) r.size(); i++)
+			res[i + k] +&#x3D; r[i];
+		for (int i &#x3D; 0; i &lt; (int) a1b1.size(); i++)
+			res[i] +&#x3D; a1b1[i];
+		for (int i &#x3D; 0; i &lt; (int) a2b2.size(); i++)
+			res[i + n] +&#x3D; a2b2[i];
+		return res;
+	&#125;
+
+	bigint operator*(const bigint &amp;v) const &#123;
+		std::vector&lt;int&gt; a6 &#x3D; convert_base(this-&gt;z, base_digits, 6);
+		std::vector&lt;int&gt; b6 &#x3D; convert_base(v.z, base_digits, 6);
+		vll a(a6.begin(), a6.end());
+		vll b(b6.begin(), b6.end());
+		while (a.size() &lt; b.size())
+			a.push_back(0);
+		while (b.size() &lt; a.size())
+			b.push_back(0);
+		while (a.size() &amp; (a.size() - 1))
+			a.push_back(0), b.push_back(0);
+		vll c &#x3D; karatsubaMultiply(a, b);
+		bigint res;
+		res.sign &#x3D; sign * v.sign;
+		for (int i &#x3D; 0, carry &#x3D; 0; i &lt; (int) c.size(); i++) &#123;
+			long long cur &#x3D; c[i] + carry;
+			res.z.push_back((int) (cur % 1000000));
+			carry &#x3D; (int) (cur &#x2F; 1000000);
+		&#125;
+		res.z &#x3D; convert_base(res.z, 6, base_digits);
+		res.trim();
+		return res;
+	&#125;
+&#125;;
+
+int main() &#123;
+    bigint a,b;
+    cin &gt;&gt; a &gt;&gt; b;
+    cout &lt;&lt; a + b &lt;&lt; endl;
+    cout &lt;&lt; a - b &lt;&lt; endl;
+    cout &lt;&lt; a * b &lt;&lt; endl;
+    cout &lt;&lt; a &#x2F; b &lt;&lt; endl;
+    cout &lt;&lt; a % b &lt;&lt; endl;
+    return 0;
+&#125;</code></pre>
+
 
                 
             </div>
