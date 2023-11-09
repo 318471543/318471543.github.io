@@ -1615,35 +1615,184 @@ int main() &#123;
     return 0;
 &#125;</code></pre>
 
-<h2 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h2><h3 id="multiset"><a href="#multiset" class="headerlink" title="multiset"></a>multiset</h3><ul>
-<li>$erase(x)$ 函数：删除集合中所有 $x$ 的值；<ul>
-<li>$erase(S.find(x))$：删除集合中第一个 $x$ 的值（就是仅删除 $1$ 个 $x$）；</li>
-</ul>
+<h2 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h2><h3 id="priority-queue"><a href="#priority-queue" class="headerlink" title="priority_queue"></a>priority_queue</h3><p><strong>默认大根堆：</strong>$priority_queue<int> heap$，堆顶元素是最大的；</p>
+<p><strong>自定义 $priority_queue$ 排序方式：</strong></p>
+<ul>
+<li><p>默认是大根堆（堆顶元素是最大的）；</p>
+</li>
+<li><p>小根堆实现方式：</p>
+<ul>
+<li><pre><code class="c++">priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt; heap;
+<pre class="language-none"><code class="language-none">
+- 自定义排序方式：
+
+  - &#96;&#96;&#96;c++
+    struct Node
+    &#123;
+        int x,y;
+    &#125;;
+    
+    struct cmp
+    &#123;
+        bool operator()(Node a, Node b) &#123; &#x2F;&#x2F; 返回true表示a的优先级小于b的优先级
+            if (a.x &#x3D;&#x3D; b.x) return a.y &lt; b.y;
+            return a.x &lt; b.x;
+        &#125;
+    &#125;;
+    priority_queue&lt;Node, vector&lt;Node&gt;, cmp&gt; heap;</code></pre>
+
+**测试代码如下：**
+</code></pre>
+</li>
+<li><pre><code class="c++">#include&lt;bits/stdc++.h&gt;
+
+using namespace std;
+
+mt19937 mrand(random_device&#123;&#125;());
+int rnd(int x) &#123; return mrand() % x;&#125;
+
+struct Node
+&#123;
+    int x,y;
+&#125;;
+
+struct cmp
+&#123;
+    bool operator()(Node a, Node b) &#123; // 返回true表示a的优先级小于b的优先级
+        if (a.x == b.x) return a.y &lt; b.y;
+        return a.x &lt; b.x;
+    &#125;
+&#125;;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    priority_queue&lt;Node, vector&lt;Node&gt;, cmp&gt; heap;
+    for (int i = 1; i &lt; 10; i++)
+    &#123;
+        heap.push(&#123;rnd(10), rnd(10)&#125;);
+    &#125;
+
+    while (heap.size())
+    &#123;
+        auto t = heap.top();
+        heap.pop();
+        cout &lt;&lt; t.x &lt;&lt; &quot; &quot; &lt;&lt; t.y &lt;&lt; &#39;\n&#39;;
+    &#125;
+    
+    return 0;
+&#125;
+<pre class="language-none"><code class="language-none">
+    
+
+### map
+
+**自定义 $map$ 排序方式：**
+
+- 默认按 $key$ 从小到大排序，等价于：
+
+  - &#96;&#96;&#96;c++
+    map&lt;int, int, less&lt;int&gt;&gt; mp;</code></pre>
+</code></pre>
 </li>
 </ul>
-<p><mark>推荐题单：</mark></p>
-<p><strong>从多重集中删除一个元素：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1883/problem/D">D. In Love</a></p>
-<h3 id="bitset"><a href="#bitset" class="headerlink" title="bitset"></a>bitset</h3><blockquote>
-<p>__builtin_popcount(x)；&#x2F;&#x2F; x 二进制中 1 的个数（$x$ 为 $unsigned\ int$ 类型）</p>
-<p>__builtin_popcountll(x)；&#x2F;&#x2F; x 二进制中 1 的个数（$x$ 为 $unsigned\ long\ long$ 类型）</p>
-<br>
+</li>
+<li><p>若想按照 $key$ 从大到小排序，则实现代码如下：</p>
+<ul>
+<li><pre><code class="c++">map&lt;int, int, greater&lt;int&gt;&gt; mp;
+<pre class="language-none"><code class="language-none">
+- 自定义 $key$ 排序：
 
-<p>__builtin_parity(x)；&#x2F;&#x2F; $x$ 二进制中 $1$ 的个数的奇偶性（$x$ 为 $unsigned\ int$ 类型）</p>
-<p>__builtin_parityll(x)；&#x2F;&#x2F; $x$ 二进制中 $1$ 的个数的奇偶性（$x$ 为 $unsigned\ long\ long$ 类型）</p>
-<br>
+  - &#96;&#96;&#96;c++
+    struct cmp
+    &#123;
+        bool operator() (string const &amp;a, string const &amp;b) const &#123;
+            if (a.size() !&#x3D; b.size())   return a.size() &lt; b.size();
+            return a &lt; b;
+        &#125;
+    &#125;;
+    map&lt;string, int, cmp&gt; mp;</code></pre>
 
-<p>__builtin_ctz(2)；&#x2F;&#x2F; $x$ 末尾 $0$ 的个数（$x$ 为 $unsigned\ int$ 类型）</p>
-<p>__builtin_ctzll(4)；&#x2F;&#x2F; $x$ 末尾 $0$ 的个数（$x$ 为 $unsigned\ long\ long$ 类型）</p>
-<br>
+测试代码如下（**注：**如果只按 $a.size() &lt; b.size()$ 排序会对字符串的长度判重！）：
+</code></pre>
+</li>
+<li><pre><code class="c++">#include&lt;bits/stdc++.h&gt;
 
-<p>__builtin_clz(3)；&#x2F;&#x2F; $x$ 开头 $0$ 的个数（$x$ 为 $unsigned\ int$ 类型）</p>
-<p>__builtin_clzll(3)；&#x2F;&#x2F; $x$ 开头 $0$ 的个数（$x$ 为 $unsigned\ long\ long$ 类型）</p>
-<br>
+using namespace std;
 
-<p>31 - __builtin_clz(x) &#x3D; log2(x)；&#x2F;&#x2F;如果没有log2函数，可以用前面的公式获取其log2向下取整（log2 函数有bug，当 $x$ 为 $562949953421311$ ，答案应该是 $48$，但函数输出却是 $49$。），因此求 $\lfloor log2(x)\rfloor$ 应使用：<mark>$ __bit_width(i) - 1$</mark>.</p>
-<p><strong>时间复杂度：</strong>$O(1)$</p>
-</blockquote>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+struct cmp
+&#123;
+    bool operator() (const string &amp;a, const string &amp;b) const &#123;
+        if (a.size() != b.size())   return a.size() &lt; b.size();
+        return a &lt; b;
+    &#125;
+&#125;;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    map&lt;string, int, cmp&gt; mp;
+    mp[&quot;1&quot;] = 2;
+    mp[&quot;12&quot;] = 3;
+    mp[&quot;13&quot;] = 1;
+    mp[&quot;sas&quot;] = 2;
+    mp[&quot;sas&quot;] = 3;
+    mp[&quot;sa2s&quot;] = 2;
+    mp[&quot;as&quot;] = 3;
+    cout &lt;&lt; mp.size() &lt;&lt; &quot;\n&quot;;
+
+    for (auto [x, y] : mp)
+        cout &lt;&lt; x &lt;&lt; &quot; &quot; &lt;&lt; y &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;
+<pre class="language-none"><code class="language-none">
+### multiset
+
+**删除元素：**
+
+- $erase(x)$ 函数：删除集合中所有 $x$ 的值；
+  - $erase(S.find(x))$：删除集合中第一个 $x$ 的值（就是仅删除 $1$ 个 $x$）；
+
+&lt;mark&gt;推荐题单：&lt;&#x2F;mark&gt;
+
+**从多重集中删除一个元素：**[D. In Love](https:&#x2F;&#x2F;codeforces.com&#x2F;contest&#x2F;1883&#x2F;problem&#x2F;D)
+
+**$2023CCPC$ 桂林银牌模拟贪心题（$multiset + map$）：**[B. The Game](https:&#x2F;&#x2F;codeforces.com&#x2F;gym&#x2F;482805&#x2F;problem&#x2F;B)
+
+### bitset
+
+&gt; __builtin_popcount(x)；&#x2F;&#x2F; x 二进制中 1 的个数（$x$ 为 $unsigned\ int$ 类型）
+&gt;
+&gt; __builtin_popcountll(x)；&#x2F;&#x2F; x 二进制中 1 的个数（$x$ 为 $unsigned\ long\ long$ 类型）
+&gt;
+&gt; &lt;br&gt;
+&gt;
+&gt; __builtin_parity(x)；&#x2F;&#x2F; $x$ 二进制中 $1$ 的个数的奇偶性（$x$ 为 $unsigned\ int$ 类型）
+&gt;
+&gt; __builtin_parityll(x)；&#x2F;&#x2F; $x$ 二进制中 $1$ 的个数的奇偶性（$x$ 为 $unsigned\ long\ long$ 类型）
+&gt;
+&gt; &lt;br&gt;
+&gt;
+&gt; __builtin_ctz(2)；&#x2F;&#x2F; $x$ 末尾 $0$ 的个数（$x$ 为 $unsigned\ int$ 类型）
+&gt;
+&gt; __builtin_ctzll(4)；&#x2F;&#x2F; $x$ 末尾 $0$ 的个数（$x$ 为 $unsigned\ long\ long$ 类型）
+&gt;
+&gt; &lt;br&gt;
+&gt;
+&gt; __builtin_clz(3)；&#x2F;&#x2F; $x$ 开头 $0$ 的个数（$x$ 为 $unsigned\ int$ 类型）
+&gt;
+&gt; __builtin_clzll(3)；&#x2F;&#x2F; $x$ 开头 $0$ 的个数（$x$ 为 $unsigned\ long\ long$ 类型）
+&gt;
+&gt; &lt;br&gt;
+&gt;
+&gt; 31 - __builtin_clz(x) &#x3D; log2(x)；&#x2F;&#x2F;如果没有log2函数，可以用前面的公式获取其log2向下取整（log2 函数有bug，当 $x$ 为 $562949953421311$ ，答案应该是 $48$，但函数输出却是 $49$。），因此求 $\lfloor log2(x)\rfloor$ 应使用：&lt;mark&gt;$ \_\_bit\_width(i) - 1$&lt;&#x2F;mark&gt;.
+&gt;
+&gt; **时间复杂度：**$O(1)$
+
+&#96;&#96;&#96;c++
+#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
@@ -1663,7 +1812,11 @@ int main()
     cout &lt;&lt; log2(4) &lt;&lt; &quot; &quot; &lt;&lt; 31 - __builtin_clz(4);
     return 0;
 &#125;</code></pre>
-
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
 <blockquote>
 <p>$bitset$&lt;$N$&gt; $b$；&#x2F;&#x2F;N为常数</p>
 <p>$b[i] &#x3D; 1$;&#x2F;&#x2F;可以直接通过数组赋值</p>
