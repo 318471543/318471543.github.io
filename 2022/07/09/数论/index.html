@@ -1681,7 +1681,7 @@ for(int l &#x3D; 1,r;l &lt;&#x3D; n;l &#x3D; r + 1)
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/201/">余数之和</a></p>
 <p><strong>进阶题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1706/problem/D2">Chopping Carrots (Hard Version)</a></p>
 <h2 id="线性基"><a href="#线性基" class="headerlink" title="线性基"></a>线性基</h2><blockquote>
-<p>高斯消元中，有 $k(k \le n)$ 个线性基：</p>
+<p>高斯消元（求线性基时，是一种<strong>离线做法</strong>）中，有 $k(k \le n)$ 个线性基：</p>
 <ul>
 <li>若 $k &lt; n$ ，说明这 $n$ 个向量是线性相关的，则必然可以凑出 $0$ 向量。</li>
 <li>若 $k &#x3D; n$，则线性无关，无法凑出 $0$ 向量。</li>
@@ -1721,9 +1721,9 @@ auto get_min &#x3D; [&amp;]() -&gt; ll&#x2F;&#x2F;选取任意个数异或的最
     return -1;
 &#125;;</code></pre>
 
-<p><mark>模板题代码：</mark></p>
+<p><mark>模板题 $1$ 代码：</mark></p>
 <ul>
-<li>封装版</li>
+<li>贪心版</li>
 </ul>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -1767,7 +1767,7 @@ int main()
 &#125;</code></pre>
 
 <ul>
-<li>$yxc$ 版</li>
+<li>高斯消元版</li>
 </ul>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -1815,9 +1815,84 @@ int main()
     return 0;
 &#125;</code></pre>
 
+<p><mark>模板题 $2$ 代码：</mark></p>
+<blockquote>
+<p><strong>结论：</strong>第 $k$ 大异或和就是选 $2^t - k$ 的二进制对应的那些行。</p>
+<p>比如：最大异或和就是全选（以 $4$ 位为例）：$1111$</p>
+<p>第二大异或和就是选前三行：$1110$</p>
+<p>第三大异或和就是选第 $1,2,4$ 行：$1101$</p>
+<p>故选：$2^t - k$</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+const int N &#x3D; 1e4 + 10;
+
+ll a[N];
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int T;
+    cin &gt;&gt; T;
+    
+    for(int C &#x3D; 1;C &lt;&#x3D; T;C++)
+    &#123;
+        cout &lt;&lt; &quot;Case #&quot; &lt;&lt;  C &lt;&lt; &quot;:\n&quot;;
+        int n;
+        cin &gt;&gt; n;
+        
+        for(int i &#x3D; 0;i &lt; n;i++)   cin &gt;&gt; a[i];
+
+        int k &#x3D; 0;
+        for(int i &#x3D; 62;i &gt;&#x3D; 0;i--)
+        &#123;
+            for(int j &#x3D; k;j &lt; n;j++)
+                if(a[j] &gt;&gt; i &amp; 1)
+                &#123;
+                    swap(a[j],a[k]);
+                    break;
+                &#125;
+            if(!(a[k] &gt;&gt; i &amp; 1))    continue;
+            for(int j &#x3D; 0;j &lt; n;j++)
+            &#123;
+                if(j !&#x3D; k &amp;&amp; (a[j] &gt;&gt; i &amp; 1))
+                    a[j] ^&#x3D; a[k];
+            &#125;
+            k++;
+            if(k &#x3D;&#x3D; n)  break; 
+        &#125;
+        reverse(a,a + k);
+
+        int m;
+        cin &gt;&gt; m;
+        while (m--)
+        &#123;
+            ll x;
+            cin &gt;&gt; x;
+            if(k &lt; n)   x--;
+            if(x &gt;&#x3D; (1ll &lt;&lt; k)) cout &lt;&lt; &quot;-1\n&quot;;
+            else
+            &#123;
+                ll res &#x3D; 0;
+                for(int i &#x3D; 0;i &lt; k;i++)
+                    if(x &gt;&gt; i &amp; 1)
+                        res ^&#x3D; a[i];
+                cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+            &#125;
+        &#125;
+    &#125;
+    return 0;
+&#125;</code></pre>
+
 <p><mark>推荐题单：</mark></p>
-<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/3167/">线性基</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/submission/212/">异或运算</a></p>
+<p><strong>模板题1（求最大异或和）：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/3167/">线性基</a>    </p>
+<p><strong>模板题2（求第 $k$ 大异或和）：</strong> <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/212/">异或运算</a></p>
+<p><strong>$2023CCPC$ 桂林站银牌题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/482805/problem/C">C. Master of Both IV</a></p>
 <h2 id="莫比乌斯反演"><a href="#莫比乌斯反演" class="headerlink" title="莫比乌斯反演"></a>莫比乌斯反演</h2><p><mark>线性筛法求莫比乌斯函数：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">int cnt,primes[N],mu[N],sum[N];
 bool st[N];
@@ -2309,8 +2384,10 @@ for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   std::cout &lt;&lt; res[i] &lt;&lt; &quo
 </blockquote>
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题（easy）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1822/problem/C">C. Bun Lover</a></p>
+<p><strong>一个找规律的网站：</strong><a target="_blank" rel="noopener" href="https://oeis.org/">OEIS</a></p>
 <h2 id="结论总结"><a href="#结论总结" class="headerlink" title="结论总结"></a>结论总结</h2><h3 id="模数范围"><a href="#模数范围" class="headerlink" title="模数范围"></a>模数范围</h3><blockquote>
-    一个数n，如果对mod(1 &le; mod &le; n)取模的话，得到的模数x范围为：[0，(x - 1) / 2]。</blockquote>
+    一个数n，如果对mod(1 &le; mod &le; n)取模的话，得到的模数x范围为：[0，(n - 1) / 2]。</blockquote>
+
 
 
 <blockquote>
