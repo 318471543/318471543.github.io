@@ -1615,6 +1615,220 @@ int main() &#123;
     return 0;
 &#125;</code></pre>
 
+<h2 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h2><h3 id="multiset"><a href="#multiset" class="headerlink" title="multiset"></a>multiset</h3><ul>
+<li>$erase(x)$ 函数：删除集合中所有 $x$ 的值；<ul>
+<li>$erase(S.find(x))$：删除集合中第一个 $x$ 的值（就是仅删除 $1$ 个 $x$）；</li>
+</ul>
+</li>
+</ul>
+<p><mark>推荐题单：</mark></p>
+<p><strong>从多重集中删除一个元素：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1883/problem/D">D. In Love</a></p>
+<h3 id="bitset"><a href="#bitset" class="headerlink" title="bitset"></a>bitset</h3><blockquote>
+<p>__builtin_popcount(x)；&#x2F;&#x2F; x 二进制中 1 的个数（$x$ 为 $unsigned\ int$ 类型）</p>
+<p>__builtin_popcountll(x)；&#x2F;&#x2F; x 二进制中 1 的个数（$x$ 为 $unsigned\ long\ long$ 类型）</p>
+<br>
+
+<p>__builtin_parity(x)；&#x2F;&#x2F; $x$ 二进制中 $1$ 的个数的奇偶性（$x$ 为 $unsigned\ int$ 类型）</p>
+<p>__builtin_parityll(x)；&#x2F;&#x2F; $x$ 二进制中 $1$ 的个数的奇偶性（$x$ 为 $unsigned\ long\ long$ 类型）</p>
+<br>
+
+<p>__builtin_ctz(2)；&#x2F;&#x2F; $x$ 末尾 $0$ 的个数（$x$ 为 $unsigned\ int$ 类型）</p>
+<p>__builtin_ctzll(4)；&#x2F;&#x2F; $x$ 末尾 $0$ 的个数（$x$ 为 $unsigned\ long\ long$ 类型）</p>
+<br>
+
+<p>__builtin_clz(3)；&#x2F;&#x2F; $x$ 开头 $0$ 的个数（$x$ 为 $unsigned\ int$ 类型）</p>
+<p>__builtin_clzll(3)；&#x2F;&#x2F; $x$ 开头 $0$ 的个数（$x$ 为 $unsigned\ long\ long$ 类型）</p>
+<br>
+
+<p>31 - __builtin_clz(x) &#x3D; log2(x)；&#x2F;&#x2F;如果没有log2函数，可以用前面的公式获取其log2向下取整（log2 函数有bug，当 $x$ 为 $562949953421311$ ，答案应该是 $48$，但函数输出却是 $49$。），因此求 $\lfloor log2(x)\rfloor$ 应使用：<mark>$ __bit_width(i) - 1$</mark>.</p>
+<p><strong>时间复杂度：</strong>$O(1)$</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    cout &lt;&lt; __builtin_popcount(3) &lt;&lt; &quot;\n&quot;;
+    cout &lt;&lt; __builtin_popcountll(2) &lt;&lt; &quot;\n&quot;;
+    cout &lt;&lt; __builtin_parity(3) &lt;&lt; &quot;\n&quot;;
+    cout &lt;&lt; __builtin_parityll(2) &lt;&lt; &quot;\n&quot;;
+    cout &lt;&lt; __builtin_ctz(2) &lt;&lt; &quot;\n&quot;;&#x2F;&#x2F; x 末尾 0 的个数
+    cout &lt;&lt; __builtin_ctzll(4) &lt;&lt; &quot;\n&quot;;
+    cout &lt;&lt; __builtin_clz(3) &lt;&lt; &quot;\n&quot;;&#x2F;&#x2F; x 开头 0 的个数
+    cout &lt;&lt; __builtin_clzll(3) &lt;&lt; &quot;\n&quot;;
+
+    cout &lt;&lt; log2(4) &lt;&lt; &quot; &quot; &lt;&lt; 31 - __builtin_clz(4);
+    return 0;
+&#125;</code></pre>
+
+<blockquote>
+<p>$bitset$&lt;$N$&gt; $b$；&#x2F;&#x2F;N为常数</p>
+<p>$b[i] &#x3D; 1$;&#x2F;&#x2F;可以直接通过数组赋值</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    bitset&lt;1000&gt; b;
+    b[1] &#x3D; 1;
+    b[2] &#x3D; 0;
+    b[3] &#x3D; 1;
+    cout &lt;&lt; b[1] &lt;&lt; &quot; &quot; &lt;&lt; b[2] &lt;&lt; &quot; &quot; &lt;&lt; b[3];
+    return 0;
+&#125;</code></pre>
+
+
+
+<blockquote>
+<p><strong>常用函数：</strong></p>
+<p>$b.any() $</p>
+<p>$b.none()$</p>
+<p>$b.count()$</p>
+<p><strong>时间复杂度：</strong>$O(\frac{n}{w})$，$w$ 一般为 $64$</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">bitset&lt;1000&gt; b;
+cout &lt;&lt; b.any() &lt;&lt; &quot;\n&quot;;
+cout &lt;&lt; b.none() &lt;&lt; &#39;\n&#39;;
+b[1] &#x3D; 1;
+cout &lt;&lt; b.count() &lt;&lt; &quot;\n&quot;;</code></pre>
+
+
+
+<blockquote>
+<p><strong>位运算：</strong></p>
+<p>&amp; , | , ^ , ~ , &lt;&lt; , &gt;&gt;</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">bitset&lt;32&gt; a,b;
+a[1] &#x3D; 1;
+b[2] &#x3D; 1;
+a &#x3D; a | b;
+a &#x3D; a &lt;&lt; 2;
+cout &lt;&lt; a.to_string();</code></pre>
+
+
+
+<blockquote>
+<p>$a.set(x)$ &#x2F;&#x2F;将 $x$ 位赋值为 $1$</p>
+<p>$a.set()$ &#x2F;&#x2F;将每一位都赋值为 $1$</p>
+<p>$a.reset(x)$ &#x2F;&#x2F;将 $x$ 位赋值为 $0$</p>
+<p>$a.reset()$ &#x2F;&#x2F;将每一位都赋值为 $0$</p>
+<p>$a.flip(x)$ &#x2F;&#x2F;将 $x$ 位翻转（即 $0$ 变 $1$，$1$ 变 $0$）</p>
+<p>$a.flip()$ &#x2F;&#x2F;将每一位都翻转</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">bitset&lt;32&gt; a,b;
+a.set(2);
+a.set();
+cout &lt;&lt; a.to_string() &lt;&lt; &quot;\n&quot;;
+a.reset(1);
+a.reset();
+cout &lt;&lt; a.to_string() &lt;&lt; &quot;\n&quot;;</code></pre>
+
+
+
+<blockquote>
+<p>$a.to$_$string()$ &#x2F;&#x2F;将 $bitset$ 用字符串的形式输出</p>
+<p>$bitset$&lt;$64$&gt; $b(s)$ &#x2F;&#x2F;把字符串当成参数，放入 $bitset$ 中</p>
+<p>$a.to$_$ullong()$ &#x2F;&#x2F;返回 $bitset$ 对应的 $unsigned\ long\ long$ 数值</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">string s &#x3D; &quot;1011&quot;;
+bitset&lt;64&gt; b(s);
+cout &lt;&lt; b.to_string() &lt;&lt; &#39;\n&#39;;
+cout &lt;&lt; b.to_ullong() &lt;&lt; &quot;\n&quot;;</code></pre>
+
+
+
+<blockquote>
+<p>$a$._Find_first()；从低位开始找第一个等于 $1$ 的位置</p>
+<p>a._Find_next(i)；从 $i$ 后面找第一个等于 $1$ 的位置，找不到就返回 $a.size()$</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">bitset&lt;32&gt; a,b;
+for(int i &#x3D; a._Find_first();i !&#x3D; a.size();i &#x3D; a._Find_next(i))
+&#123;
+	cout &lt;&lt; i &lt;&lt; &quot; &quot;;
+&#125;</code></pre>
+
+
+
+<blockquote>
+<p>auto pa &#x3D; (unsigned long long*)&a;</p>
+<p>解释：$0$ ~ $63$ 为低位置，$64$ ~ $127$ 为下一位置，$\cdots$</p>
+<p>因此：$pa[0]$ 即为低 $64$ 位的无符号整型数，$pa[1]$ 为 $64$ ~ $127$ 位的无符号整型数，$\cdots$</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">bitset&lt;1280&gt; a,b;
+a[2] &#x3D; 1;
+auto pa &#x3D; (unsigned long long*)&amp;a;
+a[65] &#x3D; 1;
+cout &lt;&lt; pa[0] &lt;&lt; &quot; &quot; &lt;&lt; pa[1];</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p>**$bitset$ 优化常数： ** <a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/contest/problem?cid=1095&pid=1007">foreverlasting and fried-chicken</a></p>
+<p><mark>foreverlasting and fried-chicken 代码如下：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+const int N &#x3D; 1010,mod &#x3D; 1000000007;
+
+ll C2[N],C4[N];
+
+void init()
+&#123;
+    for(ll i &#x3D; 4;i &lt; N;i++)
+        C4[i] &#x3D; (i * (i - 3) * (i - 2) * (i - 1) &#x2F; 24) % mod;
+
+    for(ll i &#x3D; 2;i &lt; N;i++)
+        C2[i] &#x3D; (i * (i - 1) &#x2F; 2) % mod;
+&#125;
+
+void solve()
+&#123;
+    int n,m;
+    cin &gt;&gt; n &gt;&gt; m;
+    bitset&lt;1100&gt; bit[1100];
+    while(m--)
+    &#123;
+        int a,b;
+        cin &gt;&gt; a &gt;&gt; b;
+        bit[a][b] &#x3D; bit[b][a] &#x3D; 1;
+    &#125;
+
+    ll res&#x3D;0;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        for (int j &#x3D; i+1; j &lt;&#x3D; n; j++)
+        &#123;
+            ll cnt &#x3D; (bit[i] &amp; bit[j]).count();
+            int t &#x3D; bit[i][j];
+            if(cnt &lt; 4 || t + cnt &lt; 4) continue;
+            res &#x3D; (res + C4[cnt] * (C2[bit[i].count() - 4 - t] + C2[bit[j].count() - 4 - t]) % mod) % mod;
+        &#125;
+    &#125;
+
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+    
+    init();
+    
+    int t;
+    cin &gt;&gt; t;
+
+    while(t--)  solve();
+
+    return 0;
+&#125;</code></pre>
 
                 
             </div>
