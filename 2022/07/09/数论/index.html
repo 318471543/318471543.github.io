@@ -2166,7 +2166,8 @@ int main()
 <li>$g &#x3D; 0$ 的情况等价于询问一个集合中有多少（非空）子集异或和为 $0$，设这个集合异或线性基的秩为 $r$，则答案为 $2^{n - r} - 1$；</li>
 <li>$g &#x3D; max{a}$ 时，枚举每个数 $x$，然后将所有出现过的 $x$ 的因子 $factor$ 加入到线性基中，如果不能成功插入，则说明线性基中有若干个数可以表示这个因子 $factor$，对答案贡献了 $cnt[factor]$ 个；如果新加入的数能成功插入，则对答案的贡献应该是与该数相同的剩余的个数，即 $cnt[factor] - 1$。</li>
 </ul>
-<p><strong>实现细节：</strong>获取每个数的约数时，（新学）用到了埃式筛法优化获取质数（预处理）。</p>
+<p><strong>实现细节：</strong>获取每个数的约数时，（新学）用到了埃式筛法优化获取质数（预处理）；在线做法，用到了贪心线性基的模板。</p>
+<p><strong>时间复杂度：</strong>$O(Nlog^2N)$</p>
 </blockquote>
 <p><strong>代码如下：</strong></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
