@@ -2309,6 +2309,46 @@ int main()
     return 0;
 &#125;</code></pre>
 
+<h3 id="每个数在-1-7-，相邻两个数的差不超过-k-k-in-0-6-，求最小修改次数-mobiusp-正在创作乐曲"><a href="#每个数在-1-7-，相邻两个数的差不超过-k-k-in-0-6-，求最小修改次数-mobiusp-正在创作乐曲" class="headerlink" title="每个数在 $[1,7]$，相邻两个数的差不超过 $k, k \in [0,6]$，求最小修改次数 mobiusp 正在创作乐曲"></a>每个数在 $[1,7]$，相邻两个数的差不超过 $k, k \in [0,6]$，求最小修改次数 <a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/69408/G">mobiusp 正在创作乐曲</a></h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n, m;
+    cin &gt;&gt; n &gt;&gt; m;
+
+    vector&lt;int&gt; a(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; a[i];
+
+    vector&lt;vector&lt;int&gt;&gt; dp(n + 1, vector&lt;int&gt;(8, 1e9 + 7));
+    for (int i &#x3D; 1; i &lt;&#x3D; 7; i++)    dp[0][i] &#x3D; 0;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        for (int j &#x3D; 1; j &lt;&#x3D; 7; j++)
+        &#123;
+            for (int k &#x3D; 1; k &lt;&#x3D; 7; k++)
+            &#123;
+                if (abs(j - k) &lt;&#x3D; m)
+                &#123;
+                    dp[i][j] &#x3D; min(dp[i][j], dp[i - 1][k] + (j !&#x3D; a[i]));
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+
+    int res &#x3D; 1e9;
+    for (int i &#x3D; 1; i &lt;&#x3D; 7; i++)    
+    &#123;
+        res &#x3D; min(res, dp[n][i]);
+    &#125;
+
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
 
                 
             </div>
