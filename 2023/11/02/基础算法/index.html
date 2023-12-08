@@ -673,6 +673,7 @@ while(l &lt; r)
 <p><strong>考古做两遍的一道 $cf\ C$ 二分好题：二分 + 差分 + 前缀和</strong>  <a target="_blank" rel="noopener" href="https://codeforces.com/contest/1795/problem/C">C. Tea Tasting</a></p>
 <p><strong>又是一道考古出来的二分好题（待考古）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1853/problem/C">https://codeforces.com/contest/1853/problem/C</a></p>
 <p><strong>$ 2023CCPC $桂林站二分签到题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/482805/problem/M">M. Flipping Cards</a></p>
+<p><strong>$Codeforces\ div3\ D$（猜出是二分了，但是 check 跟贪心似的，感觉很难实现，也不太对的样子）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1907/problem/D">D. Jumping Through Segments</a></p>
 <p><mark>细谈CCPC二分签到：</mark></p>
 <p><strong>很签吗？？？不签啊！但从各方面来说，但经典卧槽！</strong></p>
 <p>这题让我魂牵梦绕了好久好久。。。</p>
@@ -810,8 +811,10 @@ int main()
     return 0;
 &#125;</code></pre>
 
-
-
+<p><mark>$Codeforces\ div3\  D. Jumping\ Through\ Segments$ 讲解：</mark></p>
+<p><strong>未看答案或想到做法前：</strong><br>        刚开始以为贪心，虽然感觉不太对，但是还是去实现了，直到被某一个样例卡到了。然后就想到了用二分，但是现在写的时候想一想的话，用二分，因为它具有单调性的性质，但最容易卡死自己（也是每次二分最不会的 $check$）的地方，就是 $check$ 起来像个贪心，而且针对本题，假设 $check$ 的 $mid$ 是最大的步数，预测了下一步同样是向右移动的话，我是该向右先移到左边界，还是移动了 $mid$ ？还是得再讨论如果 mid 越过了下一个的右边界，又该何去何从？向右亦是如此，那如果下一步不用动，就在线段里面呢？那么是不移动好呢，还是略微移动？这些想法令我不知该如何下手！</p>
+<p>​		</p>
+<p>由于不能直接看题解！因为直接看了，那么这道题就不属于你了！这是一道比较经典的（至少对于自己来说）check 啊！</p>
 <h2 id="三分"><a href="#三分" class="headerlink" title="三分"></a>三分</h2><blockquote>
 <p>三分时间复杂度：$O(logn)$</p>
 <p>三分与二分的思想类似，也是通过不断缩小答案可能的区间范围，来找到最终答案所在的位置。</p>
