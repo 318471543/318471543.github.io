@@ -2187,6 +2187,11 @@ int main()
     return 0;
 &#125;</code></pre>
 
+<h2 id="口述型好题"><a href="#口述型好题" class="headerlink" title="口述型好题"></a>口述型好题</h2><blockquote>
+<p>所谓口述型好题（没想到一个很好的名字），意思是一种题型看着很常见，但不能及时想出来解法的题目。</p>
+</blockquote>
+<p>1、给定 $n$ 个数，每个数都有权值，将这 $n$ 个数划分为 $2$ 个集合，使得集合两边权值和之差最小。</p>
+<p><strong>题目链接：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2392">P2392 kkksc03考前临时抱佛脚</a></p>
 <h2 id="数据分治题单"><a href="#数据分治题单" class="headerlink" title="数据分治题单"></a>数据分治题单</h2><p><strong>$2023CCPC$ 桂林站签到题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/482805/problem/K">K. Randias Permutation Task</a></p>
 <p><mark>$2023CCPC$ 桂林签到详解：</mark></p>
 <blockquote>
@@ -2301,6 +2306,7 @@ int main()
 <p><strong>2023 湘潭邀请赛（CCPC）签到题（待考古）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104396/problem/A">A. Today’s Word</a></p>
 <p><strong>2023 南京站 ICPC 签到题（待考古）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104813/problem/L">L. Palm Island</a></p>
 <p><strong>一场高质量 div3 的 F 题目（待补）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1907/problem/F">F. Shift and Reverse</a></p>
+<p><strong>一道循环典题（赛后立马就写出来了）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1920/problem/D">D. Array Repetition</a></p>
 <p><mark>Anonymous Informant 讲解：</mark></p>
 <blockquote>
 <p><strong>题意：</strong> 给定长度为 $n$ 的数组 $b$，它是由 $a$ 数组经过 $k$ 次操作得到的，问 $b$ 数组是否合法？</p>
@@ -2440,6 +2446,175 @@ void solve()
         &#125;
     
     cout &lt;&lt; (ok ? &quot;YES\n&quot; : &quot;NO\n&quot;);
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int t;
+    cin &gt;&gt; t;
+
+    while (t--)
+    &#123;
+        solve();
+    &#125;
+    
+    return 0;
+&#125;</code></pre>
+
+<p><mark>D. Array Repetition 讲解：</mark></p>
+<p><strong>题意：</strong>初始数组为空，有两个操作，操作1：往数组末尾添加 1 个数；操作2：将数组整体复制 $x$ 份添加到末尾。问第 $k$ 个数是多少？</p>
+<p><strong>思路：</strong> 存每个块的长度和操作，即对第一个操作，存信息为：[l: 1, r: 1, x &#x3D; x]，第二个操作存信息：[l: 1, r: n, cnt &#x3D; cnt]，然后还要存每个块的大小。这样我们就可以从后往前递归出具体的块的位置，即递归二分位置即可。由于可能会爆 $long\ long$，这里有一个好的做法就是用除法！类似试除法：i &lt;&#x3D; x &#x2F; i ，并标记最后一个位置是第几个即可，整体来说，思路是能想到的了，1e18这个大数据可能会导致细节不好处理，因此需要多知道一些处理小技巧。</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
+
+#define IOS ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr)
+#define cf(_) int _;cin &gt;&gt; _;while(_--)
+
+struct Block
+&#123;
+    ll l, r;
+    ll x, cnt;
+&#125;;
+
+int main()
+&#123;
+    IOS;
+    cf (_)
+    &#123;
+        int n, q;
+        cin &gt;&gt; n &gt;&gt; q;
+
+        ll cur_id &#x3D; 1;
+        vector&lt;Block&gt; block(n + 1);
+        vector&lt;ll&gt; length(n + 1);
+        int final_end &#x3D; n;
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        &#123;
+            int op, x;
+            cin &gt;&gt; op &gt;&gt; x;
+            if (final_end !&#x3D; n) continue;
+
+            if (op &#x3D;&#x3D; 1)
+            &#123;
+                block[i] &#x3D; &#123;cur_id, cur_id, x, 0&#125;;
+                length[i] &#x3D; 1;
+                cur_id++;
+            &#125;
+            else
+            &#123;
+                if (x &gt;&#x3D; 1e18 &#x2F; (cur_id - 1))
+                &#123;
+                    ll r &#x3D; 1e18;
+                    block[i] &#x3D; &#123;cur_id, (ll)r, 0, x&#125;;
+                    length[i] &#x3D; r;
+                    final_end &#x3D; i;
+                &#125;
+                else
+                &#123;
+                    ll r &#x3D; cur_id + x * (cur_id - 1) - 1;
+                    block[i] &#x3D; &#123;cur_id, r, 0, x&#125;;
+                    length[i] &#x3D; x * (cur_id - 1);
+                    cur_id +&#x3D; x * (cur_id - 1);
+                &#125;
+            &#125;
+        &#125;
+        
+        vector&lt;ll&gt; sum(final_end + 1);
+        for (int i &#x3D; 1; i &lt;&#x3D; final_end; i++)    
+        &#123;
+            sum[i] &#x3D; min((ll)2e18, sum[i - 1] + length[i]);
+        &#125;
+
+        for (int id &#x3D; 1; id &lt;&#x3D; q; id++)
+        &#123;
+            ll k;
+            cin &gt;&gt; k;
+
+            function&lt;int(int, int, ll)&gt; dfs &#x3D; [&amp;](int ql, int qr, ll k) -&gt; int
+            &#123;
+                int l &#x3D; ql, r &#x3D; qr;
+                while (l &lt; r)
+                &#123;
+                    int mid &#x3D; l + r &gt;&gt; 1;
+                    if (sum[mid] &gt;&#x3D; k)  r &#x3D; mid;
+                    else    l &#x3D; mid + 1;
+                &#125;
+                if (block[l].cnt &#x3D;&#x3D; 0)  return block[l].x;
+                ll kth &#x3D; k - sum[l - 1];
+                kth %&#x3D; sum[l - 1];
+                if (kth &#x3D;&#x3D; 0)   kth &#x3D; sum[l - 1];
+                return  dfs(1, l - 1, kth);
+            &#125;;        
+
+            cout &lt;&lt; dfs(1, final_end, k) &lt;&lt; &quot; \n&quot;[id &#x3D;&#x3D; q];
+        &#125;
+    &#125;
+    return 0;
+&#125;</code></pre>
+
+<h2 id="动态规划好题"><a href="#动态规划好题" class="headerlink" title="动态规划好题"></a>动态规划好题</h2><p>$tag1$：给定 $01$ 串，问满足指定构造要求的串有多少个？<strong>题目链接：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1920/problem/E">E. Counting Binary Strings</a></p>
+<p><mark>$tag1$ 做法思路：</mark></p>
+<p><strong>1、对于一个构造好的串，其有多少子串满足 $exactly\ one\ 1$？</strong></p>
+<ul>
+<li>形如这样的串：0001001001，可以看出有3“段”，长度分别为4,4,4，有个公式，对于 m 段，有：$\sum_{i&#x3D;1}^{m-1}a_ia_{i+1}$ 个子串是满足的（这个公式可能确实不是很好直接看出来）；</li>
+</ul>
+<p><strong>2、如何定义状态（重点）？</strong></p>
+<ul>
+<li>令 $f[i][j]$ 为：前 $i$ 个数，最后一段为 $j$ 的方案数。根据上一段是多少，可以得出递推表达式：<ul>
+<li>$f[i][j] &#x3D; f[i][j] + f[i - j × last][last]$</li>
+</ul>
+</li>
+<li>初始化：$f[0][i] &#x3D; 1$，其中 $i \in [1,k]$ </li>
+<li>最终答案即为：$\sum_{i}^{k}f[n][i]$</li>
+</ul>
+<p><strong>3、时间复杂度</strong></p>
+<ul>
+<li>枚举上一状态时，表面上有 $k$ 次，其实还需满足 $j × last \le i$，即 $last$ 总枚举次数：$\lfloor \frac{i}{1} \rfloor + \lfloor \frac{i}{2} \rfloor + \cdots + \lfloor \frac{i}{i} \rfloor\approx ilogi$ </li>
+<li>故总时间复杂度为：$nklogn$</li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+const int mod &#x3D; 998244353;
+
+void solve()
+&#123;
+    int n, k;
+    cin &gt;&gt; n &gt;&gt; k;
+
+    vector&lt;vector&lt;int&gt;&gt; f(n + 1, vector&lt;int&gt;(k + 1));
+    &#x2F;*
+    想法：
+    1. 给定一个串，有多少满足的子串?
+    2. 定义状态: 前i段, &quot;最后一段&quot;长度为j的方案数
+    f[i][j] &#x3D; f[i - last * j][last]
+    *&#x2F;
+    for (int i &#x3D; 1; i &lt;&#x3D; k; i++)    f[0][i] &#x3D; 1;
+
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        for (int j &#x3D; 1; j &lt;&#x3D; k; j++)
+        &#123;
+            for (int last &#x3D; 1; last &lt;&#x3D; k &amp;&amp; j * last &lt;&#x3D; i &amp;&amp; last + j - 1 &lt;&#x3D; k; last++)
+            &#123;
+                f[i][j] &#x3D; (f[i][j] + f[i - j * last][last]) % mod;
+            &#125;
+        &#125;
+    &#125;
+
+    ll res &#x3D; 0;
+    for (int i &#x3D; 1; i &lt;&#x3D; k; i++)
+        res &#x3D; (res + f[n][i]) % mod;
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
 &#125;
 
 int main()
@@ -4340,7 +4515,7 @@ int main()
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2023</span>
+                <span id="year">2019-2024</span>
             
             <a href="/about" target="_blank">重生带我走</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>

@@ -1458,6 +1458,7 @@ int main()
 <p><strong>蓝桥杯真题（01背包）：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/3420/">砝码称重</a></p>
 <p><strong>2022年蓝桥杯C++B组国赛：</strong><a target="_blank" rel="noopener" href="https://www.lanqiao.cn/problems/2186/learning/?first_category_id=1&page=1&sort=students_count&second_category_id=3&name=2022">2022</a></p>
 <p><strong>DP（类似背包优化） + 计数：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/909/problem/C">C. Python Indentation</a></p>
+<p><strong>洛谷DP基础题单（需要题意转化！）：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1077">P1077 [NOIP2012 普及组] 摆花</a></p>
 <p><mark>2022年蓝桥杯C++B组国赛 2022 讲解：</mark></p>
 <blockquote>
 <p>题意：将 $2022$ 拆分成 $10$ 个互不相同的正整数之和，问有几种拆分方法？</p>
@@ -1549,6 +1550,43 @@ int main()
 
     cout &lt;&lt; f[m][n] &lt;&lt; &quot;\n&quot;;
     
+    return 0;
+&#125;</code></pre>
+
+<p><mark><strong>洛谷DP基础题单（需要题意转化！）：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1077">P1077 [NOIP2012 普及组] 摆花</a></mark></p>
+<p><strong>题目大意转化为公式：</strong> 给定 n 个数 $c_i$，其中 $0 \le c_i \le a_i$，问有多少种方案数使 $\sum{c_i} &#x3D; m$？</p>
+<p><strong>吐槽：</strong> 当时还没抽象出这层公式，然后一直感觉这个题意表达出来的意思有点熟悉。然后看了下题解，看到这个公式感觉了些亲切，但并没有什么进一步的打算。但当我看到了他定义了状态：f[i] [j]表示：前 i 个数总和为 j 的方案数。我瞬间感觉会了，啊这，用公式表达或许是真的容易理解啊！</p>
+<p>$f[i][j] &#x3D; \sum_{k&#x3D;0}^{a[i]}f[i - 1][j - k]$</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int mod &#x3D; 1e6 + 7;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n, m;
+    cin &gt;&gt; n &gt;&gt; m;
+
+    vector&lt;int&gt; a(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; a[i];
+
+    vector&lt;vector&lt;int&gt;&gt; f(n + 1, vector&lt;int&gt;(m + 1));
+    f[0][0] &#x3D; 1;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        for (int j &#x3D; 0; j &lt;&#x3D; m; j++)
+        &#123;
+            for (int k &#x3D; 0; k &lt;&#x3D; min(j, a[i]); k++)
+            &#123;
+                f[i][j] +&#x3D; f[i - 1][j - k];
+                f[i][j] %&#x3D; mod;
+            &#125;
+        &#125;
+    &#125;
+    cout &lt;&lt; f[n][m] &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
 
@@ -3238,7 +3276,7 @@ int main()
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2023</span>
+                <span id="year">2019-2024</span>
             
             <a href="/about" target="_blank">重生带我走</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
