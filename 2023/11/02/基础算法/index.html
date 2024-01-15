@@ -1042,6 +1042,120 @@ int main()
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/790/">逆序对的数量</a></p>
 <p><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/1649748772841508874?type=7&page=1"><strong>L2-047 锦标赛</strong></a></p>
 <p><strong>2023 ICPC 区域赛西安站：（待更新到GYM）</strong></p>
+<h2 id="单调栈"><a href="#单调栈" class="headerlink" title="单调栈"></a>单调栈</h2><p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5788">P5788 【模板】单调栈</a></p>
+<p><mark>1、每个数左边第一个比它小的数：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;int&gt; a(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; a[i];
+
+    stack&lt;int&gt; stk;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        while (stk.size() &amp;&amp; stk.top() &gt;&#x3D; a[i])    stk.pop();
+        if (stk.size()) cout &lt;&lt; stk.top() &lt;&lt; &quot; &quot;;
+        else    cout &lt;&lt; -1 &lt;&lt; &quot; &quot;;
+        stk.push(a[i]);
+    &#125;
+
+    return 0;
+&#125;</code></pre>
+
+<p><mark>2、每个数右边第一个比它大的下标：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;int&gt; a(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; a[i];
+
+    stack&lt;int&gt; stk;
+    vector&lt;int&gt; ans;
+    for (int i &#x3D; n; i &gt;&#x3D; 1; i--)
+    &#123;
+        while (stk.size() &amp;&amp; a[stk.top()] &lt;&#x3D; a[i])    stk.pop();
+        if (stk.size()) ans.push_back(stk.top());
+        else    ans.push_back(0);
+        stk.push(i);
+    &#125;
+
+    for (int i &#x3D; ans.size() - 1; i &gt;&#x3D; 0; i--)
+        cout &lt;&lt; ans[i] &lt;&lt; &quot; &quot;;
+    return 0;
+&#125;</code></pre>
+
+
+
+<h2 id="单调队列"><a href="#单调队列" class="headerlink" title="单调队列"></a>单调队列</h2><blockquote>
+<p>实在是太经典了，必须入典！</p>
+</blockquote>
+<p><mark>思路：</mark></p>
+<ul>
+<li><p>每次的队头就是答案位置；</p>
+</li>
+<li><p>队列存的是下标；</p>
+</li>
+<li><p>如果当前枚举的位置 $i$ 比 (队头元素的下标 + 滑动窗口) 的位置大，则弹出队头；</p>
+</li>
+<li><p>队列中的元素满足单调性，如果队尾与当前需要插入的数进行比较，发现不满足想要的单调性，则弹出队尾；</p>
+</li>
+<li><p>因此，需要一个双端队列实现。</p>
+</li>
+</ul>
+<p><mark>模板代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n, k;
+    cin &gt;&gt; n &gt;&gt; k;
+
+    vector&lt;int&gt; a(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; a[i];
+
+    deque&lt;int&gt; dq;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        if (dq.size() &amp;&amp; i &gt; dq.front() + k - 1)   dq.pop_front();
+        while (dq.size() &amp;&amp; a[dq.back()] &gt;&#x3D; a[i])    dq.pop_back();
+        dq.push_back(i);
+        if (i &gt;&#x3D; k) cout &lt;&lt; a[dq.front()] &lt;&lt; &quot; &quot;;
+    &#125;
+    cout &lt;&lt; &quot;\n&quot;;
+
+    dq.clear();
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        if (dq.size() &amp;&amp; i &gt; dq.front() + k - 1)   dq.pop_front();
+        while (dq.size() &amp;&amp; a[dq.back()] &lt;&#x3D; a[i])    dq.pop_back();
+        dq.push_back(i);
+        if (i &gt;&#x3D; k) cout &lt;&lt; a[dq.front()] &lt;&lt; &quot; &quot;;
+    &#125;
+    return 0;
+&#125;</code></pre>
+
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1886">P1886 滑动窗口 &#x2F;【模板】单调队列</a></p>
+<p><strong>单调队列优化的简单DP题（非常经典，必须配合着单调队列食用！）：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1725">P1725 琪露诺</a></p>
 <h2 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h2><p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/801/">最长连续不重复子序列</a></p>
 <p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57359/G">Go to Play Maimai DX</a></p>
