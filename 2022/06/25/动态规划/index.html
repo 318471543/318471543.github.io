@@ -500,9 +500,9 @@
 <p>状态f[i] [j] 定义为：前 i 个物品，背包容量 j 下的最优解（最大价值）。</p>
 <p>有 N 件物品，则需要 N 次决策，每一次对第 i 件物品的决策，状态f[i] [j]不断由之前的状态更新而来。</p>
 <p>1、当前背包容量不够（j &lt; v[i]），没得选，因此前 i 个物品最优解即为前 i−1个物品最优解：</p>
-<p>对应代码：<mark>f[i] [j] &#x3D; f[i -1] [j]</mark>。</p>
+<p>对应代码：<mark>f[i] [j] = f[i -1] [j]</mark>。</p>
 <p>2、当前背包容量够，可以选，因此需要决策选与不选第 i 个物品：</p>
-<p>选：<mark>f[i] [j] &#x3D; f[i - 1] [j - v[i]] + w[i]</mark>。<br>不选：<mark>f[i] [j] &#x3D; f[i - 1] [j]</mark> 。</p>
+<p>选：<mark>f[i] [j] = f[i - 1] [j - v[i]] + w[i]</mark>。<br>不选：<mark>f[i] [j] = f[i - 1] [j]</mark> 。</p>
 <p>我们的决策是如何取到最大价值，因此以上两种情况取 max() 。</p>
 </blockquote>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -524,14 +524,13 @@ int main()
     cout &lt;&lt; f[n][m] &lt;&lt; endl;
     return 0;
 &#125;</code></pre>
-
 <p><mark>一维数组（优化版）：</mark></p>
 <blockquote>
 <p>状态f[j]定义：N 件物品，背包容量j下的最优解。</p>
 <p>注意枚举背包容量j必须从m开始。</p>
 <p><mark>为什么一维情况下枚举背包容量需要逆序？</mark>在二维情况下，状态f[i] [j]是由上一轮i - 1的状态得来的，f[i] [j]与f[i - 1] [j]是独立的。而优化到一维后，如果我们还是正序，则有f[较小体积]更新到f[较大体积]，则有可能本应该用第i-1轮的状态却用的是第i轮的状态（因为体积小的状态已经被更新了，当体积大的需要用到体积小的去更新时，用到的是第i轮，而非第i - 1轮）。</p>
 <p>例如，一维状态第i轮对体积为 3 的物品进行决策，则f[7]由f[4]更新而来，这里的f[4]正确应该是f[i - 1] [4]，但从小到大枚举j这里的f[4]在第i轮计算却变成了f[i] [4]。当逆序枚举背包容量j时，我们求f[7]同样由f[4]更新，但由于是逆序，这里的f[4]还没有在第i轮计算，所以此时实际计算的f[4]仍然是f[i - 1] [4]。</p>
-<p>故状态转移方程为：<mark>f[j] &#x3D; max(f[j], f[j - v[i]] + w[i]</mark> 。</p>
+<p>故状态转移方程为：<mark>f[j] = max(f[j], f[j - v[i]] + w[i]</mark> 。</p>
 </blockquote>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;bits/stdc++.h></span></span>
 
@@ -555,7 +554,6 @@ int main()
     cout <span class="token operator">&lt;&lt;</span> f<span class="token punctuation">[</span>m<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
-
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2/">01背包问题</a></p>
 <p><strong>改版题（特殊的状态设定）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104493/problem/A">A. Gym Plates</a></p>
@@ -665,7 +663,6 @@ int main()
 	
 	return 0;
 &#125;</code></pre>
-
 <p>参考了 $jiangly$ 后，进行了适当的优化，将时间从 $500ms$ -&gt; $62ms$，代码如下：</p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -729,9 +726,6 @@ int main()
 	
 	return 0;
 &#125;</code></pre>
-
-
-
 <h3 id="完全背包"><a href="#完全背包" class="headerlink" title="完全背包"></a>完全背包</h3><blockquote>
 <p>有 n 种物品和一个容量为 v 的背包，每个物品有无限个，问将哪些物品放入背包可使价值最大？</p>
 <p>数据范围：</p>
@@ -742,11 +736,11 @@ int main()
 <blockquote>
 <p>与01背包的代码几乎完全一样，只不过枚举体积的顺序是从小到大开始！</p>
 <p>公式推导过程：</p>
-<p>f[i] [j] &#x3D; max(f[i - 1] [j],<mark>f[i - 1] [j - v] + w,f[i - 1] [j - 2v] + 2w,f[i - 1] [j - 3v] + 3w</mark>…)</p>
+<p>f[i] [j] = max(f[i - 1] [j],<mark>f[i - 1] [j - v] + w,f[i - 1] [j - 2v] + 2w,f[i - 1] [j - 3v] + 3w</mark>…)</p>
 <p>然后突然有了一个<strong>“神奇”的表达式</strong>，f[i] [j - v]如下：</p>
-<p>f[i] [j - v] &#x3D; max(<mark>f[i - 1] [j - v],f[i - 1] [j - 2v] + w,f[i - 1] [j - 3v] + 2w</mark>,…)</p>
+<p>f[i] [j - v] = max(<mark>f[i - 1] [j - v],f[i - 1] [j - 2v] + w,f[i - 1] [j - 3v] + 2w</mark>,…)</p>
 <p>不难看出，标亮的式子中：上面比下面多加了一个w。</p>
-<p>因此：f[i] [j] &#x3D; max(f[i - 1] [j],f[i] [j - v] + w)。</p>
+<p>因此：f[i] [j] = max(f[i - 1] [j],f[i] [j - v] + w)。</p>
 </blockquote>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
 
@@ -776,11 +770,10 @@ int main()
     cout &lt;&lt; f[n][m] &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
-
 <p><mark>一维数组（优化版）：</mark></p>
 <blockquote>
-<p><strong>如果与01背包进行对比：</strong><br>f[i] [j] &#x3D; max(f[i - 1] [j],f<mark>[i - 1]</mark> [j - v] + w)	01背包</p>
-<p>f[i] [j] &#x3D; max(f[i - 1] [j],f<mark>[i]</mark> [j - v] + w)				完全背包</p>
+<p><strong>如果与01背包进行对比：</strong><br>f[i] [j] = max(f[i - 1] [j],f<mark>[i - 1]</mark> [j - v] + w)    01背包</p>
+<p>f[i] [j] = max(f[i - 1] [j],f<mark>[i]</mark> [j - v] + w)                完全背包</p>
 <p>可以发现，完全背包需要用到当前的状态，即从小到大枚举。</p>
 </blockquote>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -807,7 +800,6 @@ int main()
     cout &lt;&lt; f[m];
     return 0;
 &#125;</code></pre>
-
 <h3 id="多重背包"><a href="#多重背包" class="headerlink" title="多重背包"></a>多重背包</h3><h4 id="多重背包I"><a href="#多重背包I" class="headerlink" title="多重背包I"></a>多重背包I</h4><blockquote>
 <p>有 N 种物品和一个容量为 V 的背包，每种物品最多 s 件，问将哪些物品放入背包可使价值最大？</p>
 <p>数据范围：</p>
@@ -832,9 +824,6 @@ int main()
     cout &lt;&lt; f[n][m] &lt;&lt; endl;
     return 0;
 &#125;</code></pre>
-
-
-
 <h4 id="多重背包II"><a href="#多重背包II" class="headerlink" title="多重背包II"></a>多重背包II</h4><blockquote>
 <p>有 N 种物品和一个容量为 V 的背包，每种物品最多 s 件，问将哪些物品放入背包可使价值最大？</p>
 <p>数据范围：</p>
@@ -844,9 +833,9 @@ int main()
 </blockquote>
 <p><mark>多重背包的二进制优化：</mark></p>
 <blockquote>
-<p>利用二进制优化，时间复杂度可以从 O(N * M * S) 降到O(N * logS * M ),从4∗10^9^降到了2∗10^7^。</p>
+<p>利用二进制优化，时间复杂度可以从 O(N <em> M </em> S) 降到O(N <em> logS </em> M ),从4∗10^9^降到了2∗10^7^。</p>
 <p>思想：将每种物品拆分成1,2,4,8,16,32…，即分成1,2,4，…，2^k^,s这些个物品，其中s小于2^k+1^。这样可以利用01背包的思想，拼凑出任意数量的解（包括最优解），然后调用01背包模板即可。</p>
-<p>举例：如果某种物品数量s &#x3D; 200，则可拆分成：1,2,4,8,16,32,64,73（73 &lt; 128）。</p>
+<p>举例：如果某种物品数量s = 200，则可拆分成：1,2,4,8,16,32,64,73（73 &lt; 128）。</p>
 </blockquote>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
@@ -885,9 +874,6 @@ int main()
     cout &lt;&lt; f[m] &lt;&lt; endl;
     return 0;
 &#125;</code></pre>
-
-
-
 <h4 id="多重背包III"><a href="#多重背包III" class="headerlink" title="多重背包III"></a>多重背包III</h4><blockquote>
 <p>有 N 种物品和一个容量为 V 的背包，每种物品最多 s 件，问将哪些物品放入背包可使价值最大？</p>
 <p>数据范围：</p>
@@ -928,9 +914,6 @@ int main()&#x2F;&#x2F;我们需要是上一次的[j-v],而我们当前层的[j-v
     cout &lt;&lt; f[m];
     return 0;
 &#125;</code></pre>
-
-
-
 <h3 id="混合背包"><a href="#混合背包" class="headerlink" title="混合背包"></a>混合背包</h3><blockquote>
 <p>有 N 种物品和一个容量是 V 的背包，问将哪些物品放入背包可使价值最大？</p>
 <p>物品一共有三类：</p>
@@ -984,9 +967,6 @@ int main()
     cout &lt;&lt; f[m] &lt;&lt; endl;
     return 0;
 &#125;</code></pre>
-
-
-
 <h3 id="分组背包"><a href="#分组背包" class="headerlink" title="分组背包"></a>分组背包</h3><blockquote>
 <p>有 N 组物品和一个容量是 V 的背包，每组物品有若干个，同一组内的物品最多只能选一个。问将哪些物品放入背包可使价值最大？</p>
 <p><strong>数据范围</strong></p>
@@ -996,7 +976,7 @@ int main()
 <p>细节：需要先循环体积，再循环决策。</p>
 <p>体积优化成一维之后，要保证代码和优化之前是等价的，交换顺序之后就不等价了。</p>
 <p>假设对第i组里的物品k，把所有体积遍历了一次，然后选择了这件物品，这个时候f[i] [j]已经包含了第i组中一个物品，也就是k；接下来还是这一组，第k+1个物品，又枚举所有体积，并且你也选择了这一个物品，即</p>
-<p>f[i] [j]&#x3D;max(f[i-1] [j],f[i-1] [j-v[i] [k+1]]+w[i] [k+1])中后者更大，更新之后f变成了后者<br>这就意味着在第i组中同时选择了k和k+1两个物品<br>而如果固定体积，遍历物品，就不会有这个问题，因为每次遍历都只能选中一件物品；<br>这本质上还是在优化成一维数组之后数组的更新过程中需要注意的问题，就像y总说的要保证等价。</p>
+<p>f[i] [j]=max(f[i-1] [j],f[i-1] [j-v[i] [k+1]]+w[i] [k+1])中后者更大，更新之后f变成了后者<br>这就意味着在第i组中同时选择了k和k+1两个物品<br>而如果固定体积，遍历物品，就不会有这个问题，因为每次遍历都只能选中一件物品；<br>这本质上还是在优化成一维数组之后数组的更新过程中需要注意的问题，就像y总说的要保证等价。</p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
 const int N &#x3D; 110;
@@ -1019,9 +999,6 @@ int main()
     cout &lt;&lt; f[m] &lt;&lt; endl;
     return 0;
 &#125;</code></pre>
-
-
-
 <h3 id="二维费用的背包问题"><a href="#二维费用的背包问题" class="headerlink" title="二维费用的背包问题"></a>二维费用的背包问题</h3><blockquote>
 <p>有 N 件物品和一个容量是 V 的背包，背包能承受的最大重量是 M。每件物品只能用一次。体积是 v<sub>i</sub>，重量是 m<sub>i</sub>，价值是 w<sub>i</sub>。求解将哪些物品装入背包，可使物品总体积不超过背包容量，总重量不超过背包可承受的最大重量，且价值总和最大。</p>
 <p>数据范围：</p>
@@ -1053,9 +1030,6 @@ int main()
     cout &lt;&lt; f[V][M];
     return 0;
 &#125;</code></pre>
-
-
-
 <h3 id="有依赖的背包问题"><a href="#有依赖的背包问题" class="headerlink" title="有依赖的背包问题"></a>有依赖的背包问题</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1108,7 +1082,6 @@ int main()
     cout &lt;&lt; f[root][m] &lt;&lt; endl;
     return 0;
 &#125;</code></pre>
-
 <p><mark>推荐题单：</mark></p>
 <p>模板题：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/10/">有依赖的背包问题</a></p>
 <h3 id="背包问题求方案数"><a href="#背包问题求方案数" class="headerlink" title="背包问题求方案数"></a>背包问题求方案数</h3><blockquote>
@@ -1159,9 +1132,6 @@ int main()
     cout &lt;&lt; cnt &lt;&lt; endl;
     return 0;
 &#125;</code></pre>
-
-
-
 <h3 id="背包问题求具体方案"><a href="#背包问题求具体方案" class="headerlink" title="背包问题求具体方案"></a>背包问题求具体方案</h3><p><strong>题目描述：</strong></p>
 <p>有 N 件物品和一个容量是 V 的背包。每件物品只能使用一次。</p>
 <p>第 i 件物品的体积是 v<sub>i</sub>，价值是 w<sub>i</sub>。</p>
@@ -1181,10 +1151,8 @@ int main()
 2 4
 3 4
 4 6</code></pre>
-
 <p><strong>输出样例：</strong></p>
 <pre class="language-none"><code class="language-none">1 4</code></pre>
-
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1219,7 +1187,6 @@ int main()
         &#125;
     return 0;
 &#125;</code></pre>
-
 <h2 id="线性DP"><a href="#线性DP" class="headerlink" title="线性DP"></a>线性DP</h2><h3 id="最长上升子序列I"><a href="#最长上升子序列I" class="headerlink" title="最长上升子序列I"></a>最长上升子序列I</h3><blockquote>
 <p><strong>问题描述：</strong>给定一个长度为 $N$ 的数列，求数值严格单调递增的子序列的长度最长是多少？</p>
 <p><strong>数据范围：</strong> $1 \le N \le 1000$</p>
@@ -1253,7 +1220,6 @@ int main()
 	cout &lt;&lt; *max_element(f.begin(), f.end()) &lt;&lt; &quot;\n&quot;;
 	return 0;
 &#125;</code></pre>
-
 <h3 id="最长上升子序列II"><a href="#最长上升子序列II" class="headerlink" title="最长上升子序列II"></a>最长上升子序列II</h3><blockquote>
 <p><strong>问题描述：</strong>给定一个长度为 $N$ 的数列，求数值严格单调递增的子序列的长度最长是多少？</p>
 <p><strong>数据范围：</strong> $1 \le N \le 10^5$</p>
@@ -1294,15 +1260,14 @@ int main()
 	cout &lt;&lt; len &lt;&lt; &quot;\n&quot;;
 	return 0;
 &#125;</code></pre>
-
 <h3 id="最短编辑距离"><a href="#最短编辑距离" class="headerlink" title="最短编辑距离"></a>最短编辑距离</h3><blockquote>
 <p><strong>问题描述：</strong>将字符串 $A$ 经过 插入、删除、替换，变成字符串 $B$ 的最小操作次数是多少？</p>
 <p><strong>数据范围：</strong>$1 \le |s| \le 1000$</p>
 <p><strong>状态转移：</strong> 定义 $f[i][j]$：将 $A$ 的前 $i$个字母变成 $B$ 的前 $j$ 个字母的最小操作次数</p>
 <ul>
-<li>删除：$f[i][j] &#x3D; f[i - 1][j] + 1$</li>
-<li>插入：$f[i][j] &#x3D; f[i][j - 1] + 1$</li>
-<li>替换：$f[i][j] &#x3D; f[i - 1][j - 1] + a[i] !&#x3D; b[j]$</li>
+<li>删除：$f[i][j] = f[i - 1][j] + 1$</li>
+<li>插入：$f[i][j] = f[i][j - 1] + 1$</li>
+<li>替换：$f[i][j] = f[i - 1][j - 1] + a[i] != b[j]$</li>
 </ul>
 <p><strong>时间复杂度：</strong>$O(n^2)$</p>
 </blockquote>
@@ -1335,7 +1300,6 @@ int main()
     cout &lt;&lt; f[n][m] &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125; </code></pre>
-
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/897/">最长上升子序列</a> <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/898/">最长上升子序列 II</a>  <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/899/">最长公共子序列</a>  <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/904/">最短编辑距离</a></p>
 <p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1849/problem/D">D. Array Painting</a> </p>
@@ -1384,17 +1348,16 @@ int main()
     cout &lt;&lt; f[1][n] &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
-
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/284/">石子合并</a></p>
 <h2 id="计数类DP"><a href="#计数类DP" class="headerlink" title="计数类DP"></a>计数类DP</h2><blockquote>
-<p><strong>问题描述：</strong>一个正整数 $n$ 可以表示成若干个正整数之和，形如：$n&#x3D;n_1+n_2+…+n_k$，其中 $n_1 \ge n_2 \ge …\ge n_k$。</p>
+<p><strong>问题描述：</strong>一个正整数 $n$ 可以表示成若干个正整数之和，形如：$n=n_1+n_2+…+n_k$，其中 $n_1 \ge n_2 \ge …\ge n_k$。</p>
 <p><strong>数据范围：</strong> $1 \le n \le 1000$</p>
 </blockquote>
 <p><strong>解法一：</strong></p>
 <blockquote>
 <p>完全背包思想，前 $n$ 个数，每个数选任意个，组成数字 $j$ 的方案。</p>
-<p>故：$f[i][j] &#x3D; f[i - 1][j] + f[i][j - i]$</p>
+<p>故：$f[i][j] = f[i - 1][j] + f[i][j - i]$</p>
 </blockquote>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -1417,7 +1380,6 @@ int main()
     cout &lt;&lt; f[n];
     return 0;
 &#125;</code></pre>
-
 <p><strong>解法二：</strong></p>
 <blockquote>
 <p>定义$f[i][j]$：总和为 $i$ ，由 $j$ 个数组成的所有方案数。</p>
@@ -1425,7 +1387,7 @@ int main()
 <p>1、最小值为1： $f[i - 1][j - 1]$</p>
 <p>2、最小值大于1：$f[i - j][j]$</p>
 <p>注：由于分成的两大类是不重不漏的，所以对应的最小值大于 $1$ 的情况是合理的。</p>
-<p>故：$f[i][j] &#x3D; f[i - 1][j - 1] + f[i - j][j]$。</p>
+<p>故：$f[i][j] = f[i - 1][j - 1] + f[i - j][j]$。</p>
 </blockquote>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -1452,11 +1414,10 @@ int main()
     cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
-
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题（完全背包）：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/902/">整数划分</a></p>
 <p><strong>蓝桥杯真题（01背包）：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/3420/">砝码称重</a></p>
-<p><strong>2022年蓝桥杯C++B组国赛：</strong><a target="_blank" rel="noopener" href="https://www.lanqiao.cn/problems/2186/learning/?first_category_id=1&page=1&sort=students_count&second_category_id=3&name=2022">2022</a></p>
+<p><strong>2022年蓝桥杯C++B组国赛：</strong><a target="_blank" rel="noopener" href="https://www.lanqiao.cn/problems/2186/learning/?first_category_id=1&amp;page=1&amp;sort=students_count&amp;second_category_id=3&amp;name=2022">2022</a></p>
 <p><strong>DP（类似背包优化） + 计数：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/909/problem/C">C. Python Indentation</a></p>
 <p><strong>洛谷DP基础题单（需要题意转化！）：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1077">P1077 [NOIP2012 普及组] 摆花</a></p>
 <p><mark>2022年蓝桥杯C++B组国赛 2022 讲解：</mark></p>
@@ -1465,13 +1426,11 @@ int main()
 <p>思路：</p>
 <ul>
 <li>定义 $dp[i][j][k]$：前 $i$ 个数，用了 $j$ 个数，且总和为 $k$ 的方案数。</li>
-<li>集合划分：第 $i$ 个数选 &#x2F; 不选：</li>
-</ul>
-<ol>
-<li>选：$dp[i][j][k] &#x3D; dp[i - 1][j - 1][k - i]$</li>
-<li>不选：$dp[i][j][k] &#x3D; dp[i - 1][j][k]$</li>
+<li>集合划分：第 $i$ 个数选 / 不选：<ol>
+<li>选：$dp[i][j][k] = dp[i - 1][j - 1][k - i]$</li>
+<li>不选：$dp[i][j][k] = dp[i - 1][j][k]$</li>
 </ol>
-<ul>
+</li>
 <li>答案即为：$dp[2022][10][2022]$。</li>
 </ul>
 </blockquote>
@@ -1513,7 +1472,6 @@ int main()
     
     return 0;
 &#125;</code></pre>
-
 <p><strong>优化一维后：</strong></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -1552,11 +1510,10 @@ int main()
     
     return 0;
 &#125;</code></pre>
-
 <p><mark><strong>洛谷DP基础题单（需要题意转化！）：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1077">P1077 [NOIP2012 普及组] 摆花</a></mark></p>
-<p><strong>题目大意转化为公式：</strong> 给定 n 个数 $c_i$，其中 $0 \le c_i \le a_i$，问有多少种方案数使 $\sum{c_i} &#x3D; m$？</p>
+<p><strong>题目大意转化为公式：</strong> 给定 n 个数 $c_i$，其中 $0 \le c_i \le a_i$，问有多少种方案数使 $\sum{c_i} = m$？</p>
 <p><strong>吐槽：</strong> 当时还没抽象出这层公式，然后一直感觉这个题意表达出来的意思有点熟悉。然后看了下题解，看到这个公式感觉了些亲切，但并没有什么进一步的打算。但当我看到了他定义了状态：f[i] [j]表示：前 i 个数总和为 j 的方案数。我瞬间感觉会了，啊这，用公式表达或许是真的容易理解啊！</p>
-<p>$f[i][j] &#x3D; \sum_{k&#x3D;0}^{a[i]}f[i - 1][j - k]$</p>
+<p>$f[i][j] = \sum_{k=0}^{a[i]}f[i - 1][j - k]$</p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1589,12 +1546,9 @@ int main()
     cout &lt;&lt; f[n][m] &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
-
-
-
 <h2 id="数位DP"><a href="#数位DP" class="headerlink" title="数位DP"></a>数位DP</h2><blockquote>
 <p>数位 DP 问题一般给定一个区间 [L,R]，问区间满足的条件的数有多少个。</p>
-<p>可以利用前缀和来求解答案：$∑_{i&#x3D;1}^Rans_i−∑_{i&#x3D;1}^{L−1}ans_i$</p>
+<p>可以利用前缀和来求解答案：$∑<em>{i=1}^Rans_i−∑</em>{i=1}^{L−1}ans_i$</p>
 </blockquote>
 <p><mark>模板（伪代码）：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">int dfs(int pos, int pre, int lead, int limit) &#123;
@@ -1619,26 +1573,25 @@ int main() &#123;
     cin &gt;&gt; l &gt;&gt; r;
     cout &lt;&lt; dp(r) - dp(l - 1) &lt;&lt; endl;
 &#125;</code></pre>
-
 <blockquote>
 <p><mark>dp函数：</mark></p>
-<p>​			每次初始化f数组为-1，长度len &#x3D; 0。</p>
-<p>​			a$_i$：每个数位具体数字。</p>
+<p>​            每次初始化f数组为-1，长度len = 0。</p>
+<p>​            a$_i$：每个数位具体数字。</p>
 <p><mark>dfs函数：</mark></p>
-<p>​			变量res记录答案，初始化一般为0。</p>
-<p>​			变量up表示能枚举的最高位数。</p>
-<p>​			采用记忆化搜索的方式：if(!limit &amp;&amp; !lead &amp;&amp; f[pos] [pre] !&#x3D; -1)	return f[pos] [pre];&#x2F;&#x2F;只有无限制、无前导零才可以，不然都是未搜索完的情况。</p>
-<p>​			如果最后还有限制，那么返回res，否则返回f[pos] [pre]。</p>
+<p>​            变量res记录答案，初始化一般为0。</p>
+<p>​            变量up表示能枚举的最高位数。</p>
+<p>​            采用记忆化搜索的方式：if(!limit &amp;&amp; !lead &amp;&amp; f[pos] [pre] != -1)    return f[pos] [pre];//只有无限制、无前导零才可以，不然都是未搜索完的情况。</p>
+<p>​            如果最后还有限制，那么返回res，否则返回f[pos] [pre]。</p>
 <p><mark>基本参数：</mark></p>
-<p>​				假设数字x位数为a$_1$..a$_n$</p>
+<p>​                假设数字x位数为a$_1$..a$_n$</p>
 <p><mark>必填参数：</mark></p>
-<p>​				pos：表示数字的位数</p>
-<p>​				limit：可以填数的限制（无限制的话（limit &#x3D; 0）0 ~ 9随便填，否则只能填到a$i$）</p>
+<p>​                pos：表示数字的位数</p>
+<p>​                limit：可以填数的限制（无限制的话（limit = 0）0 ~ 9随便填，否则只能填到a$i$）</p>
 <p><mark>可选参数：</mark></p>
-<p>​				pre：表示上一个数是多少</p>
-<p>​				lead：前导零是否存在，lead &#x3D; 1表示存在前导零，否则不存在。</p>
-<p>​				sum：搜索到当前所有数字之和。</p>
-<p>​				cnt：某个数字出现的次数。</p>
+<p>​                pre：表示上一个数是多少</p>
+<p>​                lead：前导零是否存在，lead = 1表示存在前导零，否则不存在。</p>
+<p>​                sum：搜索到当前所有数字之和。</p>
+<p>​                cnt：某个数字出现的次数。</p>
 </blockquote>
 <p><strong>学习参考：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/blog/content/7944/">数位DP(DFS做法)</a></p>
 <p><strong>推荐题单：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1808/problem/C">C. Unlucky Numbers</a></p>
@@ -1696,7 +1649,6 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
-
 <h2 id="树形DP"><a href="#树形DP" class="headerlink" title="树形DP"></a>树形DP</h2><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
 const int N &#x3D; 6010;
@@ -1738,7 +1690,6 @@ int main()
     printf(&quot;%d\n&quot;,max(f[root][0],f[root][1]));
     return 0;
 &#125;</code></pre>
-
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/287/">没有上司的舞会</a></p>
 <p><strong>模板题的改版：</strong><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=7276">City Upgrading</a></p>
@@ -1753,7 +1704,7 @@ int main()
 <li>所有在 $u$ 的子树上的结点深度都减少了 $1$，那么总深度和就减少了 $s_v$；</li>
 <li>所有不在 $v$ 的子树上的结点深度都增加了 $1$，那么总深度和就增加了 $n - s_v$；</li>
 </ul>
-<p>因此，可以推出状态转移方程：$f_v &#x3D; f_u - s_v + n - s_v &#x3D; f_u + n - 2 × s_v$ 。</p>
+<p>因此，可以推出状态转移方程：$f_v = f_u - s_v + n - s_v = f_u + n - 2 × s_v$ 。</p>
 </blockquote>
 <p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -1820,7 +1771,6 @@ int main()
 	cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
 	return 0;
 &#125;</code></pre>
-
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3478">P3478 [POI2008] STA-Station</a></p>
 <p><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104493/problem/C">C. Tree Permutation</a></p>
@@ -1834,7 +1784,7 @@ int main()
 <p>so：</p>
 <p>定义f[i] [j]：表示已经将前i - 1列摆好，且从第i - 1列伸出到第i列的状态为j的所有方案。</p>
 <p>再考虑一些这个问题：假设第i - 2列伸出到第i - 1列的状态是k，第i - 1列伸出到第i列的状态为j，则什么时候k与j能拼在一起构成一个合法方案呢？</p>
-<p>1、两个小方块不能处在同一行（如果处在同一行会有交集），即(j &amp; k) &#x3D;&#x3D; 0判断。</p>
+<p>1、两个小方块不能处在同一行（如果处在同一行会有交集），即(j &amp; k) == 0判断。</p>
 <p>2、第i - 1列空着的小方格能被竖着的小方块塞满，即st[i | j]存在。</p>
 </blockquote>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -1894,10 +1844,9 @@ int main()
 
     return 0;
 &#125;</code></pre>
-
 <h3 id="最短Hamilton路径"><a href="#最短Hamilton路径" class="headerlink" title="最短Hamilton路径"></a>最短Hamilton路径</h3><blockquote>
 <p>f[i] [j]：状态为i的情况下，停到点j的最短路径是多少。</p>
-<p>f[state] [j] &#x3D; f[state_k] [k] + weight[k] [j]，state_k &#x3D; state除掉j之后的集合，state_k要包含k。</p>
+<p>f[state] [j] = f[state_k] [k] + weight[k] [j]，state_k = state除掉j之后的集合，state_k要包含k。</p>
 </blockquote>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -1930,9 +1879,6 @@ int main()
     cout &lt;&lt; f[(1 &lt;&lt; n) - 1][n - 1];
     return 0;
 &#125;</code></pre>
-
-
-
 <h3 id="小国王"><a href="#小国王" class="headerlink" title="小国王"></a>小国王</h3><p><strong>题目链接：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1066/">小国王</a></p>
 <p><strong>题目描述</strong></p>
 <p>在 n×n 的棋盘上放 k 个国王，国王可攻击相邻的 8 个格子，求使它们无法互相攻击的方案总数。</p>
@@ -1944,10 +1890,8 @@ int main()
 <p>1 ≤ n ≤ 10,<br>0 ≤ k ≤ n<sup>2</sup></p>
 <p><strong>输入样例：</strong></p>
 <pre class="language-none"><code class="language-none">3 2</code></pre>
-
 <p><strong>输出样例：</strong></p>
 <pre class="language-none"><code class="language-none">16</code></pre>
-
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -2008,7 +1952,6 @@ int main()
     cout &lt;&lt; f[n + 1][m][0] &lt;&lt; endl;&#x2F;&#x2F;存在第n + 1行，但第n + 1行一个都没有摆
     return 0;
 &#125;</code></pre>
-
 <h2 id="决策单调性优化DP"><a href="#决策单调性优化DP" class="headerlink" title="决策单调性优化DP"></a>决策单调性优化DP</h2><blockquote>
 <p><strong>分治函数：</strong></p>
 <p>$solve(int\ l,  int\ r, int\ ql, int\ qr)$</p>
@@ -2077,7 +2020,6 @@ int main()
     cout &lt;&lt; f[k][n] &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
-
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/868/problem/F">F. Yet Another Minimization Problem</a></p>
 <h2 id="记忆化搜索"><a href="#记忆化搜索" class="headerlink" title="记忆化搜索"></a>记忆化搜索</h2><p><mark>模板题代码：</mark></p>
@@ -2129,7 +2071,6 @@ int main()
     cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
-
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/903/">滑雪</a></p>
 <p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1851/problem/E">E. Nastya and Potions</a></p>
@@ -2142,8 +2083,8 @@ int main()
 <p><mark><strong>讲解区：</strong></mark></p>
 <h3 id="类似状态机模型的DP：Box"><a href="#类似状态机模型的DP：Box" class="headerlink" title="类似状态机模型的DP：Box"></a><strong>类似状态机模型的DP：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57356/K">Box</a></h3><h3 id="DP-树状数组优化：三元上升子序列"><a href="#DP-树状数组优化：三元上升子序列" class="headerlink" title="DP + 树状数组优化：三元上升子序列"></a><strong>DP + 树状数组优化：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1637">三元上升子序列</a></h3><blockquote>
 <p><strong>状态定义：</strong>f[i] [j]：以 $a[j]$ 为结尾的长度为 $i$ 的上升子序列的个数</p>
-<p><strong>状态转移：</strong>$f[i][j]&#x3D; \sum_{k&lt;j,a[k]&lt;a[j]}f[i-1][k]$</p>
-<p><strong>具体来说：</strong>在外层循环 $i$，建立一个树状数组，以 $a[k]$ 为下标存储 $f[i - 1][k]$ 的值。当内层循环到 $j$ 时，$f[i][j] +&#x3D; ask(a[j] - 1)$，然后在转移到下一个 $j$ 之前 $add(a[j], f[i - 1][j])$ 。$j$ 从小到大循环保证了 $k &lt; j$，查询 $f[i - 1][j - 1]$ 的前缀和保证了 $a[k] &lt; a[j]$。</p>
+<p><strong>状态转移：</strong>$f[i][j]= \sum_{k&lt;j,a[k]&lt;a[j]}f[i-1][k]$</p>
+<p><strong>具体来说：</strong>在外层循环 $i$，建立一个树状数组，以 $a[k]$ 为下标存储 $f[i - 1][k]$ 的值。当内层循环到 $j$ 时，$f[i][j] += ask(a[j] - 1)$，然后在转移到下一个 $j$ 之前 $add(a[j], f[i - 1][j])$ 。$j$ 从小到大循环保证了 $k &lt; j$，查询 $f[i - 1][j - 1]$ 的前缀和保证了 $a[k] &lt; a[j]$。</p>
 <p><strong>时间复杂度：</strong>$O(NMlogN)$</p>
 </blockquote>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -2211,7 +2152,6 @@ int main()
     cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
-
 <h3 id="非同寻常的DP定义：D-Jellyfish-and-Mex"><a href="#非同寻常的DP定义：D-Jellyfish-and-Mex" class="headerlink" title="非同寻常的DP定义：D. Jellyfish and Mex"></a><strong>非同寻常的DP定义：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1875/problem/D">D. Jellyfish and Mex</a></h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -2255,10 +2195,9 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
-
 <h3 id="不太好想但又可以想到的DP定义：C-Road-Optimization"><a href="#不太好想但又可以想到的DP定义：C-Road-Optimization" class="headerlink" title="不太好想但又可以想到的DP定义：C. Road Optimization"></a><strong>不太好想但又可以想到的DP定义：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/1625/C">C. Road Optimization</a></h3><blockquote>
 <p><strong>定义：</strong>$f[i][j]$：前 $i$ 个标志，第 $i$ 个标志未被移除，且已经移除了 $j$ 个标志的答案集合。</p>
-<p><strong>转移：</strong>枚举前一个位置 $k$ ：$f[i][j] &#x3D; f[k][j - (i - 1 - k)] + (i - 1 - k) * v[k]$，其中 $(i - 1 - k)$ 是从 $k$ 到 $i$ 位置内，所有的移除个数。</p>
+<p><strong>转移：</strong>枚举前一个位置 $k$ ：$f[i][j] = f[k][j - (i - 1 - k)] + (i - 1 - k) * v[k]$，其中 $(i - 1 - k)$ 是从 $k$ 到 $i$ 位置内，所有的移除个数。</p>
 <p><strong>时间复杂度：</strong>$O(n^3)$</p>
 </blockquote>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -2310,7 +2249,6 @@ int main()
     
     return 0;
 &#125;</code></pre>
-
 <h3 id="第十四届蓝桥杯国赛：试题-A-子-2023"><a href="#第十四届蓝桥杯国赛：试题-A-子-2023" class="headerlink" title="第十四届蓝桥杯国赛：试题 A:子 2023"></a>第十四届蓝桥杯国赛：试题 A:子 2023</h3><p><strong>题意：</strong>给点数字串，问有多少 $2023$ 的子序列？</p>
 <p><strong>思路：</strong></p>
 <blockquote>
@@ -2346,7 +2284,6 @@ int main()
     cout &lt;&lt; f[3] &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
-
 <h3 id="每个数在-1-7-，相邻两个数的差不超过-k-k-in-0-6-，求最小修改次数-mobiusp-正在创作乐曲"><a href="#每个数在-1-7-，相邻两个数的差不超过-k-k-in-0-6-，求最小修改次数-mobiusp-正在创作乐曲" class="headerlink" title="每个数在 $[1,7]$，相邻两个数的差不超过 $k, k \in [0,6]$，求最小修改次数 mobiusp 正在创作乐曲"></a>每个数在 $[1,7]$，相邻两个数的差不超过 $k, k \in [0,6]$，求最小修改次数 <a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/69408/G">mobiusp 正在创作乐曲</a></h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -2386,7 +2323,88 @@ int main()
     cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
+<h3 id="线段树优化DP"><a href="#线段树优化DP" class="headerlink" title="线段树优化DP"></a>线段树优化DP</h3><p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1439">P1439 【模板】最长公共子序列</a></p>
+<p><strong>题意：</strong> 给定 $2$ 个长度为 $n(n \le 10^5)$ 且均是全排列的数组，问最长公共子序列长度是多少？</p>
+<p><strong>思路：</strong></p>
+<p>自己写出来的！</p>
+<p>由于是全排列，每个数位置都不同，通过观察发现，依次枚举 $a$ 数组，对于该数在 $b$ 数组中的位置可以发现，如果左边有出现过的数，那么加上这个数，最长公共子序列是会增加的。因此，我们每次需要查看左边最大的数是多少，然后在当前位置的最长公共子序列就会+1，即单点修改，区间查询最大值操作，故用线段树。</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
+using namespace std;
+
+const int N &#x3D; 1e5 + 10;
+
+struct Node
+&#123;
+    int l, r;
+    int mx;
+&#125;tr[N &lt;&lt; 2];
+
+void pushup(int u)
+&#123;
+    tr[u].mx &#x3D; max(tr[u &lt;&lt; 1].mx, tr[u &lt;&lt; 1 | 1].mx);
+&#125;
+
+void build(int u, int l, int r)
+&#123;
+    tr[u] &#x3D; &#123;l, r&#125;;
+    if (l &#x3D;&#x3D; r) return ;
+    int mid &#x3D; l + r &gt;&gt; 1;
+    build(u &lt;&lt; 1, l, mid), build(u &lt;&lt; 1 | 1, mid + 1, r);
+&#125;
+
+void modify(int u, int pos, int v)
+&#123;
+    if (tr[u].l &#x3D;&#x3D; tr[u].r &amp;&amp; tr[u].l &#x3D;&#x3D; pos)
+    &#123;
+        tr[u].mx &#x3D; v;
+        return;
+    &#125;
+    int mid &#x3D; tr[u].l + tr[u].r &gt;&gt; 1;
+    if (pos &lt;&#x3D; mid) modify(u &lt;&lt; 1, pos, v);
+    else    modify(u &lt;&lt; 1 | 1, pos, v);
+    pushup(u);
+&#125;
+
+int query(int u, int l, int r)
+&#123;
+    if (l &lt;&#x3D; tr[u].l &amp;&amp; r &gt;&#x3D; tr[u].r)   return tr[u].mx;
+    int mid &#x3D; tr[u].l + tr[u].r &gt;&gt; 1;
+    int res &#x3D; 0;
+    if (l &lt;&#x3D; mid)   res &#x3D; max(res, query(u &lt;&lt; 1, l, r));
+    if (r &gt; mid)    res &#x3D; max(res, query(u &lt;&lt; 1 | 1, l, r));
+    return res;
+&#125;
+
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;int&gt; a(n + 1);
+    vector&lt;int&gt; b(n + 1);
+
+    vector&lt;int&gt; pos(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; a[i];
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; b[i], pos[b[i]] &#x3D; i;
+
+    build(1, 1, n);
+
+    vector&lt;int&gt; f(n + 1);
+    int res &#x3D; 0;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        f[pos[a[i]]] &#x3D; query(1, 1, pos[a[i]]) + 1;
+        modify(1, pos[a[i]], f[pos[a[i]]]);
+        res &#x3D; max(res, f[pos[a[i]]]);
+    &#125;
+
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
 
                 
             </div>
