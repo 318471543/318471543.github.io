@@ -2886,10 +2886,17 @@ int main()
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/2177/">飞行员配对方案问题</a></p>
 <h3 id="费用流"><a href="#费用流" class="headerlink" title="费用流"></a>费用流</h3><p><mark>封装模板：</mark></p>
 <blockquote>
-<p><strong>使用指南：</strong></p>
+<p><strong>一、使用指南：</strong></p>
 <p>1、用之前需先进行初始化：参数（总点数，源点，汇点）</p>
 <p>2、调用：$g.EK()$ </p>
 <p>3、<strong>注意：</strong>点数和边数需要开的空间大小需提前确定好！</p>
+<p><strong>二、操作描述：</strong></p>
+<ul>
+<li><p>最小费用的边权是正数，即 $g.addedge(id[i][j] * 2 - 1, id[i][j] * 2, 1, a[i][j]);$</p>
+</li>
+<li><p>最大费用的边权是<strong>负数</strong>，即 $g.addedge(id[i][j] * 2 - 1, id[i][j] * 2, 1, -a[i][j]);$</p>
+</li>
+</ul>
 </blockquote>
 <pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 5e3 + 10, M &#x3D; 1e5 + 10;
 template&lt;typename T&gt;
@@ -3167,9 +3174,9 @@ int main()
 <p>3、源点编号：$s &#x3D; tot × 2 + 1$，汇点编号：$tot × 2 + 2$</p>
 </blockquote>
 <p><mark>推荐题单：</mark></p>
-<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2193/">数字梯形问题</a></p>
+<p><strong>模板题1：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2193/">数字梯形问题</a>    <strong>模板题2：</strong> <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/384/">K取方格数</a></p>
 <p><strong>2023年中国大学生程序设计竞赛女生专场：（有细节喔）</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104725/problem/D">D. 金人旧巷市廛喧</a></p>
-<p><mark>模板题代码：</mark></p>
+<p><mark>模板题1代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -3299,6 +3306,125 @@ int main()
     auto res1 &#x3D; g1.EK(), res2 &#x3D; g2.EK(), res3 &#x3D; g3.EK();
 
     cout &lt;&lt; -res1.second &lt;&lt; &quot;\n&quot; &lt;&lt; -res2.second &lt;&lt; &quot;\n&quot; &lt;&lt; -res3.second &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+<p><mark> 模板题2代码：</mark></p>
+<p><strong>题意：</strong> 给定 $n × n$ 的网格，问从 $(1,1)$ 走到 $(n,n)$，走 $k$ 条路径，每个格子上有权值，格子上的权值取一次后就变成 $0$ 了，问这 $k$ 次取得的最大权值和是多少？</p>
+<p><strong>思路：</strong></p>
+<ul>
+<li>由于有 $k$ 次，那么就需要满流 $(k)$，然后最大化权值，故费用流；</li>
+<li>网格问题，故拆点；</li>
+<li>每个格子只能取一次数，之后都变成 $0$，则这样处理：点内部连两条边，一条边容量是1，费用是该点权值（这里是<strong>负数</strong>）；另一条边容量是无穷，费用为0；</li>
+<li>为什么费用是负数，因为这里求的是最大费用（当时以为模板错了，$debug$ 了快 $2$ 个小时才发现！）</li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 5e3 + 10, M &#x3D; 1e5 + 10;
+template&lt;typename T&gt;
+struct MinCostGraph &#123;
+    int n, s, t, idx;
+    T flow, cost;
+    bool st[N];
+    T d[N], incf[N], f[M &lt;&lt; 1], w[M &lt;&lt; 1];
+    int h[N], e[M &lt;&lt; 1], ne[M &lt;&lt; 1], pre[M &lt;&lt; 1];
+
+    void init(int _n, int _s, int _t) &#123;
+        n &#x3D; _n, s &#x3D; _s, t &#x3D; _t, idx &#x3D; 0;
+        for (int i &#x3D; 0; i &lt;&#x3D; n; i++)    h[i] &#x3D; -1;
+    &#125;
+
+    void addedge(int a, int b, T c, T d, T f2 &#x3D; 0) &#123;
+        e[idx] &#x3D; b, f[idx] &#x3D; c, w[idx] &#x3D; d, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
+        e[idx] &#x3D; a, f[idx] &#x3D; f2, w[idx] &#x3D; -d, ne[idx] &#x3D; h[b], h[b] &#x3D; idx++;
+    &#125;
+
+    bool spfa() &#123;
+        T inf &#x3D; numeric_limits&lt;T&gt;::max() &#x2F; 2;
+        for (int i &#x3D; 0; i &lt;&#x3D; n; i++)
+            d[i] &#x3D; inf, incf[i] &#x3D; 0;
+
+        queue&lt;int&gt; q;
+        q.push(s), d[s] &#x3D; 0, incf[s] &#x3D; inf;
+        while (!q.empty()) &#123;
+            int u &#x3D; q.front();
+            q.pop();
+
+            st[u] &#x3D; false;
+
+            for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i]) &#123;
+                int j &#x3D; e[i];
+                if (f[i] &amp;&amp; d[j] &gt; d[u] + w[i]) &#123;
+                    d[j] &#x3D; d[u] + w[i];
+                    pre[j] &#x3D; i;
+                    incf[j] &#x3D; min(f[i], incf[u]);
+                        if (!st[j]) &#123;
+                        q.push(j);
+                        st[j] &#x3D; true;
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+
+        return incf[t] &gt; 0;
+    &#125;
+
+    pair&lt;T, T&gt; EK() &#123;
+        flow &#x3D; cost &#x3D; 0;
+        while (spfa()) &#123;
+            T tf &#x3D; incf[t];
+            flow +&#x3D; tf, cost +&#x3D; tf * d[t];
+            for (int i &#x3D; t; i !&#x3D; s; i &#x3D; e[pre[i] ^ 1]) &#123;
+                f[pre[i]] -&#x3D; tf;
+                f[pre[i] ^ 1] +&#x3D; tf;
+            &#125;
+        &#125;
+        return &#123;flow, cost&#125;;
+    &#125;
+&#125;;
+MinCostGraph&lt;int&gt; g;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n, k;
+    cin &gt;&gt; n &gt;&gt; k;
+
+    vector&lt;vector&lt;int&gt;&gt; id(n + 1, vector&lt;int&gt;(n + 1));
+
+    vector&lt;vector&lt;int&gt;&gt; a(n + 1, vector&lt;int&gt;(n + 1));
+
+    int tot &#x3D; 0;
+
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        for (int j &#x3D; 1; j &lt;&#x3D; n; j++)
+        &#123;
+            cin &gt;&gt; a[i][j];
+            id[i][j] &#x3D; ++tot;
+        &#125;
+
+    int S &#x3D; 2 * tot + 1, T &#x3D; 2 * tot + 2;
+    g.init(T, S, T);
+    g.addedge(S, id[1][1] * 2 - 1, k, 0);
+    g.addedge(id[n][n] * 2, T, k, 0);
+
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        for (int j &#x3D; 1; j &lt;&#x3D; n; j++)
+        &#123;
+            &#x2F;&#x2F; 内部建边
+            g.addedge(id[i][j] * 2 - 1, id[i][j] * 2, 1e8, 0);
+            g.addedge(id[i][j] * 2 - 1, id[i][j] * 2, 1, -a[i][j]);
+            &#x2F;&#x2F; 外部建边
+            if (i + 1 &lt;&#x3D; n) g.addedge(id[i][j] * 2, id[i + 1][j] * 2 - 1, k, 0);
+            if (j + 1 &lt;&#x3D; n) g.addedge(id[i][j] * 2, id[i][j + 1] * 2 - 1, k, 0);
+        &#125;
+
+    auto res &#x3D; g.EK();
+
+    cout &lt;&lt; -res.second &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
 
