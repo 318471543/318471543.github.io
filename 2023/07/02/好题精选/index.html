@@ -2826,6 +2826,8 @@ int main()
 
 <h2 id="动态规划好题"><a href="#动态规划好题" class="headerlink" title="动态规划好题"></a>动态规划好题</h2><p>$tag1$：给定 $01$ 串，问满足指定构造要求的串有多少个？<strong>题目链接：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1920/problem/E">E. Counting Binary Strings</a></p>
 <p>$tag2$：有 $n$ 个开着的路灯，路灯在不同的位置，有不同的功率消耗，最初在某一个路灯下，可以向左或向右关闭路灯，问消耗的功率最小是多少？<strong>题目链接：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1220">P1220 关路灯</a></p>
+<p>$tag3$：给定有向图（可能有重边和自环），每条边的边长为 $1$，问从 $1$ 号点到 $n$ 号点，所有距离中，二进制中 $1$ 的数量最少是多少（这个描述是根据题意想出的）？<strong>题目链接：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1613">P1613 跑路</a></p>
+<hr>
 <p><mark>$tag1$ 做法思路：</mark></p>
 <p><strong>1、对于一个构造好的串，其有多少子串满足 $exactly\ one\ 1$？</strong></p>
 <ul>
@@ -2951,6 +2953,75 @@ int main()
         &#125;
     &#125;
     cout &lt;&lt; min(f[1][n][0], f[1][n][1]) &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+<p><mark>$tag3$ 做法思路：</mark></p>
+<p><strong>1、吐槽：</strong></p>
+<ul>
+<li>最初想法是：在所有 $1$ ~ $n$ 路径中，取出所有路径，然后找到路径的环，对自环进行特判 $\cdots$ 但是太麻烦了，而且实现起来可能还很容易出错，类似分类讨论。</li>
+</ul>
+<p><strong>2、正解：</strong></p>
+<ul>
+<li>倍增处理 $i$ 到 $j$ 是否能在 $2^k$ 下可达。如果可达，显然是 $1$ 的贡献，预处理完所有情况后，重新建图，然后跑从 $1$ 到 $n$ 的最短路即可。</li>
+<li>怎么倍增进行 $dp$ 处理呢？<ul>
+<li>最初对于已有的边长为 $1$ 的边，用两条能连接起来的相同长度的边能继续拼凑出 $2^k$ 。即先枚举幂次，然后枚举 $i,j,k$ 来预处理出所有可达的情况。</li>
+<li>时间复杂度：$O(n^4)$，其中 $n \le 50$</li>
+</ul>
+</li>
+<li>对于求最短路，由于数据范围很小，因此可以直接使用 $Floyd$.</li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n, m;
+    cin &gt;&gt; n &gt;&gt; m;
+
+    vector&lt;vector&lt;int&gt;&gt; g(n + 1, vector&lt;int&gt;(n + 1, 1e9));
+    vector&lt;vector&lt;vector&lt;bool&gt;&gt;&gt; st(n + 1, vector&lt;vector&lt;bool&gt;&gt;(n + 1, vector&lt;bool&gt;(n + 1)));
+    for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
+    &#123;
+        int a, b;
+        cin &gt;&gt; a &gt;&gt; b;
+        st[a][b][0] &#x3D; 1;
+        g[a][b] &#x3D; 1;
+    &#125;
+
+    for (int cnt &#x3D; 0; cnt &lt;&#x3D; n - 1; cnt++)
+    &#123;
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        &#123;
+            for (int j &#x3D; 1; j &lt;&#x3D; n; j++)
+            &#123;
+                for (int k &#x3D; 1; k &lt;&#x3D; n; k++)
+                &#123;
+                    if (st[i][j][cnt] &amp;&amp; st[j][k][cnt])
+                    &#123;
+                        st[i][k][cnt + 1] &#x3D; 1;
+                        g[i][k] &#x3D; 1;
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+
+    for (int k &#x3D; 1; k &lt;&#x3D; n; k++)
+    &#123;
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        &#123;
+            for (int j &#x3D; 1; j &lt;&#x3D; n; j++)
+            &#123;
+                g[i][j] &#x3D; min(g[i][j], g[i][k] + g[k][j]);
+            &#125;
+        &#125;
+    &#125;
+
+    cout &lt;&lt; g[1][n];
     return 0;
 &#125;</code></pre>
 

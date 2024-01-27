@@ -1549,12 +1549,128 @@ Matrix fpow(Matrix a, ll n)
 <p>$$<br>即\left[<br> \begin{matrix}<br>   f_{n} &amp; f_{n+1} \<br>  \end{matrix}<br>  \right]<br>  \left[<br> \begin{matrix}<br>   0 &amp; 1 \<br>   1 &amp; 1 \<br>  \end{matrix}<br>  \right]<br>   &#x3D; \left[<br> \begin{matrix}<br>   f_{n+1} &amp; f_{n+2} \<br>  \end{matrix}<br>  \right]<br>$$</p>
 <p>$$<br>故 F_{n} &#x3D; F_1 * A^{n-1}<br>$$</p>
 <p>$$<br>A &#x3D; \left[<br> \begin{matrix}<br>   0 &amp; 1 \<br>   1 &amp; 1 \<br>  \end{matrix}<br>  \right]<br>$$</p>
+<p><mark>代码如下：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
+
+#define IOS ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr)
+#define lowbit(x)   ((x)&amp;(-x))
+#define fi first
+#define se second
+#define pb push_back
+#define cf(_) int _;cin &gt;&gt; _;while(_--)
+
+const int N &#x3D; 2,mod &#x3D; 1e9 + 7;
+
+ll n;
+
+void mul(ll c[],ll a[],ll b[][N])
+&#123;
+    ll temp[N] &#x3D; &#123;0&#125;;
+    for(int i &#x3D; 0;i &lt; N;i++)
+        for(int j &#x3D; 0;j &lt; N;j++)
+            temp[i] &#x3D; (temp[i] + (ll)a[j] * b[j][i]) % mod;
+    memcpy(c,temp,sizeof(temp));
+&#125;
+
+void mul(ll c[][N],ll a[][N],ll b[][N])
+&#123;
+    ll temp[N][N] &#x3D; &#123;0&#125;;
+    for(int i &#x3D; 0;i &lt; N;i++)
+        for(int j &#x3D; 0;j &lt; N;j++)
+            for(int k &#x3D; 0;k &lt; N;k++)
+                temp[i][j] &#x3D; (temp[i][j] + (ll)a[i][k] * a[k][j]) % mod;
+    memcpy(c,temp,sizeof(temp));
+&#125;
+
+int main()
+&#123;
+    IOS;
+    cin &gt;&gt; n;
+
+    ll f1[N] &#x3D; &#123;1,1&#125;;
+    ll a[N][N] &#x3D; &#123;
+        &#123;0,1&#125;,
+        &#123;1,1&#125;,
+    &#125;;
+
+    n--;
+    while(n)
+    &#123;
+        if(n &amp; 1)   mul(f1,f1,a);
+        mul(a,a,a);
+        n &gt;&gt;&#x3D; 1;
+    &#125;
+    cout &lt;&lt; f1[0] &lt;&lt; endl;
+    return 0;
+&#125;</code></pre>
+
+
+
 <p><strong>斐波那契前 n 项和——推导过程：</strong><br>$$<br>F_n &#x3D; \left[<br> \begin{matrix}<br>   f_{n} &amp; f_{n+1} &amp; S_{n} \<br>  \end{matrix}<br>  \right]<br>$$</p>
 <p>$$<br>F_{n+1} &#x3D; \left[<br> \begin{matrix}<br>   f_{n+1} &amp; f_{n+2} &amp; S_{n+1} \<br>  \end{matrix}<br>  \right]<br>$$</p>
 <p>$$<br>令 F_{n} * A &#x3D; F_{n+1}<br>$$</p>
 <p>$$<br>即\left[<br> \begin{matrix}<br>   f_{n} &amp; f_{n+1} &amp; S_{n}\<br>  \end{matrix}<br>  \right]<br>  \left[<br> \begin{matrix}<br>   0 &amp; 1 &amp; 0\<br>   1 &amp; 1 &amp; 1\<br>   0 &amp; 0 &amp; 1<br>  \end{matrix}<br>  \right]<br>   &#x3D; \left[<br> \begin{matrix}<br>   f_{n+1} &amp; f_{n+2} &amp; S_{n+1}\<br>  \end{matrix}<br>  \right]<br>$$</p>
 <p>$$<br>故 F_{n} &#x3D; F_1 * A^{n-1}<br>$$</p>
 <p>$$<br>A &#x3D; \left[<br> \begin{matrix}<br>   0 &amp; 1 &amp; 0\<br>   1 &amp; 1 &amp; 1\<br>   0 &amp; 0 &amp; 1<br>  \end{matrix}<br>  \right]<br>$$</p>
+<p><mark>斐波那契前 n 项和代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+const int N &#x3D; 3;
+
+int n,mod;
+
+void mul(int c[],int a[],int b[][N])
+&#123;
+    int temp[N] &#x3D; &#123;0&#125;;
+    for(int i &#x3D; 0;i &lt; N ;i++)
+        for(int j &#x3D; 0;j &lt; N;j++)
+        temp[i] &#x3D; (temp[i] + (ll)a[j] * b[j][i]) % mod;
+    memcpy(c,temp,sizeof(temp));
+&#125;
+
+void mul(int c[][N],int a[][N],int b[][N])
+&#123;
+    int temp[N][N] &#x3D; &#123;0&#125;;
+    for(int i &#x3D; 0;i &lt; N;i++)
+        for(int j &#x3D; 0;j &lt; N;j++)
+            for(int k &#x3D; 0;k &lt; N;k++)
+                temp[i][j] &#x3D; (temp[i][j] + (ll)a[i][k] * b[k][j]) % mod;
+    memcpy(c,temp,sizeof(temp));
+&#125;
+
+int main()
+&#123;
+    cin &gt;&gt; n &gt;&gt; mod;
+    
+    int f1[N] &#x3D; &#123;1,1,1&#125;;
+    int a[N][N] &#x3D; &#123;
+      &#123;0,1,0&#125;,
+      &#123;1,1,1&#125;,
+      &#123;0,0,1&#125;,
+    &#125;;
+    
+    n --;
+    while(n)
+    &#123;
+        if(n &amp; 1)   mul(f1,f1,a);
+        mul(a,a,a);
+        n &gt;&gt;&#x3D; 1;
+    &#125;
+    
+    cout &lt;&lt; f1[2] &lt;&lt; endl;
+    
+    return 0;
+&#125;</code></pre>
+
 <p><mark>推荐题单：</mark></p>
 <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1962">斐波那契数列</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1305/">斐波那契前 n 项和</a></p>
