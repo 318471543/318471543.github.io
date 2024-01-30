@@ -2278,6 +2278,7 @@ int main()
 <li><strong>2022ECfinal 第一道签到题：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P9728">2022ECfinal M Dining Professors</a></li>
 <li><strong>思维（构造、分类讨论） + 贪心：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1873/problem/G">G. ABBC or BACB</a></li>
 <li><strong>div3 D 贪心好题（思维不够，差一点就想到了，但无奈赛后看题解才明白）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1921/problem/D">D. Very Different Array</a></li>
+<li><strong>div2 C 思维题（并不难，但思维不够，变成了掉分场）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1925/problem/A">easy：A. We Got Everything Covered!</a>     <a target="_blank" rel="noopener" href="https://codeforces.com/contest/1925/problem/C">hard：C. Did We Get Everything Covered?</a></li>
 </ol>
 <p><mark>1.分析：</mark></p>
 <blockquote>
@@ -2448,6 +2449,69 @@ int main()
         
         cout &lt;&lt; res &lt;&lt; &#39;\n&#39;;
     &#125;
+    return 0;
+&#125;</code></pre>
+
+<p><mark>4.讲解：</mark></p>
+<p><strong>题意：</strong> 给定长度为 $m$ 的字符串，问其中是否包含所有这样的子序列，即只由字母表的前 $k$ 个字母组成，长度为 $n$ 的字符串。若存在一个串，其不为该长度为 $m$ 的字符串的子序列，请输出该串。</p>
+<p><strong>吐槽：</strong> 听说是印度场，出题人的英语描述真的是服了，题意看了老长时间。非得觉得用一句话表述就很易懂吗qwq</p>
+<p><strong>思路：</strong> 抽象成这么理解：以最先出现所有前 $k$ 个字母划线，那么这是一个“块”，如果有 $ \ge n$ 个这样的块，就一定可以满足条件。为什么？就如最开始我们想的一个很难实现的想法，判断每个字母是不是可以当做第 $i(1 \le  i \le k)$ 位类似。因此，这就是”YES”的情况。</p>
+<p>对于”NO“，怎么输出答案呢？我们知道，每块的最后一个字母，在该块内一定是出现了仅 $1$ 次的，那么将每块的这些字母连接起来，最后再让最后残缺的一块中没出现过的字母拼起来即可。</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
+
+void solve()
+&#123;
+    int n, k, m;
+    cin &gt;&gt; n &gt;&gt; k &gt;&gt; m;
+
+    string s;
+    cin &gt;&gt; s;
+
+    s &#x3D; &quot; &quot; + s;
+    string res;
+    map&lt;int, int&gt; mp;
+    for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
+    &#123;
+        if (s[i] - &#39;a&#39; &lt; k) mp[s[i] - &#39;a&#39;] &#x3D; 1;
+        if (mp.size() &#x3D;&#x3D; k)
+        &#123;
+            res.push_back(s[i]);
+            mp.clear();
+        &#125;
+    &#125;
+    if (res.size() &gt;&#x3D; n)    cout &lt;&lt; &quot;YES\n&quot;;
+    else
+    &#123;
+        cout &lt;&lt; &quot;NO\n&quot;;
+        if (res.size() &lt; n)
+        &#123;
+            for (int i &#x3D; 0; i &lt; k; i++)
+                if (!mp.count(i))
+                &#123;
+                    while (res.size() &lt; n)  res.push_back(i + &#39;a&#39;);
+                    break;
+                &#125;
+        &#125;
+        cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+    &#125;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+    int t;
+    cin &gt;&gt; t;
+
+    while (t--)
+    &#123;
+        solve();
+    &#125;
+    
     return 0;
 &#125;</code></pre>
 

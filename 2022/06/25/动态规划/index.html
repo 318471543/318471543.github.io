@@ -2160,11 +2160,15 @@ int main()
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/903/">滑雪</a></p>
 <p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1851/problem/E">E. Nastya and Potions</a></p>
-<h2 id="未分类的DP题单"><a href="#未分类的DP题单" class="headerlink" title="未分类的DP题单"></a>未分类的DP题单</h2><p><strong>类似状态机模型的DP：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57356/K">Box</a></p>
+<h2 id="DP题单"><a href="#DP题单" class="headerlink" title="DP题单"></a>DP题单</h2><p><strong>类似状态机模型的DP：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57356/K">Box</a></p>
 <p><strong>DP + 树状数组优化：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1637">三元上升子序列</a></p>
 <p><strong>非同寻常的DP定义：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1875/problem/D">D. Jellyfish and Mex</a></p>
 <p><strong>不太好想但又可以想到的DP定义：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/1625/C">C. Road Optimization</a></p>
 <p><strong>第十四届蓝桥杯国赛：试题 A:子 2023</strong></p>
+<p><strong>每个数在 $[1,7]$，相邻两个数的差不超过 $k, k \in [0,6]$，求最小修改次数：</strong> <a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/69408/G">mobiusp 正在创作乐曲</a></p>
+<p><strong>线段树优化DP：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1439">P1439 【模板】最长公共子序列</a></p>
+<p><strong>难想到的dp定义，“以i为左端点，答案数组是右端点”，合并数字：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3147">P3147 [USACO16OPEN] 262144 P</a></p>
+<p><strong>DP难题（目前敢做的最难的一道题叭，将尽可能细的讲解，用到的知识点：DP + 矩阵快速幂 + 优化）：</strong> <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6772">P6772 [NOI2020] 美食家</a></p>
 <hr>
 <p><mark><strong>讲解区：</strong></mark></p>
 <h3 id="类似状态机模型的DP：Box"><a href="#类似状态机模型的DP：Box" class="headerlink" title="类似状态机模型的DP：Box"></a><strong>类似状态机模型的DP：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57356/K">Box</a></h3><h3 id="DP-树状数组优化：三元上升子序列"><a href="#DP-树状数组优化：三元上升子序列" class="headerlink" title="DP + 树状数组优化：三元上升子序列"></a><strong>DP + 树状数组优化：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1637">三元上升子序列</a></h3><blockquote>
@@ -2544,6 +2548,72 @@ int main()
     return 0;
 &#125;</code></pre>
 
+<h3 id="DP难题（目前敢做的最难的一道题叭，将尽可能细的讲解，用到的知识点：DP-矩阵快速幂-优化）："><a href="#DP难题（目前敢做的最难的一道题叭，将尽可能细的讲解，用到的知识点：DP-矩阵快速幂-优化）：" class="headerlink" title="DP难题（目前敢做的最难的一道题叭，将尽可能细的讲解，用到的知识点：DP + 矩阵快速幂 + 优化）："></a>DP难题（目前敢做的最难的一道题叭，将尽可能细的讲解，用到的知识点：DP + 矩阵快速幂 + 优化）：</h3><p><strong>题意：</strong> $n$ 个点 $m$ 条边，点上有正权值，通过一条边需要一定的时间，在特定时间，某个点（城市）会举办美食节，会额外获取正权值收益。从 $1$ 号点出发，在第 $T$ 天正好回到 $1$ 号点。中途不能停留，问能获得的最大权值是多少？</p>
+<p><strong>数据范围：</strong></p>
+<p>$1 \leq n \leq 50$，$n \leq m \leq 501$，$0 \leq k \leq 200$，$1 \leq t_i \leq T \leq 10^9$。</p>
+<p>$1 \leq w_i \leq 5$，$1 \leq c_i \leq 52501$，$1 \leq u_i, v_i, x_i \leq n$，$1 \leq y_i \leq 10^9$。</p>
+<p>在 $T$ 较小的时候，可以用<mark>暴力DP</mark>简单骗取 $40$ 分：</p>
+<p><strong>暴力DP思路：</strong></p>
+<p>定义： $f[i][u]:$ 第 $i$ 天到达点 $u$ 的最大权值。</p>
+<p>转移：$f[i + w][v] &#x3D; f[i][u] + a[v] + val(是否有该天美食节的贡献)$</p>
+<p>注意到这是一个图类的 $dp$，但由于有环，递归 $dp$ 的话没处理成功，找了好久，终于找到一个有暴力写法的题解！他是用枚举来替代递归 $dp$ 的，看完后觉得确实是这样，竟然还能这样，折磨牛！</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int, int&gt; pii;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n, m, T, k;
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; T &gt;&gt; k;
+
+    vector&lt;vector&lt;pii&gt;&gt; g(n + 1);
+
+    vector&lt;int&gt; happy(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; happy[i];
+    for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
+    &#123;
+        int a, b, c;
+        cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+        g[a].push_back(&#123;b, c&#125;);
+    &#125;
+
+    map&lt;int, pii&gt; mp;
+    for (int i &#x3D; 1; i &lt;&#x3D; k; i++)    
+    &#123;
+        int t, x, y;
+        cin &gt;&gt; t &gt;&gt; x &gt;&gt; y;
+        mp[t] &#x3D; &#123;x, y&#125;;
+    &#125;
+
+    vector&lt;vector&lt;ll&gt;&gt; f(T + 1, vector&lt;ll&gt;(n + 1, -1e18));
+    f[0][1] &#x3D; happy[1];
+
+    for (int i &#x3D; 0; i &lt;&#x3D; T; i++)
+    &#123;
+        for (int u &#x3D; 1; u &lt;&#x3D; n; u++)
+        &#123;
+            if (f[i][u] &lt; 0)    continue;
+            for (auto [v, w] : g[u])
+            &#123;
+                if (i + w &gt; T)  continue;
+                f[i + w][v] &#x3D; max(f[i + w][v], f[i][u] + happy[v] + (mp.count(i + w) &amp;&amp; mp[i + w].first &#x3D;&#x3D; v ? mp[i + w].second : 0));
+            &#125;
+        &#125;
+    &#125;
+
+    if (f[T][1] &lt;&#x3D; 0) cout &lt;&lt; -1;
+    else    cout &lt;&lt; f[T][1];
+    return 0;
+&#125;</code></pre>
+
+<p><strong>正解思路：</strong></p>
+<p>准备好头脑爆炸了吗？感觉得分多步讲解，已经开始瑟瑟发抖了qwq</p>
+<p>科二挂了，不想学了。。。</p>
 
                 
             </div>
