@@ -4402,7 +4402,11 @@ int main()
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2717/">后缀数组</a></p>
 <h2 id="后缀自动机"><a href="#后缀自动机" class="headerlink" title="后缀自动机"></a>后缀自动机</h2><blockquote>
-<p>功能非常强大的数据结构，主要应用如下：</p>
+<p><strong>一、基本信息：</strong></p>
+<ol>
+<li>一个 $SAM$ 最多有 $2n-1$ 个节点和 $3n-4$ 条转移边。不过<mark>只用开 $2$ 倍空间即可</mark>，每个点只有一个 $fa$ 的边，因此那个所谓的转移边的个数可以忽略。</li>
+</ol>
+<p><strong>二、功能非常强大的数据结构，主要应用如下：</strong></p>
 <ol>
 <li>求模式串 $p$ 有没有在字符串 $s$ 中出现过。</li>
 <li>求模式串 $p$ 在字符串 $s$ 中出现的次数。</li>
@@ -4412,7 +4416,8 @@ int main()
 </ol>
 </blockquote>
 <p><mark>封装模板：</mark></p>
-<pre class="language-c++" data-language="c++"><code class="language-c++">struct SAM
+<pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e6 * 2 + 10;
+struct SAM
 &#123;
     int tot,last;
     struct Node
@@ -4424,7 +4429,7 @@ int main()
             memset(ch,0,sizeof(ch));
         &#125;
     &#125;node[N];
-    SAM() &#123;tot &#x3D; 1,last &#x3D; 1;&#125;
+    SAM() &#123;tot &#x3D; 1,last &#x3D; 1;&#125; &#x2F;&#x2F; tot: 1号点是空点
     void init() &#123;&#x2F;&#x2F;清空区间[1,tot]
         for(int i &#x3D; 1;i &lt;&#x3D; tot;i++) node[i].init();
         tot &#x3D; last &#x3D; 1;
@@ -4449,7 +4454,8 @@ int main()
     &#125;
 &#125;sam;</code></pre>
 
-<p><mark>模板题代码：</mark></p>
+<h3 id="2-求模式串-p-在字符串-s-中出现的次数"><a href="#2-求模式串-p-在字符串-s-中出现的次数" class="headerlink" title="2.求模式串 $p$ 在字符串 $s$ 中出现的次数"></a>2.求模式串 $p$ 在字符串 $s$ 中出现的次数</h3><p><mark>模板题代码（包含：“求模式串 $p$ 在字符串 $s$ 中出现的次数”的做法）：</mark></p>
+<p><strong>$tip:$</strong> 后面有新的码风所对应的代码！</p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -4458,7 +4464,7 @@ typedef long long ll;
 
 const int N &#x3D; 2e6 + 10;
 
-int tot &#x3D; 1,last &#x3D; 1;&#x2F;&#x2F;tot:当前用到哪个点了;last:上一个点的编号;1号点是一个空点
+int tot &#x3D; 1,last &#x3D; 1;&#x2F;&#x2F;tot:当前用到哪个点了;last:上一个点的编号;1号点是一个空点!!!
 struct Node
 &#123;
     int len,fa;&#x2F;&#x2F;这个状态里所有子串的最大长度;fa:绿色边(link)
@@ -4515,7 +4521,94 @@ int main()
     printf(&quot;%lld\n&quot;,ans);
 &#125;</code></pre>
 
-<p> <mark>循环同构字符串最小表示法代码：</mark></p>
+<p><mark>新码风代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+const int N &#x3D; 1e6 * 2 + 10;
+struct SAM
+&#123;
+    int tot,last;
+    struct Node
+    &#123;
+        int len,fa;
+        int ch[26];
+        void init()&#123;&#x2F;&#x2F;结点初始化
+            len &#x3D; fa &#x3D; 0;
+            memset(ch,0,sizeof(ch));
+        &#125;
+    &#125;node[N];
+    int f[N];
+    SAM() &#123;tot &#x3D; 1,last &#x3D; 1;&#125;
+    void init() &#123;&#x2F;&#x2F;清空区间[1,tot]
+        for(int i &#x3D; 1;i &lt;&#x3D; tot;i++) node[i].init();
+        tot &#x3D; last &#x3D; 1;
+    &#125;
+    void extend(int c) &#123;&#x2F;&#x2F;添加一个字符(c - &#39;a&#39;)
+        int p &#x3D; last,np &#x3D; last &#x3D; ++tot;
+        f[tot] &#x3D; 1;
+        node[np].len &#x3D; node[p].len + 1;
+        for(;p &amp;&amp; !node[p].ch[c];p &#x3D; node[p].fa)    node[p].ch[c] &#x3D; np;
+        if(!p)  node[np].fa &#x3D; 1;
+        else
+        &#123;
+            int q &#x3D; node[p].ch[c];
+            if(node[q].len &#x3D;&#x3D; node[p].len + 1)   node[np].fa &#x3D; q;
+            else
+            &#123;
+                int nq &#x3D; ++ tot;
+                node[nq] &#x3D; node[q],node[nq].len &#x3D; node[p].len + 1;
+                node[q].fa &#x3D; node[np].fa &#x3D; nq;
+                for(;p &amp;&amp; node[p].ch[c] &#x3D;&#x3D; q;p &#x3D; node[p].fa)    node[p].ch[c] &#x3D; nq;
+            &#125;
+        &#125;
+    &#125;
+
+    int h[N], e[N], ne[N], idx;
+
+    void add(int a, int b) &#123;
+        e[idx] &#x3D; b, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
+    &#125;
+    ll res &#x3D; 0;
+    void dfs(int u) &#123;
+        for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i]) &#123;
+            int v &#x3D; e[i];
+            dfs(v);
+            f[u] +&#x3D; f[v];
+        &#125;
+        if (f[u] &gt; 1)   res &#x3D; max(res, (ll)f[u] * node[u].len);
+    &#125;
+
+    void solve() &#123;
+        memset(h, -1, sizeof(h));
+        for (int i &#x3D; 2; i &lt;&#x3D; tot; i++)
+            add(node[i].fa, i);
+
+        dfs(1);
+
+        cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+    &#125;
+&#125;sam;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    string s;
+    cin &gt;&gt; s;
+
+    for (auto c : s)    sam.extend(c - &#39;a&#39;);
+
+    sam.solve();
+    return 0;
+&#125;</code></pre>
+
+
+
+<h3 id="3-求字符串-s-的最小表示法（循环同构字符串中字典序最小的一个）"><a href="#3-求字符串-s-的最小表示法（循环同构字符串中字典序最小的一个）" class="headerlink" title="3.求字符串 $s$ 的最小表示法（循环同构字符串中字典序最小的一个）"></a>3.求字符串 $s$ 的最小表示法（循环同构字符串中字典序最小的一个）</h3><p><mark>循环同构字符串最小表示法代码（求字符串 $s$ 的最小表示法（循环同构字符串中字典序最小的一个））：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -4616,7 +4709,7 @@ int main()
     return 0;
 &#125;</code></pre>
 
-<p>​       后缀自动机学了好几遍，总是难以理解，最后看了个视频，差不多理解每个变量的含义了，安利一下：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV145411N7Qp?spm_id_from=333.1007.top_right_bar_window_history.content.click&vd_source=3d7e149b792ef13210101958098b6da2">[OI]完全搞懂后缀自动机(SAM)</a></p>
+<h3 id="4-求-s-的本质不同子串个数"><a href="#4-求-s-的本质不同子串个数" class="headerlink" title="4.求 $s$ 的本质不同子串个数"></a>4.求 $s$ 的本质不同子串个数</h3><h3 id="5-最长公共子串"><a href="#5-最长公共子串" class="headerlink" title="5.最长公共子串"></a>5.最长公共子串</h3><p>后缀自动机学了好几遍，总是难以理解，最后看了个视频，差不多理解每个变量的含义了，安利一下：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV145411N7Qp?spm_id_from=333.1007.top_right_bar_window_history.content.click&vd_source=3d7e149b792ef13210101958098b6da2">[OI]完全搞懂后缀自动机(SAM)</a></p>
 <p><strong>推荐博客：</strong><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/410131141">算法学习笔记(85): 后缀自动机</a></p>
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2768/">后缀自动机</a></p>
