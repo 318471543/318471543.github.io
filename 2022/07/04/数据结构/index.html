@@ -4129,7 +4129,217 @@ int main()
 <p><strong>模板题：</strong> <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/1284/">搜索关键词</a>    <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/1287/">单词</a></p>
 <p><strong>模板题加强版(严格O(n))：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3808">【模板】AC 自动机（简单版）</a></p>
 <p><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104725/problem/H">H. 字符串游戏</a></p>
-<h2 id="后缀数组"><a href="#后缀数组" class="headerlink" title="后缀数组"></a>后缀数组</h2><h2 id="后缀自动机"><a href="#后缀自动机" class="headerlink" title="后缀自动机"></a>后缀自动机</h2><blockquote>
+<h2 id="后缀数组"><a href="#后缀数组" class="headerlink" title="后缀数组"></a>后缀数组</h2><blockquote>
+<p><strong>算法步骤：</strong></p>
+<ol>
+<li>进行基数排序获得 $sa[i]$；</li>
+<li>获得 $height$ 数组；</li>
+</ol>
+<p><strong>性质：</strong></p>
+<ol>
+<li><p>$lcp(i, j) = min(lcp(i, k), lcp(k, j)),i \le k \le j$</p>
+</li>
+<li><p>令 $h[i] = height[rk[i]]$，表示第 $i$ 个字符与排名在第 $i$ 个字符前面一个的字符的 $lcp$，则可以得出：</p>
+</li>
+</ol>
+<p>$h[i] \ge h[i - 1] - 1$</p>
+</blockquote>
+<p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e6 + 10;
+struct SuffixArray
+&#123;
+    string s;
+    int n, m, sa[N], rk[N], height[N], x[N], y[N], c[N];
+
+    void init(string t) &#123; &#x2F;&#x2F; 必须先初始化
+        n &#x3D; t.size(), s &#x3D; &quot; &quot; + t, m &#x3D; &#39;z&#39;;
+    &#125;
+
+    void get_sa() &#123;
+		&#x2F;&#x2F; 第一次基数排序
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    c[x[i] &#x3D; s[i]]++;
+        for (int i &#x3D; 1; i &lt;&#x3D; m; i++)    c[i] +&#x3D; c[i - 1];
+        for (int i &#x3D; n; i &gt;&#x3D; 1; i--)    sa[c[x[i]]--] &#x3D; i;
+		&#x2F;&#x2F; 倍增多轮
+        for (int k &#x3D; 1; k &lt;&#x3D; n; k &lt;&lt;&#x3D; 1) &#123;
+            int num &#x3D; 0;
+			&#x2F;&#x2F; 第二关键字基数排序
+            for (int i &#x3D; n - k + 1; i &lt;&#x3D; n; i++)    y[++num] &#x3D; i;
+            for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+                if (sa[i] &gt; k)
+                    y[++num] &#x3D; sa[i] - k;
+			&#x2F;&#x2F; 第一关键字基数排序
+            for (int i &#x3D; 1; i &lt;&#x3D; m; i++)    c[i] &#x3D; 0;
+            for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    c[x[i]]++;
+            for (int i &#x3D; 1; i &lt;&#x3D; m; i++)    c[i] +&#x3D; c[i - 1];
+            for (int i &#x3D; n; i &gt;&#x3D; 1; i--)    sa[c[x[y[i]]]--] &#x3D; y[i], y[i] &#x3D; 0;
+            swap(x, y);
+			&#x2F;&#x2F; 离散化
+            x[sa[1]] &#x3D; 1, num &#x3D; 1;
+            for (int i &#x3D; 2; i &lt;&#x3D; n; i++)
+                x[sa[i]] &#x3D; (y[sa[i]] &#x3D;&#x3D; y[sa[i - 1]] &amp;&amp; y[sa[i] + k] &#x3D;&#x3D; y[sa[i - 1] + k] ? num : ++num);   
+
+            if (num &#x3D;&#x3D; n) break; &#x2F;&#x2F; 说明本次排序，没有出现相等的数，则每个数的大小关系都已经确定
+			m &#x3D; num;
+        &#125;
+    &#125;
+
+    void get_height() &#123;
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    rk[sa[i]] &#x3D; i; &#x2F;&#x2F; 排名为i的字符的排名为i
+        &#x2F;&#x2F; 根据 h() -&gt; height
+        for (int i &#x3D; 1, k &#x3D; 0; i &lt;&#x3D; n; i++) &#123;
+            if (rk[i] &#x3D;&#x3D; 1) continue;
+            if (k)  k--;
+            int j &#x3D; sa[rk[i] - 1];
+            while (i + k &lt;&#x3D; n &amp;&amp; j + k &lt;&#x3D; n &amp;&amp; s[i + k] &#x3D;&#x3D; s[j + k])    k++;
+            height[rk[i]] &#x3D; k;
+        &#125;
+    &#125;
+&#125;SA;</code></pre>
+<p><mark>模板题（带注释版）：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1e6 + 10;
+
+int n, m;
+char s[N];
+int sa[N], x[N], y[N], c[N], rk[N], height[N];
+&#x2F;**
+ * sa[i]: 排名为i是第几个后缀
+ * rk[i]: 第i个后缀的排名是多少
+ * height[i]: sa[i] 与 sa[i - 1]的最长公共前缀是多少(即lcp(sa[i - 1],sa[i]))
+ * x[]:第一关键字
+ * y[]:第二关键字
+ * c[]:每个关键字的个数
+*&#x2F;
+void get_sa()
+&#123;
+	&#x2F;&#x2F; &#x2F;&#x2F; 按照第一关键字排序
+    for (int i &#x3D; 1;i &lt;&#x3D; n;i++)   c[x[i] &#x3D; s[i]]++;
+    for(int i &#x3D; 2;i &lt;&#x3D; m;i++)   c[i] +&#x3D; c[i - 1];
+    for(int i &#x3D; n;i;i--)    sa[c[x[i]]--] &#x3D; i; 
+	&#x2F;&#x2F; 执行logn轮
+    for(int k &#x3D; 1;k &lt;&#x3D; n;k &lt;&lt;&#x3D; 1)
+    &#123;
+        int num &#x3D; 0;
+		&#x2F;&#x2F; 将所有后缀按照第二关键字排好序
+        for(int i &#x3D; n - k + 1;i &lt;&#x3D; n;i++)   y[++num] &#x3D; i; &#x2F;&#x2F;由于这段没有第二关键字, 因此在第二关键字中排名最小
+        for(int i &#x3D; 1;i &lt;&#x3D; n;i++) &#x2F;&#x2F; i的第二关键字, 为i+k的第一关键字
+            if(sa[i] &gt; k)
+                y[++num] &#x3D; sa[i] - k;
+        for(int i &#x3D; 1;i &lt;&#x3D; m;i++)   c[i] &#x3D; 0;
+        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   c[x[i]]++;
+        for(int i &#x3D; 2;i &lt;&#x3D; m;i++)   c[i] +&#x3D; c[i - 1];
+        for(int i &#x3D; n;i;i--) &#x2F;&#x2F; 按照第二关键字的顺序，从后往前枚举
+            sa[c[x[y[i]]]--] &#x3D; y[i],y[i] &#x3D; 0; &#x2F;&#x2F; y[i]: 排名第i的是哪个后缀; x[i]: 第i个后缀排名是多少
+        swap(x,y); &#x2F;&#x2F; y数组没用了
+		&#x2F;&#x2F; 根据前2k的关键字进行离散化处理
+        x[sa[1]] &#x3D; 1,num &#x3D; 1;
+        for(int i &#x3D; 2;i &lt;&#x3D; n;i++)  
+            x[sa[i]] &#x3D; (y[sa[i]] &#x3D;&#x3D; y[sa[i - 1]] &amp;&amp; y[sa[i] + k] &#x3D;&#x3D; y[sa[i - 1] + k]) ? num : ++num;
+        if(num &#x3D;&#x3D; n)    break;
+        m &#x3D; num;
+    &#125;
+&#125;
+
+void get_height()
+&#123;
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   rk[sa[i]] &#x3D; i;
+    for(int i &#x3D; 1, k &#x3D; 0;i &lt;&#x3D; n;i++)
+    &#123;
+        if(rk[i] &#x3D;&#x3D; 1)  continue;
+        if(k)   k--;
+        int j &#x3D; sa[rk[i] - 1];
+        while(i + k &lt;&#x3D; n &amp;&amp; j + k &lt;&#x3D; n &amp;&amp; s[i + k] &#x3D;&#x3D; s[j + k]) k++;
+        height[rk[i]] &#x3D; k;
+    &#125;
+&#125;
+
+int main()
+&#123;
+    cin &gt;&gt; s + 1;
+    n &#x3D; strlen(s + 1), m &#x3D; &#39;z&#39;;
+    get_sa();
+    get_height();
+
+    for(int i &#x3D; 1; i &lt;&#x3D; n; i++)   cout &lt;&lt; sa[i] &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; n];
+    for(int i &#x3D; 1; i &lt;&#x3D; n; i++)   cout &lt;&lt; height[i] &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; n];
+    return 0;
+&#125;</code></pre>
+<p><mark>模板题（含封装模板）代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1e6 + 10;
+struct SuffixArray
+&#123;
+    string s;
+    int n, m, sa[N], rk[N], height[N], x[N], y[N], c[N];
+
+    void init(string t) &#123; &#x2F;&#x2F; 必须先初始化
+        n &#x3D; t.size(), s &#x3D; &quot; &quot; + t, m &#x3D; &#39;z&#39;;
+    &#125;
+
+    void get_sa() &#123;
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    c[x[i] &#x3D; s[i]]++;
+        for (int i &#x3D; 1; i &lt;&#x3D; m; i++)    c[i] +&#x3D; c[i - 1];
+        for (int i &#x3D; n; i &gt;&#x3D; 1; i--)    sa[c[x[i]]--] &#x3D; i;
+
+        for (int k &#x3D; 1; k &lt;&#x3D; n; k &lt;&lt;&#x3D; 1) &#123;
+            int num &#x3D; 0;
+            for (int i &#x3D; n - k + 1; i &lt;&#x3D; n; i++)    y[++num] &#x3D; i;
+            for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+                if (sa[i] &gt; k)
+                    y[++num] &#x3D; sa[i] - k;
+            for (int i &#x3D; 1; i &lt;&#x3D; m; i++)    c[i] &#x3D; 0;
+            for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    c[x[i]]++;
+            for (int i &#x3D; 1; i &lt;&#x3D; m; i++)    c[i] +&#x3D; c[i - 1];
+            for (int i &#x3D; n; i &gt;&#x3D; 1; i--)    sa[c[x[y[i]]]--] &#x3D; y[i], y[i] &#x3D; 0;
+            swap(x, y);
+            x[sa[1]] &#x3D; 1, num &#x3D; 1;
+            for (int i &#x3D; 2; i &lt;&#x3D; n; i++)
+                x[sa[i]] &#x3D; (y[sa[i]] &#x3D;&#x3D; y[sa[i - 1]] &amp;&amp; y[sa[i] + k] &#x3D;&#x3D; y[sa[i - 1] + k] ? num : ++num);   
+
+            m &#x3D; num;
+            if (m &#x3D;&#x3D; n) break;
+        &#125;
+    &#125;
+
+    void get_height() &#123;
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    rk[sa[i]] &#x3D; i; &#x2F;&#x2F; 排名为i的字符的排名为i
+        
+        for (int i &#x3D; 1, k &#x3D; 0; i &lt;&#x3D; n; i++) &#123;
+            if (rk[i] &#x3D;&#x3D; 1) continue;
+            if (k)  k--;
+            int j &#x3D; sa[rk[i] - 1];
+            while (i + k &lt;&#x3D; n &amp;&amp; j + k &lt;&#x3D; n &amp;&amp; s[i + k] &#x3D;&#x3D; s[j + k])    k++;
+            height[rk[i]] &#x3D; k;
+        &#125;
+    &#125;
+&#125;SA;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    string s;
+    cin &gt;&gt; s;
+
+    SA.init(s);
+    SA.get_sa();
+    SA.get_height();
+
+    for (int i &#x3D; 1; i &lt;&#x3D; SA.n; i++) cout &lt;&lt; SA.sa[i] &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; SA.n];
+    for (int i &#x3D; 1; i &lt;&#x3D; SA.n; i++) cout &lt;&lt; SA.height[i] &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; SA.n];
+    
+    return 0;
+&#125;</code></pre>
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2717/">后缀数组</a></p>
+<h2 id="后缀自动机"><a href="#后缀自动机" class="headerlink" title="后缀自动机"></a>后缀自动机</h2><blockquote>
 <p>功能非常强大的数据结构，主要应用如下：</p>
 <ol>
 <li>求模式串 $p$ 有没有在字符串 $s$ 中出现过。</li>
