@@ -4416,7 +4416,7 @@ int main()
 </ol>
 </blockquote>
 <p><mark>封装模板：</mark></p>
-<pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e6 * 2 + 10;
+<pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e6 * 2 + 10; &#x2F;&#x2F; 空间开2倍
 struct SAM
 &#123;
     int tot,last;
@@ -4709,10 +4709,180 @@ int main()
     return 0;
 &#125;</code></pre>
 
-<h3 id="4-求-s-的本质不同子串个数"><a href="#4-求-s-的本质不同子串个数" class="headerlink" title="4.求 $s$ 的本质不同子串个数"></a>4.求 $s$ 的本质不同子串个数</h3><h3 id="5-最长公共子串"><a href="#5-最长公共子串" class="headerlink" title="5.最长公共子串"></a>5.最长公共子串</h3><p>后缀自动机学了好几遍，总是难以理解，最后看了个视频，差不多理解每个变量的含义了，安利一下：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV145411N7Qp?spm_id_from=333.1007.top_right_bar_window_history.content.click&vd_source=3d7e149b792ef13210101958098b6da2">[OI]完全搞懂后缀自动机(SAM)</a></p>
+<h3 id="4-求-s-的本质不同子串个数"><a href="#4-求-s-的本质不同子串个数" class="headerlink" title="4.求 $s$ 的本质不同子串个数"></a>4.求 $s$ 的本质不同子串个数</h3><p><strong>思路：</strong> 自动机的每个结点（1号点是空点，因此有效点只在 $[2,tot]$）都有一个 $minlen$ 和 $maxlen$ （结点内包含的串的长度从 $minlen$ 一直到 $maxlen$）。我们只记录了 $maxlen$，即 $Node$ 中的 $len$ 参数，其为该结点的最大长度。当然也有最小的长度，只不过可以通过 $fa$ 的链来找到，因为长度都是“无缝衔接”的，因此最小的 $minlen$ 是 $fa$ 链的最大值（即 $len$）+ 1。</p>
+<p>因此答案即为自动机上每个点的 $maxlen - minlen+1$ 的总和，即：$\sum(maxlen-minlen + 1)$</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+const int N &#x3D; 1e6 * 2 + 10; &#x2F;&#x2F; 空间开2倍
+struct SAM
+&#123;
+    int tot,last;
+    struct Node
+    &#123;
+        int len,fa;
+        int ch[26];
+        void init()&#123;&#x2F;&#x2F;结点初始化
+            len &#x3D; fa &#x3D; 0;
+            memset(ch,0,sizeof(ch));
+        &#125;
+    &#125;node[N];
+    SAM() &#123;tot &#x3D; 1,last &#x3D; 1;&#125;
+    void init() &#123;&#x2F;&#x2F;清空区间[1,tot]
+        for(int i &#x3D; 1;i &lt;&#x3D; tot;i++) node[i].init();
+        tot &#x3D; last &#x3D; 1;
+    &#125;
+    void extend(int c) &#123;&#x2F;&#x2F;添加一个字符(c - &#39;a&#39;)
+        int p &#x3D; last,np &#x3D; last &#x3D; ++tot;
+        node[np].len &#x3D; node[p].len + 1;
+        for(;p &amp;&amp; !node[p].ch[c];p &#x3D; node[p].fa)    node[p].ch[c] &#x3D; np;
+        if(!p)  node[np].fa &#x3D; 1;
+        else
+        &#123;
+            int q &#x3D; node[p].ch[c];
+            if(node[q].len &#x3D;&#x3D; node[p].len + 1)   node[np].fa &#x3D; q;
+            else
+            &#123;
+                int nq &#x3D; ++ tot;
+                node[nq] &#x3D; node[q],node[nq].len &#x3D; node[p].len + 1;
+                node[q].fa &#x3D; node[np].fa &#x3D; nq;
+                for(;p &amp;&amp; node[p].ch[c] &#x3D;&#x3D; q;p &#x3D; node[p].fa)    node[p].ch[c] &#x3D; nq;
+            &#125;
+        &#125;
+    &#125;
+
+    void solve () &#123;
+        ll res &#x3D; 0;
+        for (int i &#x3D; 2; i &lt;&#x3D; tot; i++) &#123;
+            res +&#x3D; (node[i].len - (node[node[i].fa].len + 1) + 1);
+        &#125;
+        cout &lt;&lt; res;
+    &#125;
+&#125;sam;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    string s;
+    cin &gt;&gt; s;
+    for (auto c : s)    sam.extend(c - &#39;a&#39;);
+
+    sam.solve();
+    return 0;
+&#125;</code></pre>
+
+
+
+<h3 id="5-最长公共子串"><a href="#5-最长公共子串" class="headerlink" title="5.最长公共子串"></a>5.最长公共子串</h3><p><strong>思路：</strong></p>
+<ul>
+<li>对第一个串建立 $SAM$，即后缀自动机，之后遍历每个串，维护 $now$ 数组，表示后缀自动机的每个结点中，枚举的剩下 $n - 1$ 个字符串（中的其中一个字符串）与该结点匹配的最大长度。</li>
+<li>匹配过程中，如果匹配不了就跳 $fa$ 链，类似于 $KMP$ 匹配，保证了时间复杂度。</li>
+<li>与每个字符串匹配后得到的 $now$ 数组，由于 $now$ 的定义，比如对于后缀自动机的一个结点，第一次 $now$ 表示第 $2$ 个字符串与后缀自动机匹配的最大长度，那么第二次的 $now$ 是第 $3$ 个字符串与后缀自动机匹配的最大长度，因此需要满足都是公共的条件的话，就需要在所有该结点的 $now$ 中取个 $min$。</li>
+<li>最后，由于每个取完 $min$ 的 $now$ 都是符合结果要求的（即为 $res$），那么只需取 $res$ 数组的最大值即为最大公共子串。</li>
+</ul>
+<p><strong>细节说明：</strong></p>
+<ul>
+<li>这里由于需要自下往上传递，$res$ 数组首先设置无穷大很正常，然后 $dfs$ 的时候不能简单的进行： $now[u] &#x3D; max(now[u],now[v])$，还需要本身与 $node[u].len$ 取个 $min$。个人感觉这才是最正常的想法，而 $y$ 总直接 $res$ 初始为 $node[u].len$ 感觉很突兀，虽然也是对的qwq。</li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1e4 * 2 + 10; &#x2F;&#x2F; 空间开2倍
+
+struct SAM
+&#123;
+    int tot,last;
+    struct Node
+    &#123;
+        int len,fa;
+        int ch[26];
+        void init()&#123;&#x2F;&#x2F;结点初始化
+            len &#x3D; fa &#x3D; 0;
+            memset(ch,0,sizeof(ch));
+        &#125;
+    &#125;node[N];
+    SAM() &#123;tot &#x3D; 1,last &#x3D; 1;&#125;
+    void init() &#123;&#x2F;&#x2F;清空区间[1,tot]
+        for(int i &#x3D; 1;i &lt;&#x3D; tot;i++) node[i].init();
+        tot &#x3D; last &#x3D; 1;
+    &#125;
+    void extend(int c) &#123;&#x2F;&#x2F;添加一个字符(c - &#39;a&#39;)
+        int p &#x3D; last,np &#x3D; last &#x3D; ++tot;
+        node[np].len &#x3D; node[p].len + 1;
+        for(;p &amp;&amp; !node[p].ch[c];p &#x3D; node[p].fa)    node[p].ch[c] &#x3D; np;
+        if(!p)  node[np].fa &#x3D; 1;
+        else
+        &#123;
+            int q &#x3D; node[p].ch[c];
+            if(node[q].len &#x3D;&#x3D; node[p].len + 1)   node[np].fa &#x3D; q;
+            else
+            &#123;
+                int nq &#x3D; ++ tot;
+                node[nq] &#x3D; node[q],node[nq].len &#x3D; node[p].len + 1;
+                node[q].fa &#x3D; node[np].fa &#x3D; nq;
+                for(;p &amp;&amp; node[p].ch[c] &#x3D;&#x3D; q;p &#x3D; node[p].fa)    node[p].ch[c] &#x3D; nq;
+            &#125;
+        &#125;
+    &#125;
+&#125;sam;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n;
+    cin &gt;&gt; n;
+
+    string s;
+    cin &gt;&gt; s;
+
+    for (auto c : s)    sam.extend(c - &#39;a&#39;);
+
+    vector&lt;vector&lt;int&gt;&gt; g(N + 1);
+    for (int i &#x3D; 2; i &lt;&#x3D; sam.tot; i++)  g[sam.node[i].fa].push_back(i);
+
+    vector&lt;int&gt; res(N + 10, 1e9);
+    for (int i &#x3D; 0; i &lt; n - 1; i++)
+    &#123;
+        cin &gt;&gt; s;
+        vector&lt;int&gt; now(N + 10);
+        function&lt;void(int)&gt; dfs &#x3D; [&amp;](int u) -&gt; void
+        &#123;
+            for (auto v : g[u]) 
+            &#123;
+                dfs(v);
+                now[u] &#x3D; min(sam.node[u].len, max(now[u], now[v]));
+            &#125;
+        &#125;;
+        int p &#x3D; 1, len &#x3D; 0;
+        for (auto c : s)
+        &#123;
+            while (p &gt; 1 &amp;&amp; !sam.node[p].ch[c - &#39;a&#39;])   p &#x3D; sam.node[p].fa, len &#x3D; sam.node[p].len;
+            if (sam.node[p].ch[c - &#39;a&#39;])    p &#x3D; sam.node[p].ch[c - &#39;a&#39;], len++;
+            now[p] &#x3D; max(now[p], len);
+        &#125;
+        dfs(1);
+        for (int i &#x3D; 1; i &lt;&#x3D; sam.tot; i++)  res[i] &#x3D; min(res[i], now[i]);
+    &#125;
+
+    cout &lt;&lt; *max_element(res.begin() + 1, res.begin() + sam.tot + 1) &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+
+
+<hr>
+<p>后缀自动机学了好几遍，总是难以理解，最后看了个视频，差不多理解每个变量的含义了，安利一下：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV145411N7Qp?spm_id_from=333.1007.top_right_bar_window_history.content.click&vd_source=3d7e149b792ef13210101958098b6da2">[OI]完全搞懂后缀自动机(SAM)</a></p>
 <p><strong>推荐博客：</strong><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/410131141">算法学习笔记(85): 后缀自动机</a></p>
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2768/">后缀自动机</a></p>
+<p><strong>求本质不同子串个数：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/37092/H">本质不同子串个数</a></p>
+<p><strong>最长公共子串：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2813/">最长公共子串</a></p>
 <p><strong>线段树 + 后缀自动机：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/33188/H">Hacker</a></p>
 <p><strong>求解循环同构字符串的最小表示法：</strong><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=7279">Cyclically Isomorphic</a></p>
 <h2 id="点分治"><a href="#点分治" class="headerlink" title="点分治"></a>点分治</h2><blockquote>

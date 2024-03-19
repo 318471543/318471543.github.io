@@ -2298,6 +2298,96 @@ int main()
 &#125;</code></pre>
 
 <p><mark>后缀自动机做法：</mark></p>
+<p><strong>思路：</strong> 跟后缀自动机求解 $n$ 个串的思路一样（可以参考博客“数据结构”篇），数字用新字符处理掉即可。</p>
+<p><strong>代码：</strong></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1e4 * 2 + 10; &#x2F;&#x2F; 空间开2倍
+
+struct SAM
+&#123;
+    int tot,last;
+    struct Node
+    &#123;
+        int len,fa;
+        int ch[28];
+        void init()&#123;&#x2F;&#x2F;结点初始化
+            len &#x3D; fa &#x3D; 0;
+            memset(ch,0,sizeof(ch));
+        &#125;
+    &#125;node[N];
+    SAM() &#123;tot &#x3D; 1,last &#x3D; 1;&#125;
+    void init() &#123;&#x2F;&#x2F;清空区间[1,tot]
+        for(int i &#x3D; 1;i &lt;&#x3D; tot;i++) node[i].init();
+        tot &#x3D; last &#x3D; 1;
+    &#125;
+    void extend(int c) &#123;&#x2F;&#x2F;添加一个字符(c - &#39;a&#39;)
+        int p &#x3D; last,np &#x3D; last &#x3D; ++tot;
+        node[np].len &#x3D; node[p].len + 1;
+        for(;p &amp;&amp; !node[p].ch[c];p &#x3D; node[p].fa)    node[p].ch[c] &#x3D; np;
+        if(!p)  node[np].fa &#x3D; 1;
+        else
+        &#123;
+            int q &#x3D; node[p].ch[c];
+            if(node[q].len &#x3D;&#x3D; node[p].len + 1)   node[np].fa &#x3D; q;
+            else
+            &#123;
+                int nq &#x3D; ++ tot;
+                node[nq] &#x3D; node[q],node[nq].len &#x3D; node[p].len + 1;
+                node[q].fa &#x3D; node[np].fa &#x3D; nq;
+                for(;p &amp;&amp; node[p].ch[c] &#x3D;&#x3D; q;p &#x3D; node[p].fa)    node[p].ch[c] &#x3D; nq;
+            &#125;
+        &#125;
+    &#125;
+&#125;sam;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    string a, b;
+    cin &gt;&gt; a &gt;&gt; b;
+
+    for (auto c : a)
+        if (isdigit(c)) sam.extend(26);
+        else    sam.extend(c - &#39;a&#39;);
+
+    vector&lt;vector&lt;int&gt;&gt; g(N + 2);
+    for (int i &#x3D; 2; i &lt;&#x3D; sam.tot; i++)  g[sam.node[i].fa].push_back(i);
+    
+    int p &#x3D; 1, len &#x3D; 0;
+    vector&lt;int&gt; now(N + 2);
+    for (auto c : b)
+    &#123;
+        int t &#x3D; isdigit(c) ? 27 : c - &#39;a&#39;;
+        while (p &gt; 1 &amp;&amp; !sam.node[p].ch[t])  p &#x3D; sam.node[p].fa, len &#x3D; sam.node[p].len;
+        if (sam.node[p].ch[t])  p &#x3D; sam.node[p].ch[t], len++;
+        now[p] &#x3D; max(now[p], len);
+    &#125;
+
+    vector&lt;int&gt; res(N + 2, 1e8);
+
+    function&lt;void(int)&gt; dfs &#x3D; [&amp;](int u) -&gt; void
+    &#123;
+        for (auto v : g[u])
+        &#123;
+            dfs(v);
+            now[u] &#x3D; min(sam.node[now[u]].len, max(now[u], now[v]));
+        &#125;
+    &#125;;
+
+    dfs(1);
+    for (int i &#x3D; 1; i &lt;&#x3D; sam.tot; i++)  res[i] &#x3D; min(res[i], now[i]);
+
+    int ans &#x3D; 0;
+    for (int i &#x3D; 1; i &lt;&#x3D; sam.tot; i++)  ans &#x3D; max(ans, res[i]);
+
+    cout &lt;&lt; ans;
+    return 0;
+&#125;</code></pre>
+
 <p><mark> $dp$ 做法：</mark></p>
 <p><strong>思路：</strong> 定义 $dp$：$f[i][j]$：$a$ 的前 $i$ 个串匹配 $b$ 的前 $j$ 个串，且以 $a[i], b[j]$ 为结尾的最长公共子串长度。</p>
 <p>则：$f[i][j] &#x3D; f[i - 1][j - 1] + 1, if\ a[i]&#x3D;b[j]$</p>
