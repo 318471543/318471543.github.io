@@ -4,12 +4,15 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="博客搭建记, 重生带我走">
-    <meta name="description" content="Trieconst int N &amp;#x3D; 1e6 + 10,M &amp;#x3D; 31 * N;
-struct Trie
-&amp;#123;
-    int idx, son[M][2];
-    void clear () &amp;#123; &amp;#x">
+    <meta name="keywords" content="算法模板, 重生带我走">
+    <meta name="description" content="
+本篇章承载的内容如下：
+
+非模板题不收；
+主要收代码量比较大 &amp;#x2F; 容易遗忘的模板好题（不一定是模板题，但做一遍可能就会让你理解这个算法的用处）；
+主要收含封装模板的题；
+
+最后感觉，做这个很类似于在整理每个模板，不过去掉了很多相">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -34,7 +37,7 @@ struct Trie
 
     
 
-    <title>博客搭建记 | 重生带我走</title>
+    <title>算法模板 | 重生带我走</title>
     <link rel="icon" type="image/jpeg" href="/favicon.jpg">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -324,12 +327,12 @@ struct Trie
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">博客搭建记</h1>
+                    <h1 class="description center-align post-title">算法模板</h1>
                 </div>
             </div>
         </div>
@@ -445,8 +448,8 @@ struct Trie
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E7%AE%97%E6%B3%95%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">
-                                <span class="chip bg-color">算法快速入门</span>
+                            <a href="/tags/%E7%AE%97%E6%B3%95%E6%A8%A1%E6%9D%BF/">
+                                <span class="chip bg-color">算法模板</span>
                             </a>
                         
                     </div>
@@ -485,7 +488,17 @@ struct Trie
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="Trie"><a href="#Trie" class="headerlink" title="Trie"></a>Trie</h2><pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e6 + 10,M &#x3D; 31 * N;
+                <blockquote>
+<p>本篇章承载的内容如下：</p>
+<ul>
+<li>非模板题不收；</li>
+<li>主要收代码量比较大 &#x2F; 容易遗忘的模板好题（不一定是模板题，但做一遍可能就会让你理解这个算法的用处）；</li>
+<li>主要收含封装模板的题；</li>
+</ul>
+<p>最后感觉，做这个很类似于在整理每个模板，不过去掉了很多相关模板的解释，然后每道题只精确了一个例题，也算是帮助会议，便于打印板子。</p>
+</blockquote>
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="Trie"><a href="#Trie" class="headerlink" title="Trie"></a>Trie</h3><p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e5 + 10, bit &#x3D; 31, M &#x3D; bit * N;
 struct Trie
 &#123;
     int idx, son[M][2];
@@ -496,7 +509,7 @@ struct Trie
     &#125;
     void insert(int x) &#123;
         int p &#x3D; 0;
-        for(int i &#x3D; 30;i &gt;&#x3D; 0;i--) &#123;
+        for(int i &#x3D; bit;i &gt;&#x3D; 0;i--) &#123;
             int u &#x3D; x &gt;&gt; i &amp; 1;
             if(!son[p][u])  son[p][u] &#x3D; ++idx;
             p &#x3D; son[p][u];
@@ -504,7 +517,7 @@ struct Trie
     &#125;
     int query(int x) &#123;
         int p &#x3D; 0,res &#x3D; 0;
-        for(int i &#x3D; 30;i &gt;&#x3D; 0;i--) &#123;
+        for(int i &#x3D; bit;i &gt;&#x3D; 0;i--) &#123;
             int u &#x3D; x &gt;&gt; i &amp; 1;
             if(son[p][!u]) &#123;
                 p &#x3D; son[p][!u];
@@ -520,6 +533,294 @@ struct Trie
 &#125;trie;</code></pre>
 
 <p><strong>推荐题目（tag：区间异或和最大值 + 一定量思维）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1847/problem/C">C. Vampiric Powers, anyone?</a></p>
+<p><mark>代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e5 + 10, bit &#x3D; 31, M &#x3D; bit * N;
+struct Trie
+&#123;
+    int idx, son[M][2];
+    void clear () &#123; &#x2F;&#x2F; 清空
+        for (int i &#x3D; 0; i &lt;&#x3D; idx; i++)
+            son[i][0] &#x3D; son[i][1] &#x3D; 0;
+        idx &#x3D; 0;
+    &#125;
+    void insert(int x) &#123;
+        int p &#x3D; 0;
+        for(int i &#x3D; bit;i &gt;&#x3D; 0;i--) &#123;
+            int u &#x3D; x &gt;&gt; i &amp; 1;
+            if(!son[p][u])  son[p][u] &#x3D; ++idx;
+            p &#x3D; son[p][u];
+        &#125;
+    &#125;
+    int query(int x) &#123;
+        int p &#x3D; 0,res &#x3D; 0;
+        for(int i &#x3D; bit;i &gt;&#x3D; 0;i--) &#123;
+            int u &#x3D; x &gt;&gt; i &amp; 1;
+            if(son[p][!u]) &#123;
+                p &#x3D; son[p][!u];
+                res &#x3D; res * 2 + !u;
+            &#125;
+            else &#123;
+                p &#x3D; son[p][u];
+                res &#x3D; res * 2 + u;
+            &#125;
+        &#125;
+        return res;
+    &#125;
+&#125;trie;</code></pre>
+
+<h3 id="后缀自动机"><a href="#后缀自动机" class="headerlink" title="后缀自动机"></a>后缀自动机</h3><p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e6 * 2 + 10; &#x2F;&#x2F; 空间开2倍
+struct SAM
+&#123;
+    int tot,last;
+    struct Node
+    &#123;
+        int len,fa;
+        int ch[26];
+        void init()&#123;&#x2F;&#x2F;结点初始化
+            len &#x3D; fa &#x3D; 0;
+            memset(ch,0,sizeof(ch));
+        &#125;
+    &#125;node[N];
+    SAM() &#123;tot &#x3D; 1,last &#x3D; 1;&#125;
+    void init() &#123;&#x2F;&#x2F;清空区间[1,tot]
+        for(int i &#x3D; 1;i &lt;&#x3D; tot;i++) node[i].init();
+        tot &#x3D; last &#x3D; 1;
+    &#125;
+    void extend(int c) &#123;&#x2F;&#x2F;添加一个字符(c - &#39;a&#39;)
+        int p &#x3D; last,np &#x3D; last &#x3D; ++tot;
+        node[np].len &#x3D; node[p].len + 1;
+        for(;p &amp;&amp; !node[p].ch[c];p &#x3D; node[p].fa)    node[p].ch[c] &#x3D; np;
+        if(!p)  node[np].fa &#x3D; 1;
+        else
+        &#123;
+            int q &#x3D; node[p].ch[c];
+            if(node[q].len &#x3D;&#x3D; node[p].len + 1)   node[np].fa &#x3D; q;
+            else
+            &#123;
+                int nq &#x3D; ++ tot;
+                node[nq] &#x3D; node[q],node[nq].len &#x3D; node[p].len + 1;
+                node[q].fa &#x3D; node[np].fa &#x3D; nq;
+                for(;p &amp;&amp; node[p].ch[c] &#x3D;&#x3D; q;p &#x3D; node[p].fa)    node[p].ch[c] &#x3D; nq;
+            &#125;
+        &#125;
+    &#125;
+&#125;sam;</code></pre>
+
+<p> <strong>推荐题目：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2813/">最长公共子串</a></p>
+<p><mark>代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1e4 * 2 + 10; &#x2F;&#x2F; 空间开2倍
+
+struct SAM
+&#123;
+    int tot,last;
+    struct Node
+    &#123;
+        int len,fa;
+        int ch[26];
+        void init()&#123;&#x2F;&#x2F;结点初始化
+            len &#x3D; fa &#x3D; 0;
+            memset(ch,0,sizeof(ch));
+        &#125;
+    &#125;node[N];
+    SAM() &#123;tot &#x3D; 1,last &#x3D; 1;&#125;
+    void init() &#123;&#x2F;&#x2F;清空区间[1,tot]
+        for(int i &#x3D; 1;i &lt;&#x3D; tot;i++) node[i].init();
+        tot &#x3D; last &#x3D; 1;
+    &#125;
+    void extend(int c) &#123;&#x2F;&#x2F;添加一个字符(c - &#39;a&#39;)
+        int p &#x3D; last,np &#x3D; last &#x3D; ++tot;
+        node[np].len &#x3D; node[p].len + 1;
+        for(;p &amp;&amp; !node[p].ch[c];p &#x3D; node[p].fa)    node[p].ch[c] &#x3D; np;
+        if(!p)  node[np].fa &#x3D; 1;
+        else
+        &#123;
+            int q &#x3D; node[p].ch[c];
+            if(node[q].len &#x3D;&#x3D; node[p].len + 1)   node[np].fa &#x3D; q;
+            else
+            &#123;
+                int nq &#x3D; ++ tot;
+                node[nq] &#x3D; node[q],node[nq].len &#x3D; node[p].len + 1;
+                node[q].fa &#x3D; node[np].fa &#x3D; nq;
+                for(;p &amp;&amp; node[p].ch[c] &#x3D;&#x3D; q;p &#x3D; node[p].fa)    node[p].ch[c] &#x3D; nq;
+            &#125;
+        &#125;
+    &#125;
+&#125;sam;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n;
+    cin &gt;&gt; n;
+
+    string s;
+    cin &gt;&gt; s;
+
+    for (auto c : s)    sam.extend(c - &#39;a&#39;);
+
+    vector&lt;vector&lt;int&gt;&gt; g(N + 1);
+    for (int i &#x3D; 2; i &lt;&#x3D; sam.tot; i++)  g[sam.node[i].fa].push_back(i);
+
+    vector&lt;int&gt; res(N + 10, 1e9);
+    for (int i &#x3D; 0; i &lt; n - 1; i++)
+    &#123;
+        cin &gt;&gt; s;
+        vector&lt;int&gt; now(N + 10);
+        function&lt;void(int)&gt; dfs &#x3D; [&amp;](int u) -&gt; void
+        &#123;
+            for (auto v : g[u]) 
+            &#123;
+                dfs(v);
+                now[u] &#x3D; min(sam.node[u].len, max(now[u], now[v]));
+            &#125;
+        &#125;;
+        int p &#x3D; 1, len &#x3D; 0;
+        for (auto c : s)
+        &#123;
+            while (p &gt; 1 &amp;&amp; !sam.node[p].ch[c - &#39;a&#39;])   p &#x3D; sam.node[p].fa, len &#x3D; sam.node[p].len;
+            if (sam.node[p].ch[c - &#39;a&#39;])    p &#x3D; sam.node[p].ch[c - &#39;a&#39;], len++;
+            now[p] &#x3D; max(now[p], len);
+        &#125;
+        dfs(1);
+        for (int i &#x3D; 1; i &lt;&#x3D; sam.tot; i++)  res[i] &#x3D; min(res[i], now[i]);
+    &#125;
+
+    cout &lt;&lt; *max_element(res.begin() + 1, res.begin() + sam.tot + 1) &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+<h3 id="线段树-后缀自动机"><a href="#线段树-后缀自动机" class="headerlink" title="线段树 + 后缀自动机"></a>线段树 + 后缀自动机</h3><p> <strong>推荐题目：</strong> <a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/33188/H">Hacker</a></p>
+<p><mark>代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+const int N &#x3D; 1e6 + 10;
+int w[N];
+char str[N],s[N];
+
+struct SegmentTree
+&#123;
+    int l,r;
+    ll sum,rs;
+&#125;tr[N &lt;&lt; 2];
+struct Suffix_Automation
+&#123;
+    int len,fa;
+    int ch[26];
+&#125;node[N &lt;&lt; 1];
+int last &#x3D; 1,tot &#x3D; 1;
+int h[N],e[N],ne[N],idx;
+
+void pushup(int u)
+&#123;
+    tr[u].sum &#x3D; tr[u &lt;&lt; 1].sum + tr[u &lt;&lt; 1 | 1].sum;
+    tr[u].rs &#x3D; max(tr[u &lt;&lt; 1 | 1].rs,tr[u &lt;&lt; 1].rs + tr[u &lt;&lt; 1 | 1].sum);
+&#125;
+
+void build(int u,int l,int r)
+&#123;
+    tr[u] &#x3D; &#123;l,r&#125;;
+    if(l &#x3D;&#x3D; r)  tr[u].sum &#x3D; tr[u].rs &#x3D; w[l];
+    else
+    &#123;
+        int mid &#x3D; l + r &gt;&gt; 1;
+        build(u &lt;&lt; 1,l,mid),build(u &lt;&lt; 1 | 1,mid + 1,r);
+        pushup(u);
+    &#125; 
+&#125;
+
+SegmentTree query(int u,int l,int r)
+&#123;
+    if(l &lt;&#x3D; tr[u].l &amp;&amp; r &gt;&#x3D; tr[u].r)    return tr[u];
+    
+    int mid &#x3D; tr[u].l + tr[u].r &gt;&gt; 1;
+    if(l &gt; mid) return query(u &lt;&lt; 1 | 1,l,r);
+    else if(r &lt;&#x3D; mid)    return query(u &lt;&lt; 1,l,r);
+    else
+    &#123;
+        SegmentTree res;
+        SegmentTree left &#x3D; query(u &lt;&lt; 1,l,r);
+        SegmentTree right &#x3D; query(u &lt;&lt; 1 | 1,l,r);
+        res.sum &#x3D; left.sum + right.sum;
+        res.rs &#x3D; max(right.rs,left.rs + right.sum);
+        return res;
+    &#125;   
+&#125;
+
+ll query(int l,int r)
+&#123;
+    return query(1,l,r).rs;
+&#125;
+
+void extend(int c)
+&#123;
+    int p &#x3D; last,np &#x3D; last &#x3D; ++tot;
+    node[np].len &#x3D; node[p].len + 1;
+    for(;p &amp;&amp; !node[p].ch[c];p &#x3D; node[p].fa)  node[p].ch[c] &#x3D; np;
+    if(!p)  node[np].fa &#x3D; 1;
+    else
+    &#123;
+        int q &#x3D; node[p].ch[c];
+        if(node[q].len &#x3D;&#x3D; node[p].len + 1)  node[np].fa &#x3D; q;
+        else
+        &#123;
+            int nq &#x3D; ++ tot;
+            node[nq] &#x3D; node[q],node[nq].len &#x3D; node[p].len + 1;
+            node[q].fa &#x3D; node[np].fa &#x3D; nq;
+            for(;p &amp;&amp; node[p].ch[c] &#x3D;&#x3D; q;p &#x3D; node[p].fa)    node[p].ch[c] &#x3D; nq;
+        &#125;
+    &#125;
+&#125;
+
+void insert(char *str)
+&#123;
+    for(int i &#x3D; 0;str[i];i++)   extend(str[i] - &#39;a&#39;);
+&#125;
+
+ll solve(char *s)
+&#123;
+    int p &#x3D; 1,t &#x3D; 0;
+    ll res &#x3D; 0;
+    for(int i &#x3D; 0;s[i];i++)
+    &#123;
+        int c &#x3D; s[i] - &#39;a&#39;;
+        while(p &gt; 1 &amp;&amp; !node[p].ch[c])    p &#x3D; node[p].fa,t &#x3D; node[p].len;
+        if(node[p].ch[c])   p &#x3D; node[p].ch[c],t++;
+        if(t)   res &#x3D; max(res,query(i + 1 - t + 1,i + 1));
+    &#125;
+    return  res;
+&#125;
+
+signed main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+    int n,m,k;
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; k;
+    cin &gt;&gt; str;
+
+    for(int i &#x3D; 1;i &lt;&#x3D; m;i++)   cin &gt;&gt; w[i];
+ 
+    insert(str);
+    build(1,1,m);
+
+    while (k--)
+    &#123;
+        cin &gt;&gt; s;
+        cout &lt;&lt; solve(s) &lt;&lt; &quot;\n&quot;;
+    &#125;
+
+    return 0;
+&#125;</code></pre>
+
 
                 
             </div>
@@ -546,7 +847,7 @@ struct Trie
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://318471543.github.io/2024/03/19/%E7%AE%97%E6%B3%95%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">http://318471543.github.io/2024/03/19/%E7%AE%97%E6%B3%95%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/</a>
+                    <a href="http://318471543.github.io/2024/03/19/%E7%AE%97%E6%B3%95%E6%A8%A1%E6%9D%BF/">http://318471543.github.io/2024/03/19/%E7%AE%97%E6%B3%95%E6%A8%A1%E6%9D%BF/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -584,8 +885,8 @@ struct Trie
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E7%AE%97%E6%B3%95%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">
-                                    <span class="chip bg-color">算法快速入门</span>
+                                <a href="/tags/%E7%AE%97%E6%B3%95%E6%A8%A1%E6%9D%BF/">
+                                    <span class="chip bg-color">算法模板</span>
                                 </a>
                             
                         </div>
@@ -1155,13 +1456,13 @@ struct Trie
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2024/03/19/%E7%AE%97%E6%B3%95%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">
+                <a href="/2024/03/19/%E7%AE%97%E6%B3%95%E6%A8%A1%E6%9D%BF/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="博客搭建记">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="算法模板">
                         
-                        <span class="card-title">博客搭建记</span>
+                        <span class="card-title">算法模板</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1186,8 +1487,8 @@ struct Trie
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%AE%97%E6%B3%95%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">
-                        <span class="chip bg-color">算法快速入门</span>
+                    <a href="/tags/%E7%AE%97%E6%B3%95%E6%A8%A1%E6%9D%BF/">
+                        <span class="chip bg-color">算法模板</span>
                     </a>
                     
                 </div>

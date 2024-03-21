@@ -3852,7 +3852,7 @@ int main()
 <p><strong>找规律：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1894/problem/C">C. Anonymous Informant</a></p>
 <p><strong>建图：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1867/problem/D">D. Cyclic Operations</a></p>
 <p><strong>没有移位，但是很循环！（待考古）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1848/problem/C">C. Vika and Price Tags</a></p>
-<p><strong>2023 湘潭邀请赛（CCPC）签到题（待考古）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104396/problem/A">A. Today’s Word</a></p>
+<p><strong>2023 湘潭邀请赛（CCPC）签到题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104396/problem/A">A. Today’s Word</a></p>
 <p><strong>2023 南京站 ICPC 签到题（待考古）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104813/problem/L">L. Palm Island</a></p>
 <p><strong>一场高质量 div3 的 F 题目（待补）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1907/problem/F">F. Shift and Reverse</a></p>
 <p><strong>一道循环典题（赛后立马就写出来了）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1920/problem/D">D. Array Repetition</a></p>
@@ -4009,6 +4009,71 @@ int main()
         solve();
     &#125;
     
+    return 0;
+&#125;</code></pre>
+
+<p><mark>2023 湘潭邀请赛（CCPC）签到题：A. Today’s Word</mark></p>
+<p><strong>思路：</strong></p>
+<ul>
+<li>显然，当字符串增大到一定程度的时候（长度 $\ge 2m$ ），答案会是以最后 $m$ 为循环。</li>
+<li>暴力获取这个长度的字符串，每次增长是 $2$ 倍的关系，因此增长循环是 $log$，单个增长里面长度循环 $2$ 倍。时间复杂度即为：$O(NlogN)$。</li>
+<li>最后的循环，虽然是 $10^{100}$，但快速幂很快就可以得到，而且模数是隐式的 $26$，由此，答案解决。</li>
+</ul>
+<p><strong>赛后补题的小吐槽：</strong></p>
+<ul>
+<li>交了 $23$ 发才过，第一次失误是因为字符加上循环节的计算出了问题，导致结果都不是小写英文字母了，太逆天了。</li>
+<li>发现了后，没想到字符串截取的时候写成了 $s.size() - 1$，长度没取够，导致一直在尝试着其他的问题，直到最后才发现（打印输出）我的字符串截取少了 $qwq$，最后终于过了，这题还算比较 $easy$ 的，不过挺智慧的一道题。</li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+ll fpow(ll a,ll b, int mod)
+&#123;
+   ll res &#x3D; 1;
+   a %&#x3D; mod;
+   while(b)
+   &#123;
+       if(b &amp; 1)   res &#x3D; res * a % mod;
+       a &#x3D; a * a % mod;
+       b &gt;&gt;&#x3D; 1;
+   &#125;
+   return res;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n, m;
+    cin &gt;&gt; n &gt;&gt; m;
+
+    string s;
+    cin &gt;&gt; s;
+
+    int cnt &#x3D; 0;
+    while (n &lt; 2 * m)
+    &#123;
+        string l &#x3D; s.substr(0, n &#x2F; 2), r &#x3D; s.substr(n &#x2F; 2);
+        for (auto &amp;c : r)   
+            c &#x3D; (c &#x3D;&#x3D; &#39;z&#39; ? &#39;a&#39; : c + 1);
+        n *&#x3D; 2;
+        s &#x3D; l + s + r;
+        cnt++;
+    &#125;
+
+    int t &#x3D; ((fpow(10, 100, 26) - cnt) % 26 + 26) % 26;
+
+    string res;
+    for (int i &#x3D; s.size() - m; i &lt; s.size(); i++)
+    &#123;
+        char c &#x3D; ((s[i] + t) % &#39;a&#39;) % 26 + &#39;a&#39;;
+        res +&#x3D; c;
+    &#125;
+
+    cout &lt;&lt; res;
     return 0;
 &#125;</code></pre>
 

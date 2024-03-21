@@ -1773,22 +1773,96 @@ int main()
 
 <p><mark>推荐题单：</mark></p>
 <ul>
-<li><p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/287/">没有上司的舞会</a></p>
-</li>
-<li><p><strong>模板题的改版（这两题几乎一模一样，但由于权值不同，解法不同！）：</strong> <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2016">easy：P2016 战略游戏</a>   <a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=7276">hard：City Upgrading</a> 附hard版原题出处：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/1079/">皇宫看守</a></p>
-</li>
-<li><p>野生 $cf$ 题：<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1746/problem/D">D. Paths on the Tree</a></p>
-</li>
-<li><p><strong>$2024$ 传智杯省赛（树形DP求方案数，待考古）：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/72647/E">小红的树上赋值方案（A组，B组）</a></p>
-</li>
-<li><p><strong>$div2\ D$ 树形 $DP$ 求方案数题（这题是上分的必经之路）：</strong> <a target="_blank" rel="noopener" href="https://codeforces.com/contest/1929/problem/D">D. Sasha and a Walk in the City</a></p>
-<ul>
+<li><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/287/">没有上司的舞会</a></li>
+<li><strong>模板题的改版（这两题几乎一模一样，但由于权值不同，解法不同！）：</strong> <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2016">easy：P2016 战略游戏</a>   <a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=7276">hard：City Upgrading</a> 附hard版原题出处：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/1079/">皇宫看守</a></li>
+<li>野生 $cf$ 题：<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1746/problem/D">D. Paths on the Tree</a></li>
+<li><strong>$2024$ 传智杯省赛（树形DP求方案数）：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/72647/E">小红的树上赋值方案（A组，B组）</a></li>
+<li><strong>$div2\ D$ 树形 $DP$ 求方案数题（这题是上分的必经之路）：</strong> <a target="_blank" rel="noopener" href="https://codeforces.com/contest/1929/problem/D">D. Sasha and a Walk in the City</a><ul>
 <li>题意很绕，转化为清晰的描述为：给定一棵树，计算不存在三点在一条线上（不仅是三点在仅连的线上！）的点集的数量。</li>
 </ul>
 </li>
-<li><p>$div4\ G$ 最后一题又是树形 $DP$ 题（本想着倒着开题，结果又被卡住了，其实并不难qwq）<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1926/problem/G">G. Vlad and Trouble at MIT</a></p>
+<li>$div4\ G$ 最后一题又是树形 $DP$ 题（本想着倒着开题，结果又被卡住了，其实并不难qwq）<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1926/problem/G">G. Vlad and Trouble at MIT</a></li>
+</ul>
+<p><mark>$2024$ 传智杯省赛（树形DP求方案数）讲解：</mark></p>
+<ul>
+<li>定义 $dp$：$dp[u][i][j]:$ 以 $u$ 为根的子树，点 $u$ 赋值为 $i$，子树权值和模 $3$ 为 $j$ 的所有方案数。</li>
+<li>计算过程需要对子节点按顺序求解答案：<ul>
+<li>假设对于点 $u$ ，已经求完了 $v_1,v_2…,v_c$，对于加入了一个新的点 $v_{c + 1}$，贡献是：<ul>
+<li>$dp[u][i][j] \times (dp[v_{c+1}][1][k] + dp[v_{c+1}][2][k])$</li>
+</ul>
+</li>
+<li>其中的 $dp[u][i][j]$ 是所有按顺序排好的 $v_{c + 1}$ 前面的结点以及包含了点 $u$ 的方案。</li>
+<li>除此之外，还需要注意需要先用一个临时变量代替 $dp[u][i][j]$，因为 $dp[u][i][j]$ ，在新点枚举的时候可能会被改变，这样对答案的贡献是错误的。</li>
+</ul>
 </li>
 </ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+const int mod &#x3D; 1e9 + 7;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n;
+    cin &gt;&gt; n;
+
+    string s;
+    cin &gt;&gt; s;
+
+    vector&lt;vector&lt;int&gt;&gt; g(n + 1);
+    for (int i &#x3D; 2; i &lt;&#x3D; n; i++)
+    &#123;
+        int p;
+        cin &gt;&gt; p;
+        g[p].push_back(i);
+    &#125;
+
+    vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt; dp(n + 1, vector&lt;vector&lt;int&gt;&gt;(3, vector&lt;int&gt;(3)));
+    function&lt;void(int)&gt; dfs &#x3D; [&amp;](int u) 
+    &#123;
+        dp[u][1][1] &#x3D; dp[u][2][2] &#x3D; 1;
+        for (auto v : g[u])
+        &#123;
+            dfs(v);
+            for (int i : &#123;1, 2&#125;)
+            &#123;
+                vector&lt;int&gt; tmp(3);
+                for (int j &#x3D; 0; j &lt;&#x3D; 2; j++)
+                &#123;
+                    for (int k &#x3D; 0; k &lt;&#x3D; 2; k++)
+                    &#123;
+                        (tmp[(j + k) % 3] +&#x3D; (ll)dp[u][i][j] * (dp[v][1][k] + dp[v][2][k]) % mod) %&#x3D; mod;
+                    &#125;
+                &#125;
+                dp[u][i] &#x3D; tmp;
+            &#125;
+        &#125;
+
+        if (s[u - 1] &#x3D;&#x3D; &#39;R&#39;)
+        &#123;
+            for (int i &#x3D; 1; i &lt;&#x3D; 2; i++)
+                for (int j &#x3D; 1; j &lt;&#x3D; 2; j++)
+                    dp[u][i][j] &#x3D; 0;
+        &#125;
+
+    &#125;;
+
+    dfs(1);
+
+    ll res &#x3D; 0;
+    for (int i : &#123;1, 2&#125;)
+        for (int j &#x3D; 0; j &lt;&#x3D; 2; j++)
+            (res +&#x3D; dp[1][i][j]) %&#x3D; mod;
+
+    cout &lt;&lt; res;
+    return 0;
+&#125;</code></pre>
+
 <p><mark>D. Sasha and a Walk in the City 讲解：</mark></p>
 <p>吐槽：这题真是太难读懂了，题意理解了半天才明白（赛后也是先理解了一个错误的题意然后发现老是dp有问题qwq）</p>
 <p>定义：$dp[i][0&#x2F;1&#x2F;2]$：以 $i$ 为根的子树，从 $i$ 开始的简单路径有 0 &#x2F; 1 &#x2F; 2 个危险路口的方案数。</p>
