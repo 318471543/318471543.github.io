@@ -9,10 +9,10 @@
 本篇章承载的内容如下：
 
 非模板题不收；
-主要收代码量比较大 &amp;#x2F; 容易遗忘的模板好题（不一定是模板题，但做一遍可能就会让你理解这个算法的用处）；
+主要收代码量比较大 / 容易遗忘的模板好题（不一定是模板题，但做一遍可能就会让你理解这个算法的用处）；
 主要收含封装模板的题；
 
-最后感觉，做这个很类似于在整理每个模板，不过去掉了很多相">
+最后感觉，做这个很类似于在整理每个模板，不过去掉了很多相关模板的解">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -492,11 +492,427 @@
 <p>本篇章承载的内容如下：</p>
 <ul>
 <li>非模板题不收；</li>
-<li>主要收代码量比较大 &#x2F; 容易遗忘的模板好题（不一定是模板题，但做一遍可能就会让你理解这个算法的用处）；</li>
+<li>主要收代码量比较大 / 容易遗忘的模板好题（不一定是模板题，但做一遍可能就会让你理解这个算法的用处）；</li>
 <li>主要收含封装模板的题；</li>
 </ul>
 <p>最后感觉，做这个很类似于在整理每个模板，不过去掉了很多相关模板的解释，然后每道题只精确了一个例题，也算是帮助会议，便于打印板子。</p>
 </blockquote>
+<h2 id="数论"><a href="#数论" class="headerlink" title="数论"></a>数论</h2><h3 id="质因数分解"><a href="#质因数分解" class="headerlink" title="质因数分解"></a>质因数分解</h3><h4 id="获取每个数的最大质因数"><a href="#获取每个数的最大质因数" class="headerlink" title="获取每个数的最大质因数"></a>获取每个数的最大质因数</h4><blockquote>
+<p><strong>时间复杂度：</strong>$O(nlogn)$</p>
+<p><strong>方法：</strong>埃氏筛</p>
+</blockquote>
+<p><mark>封装代码：$(show\ by\ jiangly)$</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">std::vector&lt;int&gt; minp, cntp, maxp, primes;
+&#x2F;&#x2F; minp: 最小质因数; maxp: 最大质因数; cntp: 质因数个数
+void sieve(int n) &#123;
+    minp.assign(n + 1, 0);
+    maxp.assign(n + 1, 0);
+    cntp.assign(n + 1, 0);
+    primes.clear();
+    
+    for (int i &#x3D; 2; i &lt;&#x3D; n; i++) &#123;
+        if (minp[i] &#x3D;&#x3D; 0) &#123;
+            minp[i] &#x3D; i;
+            maxp[i] &#x3D; i;
+            cntp[i] &#x3D; 1;
+            primes.push_back(i);
+        &#125;
+        
+        for (auto p : primes) &#123;
+            if (i * p &gt; n) &#123;
+                break;
+            &#125;
+            minp[i * p] &#x3D; p;
+            maxp[i * p] &#x3D; maxp[i];
+            cntp[i * p] &#x3D; cntp[i] + 1;
+            if (p &#x3D;&#x3D; minp[i]) &#123;
+                break;
+            &#125;
+        &#125;
+    &#125;
+&#125;</code></pre>
+<p><mark>简单代码（容易理解版）：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 2e6 + 10;
+int f[N];&#x2F;&#x2F; f:每个数的最大质因数是多少
+void init()
+&#123;
+	for (int i &#x3D; 2; i &lt;&#x3D; 2e6; i++) 
+	&#123;
+		if (!f[i]) 
+		&#123;
+			f[i] &#x3D; i;
+			for (int j &#x3D; 2 * i; j &lt;&#x3D; 2e6; j +&#x3D; i)	f[j] &#x3D; i;
+		&#125;
+	&#125;
+&#125;</code></pre>
+<p><strong>推荐题目（$tag$：埃氏筛求最大质因数 + RMQ）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104493/problem/B">B. Convarge To 1</a></p>
+<p><mark>代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int, int&gt; pii;
+
+const int N &#x3D; 2e6 + 10;
+int f[N];&#x2F;&#x2F; f:每个数的最大质因数是多少
+
+void init()
+&#123;
+	for (int i &#x3D; 2; i &lt;&#x3D; 2e6; i++) 
+	&#123;
+		if (!f[i]) 
+		&#123;
+			f[i] &#x3D; i;
+			for (int j &#x3D; 2 * i; j &lt;&#x3D; 2e6; j +&#x3D; i)	f[j] &#x3D; i;
+		&#125;
+	&#125;
+&#125;
+
+void solve()
+&#123;
+	int n, q;
+	cin &gt;&gt; n &gt;&gt; q;
+
+	vector&lt;int&gt; a(n + 1);
+	vector&lt;int&gt; time(n + 1);
+	vector&lt;vector&lt;int&gt;&gt; nums(2e6 + 10);
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)	
+	&#123;
+		cin &gt;&gt; a[i];
+		if (a[i] !&#x3D; 1)
+			nums[a[i]].push_back(i);
+	&#125;
+	
+	int timestamps &#x3D; 0;
+	for (int i &#x3D; 2e6; i &gt;&#x3D; 2; i--)
+	&#123;
+		if (!nums[i].size())	continue;
+
+		int nt &#x3D; i &#x2F; f[i];
+		if (nt &#x3D;&#x3D; 1) &#x2F;&#x2F; 质数
+		&#123;
+			sort(nums[i].begin(), nums[i].end());
+			for (int j &#x3D; 0; j &lt; nums[i].size(); j++)
+			&#123;
+				timestamps++;
+				time[nums[i][j]] &#x3D; timestamps;
+			&#125;
+		&#125;
+		else
+		&#123;
+			timestamps +&#x3D; nums[i].size();
+			for (auto x : nums[i])
+				nums[nt].push_back(x);
+		&#125;
+	&#125;
+
+	vector&lt;vector&lt;int&gt;&gt; f(n + 1, vector&lt;int&gt;(22));
+	vector&lt;int&gt; LG2(n + 1);
+	auto _init &#x3D; [&amp;]() -&gt; void
+	&#123;
+		LG2[1] &#x3D; 0;
+		for(int i &#x3D; 2;i &lt;&#x3D; n;i++)   LG2[i]  &#x3D;LG2[i &gt;&gt; 1] + 1;
+ 
+		for(int j &#x3D; 0;j &lt;&#x3D; LG2[n];j++)
+			for(int i &#x3D; 1;i + (1 &lt;&lt; j) - 1 &lt;&#x3D; n;i++)
+				if(!j)  f[i][j] &#x3D; time[i];
+				else    f[i][j] &#x3D; max(f[i][j - 1],f[i + (1 &lt;&lt; j - 1)][j - 1]);  
+		return ;
+	&#125;;
+	auto query &#x3D; [&amp;](int l, int r) -&gt; int
+	&#123;
+		int k &#x3D; LG2[r - l + 1];
+		return max(f[l][k],f[r - (1 &lt;&lt; k) + 1][k]);
+	&#125;;
+ 
+	_init();
+ 
+	while (q--)
+	&#123;
+		int l, r;
+		cin &gt;&gt; l &gt;&gt; r;
+ 
+		cout &lt;&lt; query(l, r) &lt;&lt; &quot;\n&quot;;
+	&#125;
+	
+&#125;
+
+int main()
+&#123;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+	
+	init();
+
+	solve();
+	
+	return 0;
+&#125;</code></pre>
+<h4 id="高效质因数分解"><a href="#高效质因数分解" class="headerlink" title="高效质因数分解"></a>高效质因数分解</h4><p>这里有个结论：<mark>前 $N$ 个数的质数个数近似为：$\frac{N}{lnN}$</mark></p>
+<p>于是乎，前 $\sqrt{1e9}$ 里面有 $3401$ 个质数，前 $1e5$ 里面有 $9592$ 个质数。 </p>
+<blockquote>
+<p><strong>时间复杂度：</strong>$O(\frac{\sqrt{n}}{ln(\sqrt{n})})$</p>
+<p><strong>方法：</strong>线性筛优化加速</p>
+</blockquote>
+<p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">vector&lt;int&gt; primes;
+void init(int n) &#x2F;&#x2F; 线性筛
+&#123;
+	vector&lt;int&gt; st(n + 1);
+	for (int i &#x3D; 2; i &lt;&#x3D; n; i++)
+	&#123;
+		if (!st[i])	primes.push_back(i);
+		for (int j &#x3D; 0; primes[j] &lt;&#x3D; n &#x2F; i; j++)
+		&#123;
+			st[primes[j] * i] &#x3D; true;
+			if (i % primes[j] &#x3D;&#x3D; 0)	break;
+		&#125;
+	&#125;
+&#125;
+&#x2F;&#x2F; 高效筛法的过程
+map&lt;int, int&gt; mp;
+for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+&#123;
+    int x &#x3D; a[i];
+    for (auto p : primes)
+    &#123;
+        if (p * p &gt; x)	break;
+        if (x % p &#x3D;&#x3D; 0) &#x2F;&#x2F; if语句可视具体情况修改
+        &#123;
+            mp[p]++;
+            while (x % p &#x3D;&#x3D; 0)	x &#x2F;&#x3D; p;
+        &#125;
+    &#125;
+    if (x &gt; 1)	mp[x]++;
+&#125;</code></pre>
+<p><strong>推荐题目：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1771/problem/C">C. Hossam and Trainees</a></p>
+<p><mark>代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+vector&lt;int&gt; primes;
+void init(int n)
+&#123;
+	vector&lt;int&gt; st(n + 1);
+	for (int i &#x3D; 2; i &lt;&#x3D; n; i++)
+	&#123;
+		if (!st[i])	primes.push_back(i);
+		for (int j &#x3D; 0; primes[j] &lt;&#x3D; n &#x2F; i; j++)
+		&#123;
+			st[primes[j] * i] &#x3D; true;
+			if (i % primes[j] &#x3D;&#x3D; 0)	break;
+		&#125;
+	&#125;
+&#125;
+
+void solve()
+&#123;
+	int n;
+	cin &gt;&gt; n;
+
+	vector&lt;int&gt; a(n + 1);
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)	cin &gt;&gt; a[i];
+
+	map&lt;int, int&gt; mp;
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+	&#123;
+		int x &#x3D; a[i];
+		for (auto p : primes)
+		&#123;
+			if (p * p &gt; x)	break;
+			if (x % p &#x3D;&#x3D; 0)
+			&#123;
+				mp[p]++;
+				while (x % p &#x3D;&#x3D; 0)	x &#x2F;&#x3D; p;
+			&#125;
+		&#125;
+		if (x &gt; 1)	mp[x]++;
+	&#125;
+
+	for (auto [x, y] : mp)
+		if (y &gt; 1)
+			return cout &lt;&lt; &quot;YES\n&quot;, void();
+	cout &lt;&lt; &quot;NO\n&quot;;
+&#125;
+
+int main()
+&#123;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+	init(sqrt(1e9));
+	
+	int t;
+	cin &gt;&gt; t;
+
+	while (t--)
+	&#123;
+		solve();
+	&#125;
+	
+	return 0;
+&#125;</code></pre>
+<h3 id="约数"><a href="#约数" class="headerlink" title="约数"></a>约数</h3><h4 id="求约数——试除法"><a href="#求约数——试除法" class="headerlink" title="求约数——试除法"></a>求约数——试除法</h4><blockquote>
+<p><strong>时间复杂度：</strong> $O(N\sqrt{N})$</p>
+</blockquote>
+<p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">vector&lt;int&gt; get_divivors(int n)
+&#123;
+    vector&lt;int&gt;res;
+    for(int i &#x3D; 1; i &lt;&#x3D; n &#x2F; i; i++)
+    &#123;
+        if(n % i &#x3D;&#x3D; 0)
+        &#123;
+            res.push_back(i);
+            if(i !&#x3D; n &#x2F; i)  res.push_back(n &#x2F; i);
+        &#125;
+    &#125;
+    return res;
+&#125;</code></pre>
+<h4 id="求约数——埃氏筛"><a href="#求约数——埃氏筛" class="headerlink" title="求约数——埃氏筛"></a>求约数——埃氏筛</h4><blockquote>
+<p><strong>时间复杂度：</strong>$O(NlogN)$</p>
+</blockquote>
+<p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 2e5 + 10;
+vector&lt;int&gt; factor[N];
+void get_divivors(int n)
+&#123;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    	for (int j &#x3D; i; j &lt;&#x3D; n; j +&#x3D; i) 
+            factor[j].emplace_back(i);
+&#125;</code></pre>
+<h4 id="最大公约数"><a href="#最大公约数" class="headerlink" title="最大公约数"></a>最大公约数</h4><blockquote>
+<p><strong>时间复杂度：</strong>$O(logN)$</p>
+</blockquote>
+<p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">int gcd(int a,int b)
+&#123;
+    return b ? gcd(b,a % b) : a;
+&#125;</code></pre>
+<h3 id="扩展欧几里得"><a href="#扩展欧几里得" class="headerlink" title="扩展欧几里得"></a>扩展欧几里得</h3><blockquote>
+<p>当方程符合 $ax + by = gcd(a,b)$ 时，可以用扩展欧几里得算法求 $(x_0,y_0)$。</p>
+<p>通解（不妨令 $d$ 为 $gcd(a,b)$，其中 $c$ 为任意整数）：</p>
+<ul>
+<li>$x = x_0 + \frac{b}{d}c$</li>
+<li>$y = y_0 - \frac{a}{d}c$</li>
+</ul>
+<p><strong>注意：</strong> <mark>参数必须保证都是正数！</mark></p>
+</blockquote>
+<p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">ll exgcd(ll a,ll b,ll&amp; x,ll&amp; y)
+&#123;
+    if(!b)
+    &#123;
+        x &#x3D; 1,y &#x3D; 0;
+        return a;
+    &#125;
+    ll d &#x3D; exgcd(b,a % b,y,x);
+    y -&#x3D; a &#x2F; b * x;
+    return d;
+&#125;</code></pre>
+<p><strong>推荐题目（tag：$2023$ 湖北省省赛）：</strong> <a target="_blank" rel="noopener" href="https://codeforces.com/gym/104337/problem/I">I. Step</a></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+vector&lt;int&gt; get_prime(int n)&#x2F;&#x2F;线性筛法
+&#123;
+    vector&lt;int&gt; primes;
+    vector&lt;bool&gt; st(n + 1);
+    for (int i &#x3D; 2; i &lt;&#x3D; n; i++)
+    &#123;
+        if(!st[i])  primes.push_back(i);
+        for (int j &#x3D; 0; primes[j] &lt;&#x3D; n &#x2F; i; j++)
+        &#123;
+            st[primes[j] * i] &#x3D; true;
+            if(i % primes[j] &#x3D;&#x3D; 0)  break;
+        &#125;
+    &#125;
+    return primes;
+&#125;
+
+ll exgcd(ll a,ll b,ll&amp; x,ll&amp; y)
+&#123;
+    if(!b)
+    &#123;
+        x &#x3D; 1,y &#x3D; 0;
+        return a;
+    &#125;
+    ll d &#x3D; exgcd(b,a % b,y,x);
+    y -&#x3D; a &#x2F; b * x;
+    return d;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;int&gt; a(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; a[i];
+
+    &#x2F;&#x2F; 质因数分解
+    auto primes &#x3D; get_prime(1e7);
+    map&lt;int, int&gt; mp;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        ll x &#x3D; a[i];
+        for (int j &#x3D; 0; j &lt; primes.size(); j++)
+        &#123;
+            int p &#x3D; primes[j];
+            if ((ll)p * p &gt; x)    break; 
+            int cnt &#x3D; 0;
+            while (x % p &#x3D;&#x3D; 0)
+            &#123;
+                x &#x2F;&#x3D; p;
+                cnt++;
+            &#125;
+            if (cnt)    mp[p] &#x3D; max(mp[p], cnt);
+        &#125;
+        if (x &gt; 1)    mp[x] &#x3D; max(mp[x], 1);
+    &#125;
+
+    mp[2]++; &#x2F;&#x2F; 2倍
+    map&lt;int, ll&gt; num;
+    for (auto [x, y] : mp)
+    &#123;
+        ll t &#x3D; 1;
+        for (int i &#x3D; 1; i &lt;&#x3D; y; i++)    t *&#x3D; x;
+        num[x] &#x3D; t;
+    &#125;
+
+    &#x2F;&#x2F; 枚举质因数
+    vector&lt;int&gt; v;
+    for (auto [x, y] : mp)  
+        v.push_back(x);
+
+    int cnt &#x3D; v.size();
+    ll ans &#x3D; 1e18;
+    for (int i &#x3D; 0; i &lt; 1 &lt;&lt; cnt; i++)
+    &#123;
+        ll a &#x3D; 1, b &#x3D; 1;
+        for (int j &#x3D; 0; j &lt; cnt; j++)
+        &#123;
+            if (i &gt;&gt; j &amp; 1) a *&#x3D; num[v[j]];
+            else    b *&#x3D; num[v[j]];
+        &#125;
+
+        &#x2F;&#x2F; ax - by &#x3D; 1
+        ll x, y;
+        exgcd(a, b, x, y);
+        ll res &#x3D; (-y % a + a) % a;
+        if (!res)   res &#x3D; a;
+        ans &#x3D; min(ans, res * b);
+    &#125;
+
+    cout &lt;&lt; ans &lt;&lt; &quot;\n&quot;;
+
+    return 0;
+&#125;</code></pre>
 <h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="Trie"><a href="#Trie" class="headerlink" title="Trie"></a>Trie</h3><p><mark>封装模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e5 + 10, bit &#x3D; 31, M &#x3D; bit * N;
 struct Trie
@@ -531,7 +947,6 @@ struct Trie
         return res;
     &#125;
 &#125;trie;</code></pre>
-
 <p><strong>推荐题目（tag：区间异或和最大值 + 一定量思维）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1847/problem/C">C. Vampiric Powers, anyone?</a></p>
 <p><mark>代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e5 + 10, bit &#x3D; 31, M &#x3D; bit * N;
@@ -567,7 +982,6 @@ struct Trie
         return res;
     &#125;
 &#125;trie;</code></pre>
-
 <h3 id="后缀自动机"><a href="#后缀自动机" class="headerlink" title="后缀自动机"></a>后缀自动机</h3><p><mark>封装模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e6 * 2 + 10; &#x2F;&#x2F; 空间开2倍
 struct SAM
@@ -606,7 +1020,6 @@ struct SAM
         &#125;
     &#125;
 &#125;sam;</code></pre>
-
 <p> <strong>推荐题目：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2813/">最长公共子串</a></p>
 <p><mark>代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -694,133 +1107,6 @@ int main()
     cout &lt;&lt; *max_element(res.begin() + 1, res.begin() + sam.tot + 1) &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
-
-<h3 id="线段树-后缀自动机"><a href="#线段树-后缀自动机" class="headerlink" title="线段树 + 后缀自动机"></a>线段树 + 后缀自动机</h3><p> <strong>推荐题目：</strong> <a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/33188/H">Hacker</a></p>
-<p><mark>代码：</mark></p>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
-
-using namespace std;
-
-typedef long long ll;
-
-const int N &#x3D; 1e6 + 10;
-int w[N];
-char str[N],s[N];
-
-struct SegmentTree
-&#123;
-    int l,r;
-    ll sum,rs;
-&#125;tr[N &lt;&lt; 2];
-struct Suffix_Automation
-&#123;
-    int len,fa;
-    int ch[26];
-&#125;node[N &lt;&lt; 1];
-int last &#x3D; 1,tot &#x3D; 1;
-int h[N],e[N],ne[N],idx;
-
-void pushup(int u)
-&#123;
-    tr[u].sum &#x3D; tr[u &lt;&lt; 1].sum + tr[u &lt;&lt; 1 | 1].sum;
-    tr[u].rs &#x3D; max(tr[u &lt;&lt; 1 | 1].rs,tr[u &lt;&lt; 1].rs + tr[u &lt;&lt; 1 | 1].sum);
-&#125;
-
-void build(int u,int l,int r)
-&#123;
-    tr[u] &#x3D; &#123;l,r&#125;;
-    if(l &#x3D;&#x3D; r)  tr[u].sum &#x3D; tr[u].rs &#x3D; w[l];
-    else
-    &#123;
-        int mid &#x3D; l + r &gt;&gt; 1;
-        build(u &lt;&lt; 1,l,mid),build(u &lt;&lt; 1 | 1,mid + 1,r);
-        pushup(u);
-    &#125; 
-&#125;
-
-SegmentTree query(int u,int l,int r)
-&#123;
-    if(l &lt;&#x3D; tr[u].l &amp;&amp; r &gt;&#x3D; tr[u].r)    return tr[u];
-    
-    int mid &#x3D; tr[u].l + tr[u].r &gt;&gt; 1;
-    if(l &gt; mid) return query(u &lt;&lt; 1 | 1,l,r);
-    else if(r &lt;&#x3D; mid)    return query(u &lt;&lt; 1,l,r);
-    else
-    &#123;
-        SegmentTree res;
-        SegmentTree left &#x3D; query(u &lt;&lt; 1,l,r);
-        SegmentTree right &#x3D; query(u &lt;&lt; 1 | 1,l,r);
-        res.sum &#x3D; left.sum + right.sum;
-        res.rs &#x3D; max(right.rs,left.rs + right.sum);
-        return res;
-    &#125;   
-&#125;
-
-ll query(int l,int r)
-&#123;
-    return query(1,l,r).rs;
-&#125;
-
-void extend(int c)
-&#123;
-    int p &#x3D; last,np &#x3D; last &#x3D; ++tot;
-    node[np].len &#x3D; node[p].len + 1;
-    for(;p &amp;&amp; !node[p].ch[c];p &#x3D; node[p].fa)  node[p].ch[c] &#x3D; np;
-    if(!p)  node[np].fa &#x3D; 1;
-    else
-    &#123;
-        int q &#x3D; node[p].ch[c];
-        if(node[q].len &#x3D;&#x3D; node[p].len + 1)  node[np].fa &#x3D; q;
-        else
-        &#123;
-            int nq &#x3D; ++ tot;
-            node[nq] &#x3D; node[q],node[nq].len &#x3D; node[p].len + 1;
-            node[q].fa &#x3D; node[np].fa &#x3D; nq;
-            for(;p &amp;&amp; node[p].ch[c] &#x3D;&#x3D; q;p &#x3D; node[p].fa)    node[p].ch[c] &#x3D; nq;
-        &#125;
-    &#125;
-&#125;
-
-void insert(char *str)
-&#123;
-    for(int i &#x3D; 0;str[i];i++)   extend(str[i] - &#39;a&#39;);
-&#125;
-
-ll solve(char *s)
-&#123;
-    int p &#x3D; 1,t &#x3D; 0;
-    ll res &#x3D; 0;
-    for(int i &#x3D; 0;s[i];i++)
-    &#123;
-        int c &#x3D; s[i] - &#39;a&#39;;
-        while(p &gt; 1 &amp;&amp; !node[p].ch[c])    p &#x3D; node[p].fa,t &#x3D; node[p].len;
-        if(node[p].ch[c])   p &#x3D; node[p].ch[c],t++;
-        if(t)   res &#x3D; max(res,query(i + 1 - t + 1,i + 1));
-    &#125;
-    return  res;
-&#125;
-
-signed main()
-&#123;
-    cin.tie(nullptr)-&gt;sync_with_stdio(false);
-    int n,m,k;
-    cin &gt;&gt; n &gt;&gt; m &gt;&gt; k;
-    cin &gt;&gt; str;
-
-    for(int i &#x3D; 1;i &lt;&#x3D; m;i++)   cin &gt;&gt; w[i];
- 
-    insert(str);
-    build(1,1,m);
-
-    while (k--)
-    &#123;
-        cin &gt;&gt; s;
-        cout &lt;&lt; solve(s) &lt;&lt; &quot;\n&quot;;
-    &#125;
-
-    return 0;
-&#125;</code></pre>
-
 
                 
             </div>
