@@ -9,10 +9,10 @@
 本篇章承载的内容如下：
 
 非模板题不收；
-主要收代码量比较大 / 容易遗忘的模板好题（不一定是模板题，但做一遍可能就会让你理解这个算法的用处）；
+主要收代码量比较大 &amp;#x2F; 容易遗忘的模板好题（不一定是模板题，但做一遍可能就会让你理解这个算法的用处）；
 主要收含封装模板的题；
 
-最后感觉，做这个很类似于在整理每个模板，不过去掉了很多相关模板的解">
+最后感觉，做这个很类似于在整理每个模板，不过去掉了很多相">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -492,7 +492,7 @@
 <p>本篇章承载的内容如下：</p>
 <ul>
 <li>非模板题不收；</li>
-<li>主要收代码量比较大 / 容易遗忘的模板好题（不一定是模板题，但做一遍可能就会让你理解这个算法的用处）；</li>
+<li>主要收代码量比较大 &#x2F; 容易遗忘的模板好题（不一定是模板题，但做一遍可能就会让你理解这个算法的用处）；</li>
 <li>主要收含封装模板的题；</li>
 </ul>
 <p>最后感觉，做这个很类似于在整理每个模板，不过去掉了很多相关模板的解释，然后每道题只精确了一个例题，也算是帮助会议，便于打印板子。</p>
@@ -531,6 +531,7 @@ void sieve(int n) &#123;
         &#125;
     &#125;
 &#125;</code></pre>
+
 <p><mark>简单代码（容易理解版）：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 2e6 + 10;
 int f[N];&#x2F;&#x2F; f:每个数的最大质因数是多少
@@ -545,6 +546,7 @@ void init()
 		&#125;
 	&#125;
 &#125;</code></pre>
+
 <p><strong>推荐题目（$tag$：埃氏筛求最大质因数 + RMQ）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104493/problem/B">B. Convarge To 1</a></p>
 <p><mark>代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -648,6 +650,7 @@ int main()
 	
 	return 0;
 &#125;</code></pre>
+
 <h4 id="高效质因数分解"><a href="#高效质因数分解" class="headerlink" title="高效质因数分解"></a>高效质因数分解</h4><p>这里有个结论：<mark>前 $N$ 个数的质数个数近似为：$\frac{N}{lnN}$</mark></p>
 <p>于是乎，前 $\sqrt{1e9}$ 里面有 $3401$ 个质数，前 $1e5$ 里面有 $9592$ 个质数。 </p>
 <blockquote>
@@ -685,6 +688,7 @@ for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
     &#125;
     if (x &gt; 1)	mp[x]++;
 &#125;</code></pre>
+
 <p><strong>推荐题目：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1771/problem/C">C. Hossam and Trainees</a></p>
 <p><mark>代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -752,6 +756,9 @@ int main()
 	
 	return 0;
 &#125;</code></pre>
+
+
+
 <h3 id="约数"><a href="#约数" class="headerlink" title="约数"></a>约数</h3><h4 id="求约数——试除法"><a href="#求约数——试除法" class="headerlink" title="求约数——试除法"></a>求约数——试除法</h4><blockquote>
 <p><strong>时间复杂度：</strong> $O(N\sqrt{N})$</p>
 </blockquote>
@@ -769,6 +776,7 @@ int main()
     &#125;
     return res;
 &#125;</code></pre>
+
 <h4 id="求约数——埃氏筛"><a href="#求约数——埃氏筛" class="headerlink" title="求约数——埃氏筛"></a>求约数——埃氏筛</h4><blockquote>
 <p><strong>时间复杂度：</strong>$O(NlogN)$</p>
 </blockquote>
@@ -781,6 +789,7 @@ void get_divivors(int n)
     	for (int j &#x3D; i; j &lt;&#x3D; n; j +&#x3D; i) 
             factor[j].emplace_back(i);
 &#125;</code></pre>
+
 <h4 id="最大公约数"><a href="#最大公约数" class="headerlink" title="最大公约数"></a>最大公约数</h4><blockquote>
 <p><strong>时间复杂度：</strong>$O(logN)$</p>
 </blockquote>
@@ -789,12 +798,15 @@ void get_divivors(int n)
 &#123;
     return b ? gcd(b,a % b) : a;
 &#125;</code></pre>
+
+
+
 <h3 id="扩展欧几里得"><a href="#扩展欧几里得" class="headerlink" title="扩展欧几里得"></a>扩展欧几里得</h3><blockquote>
-<p>当方程符合 $ax + by = gcd(a,b)$ 时，可以用扩展欧几里得算法求 $(x_0,y_0)$。</p>
+<p>当方程符合 $ax + by &#x3D; gcd(a,b)$ 时，可以用扩展欧几里得算法求 $(x_0,y_0)$。</p>
 <p>通解（不妨令 $d$ 为 $gcd(a,b)$，其中 $c$ 为任意整数）：</p>
 <ul>
-<li>$x = x_0 + \frac{b}{d}c$</li>
-<li>$y = y_0 - \frac{a}{d}c$</li>
+<li>$x &#x3D; x_0 + \frac{b}{d}c$</li>
+<li>$y &#x3D; y_0 - \frac{a}{d}c$</li>
 </ul>
 <p><strong>注意：</strong> <mark>参数必须保证都是正数！</mark></p>
 </blockquote>
@@ -810,7 +822,8 @@ void get_divivors(int n)
     y -&#x3D; a &#x2F; b * x;
     return d;
 &#125;</code></pre>
-<p><strong>推荐题目（tag：$2023$ 湖北省省赛）：</strong> <a target="_blank" rel="noopener" href="https://codeforces.com/gym/104337/problem/I">I. Step</a></p>
+
+<p><strong>推荐题目（tag：$2023$ 湖北省省赛，高效质因数分解 + $exgcd$）：</strong> <a target="_blank" rel="noopener" href="https://codeforces.com/gym/104337/problem/I">I. Step</a></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -913,7 +926,221 @@ int main()
 
     return 0;
 &#125;</code></pre>
-<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="Trie"><a href="#Trie" class="headerlink" title="Trie"></a>Trie</h3><p><mark>封装模板：</mark></p>
+
+
+
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h3><h4 id="双链表"><a href="#双链表" class="headerlink" title="双链表"></a>双链表</h4><p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">struct Node
+&#123;
+    string data;
+&#125;;
+
+const int N &#x3D; 1e6 + 10;
+struct DoubleLinkList
+&#123;
+    string e[N]; &#x2F;&#x2F; 存结点对应的值; (如果结点存的值比较多, 可以用Node存储)
+    int head, tail, idx, l[N], r[N];&#x2F;&#x2F; head:头指针; tail: 尾指针;
+    map&lt;string, int&gt; mp; &#x2F;&#x2F; 存该值对应的在链表中的下标
+    DoubleLinkList () &#123; &#x2F;&#x2F; 自动初始化
+        init();
+    &#125;
+    void init() &#123; &#x2F;&#x2F; 初始化
+        head &#x3D; 0;
+        tail &#x3D; N - 1;
+        r[head] &#x3D; tail;
+        l[tail] &#x3D; head;
+        idx &#x3D; 1;
+    &#125;
+    void add(int k, string s) &#123; &#x2F;&#x2F; 在第k个数的后面插入一个数
+        mp[s] &#x3D; idx;
+        e[idx] &#x3D; s;
+        r[idx] &#x3D; r[k];
+        l[idx] &#x3D; k;
+        l[r[k]] &#x3D; idx;
+        r[k] &#x3D; idx;
+        idx++;
+    &#125;
+    void del(int k, bool keep &#x3D; false) &#123; &#x2F;&#x2F; 功能:删除第几个(插入的)数; keep: 是否保留
+        r[l[k]] &#x3D; r[k];
+        l[r[k]] &#x3D; l[k];
+        if (!keep)  mp.erase(e[k]);
+    &#125;
+    bool isEmpty() &#123; &#x2F;&#x2F; 判断链表是否为空
+        return l[tail] &#x3D;&#x3D; head;
+    &#125;
+    void print() &#123; &#x2F;&#x2F; 打印双链表
+        for (int i &#x3D; r[head]; i !&#x3D; tail; i &#x3D; r[i])
+            cout &lt;&lt; e[i] &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; tail];
+    &#125;
+&#125;lis;</code></pre>
+
+<p><strong>推荐题目：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/77922/G">排队</a></p>
+<p>当有成型的双链表的板子后，这道题就会变得很容易。</p>
+<p><mark>代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+array&lt;string, 2&gt; arr;
+
+const int N &#x3D; 3e5 + 10;
+
+struct DoubleLinkList
+&#123;
+    string e[N];
+    int head, tail, idx, l[N], r[N];
+    map&lt;string, int&gt; mp;
+    void init() &#123;
+        head &#x3D; 0;
+        tail &#x3D; N - 1;
+        r[head] &#x3D; tail;
+        l[tail] &#x3D; head;
+        idx &#x3D; 1;
+    &#125;
+    void add(int k, string s) &#123; &#x2F;&#x2F; 在第k个数的后面插入一个数
+        mp[s] &#x3D; idx;
+        e[idx] &#x3D; s;
+        r[idx] &#x3D; r[k];
+        l[idx] &#x3D; k;
+        l[r[k]] &#x3D; idx;
+        r[k] &#x3D; idx;
+        idx++;
+    &#125;
+    void del(int k, bool keep) &#123;&#x2F;&#x2F;keep: 是否保留
+        r[l[k]] &#x3D; r[k];
+        l[r[k]] &#x3D; l[k];
+        if (!keep)  mp.erase(e[k]);
+    &#125;
+    bool isEmpty() &#123; &#x2F;&#x2F; 判断链表是否为空
+        return l[tail] &#x3D;&#x3D; head;
+    &#125;
+    void print() &#123; &#x2F;&#x2F; 打印双链表
+        for (int i &#x3D; r[head]; i !&#x3D; tail; i &#x3D; r[i])
+            cout &lt;&lt; e[i] &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; tail];
+    &#125;
+    bool checkInQueue(string s) &#123;
+        return mp.count(s);
+    &#125;
+    bool checkInQueueButNotplay(string s) &#123;
+        return mp.count(s) &amp;&amp; arr[0] !&#x3D; s &amp;&amp; arr[1] !&#x3D; s;
+    &#125;
+
+    void solve() &#123;
+        init();
+
+        int n;
+        cin &gt;&gt; n;
+
+        arr[0] &#x3D; arr[1] &#x3D; &quot;&quot;;
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        &#123;
+            string op, name;
+            cin &gt;&gt; op;
+
+            if (op[0] &#x3D;&#x3D; &#39;s&#39;)
+            &#123;
+                if (arr[0] &#x3D;&#x3D; &quot;&quot;)&#x2F;&#x2F; 是第一局
+                &#123;
+                    &#x2F;&#x2F; 判断当前是否有人上场
+                    if (!(r[head] &#x3D;&#x3D; tail)) &#x2F;&#x2F; 有人上场
+                    &#123;
+                        &#x2F;&#x2F; 输出人名
+                        arr[0] &#x3D; e[r[head]];
+                        int nxt &#x3D; r[r[head]];
+                        if (nxt !&#x3D; tail)
+                        &#123;
+                            arr[1] &#x3D; e[nxt];
+                            cout &lt;&lt; arr[0] &lt;&lt; &quot; &quot; &lt;&lt; arr[1] &lt;&lt;  &quot;\n&quot;;
+                        &#125;
+                        else
+                        &#123;
+                            cout &lt;&lt; arr[0] &lt;&lt; &quot;\n&quot;;
+                        &#125;
+                    &#125;
+                    else &#x2F;&#x2F; 无人上场
+                    &#123;
+                        cout &lt;&lt; &quot;Error\n&quot;;
+                    &#125;
+                &#125;
+                else
+                &#123;
+                    &#x2F;&#x2F; 将当前玩家放入队列中
+                    if (arr[1] &#x3D;&#x3D; &quot;&quot;) &#x2F;&#x2F; 将前1个玩家放入队尾
+                    &#123;
+                        &#x2F;&#x2F; 并删除队列中前1元素
+                        add(l[tail], arr[0]); 
+                        del(r[head], true);
+                    &#125;
+                    else &#x2F;&#x2F; 将前2个玩家放入队尾
+                    &#123;
+                        &#x2F;&#x2F; 并删除队列中前2元素
+                        add(l[tail], arr[0]);
+                        add(l[tail], arr[1]);
+                        del(r[head], true);
+                        del(r[head], true);
+                    &#125;
+
+
+                    &#x2F;&#x2F; 从队列中取出前 1 &#x2F; 2名选手
+                    &#x2F;&#x2F; 输出人名
+                    arr[0] &#x3D; e[r[head]];
+                    int nxt &#x3D; r[r[head]];
+                    if (nxt !&#x3D; tail)
+                    &#123;
+                        arr[1] &#x3D; e[nxt];
+                        cout &lt;&lt; arr[0] &lt;&lt; &quot; &quot; &lt;&lt; arr[1] &lt;&lt;  &quot;\n&quot;;
+                    &#125;
+                    else
+                    &#123;
+                        cout &lt;&lt; arr[0] &lt;&lt; &quot;\n&quot;;
+                    &#125;
+                &#125;
+            &#125;
+            else if (op[0] &#x3D;&#x3D; &#39;a&#39;)
+            &#123;
+                cin &gt;&gt; name;
+                &#x2F;&#x2F; cout &lt;&lt; &quot;arrive:&quot; &lt;&lt; name &lt;&lt; &quot; &quot; &lt;&lt; mp.count(name) &lt;&lt; &quot; &quot; &lt;&lt; checkInQueue(name) &lt;&lt; &quot;\n&quot;;
+                if (checkInQueue(name)) &#x2F;&#x2F; 如果这个人在排队, 输出
+                &#123;
+                    cout &lt;&lt; &quot;Error\n&quot;;
+                &#125;
+                else &#x2F;&#x2F; 加入队尾
+                &#123;
+                    add(l[tail], name);
+                    cout &lt;&lt; &quot;OK\n&quot;;
+                &#125;
+            &#125;
+            else
+            &#123;
+                cin &gt;&gt; name;
+                if (checkInQueueButNotplay(name)) &#x2F;&#x2F; 如果在排队并且不在游完
+                &#123;
+                    cout &lt;&lt; &quot;OK\n&quot;;
+                    int this_pos &#x3D; mp[name];
+                    del(this_pos, false);
+                &#125;
+                else
+                &#123;
+                    cout &lt;&lt; &quot;Error\n&quot;;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+    
+&#125;lis;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    lis.solve();
+
+    return 0;
+&#125;</code></pre>
+
+
+
+<h3 id="Trie"><a href="#Trie" class="headerlink" title="Trie"></a>Trie</h3><p><mark>封装模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e5 + 10, bit &#x3D; 31, M &#x3D; bit * N;
 struct Trie
 &#123;
@@ -947,6 +1174,7 @@ struct Trie
         return res;
     &#125;
 &#125;trie;</code></pre>
+
 <p><strong>推荐题目（tag：区间异或和最大值 + 一定量思维）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1847/problem/C">C. Vampiric Powers, anyone?</a></p>
 <p><mark>代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e5 + 10, bit &#x3D; 31, M &#x3D; bit * N;
@@ -982,6 +1210,9 @@ struct Trie
         return res;
     &#125;
 &#125;trie;</code></pre>
+
+
+
 <h3 id="后缀自动机"><a href="#后缀自动机" class="headerlink" title="后缀自动机"></a>后缀自动机</h3><p><mark>封装模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e6 * 2 + 10; &#x2F;&#x2F; 空间开2倍
 struct SAM
@@ -1020,6 +1251,7 @@ struct SAM
         &#125;
     &#125;
 &#125;sam;</code></pre>
+
 <p> <strong>推荐题目：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2813/">最长公共子串</a></p>
 <p><mark>代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -1107,6 +1339,7 @@ int main()
     cout &lt;&lt; *max_element(res.begin() + 1, res.begin() + sam.tot + 1) &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
+
 
                 
             </div>

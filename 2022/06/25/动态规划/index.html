@@ -1260,7 +1260,7 @@ int main()
 <p><strong>思路：</strong> 其实跟 $dp$ 没什么关系了，就是对于当前数，将其插入到小于这个数的最大位置的后面即可。</p>
 <p><strong>时间复杂度：</strong>$O(nlogn)$</p>
 </blockquote>
-<p><mark>模板题代码：</mark></p>
+<p><mark>模板题（拦截导弹）代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1269,29 +1269,56 @@ int main()
 &#123;
 	cin.tie(nullptr)-&gt;sync_with_stdio(false);
 
-	int n;
-	cin &gt;&gt; n;
+    vector&lt;int&gt; a&#123;0&#125;;
+    int x;
+    while (cin &gt;&gt; x)
+    &#123;
+        a.push_back(x);
+    &#125;
 
-	vector&lt;int&gt; a(n + 1);
-	for(int i &#x3D; 1; i &lt;&#x3D; n; i++)	cin &gt;&gt; a[i];
+    int n &#x3D; a.size() - 1;
 
-	vector&lt;int&gt; q(n + 1);
-	int len &#x3D; 0;
-	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
-	&#123;
-		int l &#x3D; 0, r &#x3D; len;
-		while (l &lt; r)
-		&#123;
-			int mid &#x3D; l + r + 1 &gt;&gt; 1;
-			if (q[mid] &lt; a[i])	l &#x3D; mid;
-			else	r &#x3D; mid - 1;
-		&#125;
-		q[l + 1] &#x3D; a[i];
-		len &#x3D; max(l + 1, len);
-	&#125;
+	auto solve_dec &#x3D; [&amp;]() -&gt; void
+    &#123;
+        vector&lt;int&gt; q(n + 1);
+        int len &#x3D; 0;
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        &#123;
+            int l &#x3D; 0, r &#x3D; len;
+            while (l &lt; r)
+            &#123;
+                int mid &#x3D; l + r + 1 &gt;&gt; 1;
+                if (q[mid] &gt;&#x3D; a[i])	l &#x3D; mid;
+                else	r &#x3D; mid - 1;
+            &#125;
+            q[l + 1] &#x3D; a[i];
+            len &#x3D; max(l + 1, len);
+        &#125;
 
-	&#x2F;&#x2F; for (int i &#x3D; 1; i &lt;&#x3D; len; i++)	cout &lt;&lt; q[i] &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; len];
-	cout &lt;&lt; len &lt;&lt; &quot;\n&quot;;
+        cout &lt;&lt; len &lt;&lt; &quot;\n&quot;;
+    &#125;;
+
+    auto solve_inc &#x3D; [&amp;]() -&gt; void
+    &#123;
+        vector&lt;int&gt; q(n + 1);
+        int len &#x3D; 0;
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        &#123;
+            int l &#x3D; 0, r &#x3D; len;
+            while (l &lt; r)
+            &#123;
+                int mid &#x3D; l + r + 1 &gt;&gt; 1;
+                if (q[mid] &lt; a[i])	l &#x3D; mid;
+                else	r &#x3D; mid - 1;
+            &#125;
+            q[l + 1] &#x3D; a[i];
+            len &#x3D; max(l + 1, len);
+        &#125;
+
+        cout &lt;&lt; len &lt;&lt; &quot;\n&quot;;
+    &#125;;
+
+    solve_dec(), solve_inc();
 	return 0;
 &#125;</code></pre>
 
@@ -1341,6 +1368,7 @@ int main()
 <p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1849/problem/D">D. Array Painting</a> </p>
 <p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57356/K">Box</a></p>
 <p><strong>一道似乎被众人堪称典的题目：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1881/problem/E">E. Block Sequence</a></p>
+<p><strong>2023年C++B组蓝桥杯省赛：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/4961/">4958. 接龙数列</a></p>
 <h2 id="区间DP"><a href="#区间DP" class="headerlink" title="区间DP"></a>区间DP</h2><p><mark>区间DP模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">for (int l &#x3D; n; l &gt;&#x3D; 1; l--)
 &#123;
@@ -2014,189 +2042,148 @@ int main()
 <p><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104493/problem/C">C. Tree Permutation</a></p>
 <p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1882/problem/D">D. Tree XOR</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2986">P2986 [USACO10MAR] Great Cow Gathering G</a></p>
+<p><strong>挺不错的题（$LCA$ + 换根 $DP$ + 推公式）：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/77448/L">qfl_zzz的树上距离</a></p>
 <h2 id="期望DP"><a href="#期望DP" class="headerlink" title="期望DP"></a>期望DP</h2><p><strong>推荐题目：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/33186/I">Chiitoitsu</a></p>
-<h2 id="状态压缩DP"><a href="#状态压缩DP" class="headerlink" title="状态压缩DP"></a>状态压缩DP</h2><h3 id="蒙德里安的梦想"><a href="#蒙德里安的梦想" class="headerlink" title="蒙德里安的梦想"></a>蒙德里安的梦想</h3><p><strong>题目链接：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/293/">蒙德里安的梦想</a></p>
+<h2 id="状态压缩DP"><a href="#状态压缩DP" class="headerlink" title="状态压缩DP"></a>状态压缩DP</h2><blockquote>
+<p>最近开始认真学状压 $dp$ 了，很奇妙的是：最近做的题总是能遇到这种类似的 $dp$，之前是真的做不到过，所以真的好神奇啊，那么我们就来好好总结一番叭！</p>
+</blockquote>
+<p><mark>推荐题单：</mark></p>
+<p><strong>经典哈密顿路径问题（或类似问题：每个点都只有一次）：</strong></p>
+<ul>
+<li>2024年传智杯决赛：<a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/78721/E">小苯的矩阵染色（A组，B组）</a></li>
+<li>初学时的模板题：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/93/">最短Hamilton路径</a></li>
+<li>$div4\ G$：<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1950/problem/G">G. Shuffling Songs</a></li>
+<li><strong>$cf\ 2200$ 分 $dp$ 题，环的问题：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF11D">A Simple Task</a></li>
+</ul>
+<p>上面三题几乎一样的做法！</p>
 <blockquote>
-<p>核心：先把所有横着的摆放完后，竖着的就只有1种方案了（直接塞进去就行了）。</p>
-<p>即：总方案数，等于只放横着的小方块的合法方案数。</p>
-<p>那如何判断，当前方案是否合法呢？即看所有剩余位置，能否填充满竖着的小方块。又由于是竖着的小方块，所以可以按列来看，每一列内部所有连续的空着的小方块需要是偶数个！</p>
-<p>so：</p>
-<p>定义f[i] [j]：表示已经将前i - 1列摆好，且从第i - 1列伸出到第i列的状态为j的所有方案。</p>
-<p>再考虑一些这个问题：假设第i - 2列伸出到第i - 1列的状态是k，第i - 1列伸出到第i列的状态为j，则什么时候k与j能拼在一起构成一个合法方案呢？</p>
-<p>1、两个小方块不能处在同一行（如果处在同一行会有交集），即(j &amp; k) &#x3D;&#x3D; 0判断。</p>
-<p>2、第i - 1列空着的小方格能被竖着的小方块塞满，即st[i | j]存在。</p>
+<p>$dp[state][i]$：以 $i$ 结尾状态为 $state$ 的情况。枚举当前点，枚举上个点，枚举状态即可。</p>
+</blockquote>
+<p><mark>小苯的矩阵染色（A组，B组）思路：</mark></p>
+<blockquote>
+<ul>
+<li>对网格进行建图；</li>
+<li>状压 $dp$：$dp[state][i]$：以 $i$ 结尾状态为 $state$ 的合法性；</li>
+<li>对于当前状态 $state$，枚举当前是以什么结尾，然后枚举上一位是什么结尾（即 $1$ 的位置）</li>
+<li>然后转移即可，时间复杂度：$O(N^22^N)$，其中 $N$ 可能达到 $20$。</li>
+</ul>
 </blockquote>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
-typedef long long ll;
-
-int n,m;
-
-void solve()
+int main()
 &#123;
-    vector&lt;bool&gt; st((1 &lt;&lt; n) + 1);
-    &#x2F;&#x2F;预处理所有合法的列
-    for(int i &#x3D; 0;i &lt; 1 &lt;&lt; n;i++)
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n, m, st, ed;
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; st &gt;&gt; ed;
+
+    vector&lt;vector&lt;int&gt;&gt; g(21, vector&lt;int&gt;(21));
+    vector&lt;vector&lt;char&gt;&gt; c(n + 1, vector&lt;char&gt;(m + 1));
+    vector&lt;vector&lt;int&gt;&gt; id(n + 1, vector&lt;int&gt;(m + 1));
+    int idx &#x3D; 0;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        for (int j &#x3D; 1; j &lt;&#x3D; m; j++)
+        &#123;
+            cin &gt;&gt; c[i][j];
+            if (c[i][j] &#x3D;&#x3D; &#39;.&#39;)
+                 id[i][j] &#x3D; idx++;
+        &#125;
+
+    int dx[] &#x3D; &#123;-1, 0, 1, 0&#125;, dy[] &#x3D; &#123;0, 1, 0, -1&#125;; 
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
     &#123;
-        bool ok &#x3D; true;
-        int cnt &#x3D; 0;
-        for(int j &#x3D; 0;j &lt; n;j++)
+        for (int j &#x3D; 1; j &lt;&#x3D; m; j++)
         &#123;
-            if(i &gt;&gt; j &amp; 1)
+            for (int k &#x3D; 0; k &lt; 4; k++)
             &#123;
-                if(cnt &amp; 1)
-                &#123;
-                    ok &#x3D; false;
-                    break;
-                &#125;
-                cnt &#x3D; 0;
+                int nx &#x3D; i + dx[k], ny &#x3D; j + dy[k];
+                if (nx &lt; 0 || nx &gt; n || ny &lt; 0 || ny &gt; m)   continue;
+                if (c[i][j] &#x3D;&#x3D; &#39;.&#39; &amp;&amp; c[nx][ny] &#x3D;&#x3D; &#39;.&#39;)
+                    g[id[i][j]][id[nx][ny]] &#x3D; 1;
             &#125;
-            else    cnt++;
         &#125;
-        if(cnt &amp; 1) ok &#x3D; false;
-        st[i] &#x3D; ok;
     &#125;
-    &#x2F;&#x2F;预处理出所有合法的转移
-    vector&lt;int&gt; state[(1 &lt;&lt; n) + 1];
-    for(int i &#x3D; 0;i &lt; 1 &lt;&lt; n;i++)
-        for(int j &#x3D; 0;j &lt; 1 &lt;&lt; n;j++)
-            if((i &amp; j) &#x3D;&#x3D; 0 &amp;&amp; st[(i | j)])
-                state[i].push_back(j);
-	&#x2F;&#x2F;状态转移计算
-    vector f(m + 1,vector&lt;ll&gt;((1 &lt;&lt; n) + 1));
-    f[0][0] &#x3D; 1;
-    for(int i &#x3D; 1;i &lt;&#x3D; m;i++)
-        for(int j &#x3D; 0;j &lt; 1 &lt;&lt; n;j++)
-            for(auto k : state[j])
-                f[i][j] +&#x3D; f[i - 1][k];
-    
-    cout &lt;&lt; f[m][0] &lt;&lt; &quot;\n&quot;;
-&#125;
 
-int main()
-&#123;
-    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+    vector&lt;vector&lt;int&gt;&gt; dp(1 &lt;&lt; idx, vector&lt;int&gt;(idx));
+    dp[1 &lt;&lt; id[st][ed]][id[st][ed]] &#x3D; 1;
 
-    while(cin &gt;&gt; n &gt;&gt; m,n || m) solve();
-
-    return 0;
-&#125;</code></pre>
-
-<h3 id="最短Hamilton路径"><a href="#最短Hamilton路径" class="headerlink" title="最短Hamilton路径"></a>最短Hamilton路径</h3><blockquote>
-<p>f[i] [j]：状态为i的情况下，停到点j的最短路径是多少。</p>
-<p>f[state] [j] &#x3D; f[state_k] [k] + weight[k] [j]，state_k &#x3D; state除掉j之后的集合，state_k要包含k。</p>
-</blockquote>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
-
-using namespace std;
-
-const int N &#x3D; 20,M &#x3D; 1 &lt;&lt; N;
-
-int n;
-int f[M][N];
-int w[N][N];
-
-int main()
-&#123;
-    cin.tie(nullptr)-&gt;sync_with_stdio(false);
-
-    cin &gt;&gt; n;
-    for(int i &#x3D; 0;i &lt; n;i++)
-        for(int j &#x3D; 0;j &lt; n;j++)  
-            cin &gt;&gt; w[i][j];
-
-    memset(f,0x3f,sizeof(f));
-    f[1][0] &#x3D; 0;
-    for(int i &#x3D; 0;i &lt; 1 &lt;&lt; n;i++)
-        for(int j &#x3D; 0;j &lt; n;j++)
-            if(i &gt;&gt; j &amp; 1)
-                for(int k &#x3D; 0;k &lt; n;k++)
-                    if(i - (1 &lt;&lt; j) &gt;&gt; k &amp; 1)
-                        f[i][j] &#x3D; min(f[i][j],f[i - (1 &lt;&lt; j)][k] + w[k][j]);
-
-    cout &lt;&lt; f[(1 &lt;&lt; n) - 1][n - 1];
-    return 0;
-&#125;</code></pre>
-
-
-
-<h3 id="小国王"><a href="#小国王" class="headerlink" title="小国王"></a>小国王</h3><p><strong>题目链接：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1066/">小国王</a></p>
-<p><strong>题目描述</strong></p>
-<p>在 n×n 的棋盘上放 k 个国王，国王可攻击相邻的 8 个格子，求使它们无法互相攻击的方案总数。</p>
-<p><strong>输入格式</strong></p>
-<p>共一行，包含两个整数 n 和 k。</p>
-<p><strong>输出格式</strong></p>
-<p>共一行，表示方案总数，若不能够放置则输出0。</p>
-<p><strong>数据范围</strong></p>
-<p>1 ≤ n ≤ 10,<br>0 ≤ k ≤ n<sup>2</sup></p>
-<p><strong>输入样例：</strong></p>
-<pre class="language-none"><code class="language-none">3 2</code></pre>
-
-<p><strong>输出样例：</strong></p>
-<pre class="language-none"><code class="language-none">16</code></pre>
-
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
-
-using namespace std;
-
-typedef long long ll;
-
-const int N &#x3D; 12,M &#x3D; 1 &lt;&lt; 10,K &#x3D; 110;
-int n,m;
-vector&lt;int&gt; state;&#x2F;&#x2F;表示所有合法的状态
-int cnt[M];&#x2F;&#x2F;每个状态中1的个数
-vector&lt;int&gt; head[M];&#x2F;&#x2F;每个状态所有可以转移到的状态
-ll f[N][K][M];
-&#x2F;&#x2F;集合：所有只摆在前i行，已经摆了j个国王，并且第i行摆放的状态是s的所有方案的集合
-bool check(int state)
-&#123;
-    for(int i &#x3D; 0;i &lt; n;i++)
-        if((state &gt;&gt; i &amp; 1) &amp;&amp; (state &gt;&gt; i + 1 &amp; 1))
-            return false;
-    return true;
-&#125;
-
-int count(int state)&#x2F;&#x2F;计算这个状态的二进制的表示中1的个数
-&#123;
-    int res &#x3D; 0;
-    for(int i &#x3D; 0;i &lt; n;i++)    res +&#x3D; state &gt;&gt; i &amp; 1;
-    return res;
-&#125;
-
-int main()
-&#123;
-    cin &gt;&gt; n &gt;&gt; m;&#x2F;&#x2F;n表示正方形的边长，m表示国王的数量
-
-    for(int i &#x3D; 0;i &lt; 1 &lt;&lt; n;i++)
-        if(check(i))
+    for (int i &#x3D; 0; i &lt; 1 &lt;&lt; idx; i++)
+    &#123;
+        for (int j &#x3D; 0; j &lt; idx; j++)
         &#123;
-            state.push_back(i);
-            cnt[i] &#x3D; count(i);
-        &#125;
-    
-    for(int i &#x3D; 0;i &lt; state.size();i++)
-        for(int j &#x3D; 0;j &lt; state.size();j++)
-        &#123;
-            int a &#x3D; state[i],b &#x3D; state[j];&#x2F;&#x2F;a表示第一个状态，b表示第二个状态
-            if((a &amp; b) &#x3D;&#x3D; 0 &amp;&amp; check(a | b))&#x2F;&#x2F;(a &amp; b) : 不在同一列上; (a | b) : 两行叠加起来不能有相邻的1
-                head[i].push_back(j);&#x2F;&#x2F;用的是下标
-        &#125;
-
-    f[0][0][0] &#x3D; 1;&#x2F;&#x2F;初始化
-    for(int i &#x3D; 1;i &lt;&#x3D; n + 1; i++)&#x2F;&#x2F;小技巧：枚举到n + 1
-        for(int j &#x3D; 0;j &lt;&#x3D; m;j++)
-            for(int a &#x3D; 0;a &lt; state.size();a++)
-                for(int b : head[a])
+            if (i &gt;&gt; j &amp; 1)
+            &#123;
+                for (int k &#x3D; 0; k &lt; idx; k++)
                 &#123;
-                    int c &#x3D; cnt[state[a]];
-                    if(j &gt;&#x3D; c)
-                        f[i][j][a] +&#x3D; f[i - 1][j - c][b];
+                    if (j &#x3D;&#x3D; k) continue;
+                    if (i &gt;&gt; k &amp; 1)
+                    &#123;
+                        dp[i][j] |&#x3D; dp[i ^ (1 &lt;&lt; j)][k] &amp; g[j][k];
+                    &#125;
                 &#125;
-    cout &lt;&lt; f[n + 1][m][0] &lt;&lt; endl;&#x2F;&#x2F;存在第n + 1行，但第n + 1行一个都没有摆
+            &#125;
+        &#125;
+    &#125;
+
+    bool ok &#x3D; false;
+    for (int i &#x3D; 0; i &lt; idx; i++)
+        if (dp[(1 &lt;&lt; idx) - 1][i])
+        &#123;
+            ok &#x3D; true;
+            break;
+        &#125;
+
+    cout &lt;&lt; (ok ? &quot;YES\n&quot; : &quot;NO\n&quot;);
     return 0;
 &#125;</code></pre>
+
+<p><mark>最短Hamilton路径代码（做法跟上一个几乎一模一样）：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;vector&lt;int&gt;&gt; g(n, vector&lt;int&gt;(n));
+    for (int i &#x3D; 0; i &lt; n; i++)
+        for (int j &#x3D; 0; j &lt; n; j++)
+        &#123;
+            cin &gt;&gt; g[i][j];
+        &#125;
+
+    vector&lt;vector&lt;int&gt;&gt; dp(1 &lt;&lt; n, vector&lt;int&gt;(n, 1e9));
+    dp[1][0] &#x3D; 0;
+
+    for (int i &#x3D; 0; i &lt; 1 &lt;&lt; n; i++)
+    &#123;
+        for (int j &#x3D; 0; j &lt; n; j++)
+        &#123;
+            if (i &gt;&gt; j &amp; 1)
+            &#123;
+                for (int k &#x3D; 0; k &lt; n; k++)
+                &#123;
+                    if (j &#x3D;&#x3D; k) continue;
+                    if (i &gt;&gt; k &amp; 1)
+                    &#123;
+                        dp[i][j] &#x3D; min(dp[i][j], dp[i ^ (1 &lt;&lt; j)][k] + g[j][k]);
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+
+    cout &lt;&lt; dp[(1 &lt;&lt; n) - 1][n - 1];
+    return 0;
+&#125;</code></pre>
+
+
 
 <h2 id="决策单调性优化DP"><a href="#决策单调性优化DP" class="headerlink" title="决策单调性优化DP"></a>决策单调性优化DP</h2><blockquote>
 <p><strong>分治函数：</strong></p>

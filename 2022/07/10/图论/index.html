@@ -887,6 +887,60 @@ int main()
 
 <p><mark>推荐题单：</mark></p>
 <p><strong>典题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1881/problem/F">F. Minimum Maximum Distance</a></p>
+<h3 id="dfs-序"><a href="#dfs-序" class="headerlink" title="$dfs$ 序"></a>$dfs$ 序</h3><p><mark>推荐题单：</mark></p>
+<p><strong>$dfs$ 序 + 前缀和：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/77448/E">数星星</a></p>
+<ul>
+<li>吐槽：以为是启发式合并，虽然时间复杂度是$O(NlogN)$，但感觉 $2e6$ 还是能过的，但还是超时 $qwq$。最后竟然是这么 $O(N)$ 的做法，但消耗的时间竟然还是好大啊。</li>
+<li>思路：<ul>
+<li>通过处理 $dfs$，每个点都有一个区间 $[l, r]$。记录一个变量 $last[i]$，表示是 $i$ 颜色的上一个点的 $dfs$ 是多少，那么只需要判断区间 $[l,r]$ 内是否存在一个位置其 $last[i] \ge l$。又由于 $last[color[l]] &lt; l$，因此求 $[l,r]$ 区间可以变成求 $[1,r]$ 区间。</li>
+<li>我们再预处理出一个 $mx$ 数组，表示这个区间内的最大的 $last$，如果 $mx[r] &lt; l$ 就说明该点合法。</li>
+</ul>
+</li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;int&gt; color(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; color[i];
+
+    vector&lt;vector&lt;int&gt;&gt; g(n + 1);
+    for (int i &#x3D; 2; i &lt;&#x3D; n; i++)
+    &#123;
+        int p;
+        cin &gt;&gt; p;
+        g[p].push_back(i);
+    &#125;
+
+    int idx &#x3D; 0, res &#x3D; 0, mx &#x3D; 0;
+    vector&lt;int&gt; last(n + 1);
+    function&lt;void(int)&gt; dfs &#x3D; [&amp;](int u) -&gt; void
+    &#123;
+        int l &#x3D; ++idx;
+        mx &#x3D; max(last[color[u]], mx);
+        last[color[u]] &#x3D; l;
+        for (auto v : g[u])
+        &#123;
+            dfs(v);
+        &#125;
+        if (mx &lt; l) res++;
+    &#125;;  
+
+    dfs(1);
+
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+
+
 <h2 id="最短路"><a href="#最短路" class="headerlink" title="最短路"></a>最短路</h2><h3 id="Dijkstra"><a href="#Dijkstra" class="headerlink" title="Dijkstra"></a>Dijkstra</h3><h4 id="朴素版Dijkstra"><a href="#朴素版Dijkstra" class="headerlink" title="朴素版Dijkstra"></a>朴素版Dijkstra</h4><p>适用于<strong>稠密图</strong>(m ≈ n<sup>2</sup>)，用邻接矩阵存储。时间复杂度：O(n<sup>2</sup>)</p>
 <p><mark>代码模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;

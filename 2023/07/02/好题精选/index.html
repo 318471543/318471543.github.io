@@ -1131,56 +1131,6 @@ int main()
 
 
 
-<h3 id="二进制拆位算贡献"><a href="#二进制拆位算贡献" class="headerlink" title="二进制拆位算贡献"></a>二进制拆位算贡献</h3><p><strong>推荐博客：</strong><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/647165385">一类二进制拆位算贡献的题目</a></p>
-<p><strong>问题描述：</strong></p>
-<ul>
-<li><p><strong>计算：</strong> $\sum_{i&#x3D;1}^{n}\sum_{j&#x3D;i}^{n}f(i,j)×(j-i+1)$，其中 $f(i,j) &#x3D; s[i] \bigoplus s[j - 1]$：</p>
-</li>
-<li><p><strong>做法：</strong><mark>拆位</mark></p>
-</li>
-<li><p><strong>原式 &#x3D;</strong> $\sum_{i&#x3D;1}^{n}\sum_{j&#x3D;i}^{n}\sum_{k&#x3D;0}^{m}2^k×(bit_{ik}\neq bit_{(j-1)k})×(i-(j-1))$</p>
-</li>
-<li><p><strong>时间复杂度：</strong>$O(nlogn)$</p>
-</li>
-<li><p><strong>代码：</strong></p>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
-
-using namespace std;
-
-typedef long long ll;
-
-const int mod &#x3D; 998244353;
-
-int main()
-&#123;
-    cin.tie(nullptr)-&gt;sync_with_stdio(false);
-
-    int n;
-    cin &gt;&gt; n;
-
-    vector&lt;int&gt; s(n + 1);
-    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; s[i], s[i] ^&#x3D; s[i - 1];
-
-    ll res &#x3D; 0;
-    vector&lt;vector&lt;int&gt;&gt; len(30, vector&lt;int&gt;(2));
-    vector&lt;vector&lt;int&gt;&gt; cnt(30, vector&lt;int&gt;(2));
-    for (int i &#x3D; 0; i &lt;&#x3D; n; i++)
-        for (int j &#x3D; 0; j &lt; 30; j++)
-        &#123;
-            int bit &#x3D; s[i] &gt;&gt; j &amp; 1;
-            res &#x3D; (res + (((ll)i * cnt[j][!bit] % mod - len[j][!bit]) % mod + mod) % mod * ((1ll &lt;&lt; j) % mod) % mod) % mod;
-            len[j][bit] &#x3D; (len[j][bit] + i) % mod;
-            cnt[j][bit] ++;
-        &#125;
-
-    cout &lt;&lt; res &lt;&lt; &#39;\n&#39;;
-    return 0;
-&#125;</code></pre></li>
-</ul>
-<p><mark>推荐题单：</mark></p>
-<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1879/problem/D">https://codeforces.com/contest/1879/problem/D</a></p>
-<p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/22754/H">Problem H. xor</a></p>
-<p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57359/I">The Yakumo Family</a></p>
 <h3 id="几乎无限长字符串拼接-单调栈思想：C-Decreasing-String"><a href="#几乎无限长字符串拼接-单调栈思想：C-Decreasing-String" class="headerlink" title="几乎无限长字符串拼接 + 单调栈思想：C. Decreasing String"></a>几乎无限长字符串拼接 + 单调栈思想：<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1886/problem/C#">C. Decreasing String</a></h3><blockquote>
 <p><strong>思路：</strong></p>
 <ul>
@@ -2538,6 +2488,134 @@ int main()
 </ul>
 <p><mark>推荐题单：</mark></p>
 <p>动态规划求 $lcp$（复杂度：$O(N^2)$）：<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1948/problem/D">D. Tandem Repeats?</a></p>
+<h2 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h2><h3 id="二进制拆位算贡献"><a href="#二进制拆位算贡献" class="headerlink" title="二进制拆位算贡献"></a>二进制拆位算贡献</h3><p><strong>推荐博客：</strong><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/647165385">一类二进制拆位算贡献的题目</a></p>
+<p><strong>问题描述：</strong></p>
+<ul>
+<li><p><strong>计算：</strong> $\sum_{i&#x3D;1}^{n}\sum_{j&#x3D;i}^{n}f(i,j)×(j-i+1)$，其中 $f(i,j) &#x3D; s[i] \bigoplus s[j - 1]$：</p>
+</li>
+<li><p><strong>做法：</strong><mark>拆位</mark></p>
+</li>
+<li><p><strong>原式 &#x3D;</strong> $\sum_{i&#x3D;1}^{n}\sum_{j&#x3D;i}^{n}\sum_{k&#x3D;0}^{m}2^k×(bit_{ik}\neq bit_{(j-1)k})×(i-(j-1))$</p>
+</li>
+<li><p><strong>时间复杂度：</strong>$O(nlogn)$</p>
+</li>
+<li><p><strong>代码：</strong></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+const int mod &#x3D; 998244353;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;int&gt; s(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; s[i], s[i] ^&#x3D; s[i - 1];
+
+    ll res &#x3D; 0;
+    vector&lt;vector&lt;int&gt;&gt; len(30, vector&lt;int&gt;(2));
+    vector&lt;vector&lt;int&gt;&gt; cnt(30, vector&lt;int&gt;(2));
+    for (int i &#x3D; 0; i &lt;&#x3D; n; i++)
+        for (int j &#x3D; 0; j &lt; 30; j++)
+        &#123;
+            int bit &#x3D; s[i] &gt;&gt; j &amp; 1;
+            res &#x3D; (res + (((ll)i * cnt[j][!bit] % mod - len[j][!bit]) % mod + mod) % mod * ((1ll &lt;&lt; j) % mod) % mod) % mod;
+            len[j][bit] &#x3D; (len[j][bit] + i) % mod;
+            cnt[j][bit] ++;
+        &#125;
+
+    cout &lt;&lt; res &lt;&lt; &#39;\n&#39;;
+    return 0;
+&#125;</code></pre></li>
+</ul>
+<p><mark>推荐题单：</mark></p>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1879/problem/D">https://codeforces.com/contest/1879/problem/D</a></p>
+<p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/22754/H">Problem H. xor</a></p>
+<p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57359/I">The Yakumo Family</a></p>
+<h3 id="普通位运算"><a href="#普通位运算" class="headerlink" title="普通位运算"></a>普通位运算</h3><p><mark>推荐题单：</mark></p>
+<p><strong>$div2\ D$ 题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1946/problem/D">D. Birthday Gift</a></p>
+<hr>
+<p><mark>锐评 $D\ Birthday\ Gift$ ：</mark></p>
+<p><strong>吐槽：</strong>赛中 $1$ 小时的时候过了 $3$ 题，还算比较快的，没有什么硬核的思维题干扰，略上小分。然后争取到了时间去看了下 $D$，看到那复杂的公式，以为是什么很强大的数据结构之类的，但后面仔细想想可能是有什么性质。看了下题解后，果然是化简下式子，然后变成了别人口中的“典题”？？？怎么典了，我看完还是一点没思路啊！而且感觉真的<strong>思维量好大</strong>啊，赛场上遇到这种题该怎么办，怎么才能会这道题啊！！！</p>
+<p><strong>思路：</strong>贪心。</p>
+<ul>
+<li>枚举合法的 $ans$ 即：或的和。<ul>
+<li>对于 $x$ 的当前位为 $1$，将其设为 $0$ 后，后面的置为全 $1$，即可表示一个合法的 $ans \le x$，然后判断。</li>
+</ul>
+</li>
+<li>对于枚举的 $ans$ 进行判断：<ul>
+<li>扫一遍数组，如果异或的和与 $ans$ 的或仍然等于 $ans$，表示该段合法，即可以增加一段，依次处理即可。</li>
+</ul>
+</li>
+<li>总结：虽然说的挺简单的，但还是得多深入思考。</li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+void solve()
+&#123;
+    int n, x;
+    cin &gt;&gt; n &gt;&gt; x;
+
+    vector&lt;int&gt; a(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; a[i];
+
+    auto check &#x3D; [&amp;](int t) -&gt; int
+    &#123;
+        int sum &#x3D; 0, k &#x3D; 0;
+        bool flag &#x3D; false;
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        &#123;
+            sum ^&#x3D; a[i];
+            if ((sum | t) &#x3D;&#x3D; t)
+            &#123;
+                k++, sum &#x3D; 0;
+                if (i &#x3D;&#x3D; n) flag &#x3D; true;
+            &#125;
+        &#125;
+        if (flag)   return k;
+        else    return -1;
+    &#125;;
+
+    int res &#x3D; check(x);
+
+    for (int i &#x3D; 30; i &gt;&#x3D; 0; i--)
+    &#123;
+        if (x &amp; (1 &lt;&lt; i))
+        &#123;
+            int t &#x3D; x ^ (1 &lt;&lt; i);
+            t |&#x3D; (1 &lt;&lt; i) - 1;
+            res &#x3D; max(res, check(t));
+        &#125;
+    &#125;
+
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int t;
+    cin &gt;&gt; t;
+
+    while (t--)
+    &#123;
+        solve();
+    &#125;
+    
+    return 0;
+&#125;</code></pre>
+
+
+
 <h2 id="诈骗题单（含有一定坑点的题目）"><a href="#诈骗题单（含有一定坑点的题目）" class="headerlink" title="诈骗题单（含有一定坑点的题目）"></a>诈骗题单（含有一定坑点的题目）</h2><blockquote>
 <p>2023 年 12 月 3 日晚，打了一场 <a target="_blank" rel="noopener" href="https://codeforces.com/contest/1902">Educational Codeforces Round 159 (Rated for Div. 2)</a>，其实 B 和 C 都非常简单，但是简单中也透露出了一些<mark>坑点</mark>，当然也有部分是因为自己对知识的不理解，仅是对自己的一种意义上的“坑点”！因此创建了一个新的题单，即“诈骗题单”，帮助自己总结一些常见的坑点信息！</p>
 </blockquote>
