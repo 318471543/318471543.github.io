@@ -1302,6 +1302,146 @@ struct Trie
         return res;
     &#125;
 &#125;trie;</code></pre>
+<h3 id="AC自动机"><a href="#AC自动机" class="headerlink" title="AC自动机"></a>AC自动机</h3><p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e6 + 10;
+template&lt;typename T&gt;
+struct AC_automation &#123;
+    T cnt[N], len[N], ne[N];
+    int tr[N][26], idx;
+
+    AC_automation(): idx(0) &#123; &#125;
+    void clear() &#123; &#x2F;&#x2F; 清空数组
+        for (int i &#x3D; 0; i &lt;&#x3D; idx; i++) &#123;
+            cnt[i] &#x3D; len[i] &#x3D; ne[i] &#x3D; 0;
+            for (int j &#x3D; 0; j &lt; 26; j++) &#123;
+                tr[i][j] &#x3D; 0;
+            &#125;
+        &#125;
+        idx &#x3D; 0;
+    &#125;
+    void insert(string s) &#123;
+        int p &#x3D; 0;
+        for (int i &#x3D; 0; i &lt; s.size(); i++) &#123;
+            int c &#x3D; s[i] - &#39;a&#39;;
+            if (!tr[p][c])  tr[p][c] &#x3D; ++idx;
+            p &#x3D; tr[p][c];
+        &#125;
+        cnt[p]++, len[p] &#x3D; s.size();
+    &#125;
+    void build() &#123;
+        queue&lt;int&gt; q;
+        for (int i &#x3D; 0; i &lt; 26; i++)
+            if (tr[0][i])
+                q.push(tr[0][i]);
+
+        while (!q.empty()) &#123;
+            auto t &#x3D; q.front();
+            q.pop();
+
+            for (int i &#x3D; 0; i &lt; 26; i++) &#123;
+                int &amp;p &#x3D; tr[t][i];
+                if (!p) p &#x3D; tr[ne[t]][i];
+                else &#123;
+                    ne[p] &#x3D; tr[ne[t]][i];
+                    q.push(p);
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+    T query(string s) &#123;
+        T res &#x3D; 0;
+        for (int i &#x3D; 0, j &#x3D; 0; i &lt; s.size(); i++) &#123;
+            int c &#x3D; s[i] - &#39;a&#39;;
+            j &#x3D; tr[j][c];
+
+            int p &#x3D; j;
+            while (p &amp;&amp; ~cnt[p]) &#123;
+                res +&#x3D; cnt[p];
+                cnt[p] &#x3D; -1;
+                p &#x3D; ne[p];
+            &#125;
+        &#125;
+        return res;
+    &#125;
+&#125;;
+AC_automation&lt;int&gt; AC;</code></pre>
+<p> <strong>推荐题目：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3966">P3966 [TJOI2013] 单词</a></p>
+<ul>
+<li>记录每个前缀出现的次数；</li>
+<li>队列的逆序为拓扑排序；</li>
+<li>递推（dp）即可。</li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1e6 + 10;
+template&lt;typename T&gt;
+struct AC_automation &#123;
+    T ne[N], id[N], f[N], q[N];
+    int tr[N][26], idx;
+
+    AC_automation(): idx(0) &#123; &#125;
+    void insert(string s, int index) &#123;
+        int p &#x3D; 0;
+        for (int i &#x3D; 0; i &lt; s.size(); i++) &#123;
+            int c &#x3D; s[i] - &#39;a&#39;;
+            if (!tr[p][c])  tr[p][c] &#x3D; ++idx;
+            p &#x3D; tr[p][c];
+            f[p]++;
+        &#125;
+        id[index] &#x3D; p;
+    &#125;
+    void build() &#123;
+        int hh &#x3D; 0, tt &#x3D; -1;
+        for (int i &#x3D; 0; i &lt; 26; i++)
+            if (tr[0][i])
+                q[++tt] &#x3D; tr[0][i];
+
+        while (hh &lt;&#x3D; tt) &#123;
+            auto t &#x3D; q[hh++];
+
+            for (int i &#x3D; 0; i &lt; 26; i++) &#123;
+                int &amp;p &#x3D; tr[t][i];
+                if (!p) p &#x3D; tr[ne[t]][i];
+                else &#123;
+                    ne[p] &#x3D; tr[ne[t]][i];
+                    q[++tt] &#x3D; p;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+    void solve()
+    &#123;
+        int n;
+        cin &gt;&gt; n;
+
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        &#123;
+            string s;
+            cin &gt;&gt; s;
+            insert(s, i);
+        &#125;
+
+        build();
+
+        for (int i &#x3D; idx - 1; i &gt;&#x3D; 0; i--)
+            f[ne[q[i]]] +&#x3D; f[q[i]];
+        
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+            cout &lt;&lt; f[id[i]] &lt;&lt; &quot;\n&quot;;
+    &#125;
+&#125;;
+AC_automation&lt;int&gt; AC;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    AC.solve();
+
+    return 0;
+&#125;</code></pre>
 <h3 id="后缀自动机"><a href="#后缀自动机" class="headerlink" title="后缀自动机"></a>后缀自动机</h3><p><mark>封装模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e6 * 2 + 10; &#x2F;&#x2F; 空间开2倍
 struct SAM

@@ -3996,37 +3996,61 @@ int main()
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2570/">树链剖分</a></p>
 <p><strong>树链剖分 + 区间最大/最小子段和：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1843/problem/F2">F2. Omsk Metro (hard version)</a></p>
-<h2 id="AC自动机"><a href="#AC自动机" class="headerlink" title="AC自动机"></a>AC自动机</h2><p><mark>封装模板：</mark></p>
+<h2 id="AC自动机"><a href="#AC自动机" class="headerlink" title="AC自动机"></a>AC自动机</h2><blockquote>
+<p>很神奇的是，AC自动机均可被后缀自动机取代（不过后缀自动机的空间比较大，这个需要注意）！</p>
+<p><strong>模板使用介绍：</strong></p>
+<ul>
+<li>首先每次插入字符串；<ul>
+<li>可同时确定该结点对应的字符串编号、长度等等；</li>
+</ul>
+</li>
+<li>然后必须记得 $build()$（必做）；</li>
+<li>$query$ 函数只是个使用实例，不具任何通用性！</li>
+<li><strong>注意：</strong>如果添加或修改了新数组，$clear$ 函数要对针对性的清空！</li>
+</ul>
+</blockquote>
+<p><mark>封装模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e6 + 10;
-
 template&lt;typename T&gt;
 struct AC_automation &#123;
-    T cnt[N], len[N];
-    int tr[N][26], ne[N], q[N], idx;
+    T cnt[N], len[N], ne[N];
+    int tr[N][26], idx;
 
+    AC_automation(): idx(0) &#123; &#125;
+    void clear() &#123; &#x2F;&#x2F; 清空数组
+        for (int i &#x3D; 0; i &lt;&#x3D; idx; i++) &#123;
+            cnt[i] &#x3D; len[i] &#x3D; ne[i] &#x3D; 0;
+            for (int j &#x3D; 0; j &lt; 26; j++) &#123;
+                tr[i][j] &#x3D; 0;
+            &#125;
+        &#125;
+        idx &#x3D; 0;
+    &#125;
     void insert(string s) &#123;
         int p &#x3D; 0;
         for (int i &#x3D; 0; i &lt; s.size(); i++) &#123;
-            int t &#x3D; s[i] - &#39;a&#39;;
-            if (!tr[p][t])  tr[p][t] &#x3D; ++idx;
-            p &#x3D; tr[p][t];
+            int c &#x3D; s[i] - &#39;a&#39;;
+            if (!tr[p][c])  tr[p][c] &#x3D; ++idx;
+            p &#x3D; tr[p][c];
         &#125;
         cnt[p]++, len[p] &#x3D; s.size();
     &#125;
-	void build() &#123;
-        int hh &#x3D; 0, tt &#x3D; -1;
+    void build() &#123;
+        queue&lt;int&gt; q;
         for (int i &#x3D; 0; i &lt; 26; i++)
             if (tr[0][i])
-                q[++tt] &#x3D; tr[0][i];
-        
-        while (hh &lt;&#x3D; tt) &#123;
-            auto t &#x3D; q[hh++];
+                q.push(tr[0][i]);
+
+        while (!q.empty()) &#123;
+            auto t &#x3D; q.front();
+            q.pop();
+
             for (int i &#x3D; 0; i &lt; 26; i++) &#123;
                 int &amp;p &#x3D; tr[t][i];
                 if (!p) p &#x3D; tr[ne[t]][i];
                 else &#123;
                     ne[p] &#x3D; tr[ne[t]][i];
-                    q[++tt] &#x3D; p;
+                    q.push(p);
                 &#125;
             &#125;
         &#125;
@@ -4034,8 +4058,8 @@ struct AC_automation &#123;
     T query(string s) &#123;
         T res &#x3D; 0;
         for (int i &#x3D; 0, j &#x3D; 0; i &lt; s.size(); i++) &#123;
-            int t &#x3D; s[i] - &#39;a&#39;;
-            j &#x3D; tr[j][t];
+            int c &#x3D; s[i] - &#39;a&#39;;
+            j &#x3D; tr[j][c];
 
             int p &#x3D; j;
             while (p &amp;&amp; ~cnt[p]) &#123;
@@ -4047,29 +4071,134 @@ struct AC_automation &#123;
         return res;
     &#125;
 &#125;;
-AC_automation&lt;ll&gt; AC;</code></pre>
-<p><mark>模板题代码：</mark></p>
+AC_automation&lt;int&gt; AC;</code></pre>
+<p><mark>模板题（搜索关键词）代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
-typedef long long ll;
-
 const int N &#x3D; 1e6 + 10;
-
 template&lt;typename T&gt;
 struct AC_automation &#123;
-    T cnt[N], len[N];
-    int tr[N][26], ne[N], q[N], idx;
+    T cnt[N], len[N], ne[N];
+    int tr[N][26], idx;
 
+    AC_automation(): idx(0) &#123; &#125;
+    void clear() &#123; &#x2F;&#x2F; 清空数组
+        for (int i &#x3D; 0; i &lt;&#x3D; idx; i++) &#123;
+            cnt[i] &#x3D; len[i] &#x3D; ne[i] &#x3D; 0;
+            for (int j &#x3D; 0; j &lt; 26; j++) &#123;
+                tr[i][j] &#x3D; 0;
+            &#125;
+        &#125;
+        idx &#x3D; 0;
+    &#125;
     void insert(string s) &#123;
         int p &#x3D; 0;
         for (int i &#x3D; 0; i &lt; s.size(); i++) &#123;
-            int t &#x3D; s[i] - &#39;a&#39;;
-            if (!tr[p][t])  tr[p][t] &#x3D; ++idx;
-            p &#x3D; tr[p][t];
+            int c &#x3D; s[i] - &#39;a&#39;;
+            if (!tr[p][c])  tr[p][c] &#x3D; ++idx;
+            p &#x3D; tr[p][c];
         &#125;
         cnt[p]++, len[p] &#x3D; s.size();
+    &#125;
+    void build() &#123;
+        queue&lt;int&gt; q;
+        for (int i &#x3D; 0; i &lt; 26; i++)
+            if (tr[0][i])
+                q.push(tr[0][i]);
+
+        while (!q.empty()) &#123;
+            auto t &#x3D; q.front();
+            q.pop();
+
+            for (int i &#x3D; 0; i &lt; 26; i++) &#123;
+                int &amp;p &#x3D; tr[t][i];
+                if (!p) p &#x3D; tr[ne[t]][i];
+                else &#123;
+                    ne[p] &#x3D; tr[ne[t]][i];
+                    q.push(p);
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+    T query(string s) &#123;
+        T res &#x3D; 0;
+        for (int i &#x3D; 0, j &#x3D; 0; i &lt; s.size(); i++) &#123;
+            int c &#x3D; s[i] - &#39;a&#39;;
+            j &#x3D; tr[j][c];
+
+            int p &#x3D; j;
+            while (p &amp;&amp; ~cnt[p]) &#123;
+                res +&#x3D; cnt[p];
+                cnt[p] &#x3D; -1;
+                p &#x3D; ne[p];
+            &#125;
+        &#125;
+        return res;
+    &#125;
+
+    void solve() 
+    &#123;
+        int n;
+        cin &gt;&gt; n;
+
+        string s;
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        &#123;
+            cin &gt;&gt; s;
+            insert(s);
+        &#125;
+
+        build();
+        cin &gt;&gt; s;
+
+        cout &lt;&lt; query(s) &lt;&lt; &quot;\n&quot;;
+        clear();
+    &#125;
+&#125;;
+AC_automation&lt;int&gt; AC;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int t &#x3D; 1;
+    cin &gt;&gt; t;
+
+    while (t--)
+    &#123;
+        AC.solve();
+    &#125;
+    
+    return 0;
+&#125;</code></pre>
+<p><mark>模板题（单词）代码（AC自动机写法）：</mark></p>
+<ul>
+<li>记录每个前缀出现的次数；</li>
+<li>队列的逆序为拓扑排序；</li>
+<li>递推（dp）即可。</li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1e6 + 10;
+template&lt;typename T&gt;
+struct AC_automation &#123;
+    T ne[N], id[N], f[N], q[N];
+    int tr[N][26], idx;
+
+    AC_automation(): idx(0) &#123; &#125;
+    void insert(string s, int index) &#123;
+        int p &#x3D; 0;
+        for (int i &#x3D; 0; i &lt; s.size(); i++) &#123;
+            int c &#x3D; s[i] - &#39;a&#39;;
+            if (!tr[p][c])  tr[p][c] &#x3D; ++idx;
+            p &#x3D; tr[p][c];
+            f[p]++;
+        &#125;
+        id[index] &#x3D; p;
     &#125;
     void build() &#123;
         int hh &#x3D; 0, tt &#x3D; -1;
@@ -4079,6 +4208,7 @@ struct AC_automation &#123;
 
         while (hh &lt;&#x3D; tt) &#123;
             auto t &#x3D; q[hh++];
+
             for (int i &#x3D; 0; i &lt; 26; i++) &#123;
                 int &amp;p &#x3D; tr[t][i];
                 if (!p) p &#x3D; tr[ne[t]][i];
@@ -4089,46 +4219,138 @@ struct AC_automation &#123;
             &#125;
         &#125;
     &#125;
-    T query(string s) &#123;
-        T res &#x3D; 0;
-        for (int i &#x3D; 0, j &#x3D; 0; i &lt; s.size(); i++) &#123;
-            int t &#x3D; s[i] - &#39;a&#39;;
-            j &#x3D; tr[j][t];
+    void solve()
+    &#123;
+        int n;
+        cin &gt;&gt; n;
 
-            int p &#x3D; j;
-            while (p &amp;&amp; ~cnt[p]) &#123;
-                res +&#x3D; cnt[p];
-                cnt[p] &#x3D; -1;
-                p &#x3D; ne[p];
-            &#125;
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        &#123;
+            string s;
+            cin &gt;&gt; s;
+            insert(s, i);
         &#125;
-        return res;
+
+        build();
+
+        for (int i &#x3D; idx - 1; i &gt;&#x3D; 0; i--)
+            f[ne[q[i]]] +&#x3D; f[q[i]];
+        
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+            cout &lt;&lt; f[id[i]] &lt;&lt; &quot;\n&quot;;
     &#125;
 &#125;;
-AC_automation&lt;ll&gt; AC;
+AC_automation&lt;int&gt; AC;
 
 int main()
 &#123;
     cin.tie(nullptr)-&gt;sync_with_stdio(false);
 
-    int n;
-    cin &gt;&gt; n;
+    AC.solve();
 
-    vector&lt;string&gt; str(n + 1);
-    
-    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; str[i], AC.insert(str[i]);
-    string s;
-    cin &gt;&gt; s;
+    return 0;
+&#125;</code></pre>
+<p><mark>模板题（单词）代码（后缀自动机写法）：</mark></p>
+<ul>
+<li>类似后缀自动机的第一个模板题；</li>
+<li>每个字符串之间用未出现过的字符间隔；</li>
+<li>一个字符串对应的结点编号可以遍历一遍获取（新的来自于后缀自动机知识点）！</li>
+<li>最后需要注意的是：空间再额外开 200！因为我们给字符串有间隔，是需要消耗空间的！</li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
-    AC.build();
-    
-    cout &lt;&lt; AC.query(s);
+using namespace std;
+
+const int N &#x3D; (1e6 + 200) * 2 + 10; &#x2F;&#x2F; 空间开2倍
+
+struct SAM
+&#123;
+    int tot, last, f[N];
+    struct Node
+    &#123;
+        int len, fa;
+        int ch[27];
+        void init() &#123;&#x2F;&#x2F;结点初始化
+            len &#x3D; fa &#x3D; 0;
+            memset(ch, 0, sizeof(ch));
+        &#125;
+    &#125;node[N];
+    SAM() &#123;tot &#x3D; 1,last &#x3D; 1;&#125;
+    void init() &#123;&#x2F;&#x2F;清空区间[1,tot]
+        for(int i &#x3D; 1;i &lt;&#x3D; tot;i++) node[i].init();
+        tot &#x3D; last &#x3D; 1;
+    &#125;
+    void extend(int c) &#123;&#x2F;&#x2F;添加一个字符(c - &#39;a&#39;)
+        int p &#x3D; last,np &#x3D; last &#x3D; ++tot;
+        f[tot] &#x3D; 1;
+        node[np].len &#x3D; node[p].len + 1;
+        for(;p &amp;&amp; !node[p].ch[c];p &#x3D; node[p].fa)    node[p].ch[c] &#x3D; np;
+        if(!p)  node[np].fa &#x3D; 1;
+        else
+        &#123;
+            int q &#x3D; node[p].ch[c];
+            if(node[q].len &#x3D;&#x3D; node[p].len + 1)   node[np].fa &#x3D; q;
+            else
+            &#123;
+                int nq &#x3D; ++ tot;
+                node[nq] &#x3D; node[q],node[nq].len &#x3D; node[p].len + 1;
+                node[q].fa &#x3D; node[np].fa &#x3D; nq;
+                for(;p &amp;&amp; node[p].ch[c] &#x3D;&#x3D; q;p &#x3D; node[p].fa)    node[p].ch[c] &#x3D; nq;
+            &#125;
+        &#125;
+    &#125;
+
+    void solve()
+    &#123;
+        int n;
+        cin &gt;&gt; n;
+
+        vector&lt;string&gt; str(n + 1);
+        int sum &#x3D; 0;
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        &#123;
+            cin &gt;&gt; str[i];
+            sum +&#x3D; str[i].size();
+            for (auto c : str[i])    extend(c - &#39;a&#39;);
+            extend(26);
+        &#125;
+
+        vector&lt;vector&lt;int&gt;&gt; g(tot + 1);
+        for (int i &#x3D; 2; i &lt;&#x3D; tot; i++)
+            g[node[i].fa].push_back(i);
+        function&lt;void(int)&gt; dfs &#x3D; [&amp;](int u) -&gt; void
+        &#123;
+            for (auto v : g[u])
+            &#123;
+                dfs(v);
+                f[u] +&#x3D; f[v];
+            &#125;
+        &#125;;
+
+        dfs(1);
+        
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        &#123;
+            int p &#x3D; 1;
+            for (auto c : str[i])
+                p &#x3D; node[p].ch[c - &#39;a&#39;];
+            cout &lt;&lt; f[p] &lt;&lt; &quot;\n&quot;;
+        &#125;
+    &#125;
+&#125;sam;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    sam.solve();
     return 0;
 &#125;</code></pre>
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong> <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/1284/">搜索关键词</a>    <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/1287/">单词</a></p>
 <p><strong>模板题加强版(严格O(n))：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3808">【模板】AC 自动机（简单版）</a></p>
-<p><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104725/problem/H">H. 字符串游戏</a></p>
+<p><strong>$2023\ CCPC$ 女生赛：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104725/problem/H">H. 字符串游戏</a></p>
+<p><strong>$2023$ 湖南省省赛：</strong><a target="_blank" rel="noopener" href="https://cpc.csgrandeur.cn/csgoj/problemset/problem?pid=1199">1199 : Substrings Same as Prefix</a></p>
 <h2 id="后缀数组"><a href="#后缀数组" class="headerlink" title="后缀数组"></a>后缀数组</h2><blockquote>
 <p><strong>算法步骤：</strong></p>
 <ol>
@@ -4811,6 +5033,7 @@ int main()
 <p><strong>最长公共子串：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2813/">最长公共子串</a></p>
 <p><strong>线段树 + 后缀自动机：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/33188/H">Hacker</a></p>
 <p><strong>求解循环同构字符串的最小表示法：</strong><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=7279">Cyclically Isomorphic</a></p>
+<p><strong>$2023$ 湖南省省赛：</strong><a target="_blank" rel="noopener" href="https://cpc.csgrandeur.cn/csgoj/problemset/problem?pid=1199">1199 : Substrings Same as Prefix</a></p>
 <h2 id="点分治"><a href="#点分治" class="headerlink" title="点分治"></a>点分治</h2><blockquote>
 <p><strong>时间复杂度：</strong>$O(nlogn)$</p>
 </blockquote>
