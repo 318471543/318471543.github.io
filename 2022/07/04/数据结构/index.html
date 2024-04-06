@@ -4010,16 +4010,19 @@ int main()
 </ul>
 </blockquote>
 <p><mark>封装模板：</mark></p>
+<ul>
+<li><strong>注意：</strong>这里队列用数组实现，因为队列实现完成后具有拓扑的意义，便于解决很多问题！</li>
+</ul>
 <pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e6 + 10;
 template&lt;typename T&gt;
 struct AC_automation &#123;
-    T cnt[N], len[N], ne[N];
+    T cnt[N], len[N], ne[N], q[N];
     int tr[N][26], idx;
 
     AC_automation(): idx(0) &#123; &#125;
     void clear() &#123; &#x2F;&#x2F; 清空数组
         for (int i &#x3D; 0; i &lt;&#x3D; idx; i++) &#123;
-            cnt[i] &#x3D; len[i] &#x3D; ne[i] &#x3D; 0;
+            cnt[i] &#x3D; len[i] &#x3D; ne[i] &#x3D; q[i] &#x3D; 0;
             for (int j &#x3D; 0; j &lt; 26; j++) &#123;
                 tr[i][j] &#x3D; 0;
             &#125;
@@ -4036,21 +4039,20 @@ struct AC_automation &#123;
         cnt[p]++, len[p] &#x3D; s.size();
     &#125;
     void build() &#123;
-        queue&lt;int&gt; q;
+        int hh &#x3D; 0, tt &#x3D; -1;
         for (int i &#x3D; 0; i &lt; 26; i++)
             if (tr[0][i])
-                q.push(tr[0][i]);
+                q[++tt] &#x3D; tr[0][i];
 
-        while (!q.empty()) &#123;
-            auto t &#x3D; q.front();
-            q.pop();
+        while (hh &lt;&#x3D; tt) &#123;
+            auto t &#x3D; q[hh++];
 
             for (int i &#x3D; 0; i &lt; 26; i++) &#123;
                 int &amp;p &#x3D; tr[t][i];
                 if (!p) p &#x3D; tr[ne[t]][i];
                 else &#123;
                     ne[p] &#x3D; tr[ne[t]][i];
-                    q.push(p);
+                    q[++tt] &#x3D; p;
                 &#125;
             &#125;
         &#125;
@@ -4176,7 +4178,7 @@ int main()
 <p><mark>模板题（单词）代码（AC自动机写法）：</mark></p>
 <ul>
 <li>记录每个前缀出现的次数；</li>
-<li>队列的逆序为拓扑排序；</li>
+<li>队列的顺序为拓扑排序（可用于倒序递推）；</li>
 <li>递推（dp）即可。</li>
 </ul>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
