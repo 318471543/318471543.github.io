@@ -9,10 +9,10 @@
 本篇章承载的内容如下：
 
 非模板题不收；
-主要收代码量比较大 &amp;#x2F; 容易遗忘的模板好题（不一定是模板题，但做一遍可能就会让你理解这个算法的用处）；
+主要收代码量比较大 / 容易遗忘的模板好题（不一定是模板题，但做一遍可能就会让你理解这个算法的用处）；
 主要收含封装模板的题；
 
-最后感觉，做这个很类似于在整理每个模板，不过去掉了很多相">
+最后感觉，做这个很类似于在整理每个模板，不过去掉了很多相关模板的解">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -492,14 +492,14 @@
 <p>本篇章承载的内容如下：</p>
 <ul>
 <li>非模板题不收；</li>
-<li>主要收代码量比较大 &#x2F; 容易遗忘的模板好题（不一定是模板题，但做一遍可能就会让你理解这个算法的用处）；</li>
+<li>主要收代码量比较大 / 容易遗忘的模板好题（不一定是模板题，但做一遍可能就会让你理解这个算法的用处）；</li>
 <li>主要收含封装模板的题；</li>
 </ul>
 <p>最后感觉，做这个很类似于在整理每个模板，不过去掉了很多相关模板的解释，然后每道题只精确了一个例题，也算是帮助会议，便于打印板子。</p>
 </blockquote>
 <h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><h3 id="数位DP"><a href="#数位DP" class="headerlink" title="数位DP"></a>数位DP</h3><blockquote>
 <p>数位 DP 问题一般给定一个区间 $[L,R]$，问区间满足的条件的数有多少个？</p>
-<p>可以利用前缀和来求解答案：$∑_{i&#x3D;1}^Rans_i−∑_{i&#x3D;1}^{L−1}ans_i$。</p>
+<p>可以利用前缀和来求解答案：$∑<em>{i=1}^Rans_i−∑</em>{i=1}^{L−1}ans_i$。</p>
 <p><strong>简要描述该模板：</strong></p>
 <p><mark>$dp$ 函数：</mark></p>
 <ul>
@@ -507,21 +507,25 @@
 </ul>
 <p><mark>$dfs$ 函数：</mark></p>
 <ul>
-<li>参数：</li>
+<li>参数：<ul>
 <li>$pos$（必填）：表示当前处理的数的位置（从高位到低位递归）；</li>
 <li>未知参数（如 $pre$（上一个数是多少）, $sum$（当前数字之和）等等）：按情况选择；</li>
-<li>$lead$（选填）：前导零是否存在，lead &#x3D; 1表示存在前导零，否则不存在；</li>
-<li>$limit$（必填）：可以填数的限制（无限制的话（即 $limit &#x3D; 0$） $0$ ~ $9$ 随便填，否则只能填到 $a_{pos}$）。</li>
-<li>内部逻辑：</li>
+<li>$lead$（选填）：前导零是否存在，lead = 1表示存在前导零，否则不存在；</li>
+<li>$limit$（必填）：可以填数的限制（无限制的话（即 $limit = 0$） $0$ ~ $9$ 随便填，否则只能填到 $a_{pos}$）。</li>
+</ul>
+</li>
+<li>内部逻辑：<ul>
 <li>递归结束条件（即 $!pos$）：一般能递归到这里表示合法，通常返回 $1$，或者自定义的答案；</li>
 <li>如果无限制且不含前导零且已经处理出答案：返回记忆化的结果；</li>
 <li>定义当前能枚举的数的最高位：<ul>
 <li>跳过不合法的情况；</li>
-<li>$lead$ 的下个位置（固定写法）：$lead\ &amp;&amp;\ !i$ ；</li>
-<li>$limit$ 的下个位置（固定写法）：$limit\ &amp;&amp;\ i &#x3D;&#x3D; up$；</li>
+<li>$lead$ 的下个位置（固定写法）：$lead\ \&amp;\&amp;\ !i$ ；</li>
+<li>$limit$ 的下个位置（固定写法）：$limit\ \&amp;\&amp;\ i == up$；</li>
 </ul>
 </li>
-<li>返回结果（固定写法）：$return\ limit\ ||\ lead\ ?\ res : dp[pos][sum] &#x3D; res;$</li>
+<li>返回结果（固定写法）：$return\ limit\ ||\ lead\ ?\ res : dp[pos][sum] = res;$</li>
+</ul>
+</li>
 </ul>
 </blockquote>
 <p><mark>模板（伪代码）：</mark></p>
@@ -547,7 +551,6 @@ int main() &#123;
     cin &gt;&gt; l &gt;&gt; r;
     cout &lt;&lt; dp(r) - dp(l - 1) &lt;&lt; endl;
 &#125;</code></pre>
-
 <p><strong>学习参考：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/blog/content/7944/">数位DP(DFS做法)</a></p>
 <p><strong>推荐题目：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/340/">计数问题</a></p>
 <p><mark>代码：</mark></p>
@@ -607,9 +610,6 @@ int main()
     
     return 0;
 &#125;</code></pre>
-
-
-
 <h2 id="数论"><a href="#数论" class="headerlink" title="数论"></a>数论</h2><h3 id="质因数分解"><a href="#质因数分解" class="headerlink" title="质因数分解"></a>质因数分解</h3><h4 id="获取每个数的最大质因数"><a href="#获取每个数的最大质因数" class="headerlink" title="获取每个数的最大质因数"></a>获取每个数的最大质因数</h4><blockquote>
 <p><strong>时间复杂度：</strong>$O(nlogn)$</p>
 <p><strong>方法：</strong>埃氏筛</p>
@@ -644,7 +644,6 @@ void sieve(int n) &#123;
         &#125;
     &#125;
 &#125;</code></pre>
-
 <p><mark>简单代码（容易理解版）：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 2e6 + 10;
 int f[N];&#x2F;&#x2F; f:每个数的最大质因数是多少
@@ -659,7 +658,6 @@ void init()
 		&#125;
 	&#125;
 &#125;</code></pre>
-
 <p><strong>推荐题目（$tag$：埃氏筛求最大质因数 + RMQ）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104493/problem/B">B. Convarge To 1</a></p>
 <p><mark>代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -763,7 +761,6 @@ int main()
 	
 	return 0;
 &#125;</code></pre>
-
 <h4 id="高效质因数分解"><a href="#高效质因数分解" class="headerlink" title="高效质因数分解"></a>高效质因数分解</h4><p>这里有个结论：<mark>前 $N$ 个数的质数个数近似为：$\frac{N}{lnN}$</mark></p>
 <p>于是乎，前 $\sqrt{1e9}$ 里面有 $3401$ 个质数，前 $1e5$ 里面有 $9592$ 个质数。 </p>
 <blockquote>
@@ -801,7 +798,6 @@ for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
     &#125;
     if (x &gt; 1)	mp[x]++;
 &#125;</code></pre>
-
 <p><strong>推荐题目：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1771/problem/C">C. Hossam and Trainees</a></p>
 <p><mark>代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -869,9 +865,6 @@ int main()
 	
 	return 0;
 &#125;</code></pre>
-
-
-
 <h3 id="约数"><a href="#约数" class="headerlink" title="约数"></a>约数</h3><h4 id="求约数——试除法"><a href="#求约数——试除法" class="headerlink" title="求约数——试除法"></a>求约数——试除法</h4><blockquote>
 <p><strong>时间复杂度：</strong> $O(N\sqrt{N})$</p>
 </blockquote>
@@ -889,7 +882,6 @@ int main()
     &#125;
     return res;
 &#125;</code></pre>
-
 <h4 id="求约数——埃氏筛"><a href="#求约数——埃氏筛" class="headerlink" title="求约数——埃氏筛"></a>求约数——埃氏筛</h4><blockquote>
 <p><strong>时间复杂度：</strong>$O(NlogN)$</p>
 </blockquote>
@@ -902,7 +894,6 @@ void get_divivors(int n)
     	for (int j &#x3D; i; j &lt;&#x3D; n; j +&#x3D; i) 
             factor[j].emplace_back(i);
 &#125;</code></pre>
-
 <h4 id="最大公约数"><a href="#最大公约数" class="headerlink" title="最大公约数"></a>最大公约数</h4><blockquote>
 <p><strong>时间复杂度：</strong>$O(logN)$</p>
 </blockquote>
@@ -911,15 +902,12 @@ void get_divivors(int n)
 &#123;
     return b ? gcd(b,a % b) : a;
 &#125;</code></pre>
-
-
-
 <h3 id="扩展欧几里得"><a href="#扩展欧几里得" class="headerlink" title="扩展欧几里得"></a>扩展欧几里得</h3><blockquote>
-<p>当方程符合 $ax + by &#x3D; gcd(a,b)$ 时，可以用扩展欧几里得算法求 $(x_0,y_0)$。</p>
+<p>当方程符合 $ax + by = gcd(a,b)$ 时，可以用扩展欧几里得算法求 $(x_0,y_0)$。</p>
 <p>通解（不妨令 $d$ 为 $gcd(a,b)$，其中 $c$ 为任意整数）：</p>
 <ul>
-<li>$x &#x3D; x_0 + \frac{b}{d}c$</li>
-<li>$y &#x3D; y_0 - \frac{a}{d}c$</li>
+<li>$x = x_0 + \frac{b}{d}c$</li>
+<li>$y = y_0 - \frac{a}{d}c$</li>
 </ul>
 <p><strong>注意：</strong> <mark>参数必须保证都是正数！</mark></p>
 </blockquote>
@@ -935,7 +923,6 @@ void get_divivors(int n)
     y -&#x3D; a &#x2F; b * x;
     return d;
 &#125;</code></pre>
-
 <p><strong>推荐题目（tag：$2023$ 湖北省省赛，高效质因数分解 + $exgcd$）：</strong> <a target="_blank" rel="noopener" href="https://codeforces.com/gym/104337/problem/I">I. Step</a></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -1039,9 +1026,111 @@ int main()
 
     return 0;
 &#125;</code></pre>
+<h3 id="矩阵快速幂"><a href="#矩阵快速幂" class="headerlink" title="矩阵快速幂"></a>矩阵快速幂</h3><blockquote>
+<p>假设当前层的未知数有 $n$ 个：$F_1,F_2,\cdots,F_n$，需要利用上一层状态来快速求解答案，因此我们要解公式：</p>
+<p>$[F<em>{i_1},F</em>{i<em>2},\cdots,F</em>{i<em>n}] = [F</em>{i-1<em>1},F</em>{i-1<em>2},\cdots,F</em>{i-1_n}]\times A$</p>
+<p>只需解出转移矩阵 $A$ 即可。显然，有 $n$ 个未知数，$A$ 矩阵就是 $N \times N$ 大小的。</p>
+<p><strong>模板使用指南：</strong></p>
+<ul>
+<li>矩阵中仅存有二维数组，目的是方便直接手动录入转移矩阵；</li>
+<li>不过里面的二维数组每次记得要先初始化再使用！</li>
+</ul>
+</blockquote>
+<p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">const int mod &#x3D; 1e9 + 7;
+const int N &#x3D; 3;
+struct Matrix
+&#123;
+    int g[N][N];
+&#125;;
 
+Matrix operator* (const Matrix&amp; a, const Matrix&amp; b) &#x2F;&#x2F; 重载 * 运算法，支持矩阵乘法
+&#123;
+    Matrix res;
+    memset(res.g, 0, sizeof(res.g));
+    for (int i &#x3D; 0; i &lt; N; i++)
+        for (int j &#x3D; 0; j &lt; N; j++)
+            for (int k &#x3D; 0; k &lt; N; k++)
+                res.g[i][j] &#x3D; (res.g[i][j] + (ll)a.g[i][k] * b.g[k][j] % mod) % mod;
+    return res; 
+&#125;
 
+Matrix fpow(Matrix a, int b) &#x2F;&#x2F; 矩阵快速幂
+&#123;
+    Matrix res;
+    memset(res.g, 0, sizeof(res.g));
+    for (int i &#x3D; 0; i &lt; N; i++) res.g[i][i] &#x3D; 1;
+    while (b)
+    &#123;
+        if (b &amp; 1)  res &#x3D; res * a;
+        a &#x3D; a * a;
+        b &gt;&gt;&#x3D; 1;
+    &#125;
+    return res;
+&#125;</code></pre>
+<p><strong>推荐题目（tag：$2022$ 蓝桥杯省赛真题）：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/4409/">积木画</a></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
+using namespace std;
+
+typedef long long ll;
+
+const int mod &#x3D; 1e9 + 7;
+const int N &#x3D; 3;
+struct Matrix
+&#123;
+    int g[N][N];
+&#125;;
+
+Matrix operator* (const Matrix&amp; a, const Matrix&amp; b) &#x2F;&#x2F; 重载 * 运算法，支持矩阵乘法
+&#123;
+    Matrix res;
+    memset(res.g, 0, sizeof(res.g));
+    for (int i &#x3D; 0; i &lt; N; i++)
+        for (int j &#x3D; 0; j &lt; N; j++)
+            for (int k &#x3D; 0; k &lt; N; k++)
+                res.g[i][j] &#x3D; (res.g[i][j] + (ll)a.g[i][k] * b.g[k][j] % mod) % mod;
+    return res; 
+&#125;
+
+Matrix fpow(Matrix a, int b)
+&#123;
+    Matrix res;
+    memset(res.g, 0, sizeof(res.g));
+    for (int i &#x3D; 0; i &lt; N; i++) res.g[i][i] &#x3D; 1;
+    while (b)
+    &#123;
+        if (b &amp; 1)  res &#x3D; res * a;
+        a &#x3D; a * a;
+        b &gt;&gt;&#x3D; 1;
+    &#125;
+    return res;
+&#125;
+
+Matrix A &#x3D; 
+&#123;
+    &#123;
+        &#123;1, 2, 1&#125;,
+        &#123;0, 1, 1&#125;,
+        &#123;1, 0, 0&#125;
+    &#125;
+&#125;;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n;
+    cin &gt;&gt; n;
+
+    &#x2F;**
+     * res[3][3] &#x3D; init[3] * A[3][3] ^ n
+    *&#x2F;
+    auto res &#x3D; fpow(A, n);
+
+    cout &lt;&lt; res.g[0][0];
+    return 0;
+&#125;</code></pre>
 <h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h3><h4 id="双链表"><a href="#双链表" class="headerlink" title="双链表"></a>双链表</h4><p><mark>封装模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">struct Node
 &#123;
@@ -1086,7 +1175,6 @@ struct DoubleLinkList
             cout &lt;&lt; e[i] &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; tail];
     &#125;
 &#125;lis;</code></pre>
-
 <p><strong>推荐题目：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/77922/G">排队</a></p>
 <p>当有成型的双链表的板子后，这道题就会变得很容易。</p>
 <p><mark>代码：</mark></p>
@@ -1250,9 +1338,6 @@ int main()
 
     return 0;
 &#125;</code></pre>
-
-
-
 <h3 id="Trie"><a href="#Trie" class="headerlink" title="Trie"></a>Trie</h3><p><mark>封装模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e5 + 10, bit &#x3D; 31, M &#x3D; bit * N;
 struct Trie
@@ -1287,7 +1372,6 @@ struct Trie
         return res;
     &#125;
 &#125;trie;</code></pre>
-
 <p><strong>推荐题目（tag：区间异或和最大值 + 一定量思维）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1847/problem/C">C. Vampiric Powers, anyone?</a></p>
 <p><mark>代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e5 + 10, bit &#x3D; 31, M &#x3D; bit * N;
@@ -1323,7 +1407,6 @@ struct Trie
         return res;
     &#125;
 &#125;trie;</code></pre>
-
 <h3 id="AC自动机"><a href="#AC自动机" class="headerlink" title="AC自动机"></a>AC自动机</h3><p><mark>封装模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e6 + 10;
 template&lt;typename T&gt;
@@ -1387,7 +1470,6 @@ struct AC_automation &#123;
     &#125;
 &#125;;
 AC_automation&lt;int&gt; AC;</code></pre>
-
 <p> <strong>推荐题目：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3966">P3966 [TJOI2013] 单词</a></p>
 <ul>
 <li>记录每个前缀出现的次数；</li>
@@ -1465,9 +1547,6 @@ int main()
 
     return 0;
 &#125;</code></pre>
-
-
-
 <h3 id="后缀自动机"><a href="#后缀自动机" class="headerlink" title="后缀自动机"></a>后缀自动机</h3><p><mark>封装模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e6 * 2 + 10; &#x2F;&#x2F; 空间开2倍
 struct SAM
@@ -1506,7 +1585,6 @@ struct SAM
         &#125;
     &#125;
 &#125;sam;</code></pre>
-
 <p> <strong>推荐题目：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2813/">最长公共子串</a></p>
 <p><mark>代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -1594,7 +1672,6 @@ int main()
     cout &lt;&lt; *max_element(res.begin() + 1, res.begin() + sam.tot + 1) &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
-
 
                 
             </div>
