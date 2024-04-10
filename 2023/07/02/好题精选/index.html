@@ -2893,12 +2893,19 @@ int main()
 <li>为什么 $C$ 题会想复杂，虽然题目顺序有难度递增的规则，但对于一般的比赛，还是得先正常的思考，反正就是得能看到这个分解质因数可能是行不通的。</li>
 </ul>
 </li>
-<li>$div2/ D$ 第一次手速过前三题吧（用时 $40$ 分钟），但第四题卡了好长时间。<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1948/problem/D">D. Tandem Repeats?</a><ul>
+<li>$div2\ D$ 第一次手速过前三题吧（用时 $40$ 分钟），但第四题卡了好长时间。<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1948/problem/D">D. Tandem Repeats?</a><ul>
 <li>感觉就是 $dp$，但就是不知道从哪开始 $d$，不知道该怎么定义状态，不知道该怎么递进的思考该问题。</li>
 <li>确实是 $dp$，不过需要对 $lcp$ （最长公共前缀）这个概念有所了解。 </li>
 </ul>
 </li>
+<li><mark>鉴定为高质量题目。</mark>$div3\ E$ 没写出来，感觉是一道思维题。。。<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1955/problem/E">E. Long Inversions</a><ul>
+<li>锐评：整场难度感觉比之前 $div3$ 要难一些，自己的翻译水平也差了好多，不过这场好题还挺多的，这个 $E$ 感觉很棒，当晚临睡觉前还想到了一个做法，但第二天早上就被自己 $hack$ 了，目前还在思考怎么写ing；</li>
+<li>无奈看题解：看了一眼知乎题解，他说就是差分，虽然直接差分看似 $O(N^3)$，但由于是区间异或操作，可以达到 $O(N^2)$ 的优秀效果；看完不禁让我继续想用了 $bitset$，以为题解是这个意思qwq，虽然 $bitset$ 过了，但用时 $2.5s$，几乎快达到题目给的 $3s$ 时限了。</li>
+<li>再度锐评：忘了说了，这次打 $cf$ 有一个天然的优势，因为最近巩固了之前学过的很多算法，学起来并不吃力了，也补了之前很多题目，感觉没什么东西能限制我了，然后决定来打 $div3$ 试试上分并检验自己的成果。结果面对 $E$ 题，我绞尽脑汁，以为是什么思维上的做法，感觉还是死在了思维了。但赛后看来，之前想过差分但觉得会超时，但现在发现，这应该是一个差分应用上的小技巧，我还真不知道！决定去学一学，顺便还学着使用了一手 $bitset$ 针不戳！</li>
 </ul>
+</li>
+</ul>
+<hr>
 <p><mark>D. Divisible Pairs 讲解：</mark></p>
 <p><strong>题意：</strong> 给定 $n$ 个数，问有多少个数对满足：$a_i + a_j = k_1x, a_i - a_j = k_2y$ ? 其中 $x, y$ 是已知给定的， $k_1,k_2$ 是系数。</p>
 <p><strong>思路：</strong> 移项： $a_i = k_1x - a_j, a_i = k_2y + a_j$，然后就会产生思路！这就是两个公式相关联起来的结果，即对同一个数，将其分别模 $x$ 和模 $y$ 存起来即可。 </p>
@@ -3181,6 +3188,110 @@ int main()
         &#125;
     
     if (!ok)    cout &lt;&lt; &quot;The name is wrong!&quot;;
+    return 0;
+&#125;</code></pre>
+</li>
+</ul>
+<p><strong>2、$2023$ 蓝桥杯 $b$ 组省赛最后一题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/4966/">砍树</a></p>
+<ul>
+<li><p><strong>题意：</strong>给定一颗树和 $m$ 个无序数对 $(a_i,b_i)$，其中 $a_i、b_i$ 互不相同，问能否删除一条边使得这 $m$ 个无序数对的每一个 $a_i$ 和 $b_i$ 互不相同？，若有多个满足条件，请输出最大边的编号；若不存在，请输出 $-1$。</p>
+</li>
+<li><p><strong>吐槽：</strong>听说是树剖，但怎么也看不出来，看了几遍之后总是没想法，不知道从哪入手。。。看了下题解，发现真的妙！为什么我没想到这一点！！！很重要的！</p>
+</li>
+<li><p><strong>妙处：</strong>考虑一对无序数对的点 $x$ 和 $y$，如果我们砍掉某条边可以让这两个点不连通，那么这条边一定是从 $x$ 到 $y$ 路径上的一点，其他无序数对也是如此。那么我们不妨在这 $m$ 条路径的<strong>边</strong>的权值上 $+1$，这个操作可以使用<mark>树上差分</mark>，因此如果最后某条边的权值为 $m$，我们选出编号最大的即可，秒啊！</p>
+</li>
+<li><p><strong>代码：</strong></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef pair&lt;int, int&gt; pii;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n, m;
+    cin &gt;&gt; n &gt;&gt; m;
+
+    vector&lt;vector&lt;pii&gt;&gt; g(n + 1);
+    for (int i &#x3D; 1; i &lt; n; i++)
+    &#123;
+        int a, b;
+        cin &gt;&gt; a &gt;&gt; b;
+        g[a].push_back(&#123;b, i&#125;);
+        g[b].push_back(&#123;a, i&#125;);
+    &#125;
+
+    vector&lt;pii&gt; path(m + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; m; i++)    cin &gt;&gt; path[i].first &gt;&gt; path[i].second;
+
+    vector&lt;vector&lt;int&gt;&gt; fa(n + 1, vector&lt;int&gt;(18));
+    vector&lt;int&gt; depth(n + 1, 0x3f3f3f3f);
+    auto bfs &#x3D; [&amp;](int root) -&gt; void 
+    &#123;
+        queue&lt;int&gt; q;
+        q.push(root);
+        depth[0] &#x3D; 0, depth[root] &#x3D; 1;
+        while (!q.empty())
+        &#123;
+            auto u &#x3D; q.front();
+            q.pop();
+            for (auto [v, id] : g[u])
+            &#123;
+                if (depth[v] &gt; depth[u] + 1)
+                &#123;
+                    q.push(v);
+                    depth[v] &#x3D; depth[u] + 1;
+                    fa[v][0] &#x3D; u;
+                    for (int k &#x3D; 1; k &lt;&#x3D; 17; k++)
+                        fa[v][k] &#x3D; fa[fa[v][k - 1]][k - 1];
+                &#125;
+            &#125;
+        &#125;
+    &#125;;
+    bfs(1);
+    
+    auto lca &#x3D; [&amp;](int a, int b) -&gt; int
+    &#123;
+        if (depth[a] &lt; depth[b])  swap(a, b);
+    
+        for (int k &#x3D; 17; k &gt;&#x3D; 0; k--)
+            if(depth[fa[a][k]] &gt;&#x3D; depth[b])
+                a &#x3D; fa[a][k];
+    
+        if (a &#x3D;&#x3D; b) return a;
+    
+        for (int k &#x3D; 17; k &gt;&#x3D; 0; k--)
+            if (fa[a][k] !&#x3D; fa[b][k])
+                a &#x3D; fa[a][k], b &#x3D; fa[b][k];
+        return fa[a][0];
+    &#125;;
+
+    vector&lt;int&gt; w(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
+    &#123;
+        int a &#x3D; path[i].first, b &#x3D; path[i].second;
+        w[a] ++, w[b] ++, w[lca(a, b)] -&#x3D; 2;
+    &#125;
+
+    int res_id &#x3D; -1;
+    function&lt;int(int, int)&gt; dfs &#x3D; [&amp;](int u, int father) -&gt; int
+    &#123;
+        int res &#x3D; w[u];
+        for (auto [v, id] : g[u])
+        &#123;
+            if (v &#x3D;&#x3D; father)    continue;
+            int t &#x3D; dfs(v, u);
+
+            if (t &#x3D;&#x3D; m) res_id &#x3D; max(res_id, id);   
+            res +&#x3D; t;
+        &#125;
+        return res;
+    &#125;;
+    dfs(1, -1);
+
+    cout &lt;&lt; res_id &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
 </li>

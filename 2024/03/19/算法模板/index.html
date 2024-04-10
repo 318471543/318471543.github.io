@@ -1131,7 +1131,77 @@ int main()
     cout &lt;&lt; res.g[0][0];
     return 0;
 &#125;</code></pre>
-<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h3><h4 id="双链表"><a href="#双链表" class="headerlink" title="双链表"></a>双链表</h4><p><mark>封装模板：</mark></p>
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="差分"><a href="#差分" class="headerlink" title="差分"></a>差分</h3><h4 id="一维差分"><a href="#一维差分" class="headerlink" title="一维差分"></a>一维差分</h4><blockquote>
+<p><strong>核心代码：</strong></p>
+<p>在区间 $[l,r]$ 加上一个数 $c$：$b[l] += c, b[r + 1] -= c;$</p>
+</blockquote>
+<p><mark>模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">auto insert &#x3D; [&amp;](int l, int r, int c) -&gt; void &#x2F;&#x2F; 预处理
+&#123;
+    b[l] +&#x3D; c;
+    b[r + 1] -&#x3D; c;
+&#125;;
+
+for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    b[i] +&#x3D; b[i - 1]; &#x2F;&#x2F; 求一遍前缀和即为现数组</code></pre>
+<p><strong>推荐题目：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1955/problem/E">E. Long Inversions</a></p>
+<p><mark>代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+void solve()
+&#123;
+    int n;
+    cin &gt;&gt; n;
+
+    string s;
+    cin &gt;&gt; s;
+    s &#x3D; &quot; &quot; + s;
+
+    int res &#x3D; 0;
+    for (int i &#x3D; n; i &gt;&#x3D; 1; i--)
+    &#123;
+        vector&lt;int&gt; d(n + 1);
+        bool ok &#x3D; true;
+        for (int j &#x3D; 1; j &lt;&#x3D; n; j++)
+        &#123;
+            d[j] +&#x3D; d[j - 1];
+            d[j] &amp;&#x3D; 1;
+            int c &#x3D; s[j] - &#39;0&#39;;
+            if ((c ^ d[j]) &#x3D;&#x3D; 0)
+            &#123;
+                d[j]++;
+                if (j + i &lt;&#x3D; n) d[j + i] --;
+                if (j + i - 1 &gt; n)
+                &#123;
+                    ok &#x3D; false;
+                    break;
+                &#125;
+            &#125;
+        &#125;
+        if (ok)
+        &#123;
+            res &#x3D; i;
+            break;
+        &#125;
+    &#125;
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int t;
+    cin &gt;&gt; t;
+    while (t--)
+    &#123;
+        solve();
+    &#125;
+    
+    return 0;
+&#125;</code></pre>
+<h3 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h3><h4 id="双链表"><a href="#双链表" class="headerlink" title="双链表"></a>双链表</h4><p><mark>封装模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">struct Node
 &#123;
     string data;

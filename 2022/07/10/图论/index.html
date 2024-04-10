@@ -530,7 +530,6 @@ int main()
     dfs(0);
     return 0;
 &#125;</code></pre>
-
 <p><mark>调用函数实现：</mark></p>
 <blockquote>
 <p>首先，请记住：next_permutation() 函数！</p>
@@ -556,7 +555,6 @@ int main()
     
     return 0;
 &#125;</code></pre>
-
 <h3 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h3><blockquote>
 <p>与排列所不同的是：需要按照顺序组合，即多加一个参数cur：表示当前要从第几个数开始，有了这种顺序后，就可以不用st数组判重了。</p>
 </blockquote>
@@ -576,7 +574,6 @@ int main()
         v.pop_back();
     &#125;
 &#125;&#x2F;&#x2F;如果用dfs(1,0)调用：表示数组元素从1开始,当前已经选了0个数。</code></pre>
-
 <h2 id="模拟退火"><a href="#模拟退火" class="headerlink" title="模拟退火"></a>模拟退火</h2><p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -633,7 +630,6 @@ int main()
     printf(&quot;%.0lf\n&quot;,ans);
     return 0;
 &#125;</code></pre>
-
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/3170/">星星还是树</a></p>
 <h2 id="树"><a href="#树" class="headerlink" title="树"></a>树</h2><h3 id="给定中、后序遍历，求层次序"><a href="#给定中、后序遍历，求层次序" class="headerlink" title="给定中、后序遍历，求层次序"></a>给定中、后序遍历，求层次序</h3><p><strong>题目链接：</strong><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/994805069361299456"><strong>L2-006 树的遍历</strong></a></p>
@@ -700,7 +696,6 @@ int main()
 
     return 0;
 &#125;</code></pre>
-
 <h3 id="给定中、前序遍历，求层次序"><a href="#给定中、前序遍历，求层次序" class="headerlink" title="给定中、前序遍历，求层次序"></a>给定中、前序遍历，求层次序</h3><p><strong>题目链接：</strong><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/994805065406070784"><strong>L2-011 玩转二叉树</strong></a></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -772,7 +767,6 @@ int main()
     &#x2F;&#x2F; for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; tr[i].l &lt;&lt; &quot; &quot; &lt;&lt; tr[i].r &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
-
 <h3 id="树的直径"><a href="#树的直径" class="headerlink" title="树的直径"></a>树的直径</h3><blockquote>
 <p><strong>方法：</strong></p>
 <ol>
@@ -884,7 +878,6 @@ int main()
     
     return 0;
 &#125;</code></pre>
-
 <p><mark>推荐题单：</mark></p>
 <p><strong>典题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1881/problem/F">F. Minimum Maximum Distance</a></p>
 <h3 id="dfs-序"><a href="#dfs-序" class="headerlink" title="$dfs$ 序"></a>$dfs$ 序</h3><p><mark>推荐题单：</mark></p>
@@ -893,7 +886,7 @@ int main()
 <li>吐槽：以为是启发式合并，虽然时间复杂度是$O(NlogN)$，但感觉 $2e6$ 还是能过的，但还是超时 $qwq$。最后竟然是这么 $O(N)$ 的做法，但消耗的时间竟然还是好大啊。</li>
 <li>思路：<ul>
 <li>通过处理 $dfs$，每个点都有一个区间 $[l, r]$。记录一个变量 $last[i]$，表示是 $i$ 颜色的上一个点的 $dfs$ 是多少，那么只需要判断区间 $[l,r]$ 内是否存在一个位置其 $last[i] \ge l$。又由于 $last[color[l]] &lt; l$，因此求 $[l,r]$ 区间可以变成求 $[1,r]$ 区间。</li>
-<li>我们再预处理出一个 $mx$ 数组，表示这个区间内的最大的 $last$，如果 $mx[r] &lt; l$ 就说明该点合法。</li>
+<li>我们再预处理出一个 $mx$ 数组，表示这个区间内的最大的 $last$，如果 $mx[r] &lt; l$ 就说明该点合法。 </li>
 </ul>
 </li>
 </ul>
@@ -938,9 +931,6 @@ int main()
     cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
-
-
-
 <h2 id="最短路"><a href="#最短路" class="headerlink" title="最短路"></a>最短路</h2><h3 id="Dijkstra"><a href="#Dijkstra" class="headerlink" title="Dijkstra"></a>Dijkstra</h3><h4 id="朴素版Dijkstra"><a href="#朴素版Dijkstra" class="headerlink" title="朴素版Dijkstra"></a>朴素版Dijkstra</h4><p>适用于<strong>稠密图</strong>(m ≈ n<sup>2</sup>)，用邻接矩阵存储。时间复杂度：O(n<sup>2</sup>)</p>
 <p><mark>代码模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -983,7 +973,6 @@ int main()
     &#125;
     printf(&quot;%d\n&quot;,dijkstra());
 &#125;</code></pre>
-
 <h4 id="堆优化版Dijkstra"><a href="#堆优化版Dijkstra" class="headerlink" title="堆优化版Dijkstra"></a>堆优化版Dijkstra</h4><blockquote>
 <p>适用于<strong>稀疏图</strong>(m ≈ n)，用邻接表存储。</p>
 <p><strong>时间复杂度：</strong>$O(mlog(n))$</p>
@@ -1016,7 +1005,6 @@ auto dijkstra &#x3D; [&amp;](int st) -&gt; vector&lt;int&gt;&#x2F;&#x2F;返回�
     &#125;
     return dist;
 &#125;;</code></pre>
-
 <p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -1080,7 +1068,6 @@ int main()
     else    cout &lt;&lt; dist[n];
     return 0;
 &#125;</code></pre>
-
 <h3 id="bellman-ford"><a href="#bellman-ford" class="headerlink" title="bellman-ford"></a>bellman-ford</h3><p><mark>代码模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -1125,7 +1112,6 @@ int main()
     else    printf(&quot;%d\n&quot;,dist[n]);
     return 0;
 &#125;</code></pre>
-
 <h3 id="spfa"><a href="#spfa" class="headerlink" title="spfa"></a>spfa</h3><p><mark>封装模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; g(n + 1);&#x2F;&#x2F;存图
 auto spfa &#x3D; [&amp;](int st) -&gt; vector&lt;int&gt;
@@ -1155,7 +1141,6 @@ auto spfa &#x3D; [&amp;](int st) -&gt; vector&lt;int&gt;
     &#125;
     return dist;
 &#125;;</code></pre>
-
 <p><mark>模板题代码（spfa求最短路）：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -1210,7 +1195,6 @@ int main()
     else    cout &lt;&lt; dist[n];  
     return 0;
 &#125;</code></pre>
-
 <p><mark>模板题代码（spfa判断负环）：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 using namespace std;
@@ -1268,7 +1252,6 @@ int main()
     else    puts(&quot;No&quot;);
     return 0;
 &#125;</code></pre>
-
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/853/">spfa求最短路</a>   <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/854/">spfa判断负环</a></p>
 <h3 id="Floyd"><a href="#Floyd" class="headerlink" title="Floyd"></a>Floyd</h3><blockquote>
@@ -1278,7 +1261,7 @@ int main()
 <li>$f[k - 1][i][j]$：表示不经过点 $k$ ，从点 $i$ 到点 $j$ 的距离；</li>
 <li>$f[k - 1][i][k] + f[k - 1][k][j]$ ：表示经过 $k$ 点，从点 $i$ 到点 $j$ 的距离；</li>
 </ul>
-<p>故状态转移方程：$dist[i][j] &#x3D; min(dist[i][j],dist[i][k] + dist[k][j])$</p>
+<p>故状态转移方程：$dist[i][j] = min(dist[i][j],dist[i][k] + dist[k][j])$</p>
 <p><strong>时间复杂度：</strong>$O(n^3)$</p>
 </blockquote>
 <p><mark>封装模板：</mark></p>
@@ -1292,7 +1275,6 @@ auto floyd &#x3D; [&amp;]() -&gt; void
         	for(int j &#x3D; 1;j &lt;&#x3D; n;j++)
             	dist[i][j] &#x3D; min(dist[i][j],dist[i][k] + dist[k][j]);
 &#125;;</code></pre>
-
 <p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -1334,7 +1316,6 @@ int main()
     
     return 0;
 &#125;</code></pre>
-
 <h2 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h2><h3 id="Prim"><a href="#Prim" class="headerlink" title="Prim"></a>Prim</h3><blockquote>
 <p>时间复杂度：$O(n^2)$</p>
 </blockquote>
@@ -1385,7 +1366,6 @@ int main()
     else    printf(&quot;%d\n&quot;,t);
     return 0;
 &#125;</code></pre>
-
 <h3 id="Kruskal"><a href="#Kruskal" class="headerlink" title="Kruskal"></a>Kruskal</h3><blockquote>
 <p>时间复杂度：$O(mlogm)$</p>
 </blockquote>
@@ -1446,7 +1426,6 @@ int main()
     Kruskal();
     return 0;
 &#125;</code></pre>
-
 <h4 id="Kruskal-重构树"><a href="#Kruskal-重构树" class="headerlink" title="Kruskal 重构树"></a>Kruskal 重构树</h4><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1554,12 +1533,11 @@ int main()
     
     return 0;
 &#125;</code></pre>
-
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1967">货车运输</a></p>
 <h2 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h2><blockquote>
 <p><mark>应用：</mark></p>
-<p>​	拓扑排序可以判断图中是否有环，还可以用来判断图是否是一条链。</p>
+<p>​    拓扑排序可以判断图中是否有环，还可以用来判断图是否是一条链。</p>
 <p><mark>手算流程：</mark></p>
 <p>一个有向图，如果图中有入度为 0 的点，就把这个点删掉，同时也删掉这个点所连的边。</p>
 <p>一直进行上面出处理，如果所有点都能被删掉，则这个图可以进行拓扑排序。</p>
@@ -1623,10 +1601,9 @@ int main()
     else    puts(&quot;-1&quot;);
     return 0;
 &#125;</code></pre>
-
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/850/">有向图的拓扑序列</a></p>
-<p><strong>$RAICOM$ 国赛第四题：</strong> <a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/1693095794755289088/exam/problems/1693095890628689923?type=7&page=0">RC-u4 拆积木</a></p>
+<p><strong>$RAICOM$ 国赛第四题：</strong> <a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/1693095794755289088/exam/problems/1693095890628689923?type=7&amp;page=0">RC-u4 拆积木</a></p>
 <p><strong>2023 南京ICPC拓扑题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104821/problem/F">F. Equivalent Rewriting</a></p>
 <h2 id="二分图"><a href="#二分图" class="headerlink" title="二分图"></a>二分图</h2><blockquote>
 <p>将所有点分成两个集合，使得所有边只出现在集合之间，就是二分图。</p>
@@ -1702,7 +1679,6 @@ int main()
     cout &lt;&lt; (ok ? &quot;Yes&quot; : &quot;No&quot;) &lt;&lt; &quot;\n&quot;;
 	return 0;
 &#125;</code></pre>
-
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/862/">染色法判定二分图</a></p>
 <h3 id="二分图的最大匹配"><a href="#二分图的最大匹配" class="headerlink" title="二分图的最大匹配"></a>二分图的最大匹配</h3><p><strong>基本定义：</strong></p>
@@ -1710,7 +1686,7 @@ int main()
 <p>最大匹配：一个图所有匹配中，所含匹配边数最多的匹配，称为这个图的最大匹配。</p>
 <blockquote>
 <p><mark>匈牙利算法：</mark>主要用来解决两个问题：求二分图的<strong>最大匹配数</strong>和<strong>最小点覆盖数</strong>。</p>
-<p><strong>柯尼希定理：二分图最小点覆盖的点数 &#x3D; 最大匹配数。</strong></p>
+<p><strong>柯尼希定理：二分图最小点覆盖的点数 = 最大匹配数。</strong></p>
 <p><strong>时间复杂度：</strong>$O(nm)$</p>
 </blockquote>
 <p><strong>数组含义：</strong></p>
@@ -1778,7 +1754,6 @@ int main()
 
     return 0;
 &#125;</code></pre>
-
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/863/">二分图的最大匹配</a></p>
 <h2 id="Tarjan"><a href="#Tarjan" class="headerlink" title="Tarjan"></a>Tarjan</h2><h3 id="有向图的强连通分量"><a href="#有向图的强连通分量" class="headerlink" title="有向图的强连通分量"></a>有向图的强连通分量</h3><p><strong>基本定义：</strong></p>
@@ -1793,7 +1768,7 @@ int main()
 <li>$dfn[u]$ 表示：遍历到 $u$ 的时间戳；</li>
 <li>$low[u]$ 表示：从u开始走，所能遍历到的最小时间戳是什么；</li>
 </ul>
-<p>因此，$u$ 是其所在的强连通分量的最高点，等价于 $dfn[u] &#x3D;&#x3D; low[u]$。</p>
+<p>因此，$u$ 是其所在的强连通分量的最高点，等价于 $dfn[u] == low[u]$。</p>
 <p><mark>模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">int low[N],dfn[N],timestamp;
 int stk[N],top;
@@ -1828,7 +1803,6 @@ void tarjan(int u)
         &#125; while (y !&#x3D; u);
     &#125;
 &#125;</code></pre>
-
 <p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -1928,7 +1902,6 @@ int main()
     cout &lt;&lt; sum &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
-
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1176/">受欢迎的牛</a></p>
 <p><strong>$tarjan + dp$：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1177/">最大半连通子图</a>，其中 $dp$ 问题类似于<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/11/">背包问题求方案数</a></p>
@@ -1956,7 +1929,7 @@ int main()
 <p>1、对于有向图，最少加多少条边可以使其变成强连通分量呢？</p>
 <p>答案为：$max(p,q)$ 。其中 $p,q$ 分别表示出度为 $0$ 和入度为 $0$ 的连通块数。</p>
 <p>2、对于无向图，最小加多少条边可以使其变成边双连通分量呢？</p>
-<p>答案为：**$\lfloor \frac{cnt + 1}{2} \rfloor$**，其中 $cnt$ 是缩完点后，度数为 $1$ 的点的个数。 </p>
+<p>答案为：<strong>$\lfloor \frac{cnt + 1}{2} \rfloor$</strong>，其中 $cnt$ 是缩完点后，度数为 $1$ 的点的个数。 </p>
 </blockquote>
 <p><mark>模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">int dfn[N],low[N],timestamp;
@@ -1995,7 +1968,6 @@ void tarjan(int u,int from)
         
     &#125;
 &#125;</code></pre>
-
 <p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
 #include&lt;cstring&gt;
@@ -2079,7 +2051,6 @@ int main()
     cout &lt;&lt; (cnt + 1) &#x2F; 2 &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
-
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/397/">冗余路径</a></p>
 <h4 id="点双连通分量"><a href="#点双连通分量" class="headerlink" title="点双连通分量"></a>点双连通分量</h4><blockquote>
@@ -2135,7 +2106,6 @@ int main()
         else    low[u] &#x3D; min(low[u],dfn[j]);
     &#125;
 &#125;</code></pre>
-
 <p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -2203,13 +2173,12 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
-
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1185/">电力</a></p>
 <p><strong>按点双连通分量缩点：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/398/">矿场搭建</a></p>
 <h2 id="最近公共祖先-LCA"><a href="#最近公共祖先-LCA" class="headerlink" title="最近公共祖先(LCA)"></a>最近公共祖先(LCA)</h2><blockquote>
 <p><strong>应用：</strong></p>
-<p>1、获取两个点之间的路径与距离，距离：<code>dist[a][b] = depth[a] + depth[b] - 2 × depth[p] </code></p>
+<p>1、获取两个点之间的路径与距离，距离：<code>dist[a][b] = depth[a] + depth[b] - 2 × depth[p]</code></p>
 </blockquote>
 <p><mark>封装模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">vector&lt;vector&lt;int&gt;&gt; g(n + 1); &#x2F;&#x2F; 存图方式
@@ -2253,7 +2222,6 @@ auto lca &#x3D; [&amp;](int a, int b) -&gt; int
             a &#x3D; fa[a][k], b &#x3D; fa[b][k];
     return fa[a][0];
 &#125;;</code></pre>
-
 <p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -2347,11 +2315,122 @@ depth[i]:表示深度
 1、先将两个点跳到同一层
 2、让两个点同时往上跳,一直跳到他们的最近公共祖先的下一层
 *&#x2F;</code></pre>
-
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1174/">祖孙询问</a></p>
-<h3 id="树上差分"><a href="#树上差分" class="headerlink" title="树上差分"></a>树上差分</h3><p><mark>推荐题单：</mark></p>
+<h3 id="树上差分"><a href="#树上差分" class="headerlink" title="树上差分"></a>树上差分</h3><blockquote>
+<p>在 $(a,b)$ 路径上每条边加上权值 $c$：$d[a] += c, b[b] += c, d[p] -= 2c$，其中 $p = lca(a,b)$；</p>
+<p>这样，每个点的权值表示，<strong>这个点与父节点之间的边的权值是多少！</strong></p>
+</blockquote>
+<p><mark>模板题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1e5 + 10,M &#x3D; 2 * N;
+
+int n,m;
+int h[N],e[M],ne[M],idx;
+int depth[N],fa[N][17];
+int q[N];
+int d[N];
+int ans;
+
+void add(int a,int b)
+&#123;
+    e[idx] &#x3D; b,ne[idx] &#x3D; h[a],h[a] &#x3D; idx++;
+&#125;
+
+void bfs()
+&#123;
+    memset(depth,0x3f,sizeof(depth));
+    depth[0] &#x3D; 0,depth[1] &#x3D; 1;
+    q[0] &#x3D; 1;
+    int hh &#x3D; 0,tt &#x3D; 0;
+    while(hh &lt;&#x3D; tt)
+    &#123;
+        int t &#x3D; q[hh++];
+        for(int i &#x3D; h[t]; ~i; i &#x3D; ne[i])
+        &#123;
+            int j &#x3D; e[i];
+            if(depth[j] &gt; depth[t] + 1)
+            &#123;
+                q[++tt] &#x3D; j;
+                depth[j] &#x3D; depth[t] + 1;
+                fa[j][0] &#x3D; t;
+                for(int k &#x3D; 1;k &lt;&#x3D; 16;k++)
+                &#123;
+                    fa[j][k] &#x3D; fa[fa[j][k - 1]][k - 1];
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+
+int lca(int a,int b)
+&#123;
+    if(depth[a] &lt; depth[b]) swap(a,b);
+    for(int k &#x3D; 16;k &gt;&#x3D; 0;k--)
+    &#123;
+        if(depth[fa[a][k]] &gt;&#x3D; depth[b])
+        &#123;
+            a &#x3D; fa[a][k];
+        &#125;
+    &#125;
+    if(a &#x3D;&#x3D; b)  return a;
+    for(int k &#x3D; 16;k &gt;&#x3D; 0;k--)
+    &#123;
+        if(fa[a][k] !&#x3D; fa[b][k])
+        &#123;
+            a &#x3D; fa[a][k];
+            b &#x3D; fa[b][k];
+        &#125;
+    &#125;
+    return fa[a][0];
+&#125;
+
+int dfs(int u,int father)
+&#123;
+    int res &#x3D; d[u];
+    
+    for(int i &#x3D; h[u] ;~i;i &#x3D; ne[i])
+    &#123;    
+       int j &#x3D; e[i];
+       if(j &#x3D;&#x3D; father)  continue;
+       int t &#x3D; dfs(j,u);
+
+        if(t &#x3D;&#x3D; 0)  ans +&#x3D; m;
+        else if(t &#x3D;&#x3D; 1) ans +&#x3D; 1;
+        res +&#x3D; t;
+    &#125;
+    return res;
+&#125;
+
+int main()
+&#123;
+    cin &gt;&gt; n &gt;&gt; m;
+    memset(h,-1,sizeof(h));
+    for(int i &#x3D; 0;i &lt; n - 1;i++)
+    &#123;
+        int a,b;
+        cin &gt;&gt; a &gt;&gt; b;
+        add(a,b),add(b,a);
+    &#125;
+    bfs();
+    for(int i &#x3D; 0;i &lt; m;i++)
+    &#123;
+        int a,b;
+        cin &gt;&gt; a &gt;&gt; b;
+        int p &#x3D; lca(a,b);
+        d[a]++,d[b]++,d[p] -&#x3D; 2;
+    &#125;
+
+    dfs(1,-1);
+    cout &lt;&lt; ans &lt;&lt; endl;
+    return 0;
+&#125;</code></pre>
+<p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/354/">闇の連鎖</a></p>
+<p><strong>$2023$ 蓝桥杯 $b$ 组省赛最后一题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/4966/">砍树</a></p>
 <h2 id="网络流"><a href="#网络流" class="headerlink" title="网络流"></a>网络流</h2><h3 id="EK-算法求最大流"><a href="#EK-算法求最大流" class="headerlink" title="$EK$ 算法求最大流"></a>$EK$ 算法求最大流</h3><blockquote>
 <p><strong>时间复杂度：</strong>$O(nm^2)$</p>
 </blockquote>
@@ -2421,7 +2500,6 @@ int main()
     printf(&quot;%d\n&quot;,EK());
     return 0;
 &#125;</code></pre>
-
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2173/">EK求最大流</a></p>
 <h3 id="Dinic-算法求最大流"><a href="#Dinic-算法求最大流" class="headerlink" title="$Dinic$ 算法求最大流"></a>$Dinic$ 算法求最大流</h3><blockquote>
@@ -2494,7 +2572,6 @@ struct FlowGraph
 		return flow;
 	&#125;
 &#125;;</code></pre>
-
 <p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -2579,9 +2656,8 @@ int main()
 	cout &lt;&lt; g.dinic();
 	return 0;
 &#125;</code></pre>
-
 <p><mark>推荐题单：</mark></p>
-<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2174/">Dinic&#x2F;ISAP求最大流</a></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2174/">Dinic/ISAP求最大流</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/2183/">试题库问题</a></p>
 <p><strong>二分 + 网络流：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3425">POI2005 KOS-Dicing</a></p>
 <p><mark>试题库代码：</mark></p>
@@ -2706,7 +2782,6 @@ int main()
 	&#125;
 	return 0;
 &#125;</code></pre>
-
 <p><mark>POI2005 KOS-Dicing 代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -2833,9 +2908,6 @@ int main()
 	&#125;
 	return 0;
 &#125;</code></pre>
-
-
-
 <h4 id="二分图匹配"><a href="#二分图匹配" class="headerlink" title="二分图匹配"></a>二分图匹配</h4><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -2935,7 +3007,6 @@ int main()
 	&#125;
 	return 0;
 &#125;</code></pre>
-
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/2177/">飞行员配对方案问题</a></p>
 <h3 id="费用流"><a href="#费用流" class="headerlink" title="费用流"></a>费用流</h3><p><mark>封装模板：</mark></p>
@@ -2946,9 +3017,9 @@ int main()
 <p>3、<strong>注意：</strong>点数和边数需要开的空间大小需提前确定好！</p>
 <p><strong>二、操作描述：</strong></p>
 <ul>
-<li><p>最小费用的边权是正数，即 $g.addedge(id[i][j] * 2 - 1, id[i][j] * 2, 1, a[i][j]);$</p>
+<li><p>最小费用的边权是正数，即 $g.addedge(id[i][j] <em> 2 - 1, id[i][j] </em> 2, 1, a[i][j]);$</p>
 </li>
-<li><p>最大费用的边权是<strong>负数</strong>，即 $g.addedge(id[i][j] * 2 - 1, id[i][j] * 2, 1, -a[i][j]);$</p>
+<li><p>最大费用的边权是<strong>负数</strong>，即 $g.addedge(id[i][j] <em> 2 - 1, id[i][j] </em> 2, 1, -a[i][j]);$</p>
 </li>
 </ul>
 </blockquote>
@@ -3015,7 +3086,6 @@ struct MinCostGraph &#123;
     &#125;
 &#125;;
 MinCostGraph&lt;ll&gt; g;</code></pre>
-
 <p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -3108,7 +3178,6 @@ int main()
     cout &lt;&lt; res.first &lt;&lt; &quot; &quot;  &lt;&lt; res.second &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
-
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/2176/">费用流</a></p>
 <p><strong>模板题2（同时求最大费用最大流、最小费用最大流）：</strong> <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/2194/">运输问题</a></p>
@@ -3220,12 +3289,11 @@ int main()
 	cout &lt;&lt; res.second &lt;&lt; &quot;\n&quot; &lt;&lt; -ans.second &lt;&lt; &quot;\n&quot;;
 	return 0;
 &#125;</code></pre>
-
 <h4 id="拆点技巧"><a href="#拆点技巧" class="headerlink" title="拆点技巧"></a>拆点技巧</h4><blockquote>
 <p><strong>步骤：</strong></p>
 <p>1、给每个点赋予一个编号 $id[i][j]$</p>
 <p>2、入点编号为：$id[i][j] × 2 - 1$，出点编号为：$id[i][j] × 2$</p>
-<p>3、源点编号：$s &#x3D; tot × 2 + 1$，汇点编号：$tot × 2 + 2$</p>
+<p>3、源点编号：$s = tot × 2 + 1$，汇点编号：$tot × 2 + 2$</p>
 </blockquote>
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题1：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2193/">数字梯形问题</a>    <strong>模板题2：</strong> <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/384/">K取方格数</a></p>
@@ -3362,7 +3430,6 @@ int main()
     cout &lt;&lt; -res1.second &lt;&lt; &quot;\n&quot; &lt;&lt; -res2.second &lt;&lt; &quot;\n&quot; &lt;&lt; -res3.second &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
-
 <p><mark> 模板题2代码：</mark></p>
 <p><strong>题意：</strong> 给定 $n × n$ 的网格，问从 $(1,1)$ 走到 $(n,n)$，走 $k$ 条路径，每个格子上有权值，格子上的权值取一次后就变成 $0$ 了，问这 $k$ 次取得的最大权值和是多少？</p>
 <p><strong>思路：</strong></p>
@@ -3481,7 +3548,6 @@ int main()
     cout &lt;&lt; -res.second &lt;&lt; &quot;\n&quot;;
     return 0;
 &#125;</code></pre>
-
 <p><mark>D. 金人旧巷市廛喧 代码：</mark></p>
 <blockquote>
 <p>疑问有 $2$（已基本解决）：</p>
@@ -3489,7 +3555,7 @@ int main()
 <ul>
 <li>显然，$spfa$ 可以处理负权的边，但不能处理负权回路！而死循环的原因正是出现了负权回路（通过手搓$2×2$ 地图数据，并加上 $spfa$ 判负环模板终于测试出来了负权回路）。</li>
 </ul>
-<p>2、$EK$ 函数循环里需要加上 $if(d[t] &gt;&#x3D; 0)	return$ ，不加的话会 $wa 43$ ，why？ </p>
+<p>2、$EK$ 函数循环里需要加上 $if(d[t] &gt;= 0)    return$ ，不加的话会 $wa 43$ ，why？ </p>
 <ul>
 <li>该疑问已解决，因为一条物流初始价值为100，如果每次走一格扣一分，最终会变成负数，则不如之前取消这条物流，因此这个特判是根据题目而特殊定的。</li>
 </ul>
@@ -3623,12 +3689,9 @@ int main()
     cout &lt;&lt; -res.second;
     return 0;
 &#125;</code></pre>
-
-
-
 <h2 id="2-SAT"><a href="#2-SAT" class="headerlink" title="2-SAT"></a>2-SAT</h2><blockquote>
-<p>**SAT: Satisfiability **</p>
-<p><strong>满足简要描述：</strong>给定 $m$ 个关系形如：$x_i ∪ x_j$ ，需要使这 $m$ 关系都为真，即：$(x_{i1} ∪ x_{j1}) ∩ (x_{i2} ∪ x_{j2}) ∩ \cdots (x_{in} ∪x_{jn}) &#x3D; 1$。</p>
+<p><strong>SAT: Satisfiability </strong></p>
+<p><strong>满足简要描述：</strong>给定 $m$ 个关系形如：$x<em>i ∪ x_j$ ，需要使这 $m$ 关系都为真，即：$(x</em>{i1} ∪ x<em>{j1}) ∩ (x</em>{i2} ∪ x<em>{j2}) ∩ \cdots (x</em>{in} ∪x_{jn}) = 1$。</p>
 <p><strong>解法：</strong></p>
 <ul>
 <li>对于关系：$x_i ∪ x_j$ ，利用离散的角度等价于：$\neg x_i → x_j$ 和 $\neg x_j → x_i$，因此即可建两条边；</li>
@@ -3716,12 +3779,11 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
-
 <p><mark>牧师约翰最忙碌的一天——题目讲解：</mark></p>
 <p><strong>解释相关细节：</strong>为什么要看重叠，而不是不重叠？</p>
 <ul>
-<li>如果重叠，则满足：$!(A∩B) &#x3D; 1$，等价于：$!A∪!B &#x3D; 1 \iff A → !B$；</li>
-<li>而如果不重叠，一个天然的条件就是：$A∩B &#x3D; 1$，但 $A∪B&#x3D;1$ 也成立，但这个成立只是我们需要的那种意义上的成立，而不是从公式上得到的。</li>
+<li>如果重叠，则满足：$!(A∩B) = 1$，等价于：$!A∪!B = 1 \iff A → !B$；</li>
+<li>而如果不重叠，一个天然的条件就是：$A∩B = 1$，但 $A∪B=1$ 也成立，但这个成立只是我们需要的那种意义上的成立，而不是从公式上得到的。</li>
 </ul>
 <p>因此，只能根据重叠，得到那个表达式，从而转化为蕴含的关系！</p>
 <p><strong>代码如下：</strong></p>
@@ -3849,10 +3911,9 @@ int main()
     &#125;
     return 0;
 &#125;</code></pre>
-
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong> <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/2404/">2-SAT 问题</a></p>
-<p><strong>应用题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/373/">牧师约翰最忙碌的一天</a>	$NOI$ 级别难度：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1034/">游戏</a></p>
+<p><strong>应用题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/373/">牧师约翰最忙碌的一天</a>    $NOI$ 级别难度：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1034/">游戏</a></p>
 
                 
             </div>
