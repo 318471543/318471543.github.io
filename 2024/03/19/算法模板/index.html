@@ -1658,6 +1658,144 @@ struct Trie
     &#125;
 &#125;trie;</code></pre>
 
+<h3 id="树链剖分"><a href="#树链剖分" class="headerlink" title="树链剖分"></a>树链剖分</h3><p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e5 + 10;
+struct HLD
+&#123;
+    int a[N], cnt;
+    int sz[N], top[N], dep[N], fa[N], son[N], id[N], nw[N];
+    vector&lt;int&gt; g[N];
+    struct Tree                          
+    &#123;
+        int l, r;
+        ll add, sum;
+    &#125;tr[N &lt;&lt; 2];
+
+    void dfs1(int u, int father, int depth) &#123;
+        dep[u] &#x3D; depth, fa[u] &#x3D; father, sz[u] &#x3D; 1;
+        for (auto v : g[u])
+        &#123;
+            if (v &#x3D;&#x3D; father) continue;
+            dfs1(v, u, depth + 1);
+            sz[u] +&#x3D; sz[v];
+            if (sz[son[u]] &lt; sz[v])  son[u] &#x3D; v;
+        &#125;
+    &#125;
+
+    void dfs2(int u, int t)
+    &#123;
+        id[u] &#x3D; ++cnt, nw[cnt] &#x3D; a[u], top[u] &#x3D; t;
+        if (!son[u]) return;
+        dfs2(son[u], t);
+        for (auto v : g[u])
+        &#123;
+            if (v &#x3D;&#x3D; fa[u] || v &#x3D;&#x3D; son[u])   continue;
+            dfs2(v, v);
+        &#125;
+    &#125;
+    
+    int lca(int u, int v) &#123;
+        while (top[u] !&#x3D; top[v]) 
+        &#123;
+            if (dep[top[u]] &gt; dep[top[v]])	u &#x3D; fa[top[u]];
+            else	v &#x3D; fa[top[v]];
+        &#125;
+        return dep[u] &lt; dep[v] ? u : v;
+    &#125;
+
+    void pushup(int u)
+    &#123;
+        tr[u].sum &#x3D; tr[u &lt;&lt; 1].sum + tr[u &lt;&lt; 1 | 1].sum;
+    &#125;
+
+    void eval(Tree &amp;u,ll add)
+    &#123;
+        u.add +&#x3D; add;
+        u.sum +&#x3D; (u.r - u.l + 1) * add;
+    &#125;
+
+    void pushdown(int u)
+    &#123;
+        eval(tr[u &lt;&lt; 1], tr[u].add);
+        eval(tr[u &lt;&lt; 1 | 1], tr[u].add);
+        tr[u].add &#x3D; 0;
+    &#125;
+
+    void build(int u,int l,int r)
+    &#123;
+        tr[u] &#x3D; &#123;l, r&#125;;
+        if (l &#x3D;&#x3D; r)  return tr[u].sum &#x3D; nw[l], void();
+        int mid &#x3D; l + r &gt;&gt; 1;
+        build(u &lt;&lt; 1,l,mid), build(u &lt;&lt; 1 | 1,mid + 1,r);
+        pushup(u);
+    &#125;
+
+    void update(int u, int l, int r, int k)
+    &#123;
+        if (l &lt;&#x3D; tr[u].l &amp;&amp; r &gt;&#x3D; tr[u].r)    
+        &#123;   
+            eval(tr[u], k);
+        &#125;
+        else
+        &#123;
+            pushdown(u);
+            int mid &#x3D; tr[u].l + tr[u].r &gt;&gt; 1;
+            if (l &lt;&#x3D; mid)    update(u &lt;&lt; 1, l, r, k);
+            if (r &gt; mid) update(u &lt;&lt; 1 | 1, l, r, k);
+            pushup(u);
+        &#125;
+    &#125;
+
+    ll query(int u,int l,int r)
+    &#123;
+        if (l &lt;&#x3D; tr[u].l &amp;&amp; r &gt;&#x3D; tr[u].r)    return  tr[u].sum;
+        pushdown(u);
+        int mid &#x3D; tr[u].l + tr[u].r &gt;&gt; 1;
+        ll res &#x3D; 0;
+        if (l &lt;&#x3D; mid)    res +&#x3D; query(u &lt;&lt; 1, l, r);
+        if (r &gt; mid) res +&#x3D; query(u &lt;&lt; 1 | 1, l, r);
+        return res;
+    &#125;
+
+    void update_path(int u,int v,int k)
+    &#123;
+        while (top[u] !&#x3D; top[v])
+        &#123;
+            if (dep[top[u]] &lt; dep[top[v]]) swap(u, v);
+            update(1, id[top[u]], id[u], k);
+            u &#x3D; fa[top[u]];
+        &#125;
+        if (dep[u] &lt; dep[v]) swap(u, v);
+        update(1, id[v], id[u], k);
+    &#125;
+
+    void update_tree(int u,int k)
+    &#123;
+        update(1, id[u], id[u] + sz[u] - 1, k);
+    &#125;
+
+    ll query_path(int u,int v)
+    &#123;
+        ll res &#x3D; 0;
+        while (top[u] !&#x3D; top[v])
+        &#123;
+            if (dep[top[u]] &lt; dep[top[v]])   swap(u, v);
+            res +&#x3D; query(1, id[top[u]], id[u]);
+            u &#x3D; fa[top[u]];
+        &#125;
+        if (dep[u] &lt; dep[v]) swap(u,v);
+        res +&#x3D; query(1, id[v], id[u]);
+        return res;
+    &#125;
+
+    ll query_tree(int u)
+    &#123;
+        return query(1, id[u], id[u] + sz[u] - 1);
+    &#125;
+&#125;hld;</code></pre>
+
+
+
 <h3 id="AC自动机"><a href="#AC自动机" class="headerlink" title="AC自动机"></a>AC自动机</h3><p><mark>封装模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e6 + 10;
 template&lt;typename T&gt;
