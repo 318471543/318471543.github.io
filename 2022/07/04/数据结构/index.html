@@ -2375,7 +2375,7 @@ int main()
 <li>如果对于区间 $[l, r]$ 内的第 $k$ 小数：首先对于区间 $[1,r]$，刚好加完前 $r$ 个版本的线段树是什么，即它的根节点是 $root[r]$。对于第 $R$ 个版本的线段树：其区间 $[l,r]$ 的数量为 $cnt_1$，而对于第 $L - 1$ 版本的线段树：其区间 $[l,r]$ 的数量为 $cnt_2$。那么 $cnt_1$ 表示：前 $R$ 个数中，值在区间 $[l,r]$ 内的个数，$cnt_2$ 表示：前 $l - 1$ 个数中，值在 $[l,r]$ 内的个数。因此：$cnt_1 - cnt_2$ 表示：在区间 $[L,R]$ 内值在区间 $[l,r]$ 的数的个数。</li>
 </ul>
 <p><strong>时间复杂度：</strong>$O(nlogn)$</p>
-<p><strong>空间复杂度：</strong>$O(4N + NlogN)$</p>
+<p><strong>空间复杂度：</strong>$O(4N + MlogN)$，其中 $M$ 是操作次数，即 $insert$ 次数！</p>
 </blockquote>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
