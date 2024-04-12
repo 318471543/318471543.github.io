@@ -2051,9 +2051,159 @@ int main()
 	cout &lt;&lt; (M.a1 + mod) % mod &lt;&lt; &quot;\n&quot;;
 	return 0;
 &#125;</code></pre>
-<h2 id="数学期望"><a href="#数学期望" class="headerlink" title="数学期望"></a>数学期望</h2><p><mark>推荐题单：</mark></p>
+<h2 id="数学期望"><a href="#数学期望" class="headerlink" title="数学期望"></a>数学期望</h2><blockquote>
+<p><strong>期望（<mark>下面有模板题的详细公式推导，自认为是最详细最易懂的存在</mark>）：</strong></p>
+<p>如果 $X$ 是一个随机变量，它的取值分别是 $x_1,x_2,\cdots,x_n$，那么一个随机事件就可以表示为 $X = X_i$，假设它的概率是 $P(X = X_i) = p_i$，那么它的期望被称为 $E(X)$，有：</p>
+<p>$E(X) = \sum_{i=1}^{n}p_i\times x_i$</p>
+<p>通俗地理解，一个随机变量的期望就是这个<strong>随机变量的所有取值与其概率的乘积之和</strong>。</p>
+<p>数学期望是线性函数，它满足：</p>
+<p>$E(aX+bY)=a\times E(X)+b\times E(Y)$</p>
+<p><strong>数学期望的重要性质：</strong></p>
+<p>设 $C$ 为一个常数，$X$ 和 $Y$ 是两个随机变量。以下是数学期望的重要性质：</p>
+<ul>
+<li>$E(C) = C$；</li>
+<li>$E(CX) = CE(X)$；</li>
+<li>$E(X + Y) = E(X) + E(Y)$；</li>
+<li>当 $X$ 和 $Y$ 相互独立时，$E(XY) = E(X)E(Y)$ </li>
+</ul>
+</blockquote>
+<p><mark>下面对模板题：“绿豆蛙的归宿”以及“收集卡牌”进行综合分析：</mark></p>
+<p><strong>绿豆蛙的归宿：</strong></p>
+<ul>
+<li><strong>题意：</strong>给定 $n$ 个点 $m$ 条边的<mark>有向图</mark>，每条边都有一个长度，问从 $1$ 号点到 $n$ 号点的期望长度是多少（去每条边都是等概率的）？</li>
+<li><strong>思路：</strong><ul>
+<li>首先需要明确一点，要获取一个状态的结果，必须把那个状态的答案计算完毕，同理要获取上个状态，需要计算完毕上上个状态，即依次递归获取，因此我们需要记忆化搜索！！</li>
+<li>定义 $f[i]:$ 从 $i$ 跳到 $N$ 的期望长度。因此，边界：$f[N] = 0$, 答案：$f[1]$；</li>
+<li><mark><strong>最重要的部分：</strong></mark>假设从 $u$ 点出发能前往 $3$ 条边，分别到达 $v_1,v_2,v_3$：<ul>
+<li>设事件 $X$ 为从 $u$ 点到达终点的路径长度；</li>
+<li>设事件 $X_1$ 为从 $v_1$ 点到达终点的路径长度；</li>
+<li>设事件 $X_2$ 为从 $v_2$ 点到达终点的路径长度；</li>
+<li>设事件 $X_3$ 为从 $v_3$ 点到达终点的路径长度；</li>
+<li>设事件 $A$ 为从 $u$ 点通过花费 $w_1$ 的路径长度到达 $v_1$，再到达终点的路径长度；</li>
+<li>设事件 $B$ 为从 $u$ 点通过花费 $w_2$ 的路径长度到达 $v_2$，再到达终点的路径长度；</li>
+<li>设事件 $C$ 为从 $u$ 点通过花费 $w_3$ 的路径长度到达 $v_3$，再到达终点的路径长度；</li>
+</ul>
+</li>
+<li>显然，事件 $X$ 包含的是事件 $A,B,C$，而又已知：$A = X_1 + w_1, B = X_2 + w_2,C = X_3 + w_3$，因此有：<ul>
+<li>$X = P_1\times A + P_2\times B + P_3\times C = P_1(X_1+w_1) + P_2(X_2 + w_2) + P_3(X_3 + w_3)$</li>
+<li>$E(X) = E(P_1(X_1+w_1)) + E(P_2(X_2 + w_2)) + E(P_3(X_3 + w_3))$</li>
+<li>$E(X) = P_1(w_1+E(X_1)) + P_2(w_2+E(X_2)) + P_3(w_3+E(X_3))$</li>
+</ul>
+</li>
+<li>因此，这里主要证明了对于有边权的情况下，公式：$E(X) = \sum_{i=1}^{n}p_i\times x_i$ 是成立的，只是看事件定义的是不是满足包含，而且是正确包含。不能错误的以为事件 $X$ 包含事件 $X_1,X_2,X_3$，实际上包含的是事件$A,B,C$！</li>
+<li>最后通过这个期望公式，记忆化求解即可。</li>
+</ul>
+</li>
+</ul>
+<p><strong>收集卡牌（由于上面讲的非常详细，这里简单提供思路）：</strong></p>
+<ul>
+<li><strong>题意：</strong>有 $n(n \le 16)$ 个卡牌，抽到每个卡牌都有对应的概率 $p_i$，若抽到相同的卡牌会自动兑换一张万能卡，每 $k$ 张万能卡可以兑换一张任意的卡牌，问抽到所有卡牌的期望次数是多少（如果最后能一次性兑换剩余所有卡牌，则一次性兑换并停止抽卡）？</li>
+<li><strong>思路：</strong><ul>
+<li>用 $16$ 个二进制位表示状态，因此可以定义：$dp[state][coins]$ 为：当前状态为 $state$，且有 $coins$ 个万能卡的期望次数。</li>
+<li>如果直接枚举依次枚举状态（从 $0$ 到 $1&lt;&lt;n$）可能会出现问题，因此一个状态可能从多个状态下转移过来，类似于有向图的依赖，必须先算完该状态下的结果才能利用该状态去继续进行计算，显然还是记忆化搜索。</li>
+<li>最初想的是分类讨论，因为要么是抽到相同的卡，要么是抽到新卡。但有个更好写的做法，就是直接依次枚举每个二进制位，如果是 $1$，则说明我要抽到相同的卡，反之是新卡。</li>
+<li>因此，对于一个状态，可以转移到 $n$ 种状态，直接写出期望公式（与上面绿豆蛙的推导一样，这里省略）：<ul>
+<li>$X = \sum p_i(X_i + 1)$</li>
+<li>$E(X) = \sum p_i(E(X_i) + 1)$</li>
+<li>其中 $1$ 是花费的一次抽卡次数。</li>
+</ul>
+</li>
+<li>最后记得特判次数达到一定数量后可不需消耗抽卡次数即可。</li>
+</ul>
+</li>
+</ul>
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/219/">绿豆蛙的归宿</a>                        经典扑克牌数量问题：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/220/">扑克牌</a></p>
+<p>与模板题“绿豆蛙的归宿”类似，自己写了 $2$ 个多小时没写出来qwq，于是决定总结好这类题目（已总结）！：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/4012/">收集卡牌</a></p>
 <p><strong>$2023ICPC$ 网络赛期望签到题：</strong><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/1705510247604809728/exam/problems/1705514248467492876?type=7&amp;page=0">The 2023 ICPC Asia Regionals Online Contest (2) M Dirty Work</a></p>
 <p><strong>$2023CCPC$ 华为云计算挑战赛（简单期望题）</strong>：<a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=7398">塔</a></p>
+<hr>
+<p><mark>l绿豆蛙的归宿代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1e5 + 10, M &#x3D; 4e5 + 10;
+
+int n, m;
+int h[N], e[M], w[M], ne[M], idx;
+double f[N];
+int d[N];
+
+void add(int a, int b, int c)
+&#123;
+    e[idx] &#x3D; b, w[idx] &#x3D; c, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
+&#125;
+
+double dp(int u, int fa)
+&#123;
+    if (f[u] &gt;&#x3D; 0) return f[u];
+    auto&amp; v &#x3D; f[u];
+    v &#x3D; 0;
+    for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i])
+    &#123;
+        int j &#x3D; e[i];
+        if (j &#x3D;&#x3D; fa)    continue;
+        v +&#x3D; 1.0 &#x2F; d[u] * (dp(j, u) + w[i]);
+    &#125;
+    return v;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    memset(h, -1, sizeof(h));
+    memset(f, -1, sizeof(f));
+
+    cin &gt;&gt; n &gt;&gt; m;
+    for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
+    &#123;
+        int a, b, c;
+        cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+        add(a, b, c);
+        d[a]++;
+    &#125;
+    cout &lt;&lt; fixed &lt;&lt; setprecision(2) &lt;&lt; dp(1, -1) &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+<p><mark>收集卡牌代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 16, M &#x3D; 1 &lt;&lt; N;
+
+int n, k;
+double probility[N];
+double f[M][81];
+
+double dp(int state, int coins, int zero_cnt)
+&#123;
+    if (f[state][coins] &gt;&#x3D; 0)   return f[state][coins];
+    auto&amp; v &#x3D; f[state][coins];
+    v &#x3D; 0;
+    if (coins &gt;&#x3D; zero_cnt * k)  return v;
+    for (int i &#x3D; 0; i &lt; n; i++)
+        if (state &gt;&gt; i &amp; 1)
+            v +&#x3D; probility[i] * (dp(state, coins + 1, zero_cnt) + 1);
+        else    
+            v +&#x3D; probility[i] * (dp(state | (1 &lt;&lt; i), coins, zero_cnt - 1) + 1);
+    return v;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    memset(f, -1, sizeof(f));
+    cin &gt;&gt; n &gt;&gt; k;
+
+    for (int i &#x3D; 0; i &lt; n; i++)    cin &gt;&gt; probility[i];    
+
+    cout &lt;&lt; fixed &lt;&lt; setprecision(10) &lt;&lt; dp(0, 0, n) &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
 <p><mark>M Dirty Work 讲解：</mark></p>
 <blockquote>
 <p><strong>题意：</strong>有 $n$ 道题，已知每道题的第一次尝试需要的时间和第二次修改的时间（第二次修改后的代码必对）以及第一次尝试失败的概率，此外第一次失败的罚时不计，其余罚时规则与 $ICPC$ 规则一致。你可以安排这 $n$ 道题的做题顺序，问最小的期望罚时是多少？</p>
