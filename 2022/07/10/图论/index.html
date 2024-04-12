@@ -577,7 +577,7 @@ int main()
     &#125;
 &#125;&#x2F;&#x2F;如果用dfs(1,0)调用：表示数组元素从1开始,当前已经选了0个数。</code></pre>
 
-<h2 id="模拟退火"><a href="#模拟退火" class="headerlink" title="模拟退火"></a>模拟退火</h2><p><mark>模板题代码：</mark></p>
+<h3 id="模拟退火"><a href="#模拟退火" class="headerlink" title="模拟退火"></a>模拟退火</h3><p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -941,7 +941,7 @@ int main()
 
 
 
-<h2 id="最短路"><a href="#最短路" class="headerlink" title="最短路"></a>最短路</h2><h3 id="Dijkstra"><a href="#Dijkstra" class="headerlink" title="Dijkstra"></a>Dijkstra</h3><h4 id="朴素版Dijkstra"><a href="#朴素版Dijkstra" class="headerlink" title="朴素版Dijkstra"></a>朴素版Dijkstra</h4><p>适用于<strong>稠密图</strong>(m ≈ n<sup>2</sup>)，用邻接矩阵存储。时间复杂度：O(n<sup>2</sup>)</p>
+<h2 id="最短路"><a href="#最短路" class="headerlink" title="最短路"></a>最短路</h2><h3 id="Dijkstra"><a href="#Dijkstra" class="headerlink" title="Dijkstra"></a>Dijkstra</h3><h4 id="朴素版Dijkstra"><a href="#朴素版Dijkstra" class="headerlink" title="朴素版Dijkstra"></a>朴素版Dijkstra</h4><p>适用于<strong>稠密图</strong>（$m ≈ n^2$)，用邻接矩阵存储。时间复杂度：$O(n^2)$</p>
 <p><mark>代码模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -984,8 +984,9 @@ int main()
     printf(&quot;%d\n&quot;,dijkstra());
 &#125;</code></pre>
 
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/851/">Dijkstra求最短路 I</a></p>
 <h4 id="堆优化版Dijkstra"><a href="#堆优化版Dijkstra" class="headerlink" title="堆优化版Dijkstra"></a>堆优化版Dijkstra</h4><blockquote>
-<p>适用于<strong>稀疏图</strong>(m ≈ n)，用邻接表存储。</p>
+<p>适用于<strong>稀疏图</strong>（$m ≈ n$），用邻接表存储。</p>
 <p><strong>时间复杂度：</strong>$O(mlog(n))$</p>
 </blockquote>
 <p><mark>封装模板：</mark></p>
@@ -1081,6 +1082,7 @@ int main()
     return 0;
 &#125;</code></pre>
 
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/852/">Dijkstra求最短路 II</a></p>
 <h3 id="bellman-ford"><a href="#bellman-ford" class="headerlink" title="bellman-ford"></a>bellman-ford</h3><p><mark>代码模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -1126,7 +1128,12 @@ int main()
     return 0;
 &#125;</code></pre>
 
-<h3 id="spfa"><a href="#spfa" class="headerlink" title="spfa"></a>spfa</h3><p><mark>封装模板：</mark></p>
+
+
+<h3 id="spfa"><a href="#spfa" class="headerlink" title="$spfa$"></a>$spfa$</h3><blockquote>
+<p><strong>时间复杂度：</strong>一般：$O(M)$，最坏：$O(NM)$</p>
+</blockquote>
+<p><mark>封装模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; g(n + 1);&#x2F;&#x2F;存图
 auto spfa &#x3D; [&amp;](int st) -&gt; vector&lt;int&gt;
 &#123;
@@ -1336,7 +1343,7 @@ int main()
 &#125;</code></pre>
 
 <h2 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h2><h3 id="Prim"><a href="#Prim" class="headerlink" title="Prim"></a>Prim</h3><blockquote>
-<p>时间复杂度：$O(n^2)$</p>
+<p><strong>时间复杂度：</strong>$O(n^2)$</p>
 </blockquote>
 <p><mark>模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -1386,8 +1393,9 @@ int main()
     return 0;
 &#125;</code></pre>
 
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/860/">Prim算法求最小生成树</a></p>
 <h3 id="Kruskal"><a href="#Kruskal" class="headerlink" title="Kruskal"></a>Kruskal</h3><blockquote>
-<p>时间复杂度：$O(mlogm)$</p>
+<p><strong>时间复杂度：</strong>$O(mlogm)$</p>
 </blockquote>
 <p><mark>代码模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -1447,6 +1455,7 @@ int main()
     return 0;
 &#125;</code></pre>
 
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/861/">Kruskal算法求最小生成树</a></p>
 <h4 id="Kruskal-重构树"><a href="#Kruskal-重构树" class="headerlink" title="Kruskal 重构树"></a>Kruskal 重构树</h4><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1627,7 +1636,7 @@ int main()
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/850/">有向图的拓扑序列</a></p>
 <p><strong>$RAICOM$ 国赛第四题：</strong> <a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/1693095794755289088/exam/problems/1693095890628689923?type=7&page=0">RC-u4 拆积木</a></p>
-<p><strong>2023 南京ICPC拓扑题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104821/problem/F">F. Equivalent Rewriting</a></p>
+<p><strong>2023 南京 $ICPC$ 拓扑题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104821/problem/F">F. Equivalent Rewriting</a></p>
 <h2 id="二分图"><a href="#二分图" class="headerlink" title="二分图"></a>二分图</h2><blockquote>
 <p>将所有点分成两个集合，使得所有边只出现在集合之间，就是二分图。</p>
 </blockquote>
@@ -1638,9 +1647,9 @@ int main()
 <ul>
 <li><p>染色可以使用数字 $1$ 和 $2$ 区分不同颜色，用 $0$ 表示未染色。</p>
 </li>
-<li><p>遍历所有点，每次将未染色的点进行 $dfs$, 数字 $1$ 和 $2$ 可以用 $3 - c$ 快速交替！</p>
+<li><p>遍历所有点，每次将未染色的点进行 $dfs$, 数字 $1$ 和 $2$ 可以用 $3 - c$ 快速交替（小技巧）！</p>
 </li>
-<li><p>最后，染色失败相当于存在相邻的2个点染了相同的颜色。</p>
+<li><p>最后，染色失败相当于存在相邻的 $2$ 个点染了相同的颜色。</p>
 </li>
 </ul>
 <p><strong>时间复杂度：</strong>$O(N+M)$</p>
@@ -1785,7 +1794,7 @@ int main()
 <p>对于一个有向图，<strong>连通分量</strong>：对于分量中任意两点 $u$ 、$v$，必然可以从 $u$ 走到  $v$，且从 $v$ 走到 $u$ 。</p>
 <p><strong>强连通分量</strong>：极大连通分量。</p>
 <blockquote>
-<p><strong>主要功能：</strong>通过缩点的方式，将任意有向图转换成有向无环图（DAG），又称拓扑图。</p>
+<p><strong>主要功能：</strong>通过缩点的方式，将任意有向图转换成有向无环图（$DAG$），又称拓扑图。</p>
 <p><strong>注意：</strong>做完 $tarjan$ 算法之后,拓扑序一定是按照强连通分量节点编号递减的顺序，因此不需要再做一遍拓扑排序。</p>
 </blockquote>
 <p>定义两个时间戳概念；</p>
@@ -1932,7 +1941,7 @@ int main()
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1176/">受欢迎的牛</a></p>
 <p><strong>$tarjan + dp$：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1177/">最大半连通子图</a>，其中 $dp$ 问题类似于<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/11/">背包问题求方案数</a></p>
-<h3 id="无向图的双连通分量"><a href="#无向图的双连通分量" class="headerlink" title="无向图的双连通分量"></a>无向图的双连通分量</h3><p><strong>基本定义：</strong></p>
+<h3 id="无向图的双连通分量（感觉有点罕见qwq）"><a href="#无向图的双连通分量（感觉有点罕见qwq）" class="headerlink" title="无向图的双连通分量（感觉有点罕见qwq）"></a>无向图的双连通分量（感觉有点罕见qwq）</h3><p><strong>基本定义：</strong></p>
 <ul>
 <li><p>边双连通分量 $(e-DCC)$</p>
 <ul>
@@ -2358,9 +2367,14 @@ depth[i]:表示深度
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1174/">祖孙询问</a></p>
 <h3 id="树上差分"><a href="#树上差分" class="headerlink" title="树上差分"></a>树上差分</h3><blockquote>
-<p>在 $(a,b)$ 路径上每条边加上权值 $c$：$d[a] +&#x3D; c, b[b] +&#x3D; c, d[p] -&#x3D; 2c$，其中 $p &#x3D; lca(a,b)$；</p>
+<p>在 $(a,b)$ 路径上每条<strong>边</strong>加上权值 $c$：$d[a] +&#x3D; c, b[b] +&#x3D; c, d[p] -&#x3D; 2c$，其中 $p &#x3D; lca(a,b)$；</p>
 <p>这样，每个点的权值表示，<strong>这个点与父节点之间的边的权值是多少！</strong></p>
-<p>学习博客参考：<a target="_blank" rel="noopener" href="https://www.acwing.com/blog/content/16630/">树上前缀和以及树上差分</a></p>
+<p>更一般的，有点权和边权之分：</p>
+<ul>
+<li>边权树上差分：<code>d[a] += c, d[b] += c, d[p] -= 2c</code></li>
+<li>点权树上差分：<code>d[a] += c, d[b] += c, d[p] -= c, d[fa[p]] -= c</code></li>
+</ul>
+<p><strong>学习博客参考：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/blog/content/16630/">树上前缀和以及树上差分</a></p>
 </blockquote>
 <p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -3754,7 +3768,14 @@ int main()
 <ul>
 <li>对于关系：$x_i ∪ x_j$ ，利用离散的角度等价于：$\neg x_i → x_j$ 和 $\neg x_j → x_i$，因此即可建两条边；</li>
 <li>如果存在 $x_i$ 既可为 $0$，又可为 $1$，即在同一个强连通块内，一定不合法；</li>
-<li>因此，最后按照拓扑序的顺序，依次赋值即可。</li>
+<li>构造方式：<ul>
+<li>$tarjan$ 性质：我们求完强连通分量并缩点后，所有强连通分量的编号其实就是拓扑排序的逆序；</li>
+<li>构造方式：优先选择拓扑序靠后的，即对应缩点后编号小的，原因：<ul>
+<li>对于任意一个命题都存在一个与它等价的逆否命题，即我们建的有向图中所有的强连通分量一定都是成对出现的，等于是两个方案，我们只需要选其一即可，而这两个强连通分量在拓扑排序中一定会有一个先后顺序，因此对于：$a→b$，我们选 $a$ 的话一定要选 $b$，而如果选 $b$ 的话可以不一定选 $a$，因此我们可以这么构造（虽然不太确定这么说正不正确，但可以这么理解）。</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </blockquote>
 <p><mark>模板题代码：</mark></p>
