@@ -4696,6 +4696,92 @@ int main()
 
     return 0;
 &#125;</code></pre>
+<ul>
+<li><p><strong>天梯赛 $L2$ 递归题（困扰一年后才解决qwq，主要没分析对时间复杂度）：<a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/1649748772841508874?type=7&amp;page=1">L2-047 锦标赛</a></strong></p>
+<ul>
+<li><p>其实思路这一年一直都一样，没有变过。最后也确实是对的，没做出来的原因有2：</p>
+<ul>
+<li>1、不太会建树，比如说下标该怎么索引，怎么遍历？</li>
+<li>2、如果匹配不成功，就得回溯，时间复杂度应该不够吧？有没有一次遍历就能知道答案的？</li>
+</ul>
+</li>
+<li><p>下面对上面这两个问题进行解决：</p>
+<ul>
+<li><p>1、我是按照自己理解的方式去建图，可能并不优，但确实也不是太麻烦。每一场比赛有 $2$ 个人，当成 $1$ 个结点，因为是满二叉树，如果根节点编号为 $1$，两个孩子的编号就是 $2, 3$，即 $2\times u, 2\times u + 1$，因此我们从最后一场比赛开始赋值为 $1$，每个点存两个值即可，最后遍历到最后一场比赛，就能得知每个选手的成绩。</p>
+</li>
+<li><p>2、考虑最坏的情况，如果到最后一层（$logn$ 层）发现不合法，则最多往上跳到第 $1$ 层，接着如果还是最后一层不合法，则最多往上只能跳到第 $2$ 层，不能再往上了因为上一层的所有情况（最多 $2$ 种情况）已经遍历清楚了，因此：</p>
+<ul>
+<li>$1+\cdots+logn + 2 + \cdots + logn + \cdots ≈ 4NlogN$，大致是结合线段树的情况进行分析的，自己分析的，可能不太标准qwq</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef pair&lt;int, int&gt; pii;
+
+const int N &#x3D; 1e6 + 10, M &#x3D; 20;
+
+int k;
+pii a[M][N];
+pii id[N];
+&#x2F;&#x2F; 将每一场比赛当做一个结点
+bool dfs(int u)
+&#123;
+    if (u * 2 &gt;&#x3D; (1 &lt;&lt; k))  return true;
+    int l &#x3D; id[u].first, r &#x3D; id[u].second;
+    int mi &#x3D; a[l][r].first, mx &#x3D; a[l][r].second;
+    int nxl_mi &#x3D; a[l - 1][2 * r - 1].first, nxr_mi &#x3D; a[l - 1][2 * r].first;
+    &#x2F;&#x2F; cout &lt;&lt; u &lt;&lt; &quot; &quot; &lt;&lt; mi &lt;&lt; &quot; &quot; &lt;&lt; mx &lt;&lt; &quot; &quot; &lt;&lt; nxl_mi &lt;&lt; &quot; &quot; &lt;&lt; nxr_mi &lt;&lt; &quot;\n&quot;;
+
+    &#x2F;&#x2F; 第一种放法
+    if (mi &gt;&#x3D; nxl_mi &amp;&amp; mx &gt;&#x3D; nxr_mi)
+    &#123;
+        a[l - 1][2 * r - 1].second &#x3D; mi, a[l - 1][2 * r].second &#x3D; mx;
+        if (dfs(2 * u) &amp;&amp; dfs(2 * u + 1)) return true;
+        a[l - 1][2 * r - 1].second &#x3D; 0, a[l - 1][2 * r].second &#x3D; 0;
+    &#125;
+
+    &#x2F;&#x2F; 第二种放法
+    if (mx &gt;&#x3D; nxl_mi &amp;&amp; mi &gt;&#x3D; nxr_mi)
+    &#123;
+        a[l - 1][2 * r - 1].second &#x3D; mx, a[l - 1][2 * r].second &#x3D; mi;
+        if (dfs(2 * u) &amp;&amp; dfs(2 * u + 1)) return true;
+        a[l - 1][2 * r - 1].second &#x3D; 0, a[l - 1][2 * r].second &#x3D; 0;
+    &#125;
+
+    return false;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    cin &gt;&gt; k;
+    for (int i &#x3D; 1; i &lt;&#x3D; k; i++)
+    &#123;
+        int idx &#x3D; 1 &lt;&lt; (k - i);
+        for (int j &#x3D; 1; j &lt;&#x3D; 1 &lt;&lt; (k - i); j++)
+        &#123;
+            cin &gt;&gt; a[i][j].first;
+            id[idx++] &#x3D; &#123;i, j&#125;;
+        &#125;
+    &#125;
+    cin &gt;&gt; a[k][1].second;
+
+    if (a[k][1].second &lt; a[k][1].first || !dfs(1))  cout &lt;&lt; &quot;No Solution\n&quot;;
+    else
+    &#123;
+        for (int i &#x3D; 1; i &lt;&#x3D; 1 &lt;&lt; (k - 1); i++)   cout &lt;&lt; a[1][i].first &lt;&lt; &quot; &quot; &lt;&lt; a[1][i].second &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; (1 &lt;&lt; (k - 1))];
+    &#125;
+    
+    return 0;
+&#125;</code></pre>
 <h2 id="数据分治题单"><a href="#数据分治题单" class="headerlink" title="数据分治题单"></a>数据分治题单</h2><p><strong>$2023CCPC$ 桂林站签到题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/482805/problem/K">K. Randias Permutation Task</a></p>
 <p><mark>$2023CCPC$ 桂林签到详解：</mark></p>
 <blockquote>
