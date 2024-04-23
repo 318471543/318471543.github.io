@@ -2541,6 +2541,7 @@ int main()
 <p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57359/I">The Yakumo Family</a></p>
 <h3 id="普通位运算"><a href="#普通位运算" class="headerlink" title="普通位运算"></a>普通位运算</h3><p><mark>推荐题单：</mark></p>
 <p><strong>$div2\ D$ 题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1946/problem/D">D. Birthday Gift</a></p>
+<p><strong>$div2 \ D$ 题（经典三元组计数问题）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1957/problem/D">D. A BIT of an Inequality</a></p>
 <hr>
 <p><mark>锐评 $D\ Birthday\ Gift$ ：</mark></p>
 <p><strong>吐槽：</strong>赛中 $1$ 小时的时候过了 $3$ 题，还算比较快的，没有什么硬核的思维题干扰，略上小分。然后争取到了时间去看了下 $D$，看到那复杂的公式，以为是什么很强大的数据结构之类的，但后面仔细想想可能是有什么性质。看了下题解后，果然是化简下式子，然后变成了别人口中的“典题”？？？怎么典了，我看完还是一点没思路啊！而且感觉真的<strong>思维量好大</strong>啊，赛场上遇到这种题该怎么办，怎么才能会这道题啊！！！</p>
@@ -2997,8 +2998,8 @@ int main()
 <p><strong>坑点：</strong><mark>经典爆 int </mark> 。虽然题目中的 $a_i$ 都是 $[-10^{9},10^9]$，但当数据为仅 2 个数：-$10^{9}$ 和 $10^9$ 时，需要再创建另一个数保证公差为 $2×10^9$ （题目要求），那么那个数就需要是 $-3 × 10^9$，就会爆掉，进而答案也会出错。 </p>
 <p><mark>Codeforces Round 933 (Div. 3) F. Rudolf and Imbalance：<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1941/problem/F">F. Rudolf and Imbalance</a></mark></p>
 <p><strong>坑点：</strong> <mark>以为是三分，实际并不满足该条件（属于自己知识上的误区）。</mark> 该场景中，在三分的过程中，遇到了两个点 $m1$，$m2$ 对应权值相等的情况，导致并不满足三分的条件了，不知道区间该往哪边缩，因此导致了错误发生。</p>
-<h2 id="优化好题（层层优化）"><a href="#优化好题（层层优化）" class="headerlink" title="优化好题（层层优化）"></a>优化好题（层层优化）</h2><ol>
-<li><strong>$2022$ 蓝桥杯省赛真题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/4408/">统计子矩阵</a></li>
+<h2 id="优化好题（层层优化，一层优化但是典）"><a href="#优化好题（层层优化，一层优化但是典）" class="headerlink" title="优化好题（层层优化，一层优化但是典）"></a>优化好题（层层优化，一层优化但是典）</h2><ol>
+<li><strong>$2022$ 蓝桥杯省赛真题（层层优化）：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/4408/">统计子矩阵</a></li>
 </ol>
 <ul>
 <li>最初只会 $O(n^4)$ 的做法，思考了一些单调性后，也只能优化到 $O(n^3logn)$，但 $n$ 有 $500$，仍然过不去。因此必须优化到 $O(n^3)$。</li>
@@ -3007,7 +3008,7 @@ int main()
 <li>最后卡在双指针好久，$l,r$ 指针以 $r$ 为末端点要好写些，如果以 $l$ 开始感觉挺难实现的（当时还写了一个判重数组）qwq。</li>
 </ul>
 <ol start="2">
-<li><strong>$2022$ 蓝桥杯省赛真题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/4409/">积木画</a></li>
+<li><strong>$2022$ 蓝桥杯省赛真题（层层优化）：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/4409/">积木画</a></li>
 </ol>
 <ul>
 <li>优化 $1$：定义状态：$f[i][j]$: 前 $i - 1$ 列已经摆好，且第 $i$ 列的状态为 $j$ 的方案数，枚举状态，时间复杂度：$O(N(2^M)^2)$</li>
@@ -3017,6 +3018,31 @@ int main()
 <li>每一层状态都可以由上一层状态获取，因此可以矩阵快速幂；</li>
 <li>有三个未知数，因此定义：$[F_{i_0},F_{i_1},F_{i_2}] &#x3D; [F_{i-1_0},F_{i-1_1},F_{i-1_2}] \times A$，显然，$A$ 是一个 $3\times3$ 的矩阵；</li>
 <li>根据递推的公式（优化 $3$），解未知数可得转移矩阵 $A$，因此得解。</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li><strong>$bfs$ 类型的优化（一次优化，但是典）：</strong><ul>
+<li>$2023$ 年百度之星初赛：<a target="_blank" rel="noopener" href="https://www.matiji.net/exam/brushquestion/1/4347/179CE77A7B772D15A8C00DD8198AAC74">BD202301公园</a></li>
+<li>$2024$ 年天梯赛 $L3-1$：<a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/1781658570803388428?type=7&page=1">L3-037 夺宝大赛</a></li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>这两道题的优化思路基本差不多（从多点个的 $bfs$ 转换为从终点到其余所有点的 $bfs$），虽然只是第一次见这两个类型的题目，但好在赛时都成功写出来了！因此，这里入典方便复习，之后如果再遇到类似的题或者套路可以尽快想出来！！！</li>
+</ul>
+<ol start="4">
+<li><strong>计数类（二元组计数 &#x2F; 三元组计数）优化（一次优化，但是典）：</strong></li>
+</ol>
+<ul>
+<li><p><strong>二元组：</strong></p>
+<ul>
+<li>$div4\ G$：<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1850/problem/G">G. The Morning Star</a></li>
+</ul>
+</li>
+<li><p><strong>三元组：</strong></p>
+<ul>
+<li>$div2\ D$：<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1957/problem/D">D. A BIT of an Inequality</a></li>
 </ul>
 </li>
 </ul>
@@ -3277,6 +3303,92 @@ int main()
 
 
 
+<p><mark>$div2\ D$：D. A BIT of an Inequality 讲解：</mark></p>
+<ul>
+<li><p>自己把公式化简出来了（并不难化简）：$(S_{x-1} \oplus S_z) \oplus a_y &gt; (S_{x-1} \oplus S_z)$；</p>
+</li>
+<li><p>三元组计数，我印象中（虽然没做过多少这类型的题）是可以枚举中间的那个 $y$ 然后搞个前后缀之类的能解决（想对了）；</p>
+</li>
+<li><p>最后一步没想到，不知道要统计什么东西。看了下题解，瞬间恍然大悟，忽略了一个很简单的点，对于 $x \oplus y &gt; x$，$y$ 的最高位是 $1$，那么 $x$ 就必须是 $0$。</p>
+</li>
+<li><p>总结就是：枚举点 $y$，前后缀搞一搞，就OK啦！</p>
+</li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+using ll &#x3D; long long;
+
+void solve()
+&#123;
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;int&gt; a(n + 1), sum_xor(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    
+    &#123;
+        cin &gt;&gt; a[i];
+        sum_xor[i] &#x3D; sum_xor[i - 1] ^ a[i];
+    &#125;
+
+    vector&lt;vector&lt;int&gt;&gt; sum(32, vector&lt;int&gt;(n + 1));
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        for (int j &#x3D; 0; j &lt;&#x3D; 31; j++)
+        &#123;
+            if (sum_xor[i] &gt;&gt; j &amp; 1)  sum[j][i] &#x3D; sum[j][i - 1] + 1;
+            else    sum[j][i] &#x3D; sum[j][i - 1];
+        &#125;
+    &#125;
+
+    vector&lt;vector&lt;int&gt;&gt; suf(32, vector&lt;int&gt;(n + 2));
+    for (int i &#x3D; n; i &gt;&#x3D; 1; i--)
+    &#123;
+        for (int j &#x3D; 0; j &lt;&#x3D; 31; j++)
+        &#123;
+            if (sum_xor[i] &gt;&gt; j &amp; 1)    suf[j][i] &#x3D; suf[j][i + 1] + 1;
+            else    suf[j][i] &#x3D; suf[j][i + 1];
+        &#125;
+    &#125;
+
+    auto get &#x3D; [&amp;](int x) -&gt; int
+    &#123;
+        for (int j &#x3D; 31; j &gt;&#x3D; 0; j--)
+            if (x &gt;&gt; j &amp; 1) 
+                return j;
+        return -1;
+    &#125;;
+
+    ll res &#x3D; 0;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        int pos &#x3D; get(a[i]);
+        int sum0 &#x3D; (i - sum[pos][i - 1]), suf0 &#x3D; (n - i + 1 - suf[pos][i]);
+        int sum1 &#x3D; sum[pos][i - 1], suf1 &#x3D; suf[pos][i];
+        res +&#x3D; (ll)sum0 * suf0 + (ll)sum1 * suf1;
+    &#125;
+
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int t;
+    cin &gt;&gt; t;
+
+    while (t--)
+    &#123;
+        solve();
+    &#125;
+    
+    return 0;
+&#125;</code></pre>
+
+
+
 <h2 id="Codeforces-掉分题单"><a href="#Codeforces-掉分题单" class="headerlink" title="Codeforces 掉分题单"></a>Codeforces 掉分题单</h2><blockquote>
 <p>有赛时通过了，但耗时较长的题目类型；</p>
 <p>有赛时没有通过，但后面的题都开出来了（说明是一道easy题），但思维不够的题目类型；</p>
@@ -3315,10 +3427,29 @@ int main()
 <li>确实是 $dp$，不过需要对 $lcp$ （最长公共前缀）这个概念有所了解。</li>
 </ul>
 </li>
-<li><mark>鉴定为高质量题目。</mark>$div3\ E$ 没写出来，感觉是一道思维题。。。<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1955/problem/E">E. Long Inversions</a><ul>
+<li><mark>鉴定为高质量题目（算法：差分）。</mark>$div3\ E$ 没写出来，感觉是一道思维题。。。<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1955/problem/E">E. Long Inversions</a><ul>
 <li>锐评：整场难度感觉比之前 $div3$ 要难一些，自己的翻译水平也差了好多，不过这场好题还挺多的，这个 $E$ 感觉很棒，当晚临睡觉前还想到了一个做法，但第二天早上就被自己 $hack$ 了，目前还在思考怎么写ing；</li>
 <li>无奈看题解：看了一眼知乎题解，他说就是差分，虽然直接差分看似 $O(N^3)$，但由于是区间异或操作，可以达到 $O(N^2)$ 的优秀效果；看完不禁让我继续想用了 $bitset$，以为题解是这个意思qwq，虽然 $bitset$ 过了，但用时 $2.5s$，几乎快达到题目给的 $3s$ 时限了。</li>
 <li>再度锐评：忘了说了，这次打 $cf$ 有一个天然的优势，因为最近巩固了之前学过的很多算法，学起来并不吃力了，也补了之前很多题目，感觉没什么东西能限制我了，然后决定来打 $div3$ 试试上分并检验自己的成果。结果面对 $E$ 题，我绞尽脑汁，以为是什么思维上的做法，感觉还是死在了思维了。但赛后看来，之前想过差分但觉得会超时，但现在发现，这应该是一个差分应用上的小技巧，我还真不知道！决定去学一学，顺便还学着使用了一手 $bitset$ 针不戳！</li>
+</ul>
+</li>
+<li><mark>鉴定为区域赛思维题（算法：组合数学&#x2F; $dp$）。</mark>$div2\ C$ 很像区域赛的那种思维题，没做出来，需要好好想想。：<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1957">Codeforces Round 940 (Div. 2) and CodeCraft-23</a><ul>
+<li>很好，解决了这道题目（看了下题解qwq）。是一道简单的组合数学问题（现在发现自己的数学水平差到底了，最近的蓝桥杯数学题、$cf$ 数学题全都不会。。。）</li>
+<li>基本思路都差不多，只不过自己在组合数学方面想的有点慢。。。其实这题可以分成两种写法：<ul>
+<li>1、组合数学：考虑枚举，即选了多少个 $x \neq y$ 的情况，剩下的一定是都填在对角线上，也就是最终棋盘是固定的。<ul>
+<li>假设剩下能填的矩阵的阶是 $n$，则有公式：$C_n^iC_{n-i}^{i}$。先说明下这个公式的含义：从 $n$ 行中选出 $i$ 个互不相同的横坐标，然后纵坐标首先肯定不能有和横坐标相同的数，那么就是 $n - i$ 的来历，然后同样的，从剩下 $n - i$ 个可选的纵坐标里面选出 $i$ 个。那么这个公式到底是什么含义呢？起初我只以为这就是答案了，因为这不就是所有选法吗？然后运行发现样例过不了，然后陷入了沉默。经过手捏数据发现，坏了我也不知道这到底是什么了。。。受不了了，交完 $AC$ 代码了，突然发现自己还是不会。。。刚刚去看了下官方题解表示组合数学比 $dp$ 更难理解些的意思，emmm等解决了这个组合数学再搞 $dp$ 的写法吧。。。等到了第二天上课的时候再思考这个东西，突然悟了。</li>
+<li>因为我们是要选 $i$ 个格子，因为对方会自动选出相对的格子，我们不用先考虑对方的操作。$C_n^i$ 表示我选出的行的各种情况，那么显然我们已经分出了 $C_n^i$ 组，每组的行坐标都不一样，那么对于已选定的行，我们还能再选出 $C_{n-i}^{i}$ 的列，但是在对应行的分组中，不同的列的顺序会影响结果！以从 $4$ 个里面选 $2$ 个为例，如下：</li>
+<li>第一组：$(1,3),(2,4)$ 或 $(1,4),(2,3)$，其中第一组的行标志是 $1、2$，剩余列中只有唯一的选法，就是 $3、4$ 在行中任意排列，都是不同的结果。其余组也类似。</li>
+<li>简而言之，最终答案就是：$C_n^iC_{n-i}^{i}A_i$：按行分组，每组的列可以任意排列（如上面的例子），故此。</li>
+</ul>
+</li>
+<li>2、$dp$：考虑一行一行的取（至于为什么每行取有点意思）。第一个是对角线位置，取了之后还剩 $n - 1$，而其余位置都是非对角线位置，即有 $n - 1$ 个，又因为这种非对角线的颜色可以任意，因此：$dp[n] &#x3D; dp[n - 1] + (n - 1) \times 2 \times dp[n-2]$。<ul>
+<li>其实可能为什么就一行一行的取有点好奇。考虑第一行和第一列，其中有 $1$ 个对角线位置，其余的有 $2\times (n - 1)$ 个非对角线位置。那又为什么这样取，而不能随意的取（比如取其他行和其他列，就非得按照题解是这么说？）？</li>
+<li>这样取的好处就是它在保存某种结构。即把所有关于第 $i$ 行的全部取完的情况。然后从这里去往下转移到后面的状态。所有取完第 $i$ 行的情况有哪些？有 $(i,i)$ 对角线，以及所有的第 $i$ 行和第 $i$ 列，应该就是这种原因（确信qwq）。</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -5988,10 +6119,17 @@ int main()
     return 0;
 &#125;</code></pre></li>
 </ul>
-<h3 id="天梯赛好题精选"><a href="#天梯赛好题精选" class="headerlink" title="天梯赛好题精选"></a>天梯赛好题精选</h3><p>刚刚结束 $2024$ 年天梯赛，个人得分：$238$，个人国二。</p>
+<h3 id="天梯赛好题精选"><a href="#天梯赛好题精选" class="headerlink" title="天梯赛好题精选"></a>天梯赛好题精选</h3><blockquote>
+<p>总结这三年打的天梯赛：</p>
+<p>大一：129分，无奖。</p>
+<p>大二：183分，个人国三。团体国二。</p>
+<p>大三：238分（全校最高分），个人国二。团体也国二吧。</p>
+</blockquote>
+<p>刚刚结束 $2024$ 年天梯赛，个人得分：$238$，个人国二。</p>
 <ul>
 <li>L2-4：剪枝 $dfs$，由于自己没剪到最优导致有两个点没过（超时），不过数据范围比较小，其实可以暴力跑出来然后打表得出结果的，但是没想到这个技巧，不过这个如何剪枝也是值得学习的，待补。</li>
 <li>L3-1：这题最后我拿了满分，前期只是暴力 $bfs$ 了 $nm$ 次，导致超时。最后发现原来是可以从终点 $bfs$ 一次就可以了，这个技巧最后被我想到了，感觉是遇到的第二个这样的题型了（多点同时 $bfs$ 到一个终点不如从一个终点遍历到图上所有点！），上次遇到应该是 $2023$ 年百度之星签到题。。。</li>
+<li>L3-2：只写了暴力，拿了15分。其实是一道真正的算法题（L3-1也是算法题，比L3-1更算法），有空记得补一下。</li>
 </ul>
 <h2 id="算法中的小技巧"><a href="#算法中的小技巧" class="headerlink" title="算法中的小技巧"></a>算法中的小技巧</h2><h3 id="技巧一：二维数组映射"><a href="#技巧一：二维数组映射" class="headerlink" title="技巧一：二维数组映射"></a>技巧一：二维数组映射</h3><p>对于点对的编号数值较大，想开二维数组判重，但是不能开太大？</p>
 <p><strong>问题案例：</strong>给点 $n$ 个点 $(n \le 10^5)$ ，有 $m$ 条边 $(u,v)$，由于不能加入重边，因此需要判重。而二维数组无法开太大，因此怎么办呢？(题目来源：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1177/">最大半连通子图</a>，<a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/1649748772841508875?type=7&page=0">L2-048 寻宝图</a>，其中：第一道题目需要用到该技巧，第二个题目开动态二维数组也可以，但也可以用该技巧练练手！)</p>
@@ -6328,6 +6466,10 @@ int main()
 </ul>
 <h3 id="二进制位数"><a href="#二进制位数" class="headerlink" title="二进制位数"></a>二进制位数</h3><p>若：$n &#x3D; 2^{x} - 1$ ，则 $n$ 共有 $x$ 个二进制位，最高位为 $x - 1$。</p>
 <h3 id="前-n-个数的平方的和公式"><a href="#前-n-个数的平方的和公式" class="headerlink" title="前 $n$ 个数的平方的和公式"></a>前 $n$ 个数的平方的和公式</h3><p>$1^2 + 2^2 + 3^3 + \cdots + n^2 &#x3D; \sum_{i&#x3D;1}^{n}{i^2} &#x3D; \frac{n(n + 1)(2n + 1)}{6}$</p>
+<h3 id="读取带空格的字符串"><a href="#读取带空格的字符串" class="headerlink" title="读取带空格的字符串"></a>读取带空格的字符串</h3><pre class="language-c++" data-language="c++"><code class="language-c++">string s;
+getline(cin, s);</code></pre>
+
+<p><strong>注意：</strong>如果前面还读取过其他输入，需要添加 $getchar()$！</p>
 <h3 id="计算区间内相同元素的区间下标和对应值"><a href="#计算区间内相同元素的区间下标和对应值" class="headerlink" title="计算区间内相同元素的区间下标和对应值"></a>计算区间内相同元素的区间下标和对应值</h3><blockquote>
 <p>即将类似字符串 $aabddccc$ 转换为：</p>
 <p>$[1,2] : a$</p>
