@@ -706,6 +706,7 @@ int main()
 <blockquote>
 <p><strong>时间复杂度：</strong>$O(\frac{\sqrt{n}}{ln(\sqrt{n})})$</p>
 <p><strong>方法：</strong>线性筛优化加速</p>
+<p>普通的试除法求质数的复杂度是：$O(\sqrt n)$，我们预处理了所有质数后，就是利用 $\sqrt n$ 里面的质数去筛，因此前 $\sqrt n$ 的质数近似为：$\frac{\sqrt n}{ln\sqrt n}$，故此为时间复杂度。</p>
 </blockquote>
 <p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -776,6 +777,12 @@ int main()
 
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1771/problem/C">C. Hossam and Trainees</a></p>
+<p><strong>2023 西安区域赛铜牌题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/476283/problem/G">G. An Easy Math Problem</a></p>
+<p><mark>西安铜牌题：$G. An Easy Math Problem$ 思路：</mark></p>
+<ul>
+<li>$10^{10}$ 内筛质数，利用高效筛法，时间复杂度为：$O(10^4)$；</li>
+<li>共有 $2000$ 次询问，因此总时间复杂度：$O(2\times10^7)$，这里用数字表示。</li>
+</ul>
 <h2 id="约数"><a href="#约数" class="headerlink" title="约数"></a>约数</h2><h3 id="求约数"><a href="#求约数" class="headerlink" title="求约数"></a>求约数</h3><h4 id="试除法求约数"><a href="#试除法求约数" class="headerlink" title="试除法求约数"></a>试除法求约数</h4><blockquote>
 <p><strong>时间复杂度：</strong> $O(\sqrt{N})$</p>
 </blockquote>
@@ -3345,7 +3352,9 @@ for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   std::cout &lt;&lt; res[i] &lt;&lt; &quo
 </blockquote>
 
 
-
+<h3 id="int-范围最多的约数个数"><a href="#int-范围最多的约数个数" class="headerlink" title="int 范围最多的约数个数"></a>int 范围最多的约数个数</h3><blockquote>
+<p>$int$ 范围的约数最多不超过：$1600$，例子：$1745944200$，其有 $1536$ 个约数。</p>
+</blockquote>
 <p><strong>推荐题单：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1617/problem/C">C. Paprika and Permutation</a></p>
 <h3 id="矩阵旋转坐标变换"><a href="#矩阵旋转坐标变换" class="headerlink" title="矩阵旋转坐标变换"></a>矩阵旋转坐标变换</h3><blockquote>
     一个n*n的矩阵，顺时针旋转 0，90，180，270度的坐标变换公式：<br>
