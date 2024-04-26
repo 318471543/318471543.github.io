@@ -4847,7 +4847,19 @@ int main()
 
 
 
-<h2 id="递归好题"><a href="#递归好题" class="headerlink" title="递归好题"></a>递归好题</h2><ul>
+<h2 id="递归（包括分治、归并）好题"><a href="#递归（包括分治、归并）好题" class="headerlink" title="递归（包括分治、归并）好题"></a>递归（包括分治、归并）好题</h2><ul>
+<li><p><strong>DP + 递归建树（难点在于建树思想 + 如何递归不RE &#x2F; MLE）</strong>：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2585">P2585 [ZJOI2006] 三色二叉树</a></p>
+</li>
+<li><p><strong>天梯赛 $L2$ 递归题（困扰一年后才解决qwq，主要没分析对时间复杂度）：<a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/1649748772841508874?type=7&page=1">L2-047 锦标赛</a></strong></p>
+</li>
+<li><p><strong>$2023\ ICPC$ 西安站铜牌题（归并思想）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/476283/problem/H">H. Elimination Series Once More</a></p>
+</li>
+<li><p><strong>$2023\ CCPC$ 深圳站铜牌题（分治思想，但绝不能分块！）：</strong><a target="_blank" rel="noopener" href="https://vjudge.net/contest/594105#problem/A">A - 一道好题 </a></p>
+</li>
+</ul>
+<hr>
+<p><mark>下面是讲解：</mark></p>
+<ul>
 <li><strong>DP + 递归建树（难点在于建树思想 + 如何递归不RE &#x2F; MLE）</strong>：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2585">P2585 [ZJOI2006] 三色二叉树</a><ul>
 <li>该题目一共交了 $10$ 多发，不是 $RE$ 就是 $MLE$，感觉写法基本一样，但为何总是出错？找到问题了，还是匿名函数求 $dp$ 的问题，$build$ 没改，仅还是把匿名函数的 $int$ 改为 $void$ 就行了，为什么这么神奇？</li>
 <li>$why$ 好？递归建树消耗自己太多时间！建不明白，还一堆$RE &#x2F; MLE$ ！<ul>
@@ -4909,11 +4921,13 @@ int main()
 
 <ul>
 <li><p><strong>天梯赛 $L2$ 递归题（困扰一年后才解决qwq，主要没分析对时间复杂度）：<a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/1649748772841508874?type=7&page=1">L2-047 锦标赛</a></strong></p>
-<ul>
+</li>
 <li><p>其实思路这一年一直都一样，没有变过。最后也确实是对的，没做出来的原因有2：</p>
 <ul>
-<li>1、不太会建树，比如说下标该怎么索引，怎么遍历？</li>
+<li>1、不太会建树，比如说下标该怎么索引，怎么遍历？<ul>
 <li>2、如果匹配不成功，就得回溯，时间复杂度应该不够吧？有没有一次遍历就能知道答案的？</li>
+</ul>
+</li>
 </ul>
 </li>
 <li><p>下面对上面这两个问题进行解决：</p>
@@ -4923,8 +4937,6 @@ int main()
 <li><p>2、考虑最坏的情况，如果到最后一层（$logn$ 层）发现不合法，则最多往上跳到第 $1$ 层，接着如果还是最后一层不合法，则最多往上只能跳到第 $2$ 层，不能再往上了因为上一层的所有情况（最多 $2$ 种情况）已经遍历清楚了，因此：</p>
 <ul>
 <li>$1+\cdots+logn + 2 + \cdots + logn + \cdots ≈ 4NlogN$，大致是结合线段树的情况进行分析的，自己分析的，可能不太标准qwq</li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -4992,6 +5004,90 @@ int main()
     &#125;
     
     return 0;
+&#125;</code></pre>
+
+
+
+<p><strong>$2023\ CCPC$ 深圳站铜牌题（分治思想，但绝不能分块！）：</strong><a target="_blank" rel="noopener" href="https://vjudge.net/contest/594105#problem/A">A - 一道好题 </a></p>
+<p><strong>吐槽：</strong>首先，这绝对是一道好题！本来挺容易想的，就是可以想到很多种做法，但最后发现这些做法都被 $hack$ 了，因为时间复杂度不对！</p>
+<ul>
+<li>第一次尝试：我直接暴力去往上加，能同时加的话就同时加，看着挺“贪心”的方法，结果确实会超时（自己造了一个从 $1$ 开始的每次递增 $1$ 的样例，发现次数很大很大）。</li>
+<li>第二次尝试：想着分块去搞，以为 $\sqrt n$ 应该够小了，没有仔细去算具体是多少的数值，直到写完后发现还是那个样例过不去，虽然已经优化到 $3e4$ 左右的次数了，但确实一想，$n\sqrt n$ 还是会超过 $2e4$，写了这么久，为什么不多分析一下时间复杂度在写？</li>
+<li>第三次尝试：我看了下题解，发现是分治，确实这种数据范围就得 $log$。这是一个数值分治的题目，想清楚之后，也不需要之前那么复杂的写法，会自带一个很巧妙的写法，最后测试了那个样例，只需要 $8000$ 多次就可以了！交一发，终于过了！</li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+using pii &#x3D; pair&lt;int, int&gt;;
+
+constexpr int N &#x3D; 1010;
+
+vector&lt;int&gt; gb[N];
+
+int main()
+&#123;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+	int n;
+	cin &gt;&gt; n;
+
+	vector&lt;pii&gt; b(n + 1);
+	int mx &#x3D; 0;
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)	
+	&#123;
+		cin &gt;&gt; b[i].first;
+		b[i].second &#x3D; 0;
+		mx &#x3D; max(mx, b[i].first);
+		gb[b[i].first].push_back(i);
+	&#125;
+	
+	vector&lt;pii&gt; res;
+	function&lt;void(int, int)&gt; dfs &#x3D; [&amp;](int l, int r) -&gt; void
+	&#123;
+		if (l &gt; r)	return;
+
+		int mid &#x3D; l + r &gt;&gt; 1, cur &#x3D; -1;
+		for (int i &#x3D; mid; i &lt;&#x3D; r; i++) &#x2F;&#x2F; 将大于等于mid的全部提升到mid
+		&#123;
+			for (auto x : gb[i])
+			&#123;
+				if (b[x].second &gt;&#x3D; mid)	continue;
+				res.push_back(&#123;2, x&#125;);
+				b[x].second++;
+				cur &#x3D; b[x].second;
+			&#125;
+		&#125;
+
+		if (cur !&#x3D; -1)
+		&#123;
+			int len &#x3D; mid - cur;
+			for (int i &#x3D; 1, num &#x3D; cur; i &lt;&#x3D; len; i++, num++)
+			&#123;
+				res.push_back(&#123;1, num&#125;);
+			&#125;
+			for (int i &#x3D; mid; i &lt;&#x3D; r; i++)
+			&#123;
+				for (auto x : gb[i])
+				&#123;
+					b[x].second +&#x3D; len;
+				&#125;
+			&#125;
+		&#125;
+
+		dfs(l, mid - 1);
+		dfs(mid + 1, r);
+	&#125;;
+
+	dfs(0, mx);
+
+	cout &lt;&lt; res.size() &lt;&lt; &quot;\n&quot;;
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)	assert(b[i].first &#x3D;&#x3D; b[i].second);
+	assert(res.size() &lt;&#x3D; 20000);
+	for (auto [x, y] : res)	
+		cout &lt;&lt; x &lt;&lt; &quot; &quot; &lt;&lt; y &lt;&lt; &quot;\n&quot;;
+
+	return 0;
 &#125;</code></pre>
 
 
