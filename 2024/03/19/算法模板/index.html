@@ -1147,6 +1147,233 @@ int main()
     return 0;
 &#125;</code></pre>
 
+
+
+<h3 id="线性基"><a href="#线性基" class="headerlink" title="线性基"></a>线性基</h3><blockquote>
+<p>高斯消元（求线性基时，是一种<strong>离线做法</strong>）中，有 $k(k \le n)$ 个线性基：</p>
+<ul>
+<li>若 $k &lt; n$ ，说明这 $n$ 个向量是线性相关的，则必然可以凑出 $0$ 向量。</li>
+<li>若 $k &#x3D; n$，则线性无关，无法凑出 $0$ 向量。</li>
+</ul>
+</blockquote>
+<p><mark>封装模板：</mark></p>
+<ul>
+<li><strong>高斯消元版（离线）</strong></li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;
+struct Linear_basis
+&#123;
+    int n, k;
+    vector&lt;T&gt; a;
+
+    Linear_basis(const vector&lt;T&gt; &amp;a): a(a), n(a.size()) &#123;&#125;
+
+    void Gauss() &#123;
+        k &#x3D; 0;
+        for (int i &#x3D; 62; i &gt;&#x3D; 0; i--) &#123;
+            for (int j &#x3D; k; j &lt; n; j++) &#123;
+                if (a[j] &gt;&gt; i &amp; 1) &#123;
+                    swap(a[j], a[k]);
+                    break;
+                &#125;
+            &#125;
+            if (!(a[k] &gt;&gt; i &amp; 1))   continue;
+
+            for (int j &#x3D; 0; j &lt; n; j++) &#123;
+                if (j &#x3D;&#x3D; k) continue;
+                if (a[j] &gt;&gt; i &amp; 1)  a[j] ^&#x3D; a[k];
+            &#125;
+            k++;
+            if (k &#x3D;&#x3D; n) break;
+        &#125;
+    &#125;
+
+    T get_max() &#123;
+        T res &#x3D; 0;
+        for (int i &#x3D; 0; i &lt; k; i++) res ^&#x3D; a[i];
+        return res;
+    &#125;
+
+    T get_min() &#123;
+        if (k &lt; n)  return 0;
+        else    return a[k - 1];
+    &#125;
+
+    T get_kth(T m) &#123; &#x2F;&#x2F; 求第 m 小
+        if (k &lt; n)  m--;
+        if ((1ll &lt;&lt; k) - 1 &lt; m) return -1;
+        T res &#x3D; 0;
+        for (int i &#x3D; 0; i &lt; k; i++)
+            if (m &gt;&gt; i &amp; 1)
+                res ^&#x3D; a[k - i - 1];
+        return res;
+    &#125;
+&#125;;</code></pre>
+
+<ul>
+<li><strong>贪心版（在线）</strong></li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;
+struct Linear_basis
+&#123;
+    bool flag;&#x2F;&#x2F;判断 0 的存在
+    vector&lt;T&gt; d;
+
+    Linear_basis(): flag(false) &#123;
+        d.resize(63);
+    &#125;
+    bool add(T x) &#123; &#x2F;&#x2F; 每次插入一个数
+        for(int i &#x3D; 62; ~i;i--)
+            if(x &gt;&gt; i &amp; 1)
+            &#123;
+                if(!d[i])    return d[i] &#x3D; x,true;
+                x ^&#x3D; d[i];
+            &#125;
+        flag &#x3D; true;
+        return false;
+    &#125;;
+
+    T get_max() &#123; &#x2F;&#x2F;选取任意个数异或的最大值
+        T res &#x3D; 0;
+        for(int i &#x3D; 62; ~i;i--)
+        &#123;
+            res &#x3D; max(res,res ^ d[i]);
+        &#125;
+        return res;
+    &#125;;
+
+    T get_min() &#123; &#x2F;&#x2F;选取任意个数异或的最小值
+        if(flag)    return 0;
+        for(int i &#x3D; 0; i &lt;&#x3D; 62;i++)
+            if(d[i])    return d[i];
+        return -1;
+    &#125;;
+&#125;;</code></pre>
+
+<p><strong>推荐题目（$2023CCPC$ 桂林站银牌题）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/482805/problem/C">C. Master of Both IV</a></p>
+<p><mark>代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+template&lt;typename T&gt;
+struct Linear_basis
+&#123;
+    bool flag;&#x2F;&#x2F;判断 0 的存在
+    vector&lt;T&gt; d;
+
+    Linear_basis(): flag(false) &#123;
+        d.resize(63);
+    &#125;
+    bool add(T x) &#123; &#x2F;&#x2F; 每次插入一个数
+        for(int i &#x3D; 62; ~i;i--)
+            if(x &gt;&gt; i &amp; 1)
+            &#123;
+                if(!d[i])    return d[i] &#x3D; x,true;
+                x ^&#x3D; d[i];
+            &#125;
+        flag &#x3D; true;
+        return false;
+    &#125;;
+
+    T get_max() &#123; &#x2F;&#x2F;选取任意个数异或的最大值
+        T res &#x3D; 0;
+        for(int i &#x3D; 62; ~i;i--)
+        &#123;
+            res &#x3D; max(res,res ^ d[i]);
+        &#125;
+        return res;
+    &#125;;
+
+    T get_min() &#123; &#x2F;&#x2F;选取任意个数异或的最小值
+        if(flag)    return 0;
+        for(int i &#x3D; 0; i &lt;&#x3D; 62;i++)
+            if(d[i])    return d[i];
+        return -1;
+    &#125;;
+&#125;;
+
+const int mod &#x3D; 998244353;
+
+ll fpow(ll a,ll b)
+&#123;
+   ll res &#x3D; 1;
+   a %&#x3D; mod;
+   while(b)
+   &#123;
+       if(b &amp; 1)   res &#x3D; res * a % mod;
+       a &#x3D; a * a % mod;
+       b &gt;&gt;&#x3D; 1;
+   &#125;
+   return res;
+&#125;
+
+const int N &#x3D; 2e5 + 10;
+vector&lt;int&gt; factor[N];
+void get_divivors(int n)
+&#123;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    	for (int j &#x3D; i; j &lt;&#x3D; n; j +&#x3D; i) 
+            factor[j].emplace_back(i);
+&#125;
+
+void solve()
+&#123;
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;int&gt; a(n + 1);
+    Linear_basis&lt;ll&gt; lb;
+    int k &#x3D; 0;
+    map&lt;int, int&gt; cnt;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    
+    &#123;
+        cin &gt;&gt; a[i];
+        if (!lb.add(a[i]))  k++;
+
+        cnt[a[i]]++;
+    &#125;
+    
+    ll res &#x3D; fpow(2, k) - 1;
+    for (auto [x, y] : cnt)
+    &#123;
+        Linear_basis&lt;ll&gt; tlb;
+        int tk &#x3D; 0;
+        for (auto t : factor[x])
+        &#123;
+            if (cnt.count(t))    
+            &#123;
+                if (!tlb.add(t))    tk +&#x3D; cnt[t];
+                else    tk +&#x3D; cnt[t] - 1;
+            &#125;
+        &#125;
+        res &#x3D; (res + fpow(2, tk)) % mod;
+    &#125;
+
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    get_divivors(2e5);
+
+    int t;
+    cin &gt;&gt; t;
+
+    while (t--)
+    &#123;
+        solve();
+    &#125;
+    
+    return 0;
+&#125;</code></pre>
+
+
+
 <h2 id="图论"><a href="#图论" class="headerlink" title="图论"></a>图论</h2><h3 id="最近公共祖先（-lca-）"><a href="#最近公共祖先（-lca-）" class="headerlink" title="最近公共祖先（$lca$）"></a>最近公共祖先（$lca$）</h3><blockquote>
 <p><strong>应用：</strong></p>
 <ol>
@@ -1585,8 +1812,122 @@ int main()
     return 0;
 &#125;</code></pre>
 
+<h3 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h3><p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;
+struct DSU &#123;
+    vector&lt;T&gt; p, sz;
+    DSU(T n) : p(n), sz(n, 1) &#123; iota(p.begin(), p.end(), 0); &#125;
+    void init(int n) &#123;&#x2F;&#x2F;初始化
+    p.resize(n);
+    iota(p.begin(), p.end(), 0);
+    sz.assign(n, 1);
+    &#125;
+    T find(T x) &#123; &#x2F;&#x2F;找父节点
+       while (x !&#x3D; p[x]) x &#x3D; p[x] &#x3D; p[p[x]];
+       return x;
+    &#125;
+    bool merge(T x, T y) &#123; &#x2F;&#x2F;合并集合
+       x &#x3D; find(x);
+       y &#x3D; find(y);
+       if (x &#x3D;&#x3D; y) return false;
+       sz[x] +&#x3D; sz[y];
+       p[y] &#x3D; x;
+       return true;
+    &#125;
+    bool same(T x, T y) &#123; return find(x) &#x3D;&#x3D; find(y); &#125;&#x2F;&#x2F;判断是否在同一集合
+    T size(T x) &#123; return sz[find(x)]; &#125;&#x2F;&#x2F;获取集合大小
+&#125;;</code></pre>
+
+<p><mark>一般形式：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">void init(int n)
+&#123;
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)	p[i] &#x3D; i;
+&#125;
+
+int find(int x)
+&#123;
+	return x &#x3D;&#x3D; p[x] ? p[x] &#x3D; find(p[x]);
+&#125;</code></pre>
+
+<p><mark>维护 $size$ 的并查集：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">bool merge(T x, T y) &#123; &#x2F;&#x2F;合并集合
+    x &#x3D; find(x);
+    y &#x3D; find(y);
+    if (x &#x3D;&#x3D; y) return false;
+    sz[x] +&#x3D; sz[y]; &#x2F;&#x2F; 关键代码
+    p[y] &#x3D; x; &#x2F;&#x2F; 关键代码
+&#125;</code></pre>
 
 
+
+<h3 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h3><p><mark>封装模板（一维双哈希）：</mark></p>
+<blockquote>
+<p><strong>注意：</strong></p>
+<p>当开多个 $Hash$ 结构体时，应注意空间问题，可将 $pw$ 数组开成全局变量，只初始化一次即可。</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">struct Hash
+&#123;
+    int base,mod;
+    vector&lt;ll&gt; h,fh,pw;
+    Hash(int _base,int _mod):base(_base),mod(_mod)&#123;&#125;
+
+    void init()&#123;&#x2F;&#x2F;初始化
+        h.resize(n + 1),fh.resize(n + 2),pw.resize(n + 1);
+        pw[0] &#x3D; 1;
+        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   pw[i] &#x3D; pw[i - 1] * base % mod;
+        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   h[i] &#x3D; (h[i - 1] * base % mod + s[i]) % mod;
+        for(int i &#x3D; n;i &gt;&#x3D; 1;i--)   fh[i] &#x3D; (fh[i + 1] * base % mod + s[i]) % mod;
+    &#125;
+    ll getz(int l,int r)&#123;&#x2F;&#x2F;获取区间正哈希值
+        return (h[r] - h[l - 1] * pw[r - l + 1] % mod + mod) % mod;
+    &#125;
+    ll getf(int l,int r)&#123;&#x2F;&#x2F;获取区间反哈希值
+        return (fh[l] - fh[r + 1] * pw[r - l + 1] % mod + mod) % mod;
+    &#125;
+    bool equ(int l,int r)&#123;&#x2F;&#x2F;比较该区间正反哈希值是否一致
+        return getz(l,r) &#x3D;&#x3D; getf(l,r);
+    &#125;
+    bool equ(int l1,int r1,int l2,int r2)&#123;&#x2F;&#x2F;比较两区间正哈希值是否一致
+        return getz(l1,r1) &#x3D;&#x3D; getz(l2,r2);
+    &#125;
+&#125;h1(131,998&#39;244&#39;353),h2(13331,1e9 + 7);</code></pre>
+
+<p><mark>封装模板（二维哈希）：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">struct Hash
+&#123;
+    int base_x,base_y;
+    vector&lt;vector&lt;ll&gt;&gt; h,fh;
+    vector&lt;ll&gt; px,py;
+    Hash(int _base_x, int _base_y): base_x(_base_x), base_y(_base_y) &#123;&#125;
+
+    void init() &#123;&#x2F;&#x2F;初始化
+        h.resize(n + 2), fh.resize(n + 2), px.resize(n + 1), py.resize(m + 1);
+        for(int i &#x3D; 0;i &lt;&#x3D; n + 1;i++)   h[i].resize(m + 2),fh[i].resize(m + 2);
+        px[0] &#x3D; 1;
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++) px[i] &#x3D; px[i - 1] * base_x;
+        py[0] &#x3D; 1;
+        for (int i &#x3D; 1; i &lt;&#x3D; m; i++) py[i] &#x3D; py[i - 1] * base_y;
+        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+            for(int j &#x3D; 1;j &lt;&#x3D; m;j++)
+                h[i][j] &#x3D; h[i - 1][j] * base_x + h[i][j - 1] * base_y - h[i - 1][j - 1] * base_x * base_y + s[i][j];
+        for(int i &#x3D; n;i &gt;&#x3D; 1;i--)
+            for(int j &#x3D; m;j &gt;&#x3D; 1;j--)
+                fh[i][j] &#x3D; fh[i + 1][j] * base_x + fh[i][j + 1] * base_y - fh[i + 1][j + 1] * base_x * base_y + s[i][j];
+    &#125;   
+    ll getz(int x1, int y1, int x2, int y2) &#123;&#x2F;&#x2F;获取矩阵区间: [x1,y1] -&gt; [x2,y2] 的正哈希值
+        ll X &#x3D; px[x2 - x1 + 1], Y &#x3D; py[y2 - y1 + 1];
+        return h[x2][y2] - h[x2][y1 - 1] * Y - h[x1 - 1][y2] * X + h[x1 - 1][y1 - 1] * X * Y;
+    &#125;;
+    ll getf(int x1, int y1, int x2, int y2) &#123;&#x2F;&#x2F;获取矩阵区间: [x1,y1] -&gt; [x2,y2] 的反哈希值
+        ll X &#x3D; px[x2 - x1 + 1],Y &#x3D; py[y2 - y1 + 1];
+        return fh[x1][y1] - fh[x1][y2 + 1] * Y - fh[x2 + 1][y1] * X + fh[x2 + 1][y2 + 1] * X * Y;
+    &#125;
+    bool equ(int l1, int r1, int l2, int r2) &#123;&#x2F;&#x2F;判断矩阵区间: [l1,r1] -&gt; [l2,r2] 的正反哈希值是否一致
+        return getz(l1, r1, l2, r2) &#x3D;&#x3D; getf(l1, r1, l2, r2);
+    &#125;
+&#125;h1(131,149),h2(13&#39;331,1e9 + 7);</code></pre>
+
+<p><strong>推荐题目（$2023\ CCPC$ 深圳铜牌题（二分 + 哈希））：</strong> <a target="_blank" rel="noopener" href="https://vjudge.net/contest/594105#problem/G">G - 相似基因序列问题</a></p>
 <h3 id="Trie"><a href="#Trie" class="headerlink" title="Trie"></a>Trie</h3><p><mark>封装模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 1e5 + 10, bit &#x3D; 31, M &#x3D; bit * N;
 struct Trie
