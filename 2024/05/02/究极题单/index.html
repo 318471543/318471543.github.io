@@ -499,10 +499,37 @@
 <h1 id="精选高质量题目"><a href="#精选高质量题目" class="headerlink" title="精选高质量题目"></a>精选高质量题目</h1><blockquote>
 <p>最近发现了很多好题，属于那种感觉挺典但又不熟悉的领域。也因为上次打 $cf$ 遇到了 $C$ 题觉得，开一个这种类型的题单吧，不写题解，就是写一个这个题目的<mark>标签</mark>就行了。</p>
 <p>感觉下面的题，能放在区域赛（邀请赛）简单题里面或者校赛、蓝桥杯等中等难度偏下的题中，质量值得保证。</p>
+<p>如果一个题目下面用白色·标识，表示类似的题型，但并不想把他放在这一类里面，可见非白色·的题质量是多高哇！</p>
 </blockquote>
+<h2 id="思维"><a href="#思维" class="headerlink" title="思维"></a>思维</h2><ul>
+<li><p><strong>$cf\ div3\ E$（网格构造，码量不大，但思维含量挺高）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1968/problem/E">E. Cells Arrangement</a></p>
+<ul>
+<li><strong>思维交互题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1934/problem/C">C. Find a Mine</a></li>
+<li><strong>网格二分+双指针（构造）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105143/problem/F">F. Custom-Made Clothes</a></li>
+</ul>
+</li>
+<li><p><strong>小思维 + 公式推导 &#x3D; 大思维，然后转换为算法求解：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1968/problem/F">F. Equal XOR Segments</a></p>
+</li>
+</ul>
+<hr>
+<p><strong>E. Cells Arrangement：</strong></p>
+<ul>
+<li><p>赛时在想，赛后也在想，都想不出来。群友突然发来一个构造方法，看了一下，确实最优。</p>
+</li>
+<li><p>方法：对角线构造，有一个性质：相邻两个对角线位置，曼哈顿距离为 $2$，每搁一个对角线，曼哈顿距离就会增 $2$，那么就是 $2,4,6\cdots$ 的增长；那奇数怎么办，在一个角落里再搞一个相邻的位置！</p>
+</li>
+<li><p>反思：像这种构造题，想到了的话发现很简单，想不到的话就不知道从哪找突破口。所以这种题真的很吓人。真没想到就真寄了。</p>
+</li>
+</ul>
+<p><strong>F. Equal XOR Segments：</strong></p>
+<ul>
+<li>赛时只能想到小思维，由于抽象的去想怎么求解，忽略了公式的推导，导致根本想不到如何做。实际上必须要将公式列出来才能发现问题的根源。</li>
+</ul>
 <h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><h3 id="线性-dp"><a href="#线性-dp" class="headerlink" title="线性 $dp$"></a>线性 $dp$</h3><ul>
-<li><strong>以为贪心，实则 $dp$（$hack$ 数据可在 $cf$ 掉分题单找到）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1969/problem/C">C. Minimizing the Sum</a></li>
-<li>武汉邀请赛，显然是：$O(N^2)$ 的 $dp$，但只会 $O(N^3)$ 的 $dp$，想不到是什么能将 $N$ 优化到 $1$。以为是没学过的优化，后面补吧。</li>
+<li><p><strong>以为贪心，实则 $dp$（$hack$ 数据可在 $cf$ 掉分题单找到）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1969/problem/C">C. Minimizing the Sum</a></p>
+</li>
+<li><p>武汉邀请赛，显然是：$O(N^2)$ 的 $dp$，但只会 $O(N^3)$ 的 $dp$，想不到是什么能将 $N$ 优化到 $1$。以为是没学过的优化，后面补吧。</p>
+</li>
 </ul>
 <h3 id="状压-dp"><a href="#状压-dp" class="headerlink" title="状压 $dp$"></a>状压 $dp$</h3><ul>
 <li><strong>以为搜索，实则 $dp$（$tag:$ 湖北省赛银牌题；现场贪心搜索竟然过了，可能这题特殊吧，很难分析搜索的时间复杂度，感觉状压 $dp$ 是最好的解释，但太像搜索了，根本没往状压 $dp$ 上想 $qwq$）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105139/problem/H">H. Genshin Impact Startup Forbidden III</a></li>
@@ -519,7 +546,7 @@
 </li>
 </ul>
 <h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="二分"><a href="#二分" class="headerlink" title="二分"></a>二分</h3><ul>
-<li><p><strong>武汉邀请赛铜牌题（交互 + 二分 + 双指针）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105143/problem/F">F. Custom-Made Clothes</a></p>
+<li><p><strong>武汉邀请赛铜牌题（交互 + 二分 + 双指针 + 思维构造）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105143/problem/F">F. Custom-Made Clothes</a></p>
 </li>
 <li><p><strong>$2024$ 天梯赛国一题（二分 + 前缀和）：</strong><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1781658570803388429&page=1">L3-2 工业园区建设</a></p>
 </li>
@@ -544,8 +571,10 @@
 <li><strong>武汉邀请赛签到题（以为是贪心，实则为位运算题目）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105143/problem/B">B. Countless Me</a></li>
 </ul>
 <h3 id="SG-打表"><a href="#SG-打表" class="headerlink" title="$SG$ 打表"></a>$SG$ 打表</h3><ul>
-<li><strong>武汉邀请赛签到题（$SG$ 打表，签的太慢了，总结为还是对这种题目不熟悉）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105143/problem/K">K. Party Games</a></li>
+<li><strong>武汉邀请赛签到题（$SG$ 打表，签的太慢了，总结为还是对这种题目不熟悉）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105143/problem/K">K. Party Games</a><ul>
 <li><strong>杭电暑假多校的 $SG$ 打表题（主要目的：打表练手）：</strong><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=7287">Alice Game</a></li>
+</ul>
+</li>
 </ul>
 
                 

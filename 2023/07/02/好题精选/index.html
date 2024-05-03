@@ -3465,6 +3465,13 @@ int main()
 <li>emm第二天补题，写了没 $10$ 分钟就过了，也没看题解。感觉就是猜出了结论。。。6啊</li>
 </ul>
 </li>
+<li>$div3$ 只做了 $4$ 题，被纯思维卡了，还有后面的题应该只是小思维，也卡了。。。<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1968/problem/F">F. Equal XOR Segments</a> <ul>
+<li>$E$ 强大的思维构造，营养价值很高；</li>
+<li>$F$ 是小思维，但没想到咋做，感觉不难，不知道自己到底要想多久。。。；</li>
+<li>最后两题是道字符串；</li>
+<li>不知道是不是这场中间题目思维含量挺高还是自己太菜了，应该是自己的问题，啥也打不过了。</li>
+</ul>
+</li>
 </ul>
 <hr>
 <p><mark>D. Divisible Pairs 讲解：</mark></p>
@@ -3641,6 +3648,14 @@ int main()
 
 
 
+<h2 id="盘点一些被卡很长时间的题目究竟是何原因？"><a href="#盘点一些被卡很长时间的题目究竟是何原因？" class="headerlink" title="盘点一些被卡很长时间的题目究竟是何原因？"></a>盘点一些被卡很长时间的题目究竟是何原因？</h2><ul>
+<li><strong>小思维 + 公式推导：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1968/problem/F">F. Equal XOR Segments</a><ul>
+<li>赛时没想到，赛后补题还是不知道该怎么解决。其实赛时就想到了那个小思维，说实话也不难想。因为是赛后看了题解的提示，所以开始准备奔着正解去想。但不知道一段区间怎么分成 $2$ 个异或和相等的部分，因此认为自己是卡在了实现的上面。</li>
+<li>最后不得不看题解了，真的承认自己想不出来。看完后很震惊。</li>
+<li>思维不是很大，因此能想到，但因为需要公式推导，<strong>没有去推导导致没有发现性质<mark>（核心原因）</mark>。</strong>但为什么不想着去推导呢？也是因为一直在抽象的去想，真的很难想到！！！而公式一列出来，才能发现性质！</li>
+</ul>
+</li>
+</ul>
 <h2 id="妙妙题"><a href="#妙妙题" class="headerlink" title="妙妙题"></a>妙妙题</h2><p><strong>1、</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4290">P4290 [HAOI2008] 玩具取名</a></p>
 <ul>
 <li><p><strong>题意：</strong> 有 $4$ 种字母：”WING”，其中每一种字母，可以由这四种的任意两种替换。最初只有一个字母，通过一些变换后，得到一个较长的字符串，问这个字符串最初可能是由哪些字母不断替换得来？</p>
@@ -6023,9 +6038,9 @@ int main()
 <p>4、如果用之前熟悉的 $vector$ 以及 $map$ 等各类 $STL$，会发现出现各种的<strong>内存超限</strong>，必须全部换成普通的数组，才可以过！</p>
 </blockquote>
 <p>仅使用了一个 $STL$ 中 $set$ 内存超限如下：</p>
-<p><img src="/images/17.png"></p>
+<p><img src="/../../../../images/17.png"></p>
 <p>全部换成普通数组（除了优先队列以外，这个不可替换 $qwq$）以后：</p>
-<p><img src="/images/18.png"></p>
+<p><img src="/../../../../images/18.png"></p>
 <p><mark>代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
