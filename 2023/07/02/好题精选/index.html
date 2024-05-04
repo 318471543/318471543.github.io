@@ -1260,7 +1260,12 @@ int main()
 
 
 <h2 id="码量者的题单"><a href="#码量者的题单" class="headerlink" title="码量者的题单"></a>码量者的题单</h2><h3 id="方格类题单"><a href="#方格类题单" class="headerlink" title="方格类题单"></a>方格类题单</h3><p><strong>简单入门题：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57363/E">Puzzle: Square Jam</a></p>
-<p><strong>思维交互题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1934/problem/C">C. Find a Mine</a></p>
+<p><strong>三个比较类似的网格类型的题（网格共性：找特殊的位置，比如对角线、四个角落）：</strong></p>
+<ul>
+<li><strong>思维交互题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1934/problem/C">C. Find a Mine</a></li>
+<li><strong>网格二分+双指针（构造）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105143/problem/F">F. Custom-Made Clothes</a></li>
+<li><strong>$cf\ div3\ E$（网格构造，码量不大，但思维含量挺高）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1968/problem/E">E. Cells Arrangement</a></li>
+</ul>
 <p><strong>“蔚来杯”2022牛客暑期多校训练营4：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/33189/H">Wall Builder II</a></p>
 <p><strong>$2023$ 西安邀请赛银牌题：</strong><a target="_blank" rel="noopener" href="https://qoj.ac/contest/1291/problem/6746">E. Merge the Rectangles</a></p>
 <p><strong>2023牛客暑期多校训练营4：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57358/H">Merge the squares!</a></p>
@@ -3656,6 +3661,104 @@ int main()
 </ul>
 </li>
 </ul>
+<h2 id="有一定难度，需要尝试去学会这类题目的优化思路"><a href="#有一定难度，需要尝试去学会这类题目的优化思路" class="headerlink" title="有一定难度，需要尝试去学会这类题目的优化思路"></a>有一定难度，需要尝试去学会这类题目的优化思路</h2><ul>
+<li><strong>$div3\ G2$ （$div3$ 的最难的一题，用到了 $z$ 函数，但重要的是优化的过程与思路很巧妙）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1968/problem/G2">G2. Division + LCP (hard version)</a></li>
+</ul>
+<hr>
+<ul>
+<li><strong>G2. Division + LCP (hard version)：</strong><ul>
+<li>思路：$z$ 函数直接套模板（只需要明白 $z$ 函数表达的含义：$z[i]$：表示从 $i$ 开始的与原串匹配的最长前缀（lcp）的长度多少），题目求的是分成 $k$ 份的最长 $lcp$，我们考虑每个 $lcp$ 最长能分成多少块？<strong>（技巧）</strong>如果能求出来这个，我们很容易可以二分 &#x2F; 双指针的<strong>算法</strong>去求出答案。然后去考虑我们转换的问题怎么求？暴力的话是 $O(N^2)$ 的复杂度，可以联想到暴力的将二分变成 $O(N)$ 的 $for$ 去求，但是我们可以去优化这一步：我们不能一个一个去跳，而是快速跳（比如我们考虑 $lcp$ 为 $\frac{n}{2}$ 时，我们只看 $z[i] \ge \frac{n}{2}$ 的成分）<strong>（技巧）</strong>。然后我们就利用二维 $vector$ 来预处理这个东西<strong>（技巧）</strong>，然后动态放在 $set$ 中去跳即可。</li>
+<li>锐评：感觉可以成为区域赛一些题目的思路。</li>
+</ul>
+</li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+vector&lt;int&gt; Z(string s) 
+&#123;
+    int n &#x3D; s.size();
+    vector&lt;int&gt; z(n + 1); 
+	z[1] &#x3D; n, s &#x3D; &quot; &quot; + s;
+
+	for (int i &#x3D; 2, l &#x3D; 0, r &#x3D; 0; i &lt;&#x3D; n; i++) 
+    &#123;
+		if (i &lt;&#x3D; r) z[i] &#x3D; min(z[i - l + 1], r - i + 1);
+		while (i + z[i] &lt;&#x3D; n &amp;&amp; s[i + z[i]] &#x3D;&#x3D; s[z[i] + 1]) ++z[i];
+		if (i + z[i] - 1 &gt; r) l &#x3D; i, r &#x3D; i + z[i] - 1;
+	&#125;
+    return z;
+&#125;
+
+void solve()
+&#123;
+    int n, l, r;
+    cin &gt;&gt; n &gt;&gt; l &gt;&gt; r;
+
+    string s;
+    cin &gt;&gt; s;
+
+    auto z &#x3D; Z(s);
+    s &#x3D; &quot; &quot; + s;
+    vector&lt;vector&lt;int&gt;&gt; pos(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        pos[z[i]].push_back(i);   
+    &#125;
+
+    set&lt;int&gt; S;
+    vector&lt;int&gt; ans(n + 1);
+    for (int i &#x3D; n; i &gt;&#x3D; 1; i--)
+    &#123;
+        for (auto x : pos[i])   S.insert(x);
+        int cnt &#x3D; 1, p &#x3D; 1;
+        while (true)
+        &#123;
+            auto it &#x3D; S.lower_bound(p + i);
+            if (it &#x3D;&#x3D; S.end())  break;
+            cnt++;
+            p &#x3D; *it;
+        &#125;
+        ans[i] &#x3D; cnt;
+        &#x2F;&#x2F; cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; ans[i] &lt;&lt; &quot;\n&quot;;
+    &#125;
+    &#x2F;&#x2F; 二分写法
+    &#x2F;&#x2F; for (int i &#x3D; l; i &lt;&#x3D; r; i++)
+    &#x2F;&#x2F; &#123;
+    &#x2F;&#x2F;     int L &#x3D; 0, R &#x3D; n;
+    &#x2F;&#x2F;     while (L &lt; R)
+    &#x2F;&#x2F;     &#123;
+    &#x2F;&#x2F;         int mid &#x3D; L + R + 1 &gt;&gt; 1;
+    &#x2F;&#x2F;         if (ans[mid] &gt;&#x3D; i)  L &#x3D; mid;
+    &#x2F;&#x2F;         else    R &#x3D; mid - 1;
+    &#x2F;&#x2F;     &#125;
+    &#x2F;&#x2F;     cout &lt;&lt; L &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; r];
+    &#x2F;&#x2F; &#125;
+    for (int i &#x3D; l, j &#x3D; n; i &lt;&#x3D; r; i++) &#x2F;&#x2F; 双指针写法
+    &#123;
+        while (j &amp;&amp; ans[j] &lt; i)  j--;
+        cout &lt;&lt; j &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; r];
+    &#125;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int t;
+    cin &gt;&gt; t;
+
+    while (t--)
+    &#123;
+        solve();
+    &#125;
+    
+    return 0;
+&#125;</code></pre>
+
+
+
 <h2 id="妙妙题"><a href="#妙妙题" class="headerlink" title="妙妙题"></a>妙妙题</h2><p><strong>1、</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4290">P4290 [HAOI2008] 玩具取名</a></p>
 <ul>
 <li><p><strong>题意：</strong> 有 $4$ 种字母：”WING”，其中每一种字母，可以由这四种的任意两种替换。最初只有一个字母，通过一些变换后，得到一个较长的字符串，问这个字符串最初可能是由哪些字母不断替换得来？</p>

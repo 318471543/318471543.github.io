@@ -1860,7 +1860,52 @@ int find(int x)
 
 
 
-<h3 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h3><p><mark>封装模板（一维双哈希）：</mark></p>
+<h3 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h3><p><mark>封装模板（一维双哈希-随机化版，可防止在 $cf$ 被 $hack$）：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">using pii &#x3D; pair&lt;int, int&gt;;
+
+std::mt19937 mrand(std::random_device&#123;&#125;());
+int rnd(int x) &#123;return mrand() % x;&#125;
+
+const int mod1 &#x3D; 1e9 + 7, mod2 &#x3D; 1e9 + 9;
+
+pii operator + (pii a, pii b) &#123;
+	int c1 &#x3D; a.first + b.first, c2 &#x3D; a.second + b.second;
+	if (c1 &gt;&#x3D; mod1) c1 -&#x3D; mod1;
+	if (c2 &gt;&#x3D; mod2) c2 -&#x3D; mod2;
+	return &#123;c1, c2&#125;;
+&#125;
+ 
+pii operator - (pii a, pii b) &#123;
+	int c1 &#x3D; a.first - b.first, c2 &#x3D; a.second - b.second;
+	if (c1 &lt; 0) c1 +&#x3D; mod1;
+	if (c2 &lt; 0) c2 +&#x3D; mod2;
+	return &#123;c1, c2&#125;;
+&#125;
+ 
+pii operator * (pii a, pii b) &#123;
+	return &#123;1LL * a.first * b.first % mod1, 1LL * a.second * b.second % mod2&#125;;
+&#125;
+pii base &#x3D; &#123;rnd(mod1) + 1, rnd(mod2) + 1&#125;;
+
+const int N &#x3D; 2e5 + 10;
+pii h[N], p[N];
+
+p[0] &#x3D; &#123;1, 1&#125;, h[0] &#x3D; &#123;0, 0&#125;;
+int main()
+&#123;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++) 
+    &#123;
+        p[i] &#x3D; p[i - 1] * base;
+        h[i] &#x3D; h[i - 1] * base + (pii)&#123;s[i] - &#39;a&#39;, s[i] - &#39;a&#39;&#125;;
+    &#125;
+
+    auto get &#x3D; [&amp;](int l, int r) -&gt; pii
+    &#123;
+        return h[r] - h[l - 1] * p[r - l + 1];
+    &#125;;
+&#125;</code></pre>
+
+<p><mark>封装模板（一维双哈希）：</mark></p>
 <blockquote>
 <p><strong>注意：</strong></p>
 <p>当开多个 $Hash$ 结构体时，应注意空间问题，可将 $pw$ 数组开成全局变量，只初始化一次即可。</p>
