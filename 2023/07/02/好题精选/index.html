@@ -3056,8 +3056,21 @@ int main()
 <li><strong>从 ” $O(n)$ -&gt; $O(1)$ “ 的优化（看似神奇，实则另有玄机？）：</strong></li>
 </ol>
 <ul>
-<li>第 $15$ 届蓝桥杯最后一题：<a target="_blank" rel="noopener" href="https://www.dotcpp.com/oj/problem3214.html">拔河</a></li>
-<li>武汉邀请赛银牌题：<a target="_blank" rel="noopener" href="https://codeforces.com/gym/105143/problem/D">D. ICPC</a></li>
+<li><p>第 $15$ 届蓝桥杯最后一题：<a target="_blank" rel="noopener" href="https://www.dotcpp.com/oj/problem3214.html">拔河</a></p>
+<ul>
+<li>枚举第一个区间的左端点：$O(N)$；再枚举第一个区间的右端点：$O(N)$；继续枚举第二个区间的左端点：$O(N)$，最后的右区间通过二分来找：$O(logN)$。总时间复杂度：$O(N^3logN)$，但正解需要：$O(N^2logN)$，怎么搞？</li>
+</ul>
+</li>
+<li><p>$div3\ G2$ （$div3$ 的最难的一题，用到了 $z$ 函数（实际上 $z$ 函数模板也就三行，不是重点），但重要的是优化的过程与思路很巧妙）：<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1968/problem/G2">G2. Division + LCP (hard version)</a></p>
+<ul>
+<li>对分成一个固定段数的做法，需要 $O(NlogN)$，而 $hard$ 版本需要分成 $[l,r]$ 这么多个不同的段，需要 $O(N^2logN)$ 的时间复杂度，而正解需要：$O(NlogN)$，怎么搞？</li>
+</ul>
+</li>
+<li><p>武汉邀请赛银牌题：<a target="_blank" rel="noopener" href="https://codeforces.com/gym/105143/problem/D">D. ICPC</a></p>
+<ul>
+<li>只会 $O(N^3)$ 的 $dp$，但正解需要严格 $O(N^2)$，怎么搞？</li>
+</ul>
+</li>
 </ul>
 <hr>
 <p><mark>统计子矩阵代码：</mark></p>
@@ -3402,6 +3415,178 @@ int main()
 
 
 
+<p><mark>拔河讲解：</mark></p>
+<ul>
+<li>其实可以想到，每次枚举第一个区间，已经是 $O(N^2)$ 的复杂度了，然后我们可以想到预处理出以 $r_1 + 1$ 位置结尾的后面所有区间的数值，然后二分即可。</li>
+<li>这个思路没什么问题，但是需要明白几点：<ul>
+<li>纯暴力：开 $1e3$ 个 $set$ 每个里面都是所有这个位置后面的前缀和。但是时间还是会炸，因为数可能会很多；</li>
+<li>动态维护 $set$：在枚举区间的时候动态去添加 &#x2F; 删除 $set$ 里面的值，那么又有一些思考：<ul>
+<li>如果是先枚举 $l$，再枚举 $r$，就需要在 $r$ 后面的基础上再 $O(N)$ 次删除，时间复杂度：$O(N^3)$；</li>
+<li>而如果是先枚举 $r$，再枚举 $l$，会在第一次循环后面就 $O(N)$ 删除，然后枚举的 $l$ 跟删除是并列的，$l$ 的循环中再套了一个二分，因此总时间复杂度：$O(N^2logN)$。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>最后注意的是，删除的数可能存在重复，而用 $set$ 会删完，因此要使用 $multiset$！</li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+using ll &#x3D; long long;
+
+constexpr int N &#x3D; 1e3 + 10;
+
+int main()
+&#123;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+	int n;
+	cin &gt;&gt; n;
+
+	assert(n &gt; 1);
+
+	vector&lt;int&gt; a(n + 1);
+	vector&lt;ll&gt; sum(n + 1);
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)	cin &gt;&gt; a[i], sum[i] &#x3D; sum[i - 1] + a[i];
+
+	&#x2F;&#x2F; 预处理出所有以i结尾的前缀和
+
+	ll res &#x3D; 1e18;
+	&#x2F;&#x2F; for (int l &#x3D; 1; l &lt;&#x3D; n; l++)
+	&#x2F;&#x2F; &#123;
+	&#x2F;&#x2F; 	set&lt;ll&gt; S;
+	&#x2F;&#x2F; 	for (int r &#x3D; n - 1; r &gt;&#x3D; l; r--)
+	&#x2F;&#x2F; 	&#123;
+	&#x2F;&#x2F; 		ll left &#x3D; sum[r] - sum[l - 1];
+	&#x2F;&#x2F; 		for (int i &#x3D; r + 1; i &lt;&#x3D; n; i++)	S.insert(sum[i] - sum[r]);
+	&#x2F;&#x2F; 		auto it &#x3D; S.lower_bound(left);
+	&#x2F;&#x2F; 		if (it !&#x3D; S.end())	res &#x3D; min(res, abs(*it - left));
+	&#x2F;&#x2F; 		if (it !&#x3D; S.begin())
+	&#x2F;&#x2F; 		&#123;
+	&#x2F;&#x2F; 			it--;
+	&#x2F;&#x2F; 			res &#x3D; min(res, abs(*it - left));
+	&#x2F;&#x2F; 		&#125;
+	&#x2F;&#x2F; 	&#125;
+	&#x2F;&#x2F; &#125;
+	multiset&lt;ll&gt; S;
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+		for (int j &#x3D; i; j &lt;&#x3D; n; j++)
+			S.insert(sum[j] - sum[i - 1]);
+	
+	for (int r &#x3D; 1; r &lt;&#x3D; n - 1; r++)
+	&#123;
+		for (int i &#x3D; r; i &lt;&#x3D; n; i++)	S.erase(S.find(sum[i] - sum[r - 1]));
+		for (int l &#x3D; 1; l &lt;&#x3D; r; l++)
+		&#123;
+			ll left &#x3D; sum[r] - sum[l - 1];
+			auto it &#x3D; S.lower_bound(left);
+			if (it !&#x3D; S.end())	res &#x3D; min(res, abs(*it - left));
+			if (it !&#x3D; S.begin())
+			&#123;
+				it--;
+				res &#x3D; min(res, abs(*it - left));
+			&#125;
+		&#125;
+	&#125;
+	cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+	return 0;
+&#125;</code></pre>
+
+
+
+<p><mark>$G2. Division + LCP (hard version)$ 讲解：</mark></p>
+<ul>
+<li>思路：$z$ 函数直接套模板（只需要明白 $z$ 函数表达的含义：$z[i]$：表示从 $i$ 开始的与原串匹配的最长前缀（lcp）的长度多少），题目求的是分成 $k$ 份的最长 $lcp$，我们考虑每个 $lcp$ 最长能分成多少块？<strong>（技巧）</strong>如果能求出来这个，我们很容易可以二分 &#x2F; 双指针的<strong>算法</strong>去求出答案。然后去考虑我们转换的问题怎么求？暴力的话是 $O(N^2)$ 的复杂度，可以联想到暴力的将二分变成 $O(N)$ 的 $for$ 去求，但是我们可以去优化这一步：我们不能一个一个去跳，而是快速跳（比如我们考虑 $lcp$ 为 $\frac{n}{2}$ 时，我们只看 $z[i] \ge \frac{n}{2}$ 的成分）<strong>（技巧）</strong>。然后我们就利用二维 $vector$ 来预处理这个东西<strong>（技巧）</strong>，然后动态放在 $set$ 中去跳即可。</li>
+<li>锐评：感觉可以成为区域赛一些题目的思路。</li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+vector&lt;int&gt; Z(string s) 
+&#123;
+    int n &#x3D; s.size();
+    vector&lt;int&gt; z(n + 1); 
+	z[1] &#x3D; n, s &#x3D; &quot; &quot; + s;
+
+	for (int i &#x3D; 2, l &#x3D; 0, r &#x3D; 0; i &lt;&#x3D; n; i++) 
+    &#123;
+		if (i &lt;&#x3D; r) z[i] &#x3D; min(z[i - l + 1], r - i + 1);
+		while (i + z[i] &lt;&#x3D; n &amp;&amp; s[i + z[i]] &#x3D;&#x3D; s[z[i] + 1]) ++z[i];
+		if (i + z[i] - 1 &gt; r) l &#x3D; i, r &#x3D; i + z[i] - 1;
+	&#125;
+    return z;
+&#125;
+
+void solve()
+&#123;
+    int n, l, r;
+    cin &gt;&gt; n &gt;&gt; l &gt;&gt; r;
+
+    string s;
+    cin &gt;&gt; s;
+
+    auto z &#x3D; Z(s);
+    s &#x3D; &quot; &quot; + s;
+    vector&lt;vector&lt;int&gt;&gt; pos(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        pos[z[i]].push_back(i);   
+    &#125;
+
+    set&lt;int&gt; S;
+    vector&lt;int&gt; ans(n + 1);
+    for (int i &#x3D; n; i &gt;&#x3D; 1; i--)
+    &#123;
+        for (auto x : pos[i])   S.insert(x);
+        int cnt &#x3D; 1, p &#x3D; 1;
+        while (true)
+        &#123;
+            auto it &#x3D; S.lower_bound(p + i);
+            if (it &#x3D;&#x3D; S.end())  break;
+            cnt++;
+            p &#x3D; *it;
+        &#125;
+        ans[i] &#x3D; cnt;
+        &#x2F;&#x2F; cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; ans[i] &lt;&lt; &quot;\n&quot;;
+    &#125;
+    &#x2F;&#x2F; 二分写法
+    &#x2F;&#x2F; for (int i &#x3D; l; i &lt;&#x3D; r; i++)
+    &#x2F;&#x2F; &#123;
+    &#x2F;&#x2F;     int L &#x3D; 0, R &#x3D; n;
+    &#x2F;&#x2F;     while (L &lt; R)
+    &#x2F;&#x2F;     &#123;
+    &#x2F;&#x2F;         int mid &#x3D; L + R + 1 &gt;&gt; 1;
+    &#x2F;&#x2F;         if (ans[mid] &gt;&#x3D; i)  L &#x3D; mid;
+    &#x2F;&#x2F;         else    R &#x3D; mid - 1;
+    &#x2F;&#x2F;     &#125;
+    &#x2F;&#x2F;     cout &lt;&lt; L &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; r];
+    &#x2F;&#x2F; &#125;
+    for (int i &#x3D; l, j &#x3D; n; i &lt;&#x3D; r; i++) &#x2F;&#x2F; 双指针写法
+    &#123;
+        while (j &amp;&amp; ans[j] &lt; i)  j--;
+        cout &lt;&lt; j &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; r];
+    &#125;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int t;
+    cin &gt;&gt; t;
+
+    while (t--)
+    &#123;
+        solve();
+    &#125;
+    
+    return 0;
+&#125;</code></pre>
+
+
+
 <h2 id="Codeforces-掉分题单"><a href="#Codeforces-掉分题单" class="headerlink" title="Codeforces 掉分题单"></a>Codeforces 掉分题单</h2><blockquote>
 <p>有赛时通过了，但耗时较长的题目类型；</p>
 <p>有赛时没有通过，但后面的题都开出来了（说明是一道easy题），但思维不够的题目类型；</p>
@@ -3668,104 +3853,6 @@ int main()
 </ul>
 </li>
 </ul>
-<h2 id="有一定难度，需要尝试去学会这类题目的优化思路"><a href="#有一定难度，需要尝试去学会这类题目的优化思路" class="headerlink" title="有一定难度，需要尝试去学会这类题目的优化思路"></a>有一定难度，需要尝试去学会这类题目的优化思路</h2><ul>
-<li><strong>$div3\ G2$ （$div3$ 的最难的一题，用到了 $z$ 函数，但重要的是优化的过程与思路很巧妙）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1968/problem/G2">G2. Division + LCP (hard version)</a></li>
-</ul>
-<hr>
-<ul>
-<li><strong>G2. Division + LCP (hard version)：</strong><ul>
-<li>思路：$z$ 函数直接套模板（只需要明白 $z$ 函数表达的含义：$z[i]$：表示从 $i$ 开始的与原串匹配的最长前缀（lcp）的长度多少），题目求的是分成 $k$ 份的最长 $lcp$，我们考虑每个 $lcp$ 最长能分成多少块？<strong>（技巧）</strong>如果能求出来这个，我们很容易可以二分 &#x2F; 双指针的<strong>算法</strong>去求出答案。然后去考虑我们转换的问题怎么求？暴力的话是 $O(N^2)$ 的复杂度，可以联想到暴力的将二分变成 $O(N)$ 的 $for$ 去求，但是我们可以去优化这一步：我们不能一个一个去跳，而是快速跳（比如我们考虑 $lcp$ 为 $\frac{n}{2}$ 时，我们只看 $z[i] \ge \frac{n}{2}$ 的成分）<strong>（技巧）</strong>。然后我们就利用二维 $vector$ 来预处理这个东西<strong>（技巧）</strong>，然后动态放在 $set$ 中去跳即可。</li>
-<li>锐评：感觉可以成为区域赛一些题目的思路。</li>
-</ul>
-</li>
-</ul>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
-
-using namespace std;
-
-vector&lt;int&gt; Z(string s) 
-&#123;
-    int n &#x3D; s.size();
-    vector&lt;int&gt; z(n + 1); 
-	z[1] &#x3D; n, s &#x3D; &quot; &quot; + s;
-
-	for (int i &#x3D; 2, l &#x3D; 0, r &#x3D; 0; i &lt;&#x3D; n; i++) 
-    &#123;
-		if (i &lt;&#x3D; r) z[i] &#x3D; min(z[i - l + 1], r - i + 1);
-		while (i + z[i] &lt;&#x3D; n &amp;&amp; s[i + z[i]] &#x3D;&#x3D; s[z[i] + 1]) ++z[i];
-		if (i + z[i] - 1 &gt; r) l &#x3D; i, r &#x3D; i + z[i] - 1;
-	&#125;
-    return z;
-&#125;
-
-void solve()
-&#123;
-    int n, l, r;
-    cin &gt;&gt; n &gt;&gt; l &gt;&gt; r;
-
-    string s;
-    cin &gt;&gt; s;
-
-    auto z &#x3D; Z(s);
-    s &#x3D; &quot; &quot; + s;
-    vector&lt;vector&lt;int&gt;&gt; pos(n + 1);
-    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
-    &#123;
-        pos[z[i]].push_back(i);   
-    &#125;
-
-    set&lt;int&gt; S;
-    vector&lt;int&gt; ans(n + 1);
-    for (int i &#x3D; n; i &gt;&#x3D; 1; i--)
-    &#123;
-        for (auto x : pos[i])   S.insert(x);
-        int cnt &#x3D; 1, p &#x3D; 1;
-        while (true)
-        &#123;
-            auto it &#x3D; S.lower_bound(p + i);
-            if (it &#x3D;&#x3D; S.end())  break;
-            cnt++;
-            p &#x3D; *it;
-        &#125;
-        ans[i] &#x3D; cnt;
-        &#x2F;&#x2F; cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; ans[i] &lt;&lt; &quot;\n&quot;;
-    &#125;
-    &#x2F;&#x2F; 二分写法
-    &#x2F;&#x2F; for (int i &#x3D; l; i &lt;&#x3D; r; i++)
-    &#x2F;&#x2F; &#123;
-    &#x2F;&#x2F;     int L &#x3D; 0, R &#x3D; n;
-    &#x2F;&#x2F;     while (L &lt; R)
-    &#x2F;&#x2F;     &#123;
-    &#x2F;&#x2F;         int mid &#x3D; L + R + 1 &gt;&gt; 1;
-    &#x2F;&#x2F;         if (ans[mid] &gt;&#x3D; i)  L &#x3D; mid;
-    &#x2F;&#x2F;         else    R &#x3D; mid - 1;
-    &#x2F;&#x2F;     &#125;
-    &#x2F;&#x2F;     cout &lt;&lt; L &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; r];
-    &#x2F;&#x2F; &#125;
-    for (int i &#x3D; l, j &#x3D; n; i &lt;&#x3D; r; i++) &#x2F;&#x2F; 双指针写法
-    &#123;
-        while (j &amp;&amp; ans[j] &lt; i)  j--;
-        cout &lt;&lt; j &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; r];
-    &#125;
-&#125;
-
-int main()
-&#123;
-    cin.tie(nullptr)-&gt;sync_with_stdio(false);
-
-    int t;
-    cin &gt;&gt; t;
-
-    while (t--)
-    &#123;
-        solve();
-    &#125;
-    
-    return 0;
-&#125;</code></pre>
-
-
-
 <h2 id="妙妙题"><a href="#妙妙题" class="headerlink" title="妙妙题"></a>妙妙题</h2><p><strong>1、</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4290">P4290 [HAOI2008] 玩具取名</a></p>
 <ul>
 <li><p><strong>题意：</strong> 有 $4$ 种字母：”WING”，其中每一种字母，可以由这四种的任意两种替换。最初只有一个字母，通过一些变换后，得到一个较长的字符串，问这个字符串最初可能是由哪些字母不断替换得来？</p>
