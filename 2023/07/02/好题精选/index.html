@@ -3428,6 +3428,7 @@ int main()
 </ul>
 </li>
 <li>最后注意的是，删除的数可能存在重复，而用 $set$ 会删完，因此要使用 $multiset$！</li>
+<li>此外，<strong>还有一个巧妙的做法：</strong>存每个前缀和，已经该前缀和的第一个位置（即双关键字），$sort$ 排序一遍，只要 $2$ 个相邻数的第一个位置不同，就是一个预备答案，然后取个最小即可。是不是很神奇？确实很神奇，也很好证明，分相交与不相交就行了，这个思路真的秀啊！</li>
 </ul>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -3493,7 +3494,42 @@ int main()
 	return 0;
 &#125;</code></pre>
 
+<p><strong>做法 $2$ 代码：</strong></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
+using namespace std;
+
+using ll &#x3D; long long;
+using pii &#x3D; pair&lt;ll, int&gt;;
+
+constexpr int N &#x3D; 1e3 + 10;
+
+int main()
+&#123;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+	int n;
+	cin &gt;&gt; n;
+
+	assert(n &gt; 1);
+
+	vector&lt;int&gt; a(n + 1);
+	vector&lt;ll&gt; sum(n + 1);
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)	cin &gt;&gt; a[i], sum[i] &#x3D; sum[i - 1] + a[i];
+
+	vector&lt;pii&gt; v;
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+		for (int j &#x3D; i; j &lt;&#x3D; n; j++)
+			v.push_back(&#123;sum[j] - sum[i - 1], i&#125;);
+
+	sort(v.begin(), v.end());
+	ll res &#x3D; 1e18;
+	for (int i &#x3D; 0; i &lt; (int)v.size() - 1; i++)
+		if (v[i + 1].second !&#x3D; v[i].second)
+			res &#x3D; min(res, v[i + 1].first - v[i].first);
+	cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+	return 0;
+&#125;</code></pre>
 
 <p><mark>$G2. Division + LCP (hard version)$ 讲解：</mark></p>
 <ul>
