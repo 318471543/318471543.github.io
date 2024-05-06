@@ -3066,6 +3066,12 @@ int main()
 <li>对分成一个固定段数的做法，需要 $O(NlogN)$，而 $hard$ 版本需要分成 $[l,r]$ 这么多个不同的段，需要 $O(N^2logN)$ 的时间复杂度，而正解需要：$O(NlogN)$，怎么搞？</li>
 </ul>
 </li>
+<li><p>第 $15$ 届蓝桥杯省赛真题：<a target="_blank" rel="noopener" href="https://www.dotcpp.com/oj/problem3211.html">宝石组合</a></p>
+<ul>
+<li>纯暴力是 $O(N^3)$，显然正解需要 $O(NlogN)$。</li>
+<li>不过本题正解是一个偏向于模板的算法，并不难想。只不过优化的思路跟上面的 <strong>$G2. Division + LCP (hard version)$</strong> 比较相似，即：给定一个问题，我们比较容易求得问题反过来的答案，那么进而就容易观察到这两个问题之间的联系。</li>
+</ul>
+</li>
 <li><p>武汉邀请赛银牌题：<a target="_blank" rel="noopener" href="https://codeforces.com/gym/105143/problem/D">D. ICPC</a></p>
 <ul>
 <li>只会 $O(N^3)$ 的 $dp$，但正解需要严格 $O(N^2)$，怎么搞？</li>
