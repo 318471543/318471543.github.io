@@ -1581,7 +1581,31 @@ int main()
 &#125;&#x2F;&#x2F;对应的调用方式：dfs(1,1,1);</code></pre>
 
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/892/">能被整除的数</a></p>
-<h2 id="博弈论"><a href="#博弈论" class="headerlink" title="博弈论"></a>博弈论</h2><h3 id="SG函数"><a href="#SG函数" class="headerlink" title="SG函数"></a>SG函数</h3><h4 id="SG打表"><a href="#SG打表" class="headerlink" title="SG打表"></a>SG打表</h4><p>​		针对打表题（推荐题单有，但为了防止该题后期无法查看，这里将详细写出题意和打表方法），内容如下：</p>
+<h2 id="博弈论"><a href="#博弈论" class="headerlink" title="博弈论"></a>博弈论</h2><h3 id="SG函数"><a href="#SG函数" class="headerlink" title="SG函数"></a>SG函数</h3><blockquote>
+<p><strong>$SG$ 函数：</strong></p>
+<p>$sg(x) :&#x3D; mex({sg(y) | x-&gt;y})$，其中 $x-&gt;y$ 表示：$x$ 状态通过一次操作达到 $y$ 状态。</p>
+<p><strong>$SG$ 定理：</strong></p>
+<ul>
+<li><p>两个游戏的情形：</p>
+</li>
+<li><p>设 $x$ 和 $y$ 为 $ICG$ 的状态，则：$sg(x + y) &#x3D; sg(x) \oplus sg(y)$</p>
+</li>
+<li><p>继续推广：</p>
+</li>
+<li><p>设 $x_1,x_2,\cdots,x_n$ 为 $ICG$ 的状态，则：$sg(x_1+x_2+\cdots+x_n) &#x3D; sg(x_1) \oplus sg(x_2) \oplus \cdots \oplus sg(x_n)$</p>
+</li>
+</ul>
+<p><strong>总结：</strong></p>
+<ul>
+<li><p>一个点的 $sg$ 函数为其所有后继结点的 $sg$ 的 $mex$；</p>
+</li>
+<li><p>一个局面的 $sg$ 函数，为其所有子局面的 $sg$ 的异或。</p>
+</li>
+</ul>
+<p>也就是说，如果这个点，可以转移到一个状态，但这个状态可以分成 $2$ 个（或多个）游戏，那么那个后继点的 $sg$ 等于对应多个游戏的 $sg$ 的异或。</p>
+<p>该题目对应的视频讲解有我所表达的总结的内容，可以更深理解：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/896/">拆分-Nim游戏</a></p>
+</blockquote>
+<h4 id="SG打表"><a href="#SG打表" class="headerlink" title="SG打表"></a>SG打表</h4><p>​		针对打表题（推荐题单有，但为了防止该题后期无法查看，这里将详细写出题意和打表方法），内容如下：</p>
 <p><strong>题意：</strong></p>
 <p>​		一共有 $n$ 个敌人，有两种操作：</p>
 <ul>

@@ -571,14 +571,85 @@
 <li><strong>湖北省赛铜牌题（分类讨论大牛，$jiangly$ 来了都得 $wa\ 3$ 发）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105139/problem/L">L. LCMs</a></li>
 </ul>
 <h3 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h3><ul>
-<li><strong>武汉邀请赛签到题（以为是贪心，实则为位运算题目）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105143/problem/B">B. Countless Me</a></li>
+<li><strong>武汉邀请赛签到题（以为是均分的贪心，实则为位运算从高到低位贪心）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105143/problem/B">B. Countless Me</a></li>
 </ul>
+<hr>
+<p><mark>B. Countless Me：</mark></p>
+<p><strong>赛后补题：</strong>觉得二进制位从高到低枚举是有道理的，但是又要分成 $n$ 份，难道是要换成 $n$ 进制思想吗？又没有道理，实际上是：这 $n$ 个数，拆分成二进制的形式，每一位都纵向考虑，即考虑这一位时是同时考虑 $n$ 个的，只要后面的能表示 $sum$，这一位的所有 $n$ 个数就都不用为 $1$。</p>
+<p><strong>细节：</strong> 这一位如果要填 $1$，需要计算填多少个 $1$，即 $sum &gt;&gt; i$，但是又不能超过 $n$！会有超过 $n$ 个的情况，因为后面的位数都是用乘法（即 $n$ 个数）来考虑的，因此还需要与 $n$ 取最小值。</p>
+<p><strong>反思总结：</strong>补完题后，其实核心代码就只有 $4$ 行，赛时却花了 $2$ 小时。</p>
 <h3 id="SG-打表"><a href="#SG-打表" class="headerlink" title="$SG$ 打表"></a>$SG$ 打表</h3><ul>
 <li><strong>武汉邀请赛签到题（$SG$ 打表，签的太慢了，总结为还是对这种题目不熟悉）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105143/problem/K">K. Party Games</a><ul>
 <li><strong>杭电暑假多校的 $SG$ 打表题（主要目的：打表练手）：</strong><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=7287">Alice Game</a></li>
 </ul>
 </li>
 </ul>
+<hr>
+<p><mark>K. Party Games：</mark></p>
+<p><strong>赛后总结：</strong>赛后很多高手都一眼看出了跟 $mod\ 4$ 有关，因此前 $i$ 项连续异或和应该还是得记一下。</p>
+<p>下面给出 $dp$ 和 $SG$ 的两种打表的做法：</p>
+<p><strong>$dp$：</strong></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+using ll &#x3D; long long;
+
+int main()
+&#123;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+	int n &#x3D; 100;
+	vector&lt;int&gt; pre(101);
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)	pre[i] &#x3D; pre[i - 1] ^ i;
+
+	int dp[102][102] &#123;&#125;;
+	for (int  l &#x3D; n; l &gt;&#x3D; 1; l--)
+	&#123;
+		for (int r &#x3D; l;r &lt;&#x3D; n; r++)
+		&#123;
+			if (pre[l - 1] &#x3D;&#x3D; pre[r])	dp[l][r] &#x3D; 0;
+			else	dp[l][r] &#x3D; !dp[l + 1][r] || !dp[l][r - 1];
+		&#125;
+	&#125;
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)	
+		cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; dp[1][i] &lt;&lt; &quot;\n&quot;;
+	return 0;
+&#125;</code></pre>
+
+<p><strong>$SG$ 打表：</strong></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+using ll &#x3D; long long;
+
+int main()
+&#123;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+	int pre[101] &#x3D; &#123;&#125;;
+	for (int i &#x3D; 1; i &lt;&#x3D; 100; i++)	pre[i] &#x3D; pre[i - 1] ^ i;
+	function&lt;int(int, int)&gt; SG &#x3D; [&amp;](int l, int r) -&gt; int
+	&#123;
+		if ((pre[r] ^ pre[l - 1]) &#x3D;&#x3D; 0)	return 0;
+		else if (l &#x3D;&#x3D; r)	return 1;
+		
+		set&lt;int&gt; S;
+		if (l + 1 &lt;&#x3D; r)	S.insert(SG(l + 1, r));
+		if (l &lt;&#x3D; r - 1)	S.insert(SG(l, r - 1));
+
+		for (int i &#x3D; 0; i &lt; 100; i++)
+			if (!S.count(i))
+				return i;
+		return -1;
+	&#125;;
+
+	for (int i &#x3D; 1; i &lt;&#x3D; 20; i++)
+		cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; SG(1, i) &lt;&lt; &quot;\n&quot;;
+	return 0;
+&#125;</code></pre>
+
 
                 
             </div>
