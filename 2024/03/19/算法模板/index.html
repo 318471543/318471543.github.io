@@ -1374,7 +1374,303 @@ int main()
 
 
 
-<h2 id="图论"><a href="#图论" class="headerlink" title="图论"></a>图论</h2><h3 id="最近公共祖先（-lca-）"><a href="#最近公共祖先（-lca-）" class="headerlink" title="最近公共祖先（$lca$）"></a>最近公共祖先（$lca$）</h3><blockquote>
+<h2 id="图论"><a href="#图论" class="headerlink" title="图论"></a>图论</h2><h3 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h3><p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;
+struct DSU &#123;
+	vector&lt;T&gt; p, sz;
+	DSU(T n) : p(n), sz(n, 1) &#123; iota(p.begin(), p.end(), 0); &#125;
+	&#x2F;&#x2F;初始化
+	void init(int n) &#123;
+		p.resize(n);
+		iota(p.begin(), p.end(), 0);
+		sz.assign(n, 1);
+	&#125;
+	&#x2F;&#x2F;找父节点
+	T find(T x) &#123;
+		while (x !&#x3D; p[x]) x &#x3D; p[x] &#x3D; p[p[x]];
+		return x;
+	&#125;
+	&#x2F;&#x2F;合并集合
+	bool merge(T x, T y) &#123;
+		x &#x3D; find(x);
+		y &#x3D; find(y);
+		if (x &#x3D;&#x3D; y) return false;
+		sz[x] +&#x3D; sz[y];
+		p[y] &#x3D; x;
+		return true;
+	&#125;
+	&#x2F;&#x2F;判断是否同一集合
+	bool same(T x, T y) &#123; return find(x) &#x3D;&#x3D; find(y); &#125;
+	&#x2F;&#x2F;集合大小
+	T size(T x) &#123; return sz[find(x)]; &#125;
+&#125;;</code></pre>
+
+<p><strong>推荐题目（湖北省赛金牌题，并查集的高级应用）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105139/problem/I">I. Colorful Tree</a></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+struct HLD &#123;
+    int n;
+    vector&lt;int&gt; sz, top, depth, fa, in, out, seq;
+    vector&lt;vector&lt;int&gt;&gt; g;
+    int ts;
+
+	HLD() &#123;&#125;
+    HLD(int n) &#123;
+        init(n);
+    &#125;
+    void init(int n) &#123;
+        this-&gt;n &#x3D; n;
+        sz.resize(n + 1);
+        top.resize(n + 1);
+        depth.resize(n + 1);
+        fa.resize(n + 1);
+        in.resize(n + 1);
+        out.resize(n + 1);
+        seq.resize(n + 1);
+        ts &#x3D; 0;
+        g.assign(n + 1, &#123;&#125;);
+    &#125;
+
+	void addEdge(int u, int v) &#123;
+		g[u].push_back(v);
+		g[v].push_back(u);
+	&#125;
+
+	void work(int root &#x3D; 1) &#123;
+		top[root] &#x3D; root;
+		depth[0] &#x3D; 0, depth[root] &#x3D; 1;
+		dfs_sz(root);
+		dfs_hld(root);
+	&#125;
+ 
+    void dfs_sz(int u) &#123;
+        if (fa[u])&#123;
+            for(auto it &#x3D; g[u].begin(); it !&#x3D; g[u].end(); it++) &#123;
+                if (*it &#x3D;&#x3D; fa[u]) &#123;
+                    g[u].erase(it);
+                    break;
+                &#125;
+            &#125;
+        &#125;
+        sz[u] &#x3D; 1;
+        for(auto &amp;j : g[u]) &#123;
+            fa[j] &#x3D; u;
+            depth[j] &#x3D; depth[u] + 1;
+            dfs_sz(j);
+            sz[u] +&#x3D; sz[j];
+            if (sz[j] &gt; sz[g[u][0]])
+                swap(j, g[u][0]);
+        &#125;
+    &#125;
+ 
+    void dfs_hld(int u) &#123;
+        in[u] &#x3D; ++ts;
+        seq[in[u]] &#x3D; u;
+        for (auto j : g[u]) &#123;
+            top[j] &#x3D; (j &#x3D;&#x3D; g[u][0] ? top[u] : j);
+            dfs_hld(j);
+        &#125;
+        out[u] &#x3D; ts;
+    &#125;
+ 
+    int lca(int u, int v) &#123;
+        while (top[u] !&#x3D; top[v]) &#123;
+            if (depth[top[u]] &gt; depth[top[v]]) &#123;
+                u &#x3D; fa[top[u]];
+            &#125; 
+            else&#123;
+                v &#x3D; fa[top[v]];
+            &#125;
+        &#125;
+        return depth[u] &lt; depth[v] ? u : v;
+    &#125;
+ 
+    int dist(int u, int v) &#123;
+        return depth[u] + depth[v] - 2 * depth[lca(u, v)];
+    &#125;
+ 
+    bool in_subtree(int u, int v) &#123;
+        return in[v] &lt;&#x3D; in[u] &amp;&amp; in[u] &lt;&#x3D; out[v];
+    &#125;
+    
+    int jump(int u, int k) &#123;
+        if (depth[u] &lt; k)&#123;
+            return -1;
+        &#125;
+        int d &#x3D; depth[u] - k;
+        while (depth[top[u]] &gt; d) &#123;
+            u &#x3D; fa[top[u]];
+        &#125;
+        return seq[in[u] - depth[u] + d];
+    &#125;
+    
+    int rooted_lca(int a, int b, int c) &#123;
+        return lca(a, b) ^ lca(b, c) ^ lca(c, a);
+    &#125;
+&#125;;
+
+template&lt;typename T&gt;
+struct DSU &#123;
+	vector&lt;T&gt; p, sz;
+	DSU(T n) : p(n), sz(n, 1) &#123; iota(p.begin(), p.end(), 0); &#125;
+	&#x2F;&#x2F;初始化
+	void init(int n) &#123;
+		p.resize(n);
+		iota(p.begin(), p.end(), 0);
+		sz.assign(n, 1);
+	&#125;
+	&#x2F;&#x2F;找父节点
+	T find(T x) &#123;
+		while (x !&#x3D; p[x]) x &#x3D; p[x] &#x3D; p[p[x]];
+		return x;
+	&#125;
+	&#x2F;&#x2F;合并集合
+	bool merge(T x, T y) &#123;
+		x &#x3D; find(x);
+		y &#x3D; find(y);
+		if (x &#x3D;&#x3D; y) return false;
+		sz[x] +&#x3D; sz[y];
+		p[y] &#x3D; x;
+		return true;
+	&#125;
+	&#x2F;&#x2F;判断是否同一集合
+	bool same(T x, T y) &#123; return find(x) &#x3D;&#x3D; find(y); &#125;
+	&#x2F;&#x2F;集合大小
+	T size(T x) &#123; return sz[find(x)]; &#125;
+&#125;;
+
+struct Diameter
+&#123;
+	int u, v, len;
+&#125;;
+
+void solve()
+&#123;
+	int n, q;
+	cin &gt;&gt; n &gt;&gt; q;
+
+	HLD hld(n + 1);
+	for (int i &#x3D; 0; i &lt; n - 1; i++)
+	&#123;
+		int a, b;
+		cin &gt;&gt; a &gt;&gt; b;
+		hld.addEdge(a, b);
+	&#125;
+
+	hld.work();
+
+	DSU&lt;int&gt; dsu(n + 1);
+	vector&lt;int&gt; color(n + 1);
+
+	map&lt;int, vector&lt;int&gt;&gt; mp; &#x2F;&#x2F; 按时间顺序
+	for (int i &#x3D; 1; i &lt;&#x3D; q; i++)
+	&#123;
+		int u, v;
+		cin &gt;&gt; u &gt;&gt; v;
+
+		int p &#x3D; hld.lca(u, v);
+		for (auto x : &#123;u, v&#125;)
+		&#123;
+			while (true)
+			&#123;
+				int y &#x3D; dsu.find(x);
+				if (y &#x3D;&#x3D; n + 1 || hld.depth[y] &lt; hld.depth[p])
+				&#123;
+					break;
+				&#125;
+				color[y] &#x3D; 1;
+				mp[i].push_back(y);
+				dsu.merge(hld.fa[y], x);
+			&#125;
+		&#125;
+	&#125;
+
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)	
+	&#123;
+		if (!color[i])	mp[q + 1].push_back(i);
+	&#125;
+	color.assign(n + 1, 0);
+
+	dsu.init(n + 1);
+	vector&lt;int&gt; res(q + 1);
+	int ans &#x3D; 0;
+
+	vector&lt;Diameter&gt; dia(n + 1);
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)	dia[i] &#x3D; &#123;i, i, 0&#125;;
+	auto merge &#x3D; [&amp;](Diameter a, Diameter b) -&gt; Diameter
+	&#123;
+		Diameter res &#x3D; a;
+		if (res.len &lt; b.len)	res &#x3D; b;
+		for (auto x : &#123;a.u, a.v&#125;)
+		&#123;
+			for (auto y : &#123;b.u, b.v&#125;)
+			&#123;
+				int d &#x3D; hld.dist(x, y);
+				if (d &gt; res.len)	res &#x3D; &#123;x, y, d&#125;;
+			&#125;
+		&#125;
+		return res;
+	&#125;;
+	auto cal &#x3D; [&amp;](int u, int c) -&gt; void
+	&#123;
+		color[u] &#x3D; c;
+
+		auto nxt_cal &#x3D; [&amp;](int a, int b) -&gt; void
+		&#123;
+			if (color[a] !&#x3D; color[b])	return;
+
+			int x &#x3D; dsu.find(a), y &#x3D; dsu.find(b);
+			dsu.merge(x, y);
+			dia[x] &#x3D; merge(dia[x], dia[y]);
+			ans &#x3D; max(ans, dia[x].len);
+		&#125;;
+
+		for (auto v : hld.g[u])
+		&#123;
+			nxt_cal(u, v);
+		&#125;
+		if (hld.fa[u])	nxt_cal(u, hld.fa[u]);
+	&#125;;
+
+	for (int i &#x3D; 1; i &lt;&#x3D; q; i++)
+	&#123;
+		for (auto u : mp[i])	cal(u, 1);
+		res[i] &#x3D; ans + 1;
+	&#125;
+
+	dsu.init(n + 1);
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)	dia[i] &#x3D; &#123;i, i, 0&#125;;
+	color.assign(n + 1, 1);
+	ans &#x3D; 0;
+	for (int i &#x3D; q; i &gt;&#x3D; 1; i--)
+	&#123;
+		for (auto x : mp[i + 1])	cal(x, 0);
+		res[i] &#x3D; max(res[i], ans + 1);
+	&#125;
+
+	for (int i &#x3D; 1; i &lt;&#x3D; q; i++)	cout &lt;&lt; res[i] &lt;&lt; &quot;\n&quot;;
+&#125;
+
+int main()
+&#123;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+	int t;
+	cin &gt;&gt; t;
+
+	while (t--)
+	&#123;
+		solve();
+	&#125;
+	
+	return 0;
+&#125;</code></pre>
+
+
+
+<h3 id="最近公共祖先（-lca-）"><a href="#最近公共祖先（-lca-）" class="headerlink" title="最近公共祖先（$lca$）"></a>最近公共祖先（$lca$）</h3><blockquote>
 <p><strong>应用：</strong></p>
 <ol>
 <li>获取两个点之间的路径与距离，距离：<code>dist[a][b] = depth[a] + depth[b] - 2 × depth[p] </code></li>
@@ -1385,6 +1681,119 @@ int main()
 <li>点权树上差分：<code>d[a] += c, d[b] += c, d[p] -= c, d[fa[p]] -= c</code></li>
 </ul>
 </blockquote>
+<p><mark>$hld$ 封装模板：</mark></p>
+<blockquote>
+<p><strong>使用方法：</strong></p>
+<ul>
+<li><p>创建：$HLD\ hld(n + 1);$</p>
+</li>
+<li><p>加边：$hld.addEdge(u, v);$</p>
+</li>
+<li><p>工作：$hld.work();$</p>
+</li>
+</ul>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">struct HLD &#123;
+    int n;
+    vector&lt;int&gt; sz, top, depth, fa, in, out, seq;
+    vector&lt;vector&lt;int&gt;&gt; g;
+    int ts;
+
+	HLD() &#123;&#125;
+    HLD(int n) &#123;
+        init(n);
+    &#125;
+    void init(int n) &#123;
+        this-&gt;n &#x3D; n;
+        sz.resize(n + 1);
+        top.resize(n + 1);
+        depth.resize(n + 1);
+        fa.resize(n + 1);
+        in.resize(n + 1);
+        out.resize(n + 1);
+        seq.resize(n + 1);
+        ts &#x3D; 0;
+        g.assign(n + 1, &#123;&#125;);
+    &#125;
+
+	void addEdge(int u, int v) &#123;
+		g[u].push_back(v);
+		g[v].push_back(u);
+	&#125;
+
+	void work(int root &#x3D; 1) &#123;
+		top[root] &#x3D; root;
+		depth[0] &#x3D; 0, depth[root] &#x3D; 1;
+		dfs_sz(root);
+		dfs_hld(root);
+	&#125;
+ 
+    void dfs_sz(int u) &#123;
+        if (fa[u])&#123;
+            for(auto it &#x3D; g[u].begin(); it !&#x3D; g[u].end(); it++) &#123;
+                if (*it &#x3D;&#x3D; fa[u]) &#123;
+                    g[u].erase(it);
+                    break;
+                &#125;
+            &#125;
+        &#125;
+        sz[u] &#x3D; 1;
+        for(auto &amp;j : g[u]) &#123;
+            fa[j] &#x3D; u;
+            depth[j] &#x3D; depth[u] + 1;
+            dfs_sz(j);
+            sz[u] +&#x3D; sz[j];
+            if (sz[j] &gt; sz[g[u][0]])
+                swap(j, g[u][0]);
+        &#125;
+    &#125;
+ 
+    void dfs_hld(int u) &#123;
+        in[u] &#x3D; ++ts;
+        seq[in[u]] &#x3D; u;
+        for (auto j : g[u]) &#123;
+            top[j] &#x3D; (j &#x3D;&#x3D; g[u][0] ? top[u] : j);
+            dfs_hld(j);
+        &#125;
+        out[u] &#x3D; ts;
+    &#125;
+ 
+    int lca(int u, int v) &#123;
+        while (top[u] !&#x3D; top[v]) &#123;
+            if (depth[top[u]] &gt; depth[top[v]]) &#123;
+                u &#x3D; fa[top[u]];
+            &#125; 
+            else&#123;
+                v &#x3D; fa[top[v]];
+            &#125;
+        &#125;
+        return depth[u] &lt; depth[v] ? u : v;
+    &#125;
+ 
+    int dist(int u, int v) &#123;
+        return depth[u] + depth[v] - 2 * depth[lca(u, v)];
+    &#125;
+ 
+    bool in_subtree(int u, int v) &#123;
+        return in[v] &lt;&#x3D; in[u] &amp;&amp; in[u] &lt;&#x3D; out[v];
+    &#125;
+    
+    int jump(int u, int k) &#123;
+        if (depth[u] &lt; k)&#123;
+            return -1;
+        &#125;
+        int d &#x3D; depth[u] - k;
+        while (depth[top[u]] &gt; d) &#123;
+            u &#x3D; fa[top[u]];
+        &#125;
+        return seq[in[u] - depth[u] + d];
+    &#125;
+    
+    int rooted_lca(int a, int b, int c) &#123;
+        return lca(a, b) ^ lca(b, c) ^ lca(c, a);
+    &#125;
+&#125;;</code></pre>
+
 <p><mark>封装模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">vector&lt;vector&lt;int&gt;&gt; g(n + 1); &#x2F;&#x2F; 存图方式
 vector&lt;vector&lt;int&gt;&gt; fa(n + 1, vector&lt;int&gt;(16));
@@ -1812,7 +2221,7 @@ int main()
     return 0;
 &#125;</code></pre>
 
-<h3 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h3><p><mark>封装模板：</mark></p>
+<h3 id="并查集-1"><a href="#并查集-1" class="headerlink" title="并查集"></a>并查集</h3><p><mark>封装模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;
 struct DSU &#123;
     vector&lt;T&gt; p, sz;
