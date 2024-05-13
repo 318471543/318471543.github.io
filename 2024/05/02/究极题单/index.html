@@ -528,7 +528,7 @@
 <h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><h3 id="线性-dp"><a href="#线性-dp" class="headerlink" title="线性 $dp$"></a>线性 $dp$</h3><ul>
 <li><p><strong>以为贪心，实则 $dp$（$hack$ 数据可在 $cf$ 掉分题单找到）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1969/problem/C">C. Minimizing the Sum</a></p>
 </li>
-<li><p><strong>武汉邀请赛银牌题，显然是：$O(N^2)$ 的 $dp$，但只会 $O(N^3)$ 的 $dp$，想不到是什么能将 $N$ 优化到 $1$。以为是没学过的优化，后面补吧。</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105143/problem/D">D. ICPC</a></p>
+<li><p><strong>武汉邀请赛银牌题，显然是：$O(N^2)$ 的 $dp$，但只会 $O(N^3)$ 的 $dp$。</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105143/problem/D">D. ICPC</a></p>
 <ul>
 <li>比较相似：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1220">P1220 关路灯</a></li>
 </ul>
@@ -553,7 +553,7 @@
 <li><strong>$2024$ 天梯赛国一题（二分 + 前缀和）：</strong><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1781658570803388429&page=1">L3-2 工业园区建设</a></li>
 </ul>
 <h3 id="差分"><a href="#差分" class="headerlink" title="差分"></a>差分</h3><ul>
-<li><strong>$2024$ 武汉邀请赛热身赛（基础数据结构（差分） + 硬核思维）：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/41856/A">蓝线摄影</a><ul>
+<li><strong>$2024$ 武汉邀请赛热身赛（基础数据结构（差分） + 硬核思维（时间序列思想））：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/41856/A">蓝线摄影</a><ul>
 <li><strong>类似差分思想的题目（easy）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1955/problem/E">E. Long Inversions</a></li>
 </ul>
 </li>
@@ -563,6 +563,8 @@
 <p><strong>基本想法：</strong>单点的修改可以 $O(1)$ 得到贡献，一个巧妙的思考方式是按时间顺序处理答案，但继续思考下去的话很难深入，但必须要深入。</p>
 <p><strong>深入：</strong>一点的影响（即第 $i$ 秒第 $j$ 列），会导致从 $i - j + 1$ 开始的所有照片都受到影响（差分区间修改单点加）。然后抽象出每个摄影都是从第 $x$ 秒开始的，差分数组做一遍前缀和之后，得到的就是每一秒开始的照片有多少被修改的点。</p>
 <p><strong>继续深入：</strong>前缀和之后就是答案，为什么是这样定义的？因为我们最初想的就是将某一区间全部加 $1$ 或全部减 $1$，这就是我们前缀和得到的东西。</p>
+<h3 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h3><p><strong>湖北省赛金牌题（并查集 + $lca$ + 硬核思维（时间序列思想））：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105139/problem/I">I. Colorful Tree</a></p>
+<h3 id="主席树"><a href="#主席树" class="headerlink" title="主席树"></a>主席树</h3><p><strong>湖北省赛金牌题（主席树板子题，强应用性）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105139/problem/F">F. Enchanted</a></p>
 <h2 id="数论"><a href="#数论" class="headerlink" title="数论"></a>数论</h2><h3 id="约数"><a href="#约数" class="headerlink" title="约数"></a>约数</h3><ul>
 <li><strong>$2024$ 蓝桥杯省赛真题（推公式 + 算法优化）：</strong><a target="_blank" rel="noopener" href="https://www.dotcpp.com/oj/problem3211.html">宝石组合</a></li>
 </ul>
