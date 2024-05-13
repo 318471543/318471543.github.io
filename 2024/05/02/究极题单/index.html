@@ -549,13 +549,20 @@
 </li>
 </ul>
 <h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="二分"><a href="#二分" class="headerlink" title="二分"></a>二分</h3><ul>
-<li><p><strong>武汉邀请赛铜牌题（交互 + 二分 + 双指针 + 思维构造）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105143/problem/F">F. Custom-Made Clothes</a></p>
-</li>
-<li><p><strong>$2024$ 天梯赛国一题（二分 + 前缀和）：</strong><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1781658570803388429&page=1">L3-2 工业园区建设</a></p>
-</li>
-<li><p><strong>$2024$ 武汉邀请赛热身赛（基础数据结构 + 硬核思维，待分类）：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/41856/A">蓝线摄影</a></p>
+<li><strong>武汉邀请赛铜牌题（交互 + 二分 + 双指针 + 思维构造）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105143/problem/F">F. Custom-Made Clothes</a></li>
+<li><strong>$2024$ 天梯赛国一题（二分 + 前缀和）：</strong><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1781658570803388429&page=1">L3-2 工业园区建设</a></li>
+</ul>
+<h3 id="差分"><a href="#差分" class="headerlink" title="差分"></a>差分</h3><ul>
+<li><strong>$2024$ 武汉邀请赛热身赛（基础数据结构（差分） + 硬核思维）：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/41856/A">蓝线摄影</a><ul>
+<li><strong>类似差分思想的题目（easy）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1955/problem/E">E. Long Inversions</a></li>
+</ul>
 </li>
 </ul>
+<hr>
+<p><mark>武汉邀请赛热身赛：</mark></p>
+<p><strong>基本想法：</strong>单点的修改可以 $O(1)$ 得到贡献，一个巧妙的思考方式是按时间顺序处理答案，但继续思考下去的话很难深入，但必须要深入。</p>
+<p><strong>深入：</strong>一点的影响（即第 $i$ 秒第 $j$ 列），会导致从 $i - j + 1$ 开始的所有照片都受到影响（差分区间修改单点加）。然后抽象出每个摄影都是从第 $x$ 秒开始的，差分数组做一遍前缀和之后，得到的就是每一秒开始的照片有多少被修改的点。</p>
+<p><strong>继续深入：</strong>前缀和之后就是答案，为什么是这样定义的？因为我们最初想的就是将某一区间全部加 $1$ 或全部减 $1$，这就是我们前缀和得到的东西。</p>
 <h2 id="数论"><a href="#数论" class="headerlink" title="数论"></a>数论</h2><h3 id="约数"><a href="#约数" class="headerlink" title="约数"></a>约数</h3><ul>
 <li><strong>$2024$ 蓝桥杯省赛真题（推公式 + 算法优化）：</strong><a target="_blank" rel="noopener" href="https://www.dotcpp.com/oj/problem3211.html">宝石组合</a></li>
 </ul>
