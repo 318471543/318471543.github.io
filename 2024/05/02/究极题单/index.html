@@ -548,6 +548,7 @@
 <li><p>这题的状态是用四进制表示，直接 $1 &lt;&lt; (2 \times i)$ 即可，很容易想到，但如果是其他进制呢？</p>
 </li>
 </ul>
+<h2 id="图论"><a href="#图论" class="headerlink" title="图论"></a>图论</h2><p><strong>武汉邀请赛银牌题（动态树直径 + $lca$ + 双指针 &#x2F; 二分）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105143/problem/E">E. Boomerang</a></p>
 <h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="二分"><a href="#二分" class="headerlink" title="二分"></a>二分</h3><ul>
 <li><strong>武汉邀请赛铜牌题（交互 + 二分 + 双指针 + 思维构造）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105143/problem/F">F. Custom-Made Clothes</a></li>
 <li><strong>$2024$ 天梯赛国一题（二分 + 前缀和）：</strong><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1781658570803388429&page=1">L3-2 工业园区建设</a></li>
@@ -564,6 +565,9 @@
 <p><strong>深入：</strong>一点的影响（即第 $i$ 秒第 $j$ 列），会导致从 $i - j + 1$ 开始的所有照片都受到影响（差分区间修改单点加）。然后抽象出每个摄影都是从第 $x$ 秒开始的，差分数组做一遍前缀和之后，得到的就是每一秒开始的照片有多少被修改的点。</p>
 <p><strong>继续深入：</strong>前缀和之后就是答案，为什么是这样定义的？因为我们最初想的就是将某一区间全部加 $1$ 或全部减 $1$，这就是我们前缀和得到的东西。</p>
 <h3 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h3><p><strong>湖北省赛金牌题（并查集 + $lca$ + 硬核思维（时间序列思想））：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105139/problem/I">I. Colorful Tree</a></p>
+<ul>
+<li><strong>类似题目（树直径）：武汉邀请赛银牌题（动态树直径 + $lca$ + 双指针 &#x2F; 二分）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105143/problem/E">E. Boomerang</a></li>
+</ul>
 <h3 id="主席树"><a href="#主席树" class="headerlink" title="主席树"></a>主席树</h3><p><strong>湖北省赛金牌题（主席树板子题，强应用性）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105139/problem/F">F. Enchanted</a></p>
 <h2 id="数论"><a href="#数论" class="headerlink" title="数论"></a>数论</h2><h3 id="约数"><a href="#约数" class="headerlink" title="约数"></a>约数</h3><ul>
 <li><strong>$2024$ 蓝桥杯省赛真题（推公式 + 算法优化）：</strong><a target="_blank" rel="noopener" href="https://www.dotcpp.com/oj/problem3211.html">宝石组合</a></li>
@@ -590,6 +594,9 @@
 <p><strong>赛后补题：</strong>觉得二进制位从高到低枚举是有道理的，但是又要分成 $n$ 份，难道是要换成 $n$ 进制思想吗？又没有道理，实际上是：这 $n$ 个数，拆分成二进制的形式，每一位都纵向考虑，即考虑这一位时是同时考虑 $n$ 个的，只要后面的能表示 $sum$，这一位的所有 $n$ 个数就都不用为 $1$。</p>
 <p><strong>细节：</strong> 这一位如果要填 $1$，需要计算填多少个 $1$，即 $sum &gt;&gt; i$，但是又不能超过 $n$！会有超过 $n$ 个的情况，因为后面的位数都是用乘法（即 $n$ 个数）来考虑的，因此还需要与 $n$ 取最小值。</p>
 <p><strong>反思总结：</strong>补完题后，其实核心代码就只有 $4$ 行，赛时却花了 $2$ 小时。</p>
+<h3 id="期望"><a href="#期望" class="headerlink" title="期望"></a>期望</h3><p><strong>湖北省赛金牌题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105139/problem/K">K. Points on the Number Axis B</a></p>
+<p><strong>$2023$ 深圳区域赛银牌题：</strong><a target="_blank" rel="noopener" href="https://vjudge.net/contest/594105#problem/L">L - Mary 有棵有根树 </a></p>
+<p>这两题期望看题解的时间得至少有5小时了，但真的没一道题能看懂的。。。最容易理解的应该是深圳的这个期望，但是看题解没看懂，对着题解给的公式写答案还不对，看到一个能过所有样例的代码但是不知道公式的含义是什么。。。期望真的要寄了吗？</p>
 <h3 id="SG-打表"><a href="#SG-打表" class="headerlink" title="$SG$ 打表"></a>$SG$ 打表</h3><ul>
 <li><strong>武汉邀请赛签到题（$SG$ 打表，签的太慢了，总结为还是对这种题目不熟悉）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105143/problem/K">K. Party Games</a><ul>
 <li><strong>杭电暑假多校的 $SG$ 打表题（主要目的：打表练手）：</strong><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=7287">Alice Game</a></li>
