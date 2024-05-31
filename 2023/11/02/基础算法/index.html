@@ -9,9 +9,9 @@
 求区间[l,r]之间的和：$s[r] - s[l - 1]$
 
 核心代码：
-for(int i &amp;#x3D; 1; i&amp;lt;&amp;#x3D;n;i++)     s[i] &amp;#x3D; s[i-1]+ a[i];
+for(int i &amp;#x3D; 1; i&amp;lt;&amp;#x3D; n;i++)     s[i] &amp;#x3D; s[i-1] + a[i];
 
-一维异或">
+一维">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -491,7 +491,7 @@ for(int i &amp;#x3D; 1; i&amp;lt;&amp;#x3D;n;i++)     s[i] &amp;#x3D; s[i-1]+ a[
 <p>求区间[l,r]之间的和：$s[r] - s[l - 1]$</p>
 </blockquote>
 <p><mark>核心代码：</mark></p>
-<pre class="language-c++" data-language="c++"><code class="language-c++">for(int i &#x3D; 1; i&lt;&#x3D;n;i++)     s[i] &#x3D; s[i-1]+ a[i];</code></pre>
+<pre class="language-c++" data-language="c++"><code class="language-c++">for(int i &#x3D; 1; i&lt;&#x3D; n;i++)     s[i] &#x3D; s[i-1] + a[i];</code></pre>
 
 <h3 id="一维异或和"><a href="#一维异或和" class="headerlink" title="一维异或和"></a>一维异或和</h3><blockquote>
 <p>求区间 $[l,r]$ 之间的异或和：$s[r]$ ^ $s[l - 1]$</p>
@@ -566,7 +566,7 @@ const int N &#x3D; 1e5+10;
 int a[N],b[N];
 void insert(int l,int r,int c)
 &#123;
-    b[l] +&#x3D;c;
+    b[l] +&#x3D; c;
     b[r + 1] -&#x3D; c;
 &#125;
 int main()
@@ -582,7 +582,7 @@ int main()
         insert(l,r,c); 
     &#125;
     for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   b[i] +&#x3D; b[i-1];
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   printf(&quot;%d &quot;,b[i]);
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   printf(&quot;%d &quot;, b[i]);
     return 0;
 &#125;</code></pre>
 
@@ -734,7 +734,7 @@ while(l &lt; r)
 <p><strong>考古做两遍的一道 $cf\ C$ 二分好题：二分 + 差分 + 前缀和</strong>  <a target="_blank" rel="noopener" href="https://codeforces.com/contest/1795/problem/C">C. Tea Tasting</a></p>
 <p><strong>又是一道考古出来的二分好题（待考古）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1853/problem/C">https://codeforces.com/contest/1853/problem/C</a></p>
 <p><strong>$ 2023CCPC $ 桂林站二分签到题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/482805/problem/M">M. Flipping Cards</a></p>
-<p><strong>$Codeforces\ div3\ D$（猜出是二分了，但是 check 跟贪心似的，感觉很难实现，也不太对的样子）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1907/problem/D">D. Jumping Through Segments</a></p>
+<p><strong>$codeforces\ div3\ D$（猜出是二分了，但是 check 跟贪心似的，感觉很难实现，也不太对的样子）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1907/problem/D">D. Jumping Through Segments</a></p>
 <p><strong>$div3\ F$（以为是二分套个三分，结果是纯二分，因为不满足三分的条件）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1941/problem/F">F. Rudolf and Imbalance</a></p>
 <p><strong>$2024$ 天梯赛 $L3-2$ 二分 + 前缀和：</strong><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/type/7?problemSetProblemId=1781658570803388429&page=1">L3-2 工业园区建设</a></p>
 <hr>
@@ -884,7 +884,7 @@ int main()
 <p>三分时间复杂度：$O(logn)$</p>
 <p>三分与二分的思想类似，也是通过不断缩小答案可能的区间范围，来找到最终答案所在的位置。</p>
 <p>三分一般被用来查找某类单峰函数的峰值。</p>
-<p>三分需要找三等分点：M1 &#x3D; (R - L) &#x2F; 3 + L,M2 &#x3D; (R - L) &#x2F; 3 + 2L。</p>
+<p>三分需要找三等分点：M1 &#x3D; (R - L) &#x2F; 3 + L,M2 &#x3D; 2 * (R - L) &#x2F; 3 + L。</p>
 </blockquote>
 <p><strong>注意：</strong></p>
 <blockquote>
@@ -898,7 +898,7 @@ int main()
 </blockquote>
 <h3 id="整数三分"><a href="#整数三分" class="headerlink" title="整数三分"></a>整数三分</h3><blockquote>
 <p>$while(l + 2 &lt; r)$ 需要区间可以分成三段！</p>
-<p>最后暴力枚举 $l$ ~ $r$ 之间的结果即可！</p>
+<p>最后暴力枚举小区间 $[l,r]$ 之间的结果即可！</p>
 </blockquote>
 <p><mark>整数三分凸函数模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">int l &#x3D; 0,r &#x3D; 1e9;
@@ -1336,8 +1336,10 @@ int main()
 
 
 <h2 id="单调队列"><a href="#单调队列" class="headerlink" title="单调队列"></a>单调队列</h2><blockquote>
-<p>实在是太经典了，必须入典！</p>
+<p><strong>滑动窗口</strong>，实在是太经典了，必须入典！</p>
 </blockquote>
+<p><mark>场景引入：</mark></p>
+<p>给定长度固定的区间（窗口），每次向后移动一格，问窗口内的最大值 &#x2F; 最小值（最值）是？</p>
 <p><mark>思路：</mark></p>
 <ul>
 <li><p>每次的队头就是答案位置；</p>
@@ -1525,10 +1527,19 @@ int main()
     return 0;
 &#125;</code></pre>
 
+
+
 <h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><blockquote>
 <p>封装了一个双链表的模板，其同时可以解决单链表的问题！</p>
 </blockquote>
-<h3 id="单链表"><a href="#单链表" class="headerlink" title="单链表"></a>单链表</h3><p><mark>模板题代码：</mark></p>
+<h3 id="单链表"><a href="#单链表" class="headerlink" title="单链表"></a>单链表</h3><p><mark>操作：</mark></p>
+<ol>
+<li>向链表头插入一个数；</li>
+<li>删除第 $k$ 个插入的数后面的一个数；</li>
+<li>在第 $k$ 个插入的数后插入一个数；</li>
+</ol>
+<p><strong>注意：</strong>第 $k$ 个插入的数并不是指当前链表的第 $k$ 个数，而是按照插入的时间顺序的第 $k$ 个插入的数。</p>
+<p><mark>模板题代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
@@ -1542,7 +1553,6 @@ int main()
 
 	int head &#x3D; -1;
 	int idx &#x3D; 0;
-
 
 	vector&lt;int&gt; e(n + 10), ne(n + 10);
 
@@ -1675,7 +1685,8 @@ int main()
 
 <p><mark>推荐题单：</mark></p>
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/828/">826. 单链表</a></p>
-<h3 id="双链表"><a href="#双链表" class="headerlink" title="双链表"></a>双链表</h3><p><mark>封装模板：</mark></p>
+<h3 id="双链表"><a href="#双链表" class="headerlink" title="双链表"></a>双链表</h3><p><strong>待补充</strong>双链表中更准确的食用方式（类似于上面单链表的说明）。</p>
+<p><mark>封装模板：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">struct Node
 &#123;
     string data;
@@ -1893,7 +1904,7 @@ int main()
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/829/">827. 双链表</a></p>
 <p><strong>链表是核心，但更重要的思想是优化：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1922/problem/D">D. Berserk Monsters</a></p>
 <p><strong>$2023$ 蓝桥杯真题（双链表 + 优先队列）：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/4964/">整数删除</a></p>
-<p><strong>一道双链表的大模拟：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/77922/G">排队</a></p>
+<p><strong>一道双链表的大模拟（由此题引入的模板）：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/77922/G">排队</a></p>
 <p><strong>力扣用双链表解决 $LRU$：</strong><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/lru-cache/description/">146. LRU 缓存</a></p>
 <p><mark>排队代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -2133,7 +2144,14 @@ public:
 
 
 
-<h2 id="高精度"><a href="#高精度" class="headerlink" title="高精度"></a>高精度</h2><h3 id="高精度加法"><a href="#高精度加法" class="headerlink" title="高精度加法"></a>高精度加法</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+<h2 id="高精度"><a href="#高精度" class="headerlink" title="高精度"></a>高精度</h2><p><strong>总结（参考文章：<a target="_blank" rel="noopener" href="https://www.acwing.com/blog/content/38073/">轻松掌握高精度加减乘除</a>）：</strong></p>
+<ul>
+<li><p>高精度加法、减法、乘法：均是采用<mark>从低位到高位</mark>依次处理的；</p>
+</li>
+<li><p>高精度除法：采用<mark>从高位到低位</mark>依次处理。</p>
+</li>
+</ul>
+<h3 id="高精度加法"><a href="#高精度加法" class="headerlink" title="高精度加法"></a>高精度加法</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
 #include&lt;vector&gt;
 using namespace std;
 const int N &#x3D; 1e6 + 10;
@@ -2213,7 +2231,9 @@ int main()
 
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/794/">高精度减法</a></p>
 <h3 id="高精度乘法"><a href="#高精度乘法" class="headerlink" title="高精度乘法"></a>高精度乘法</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
 using namespace std;
+
 vector&lt;int&gt; mul(vector&lt;int&gt;&amp;A,int b)
 &#123;
     vector&lt;int&gt;C;
@@ -2241,7 +2261,9 @@ int main()
 
 <p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/795/">高精度乘法</a></p>
 <h3 id="高精度除法"><a href="#高精度除法" class="headerlink" title="高精度除法"></a>高精度除法</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
 using namespace std;
+
 vector&lt;int&gt; div(vector&lt;int&gt;&amp;A,int b,int &amp;r)
 &#123;
     vector&lt;int&gt;C;
@@ -2256,6 +2278,7 @@ vector&lt;int&gt; div(vector&lt;int&gt;&amp;A,int b,int &amp;r)
     while(C.size() &gt; 1 &amp;&amp; C.back()&#x3D;&#x3D;0)  C.pop_back();
     return C;
 &#125;
+
 int main()
 &#123;
     string a;
@@ -2798,6 +2821,8 @@ int main()
     return 0;
 &#125;</code></pre>
 
+<p>有很多类型的题目，需要用：$map&lt;int, vector<int>&gt; mp;$ 这种方式配合优化算法时间复杂度，比如：</p>
+<p><strong>$div2\ D$ 经典括号序列（这题 $map$ 并不是很亮点，最大亮点是优化）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1976/problem/D">D. Invertible Bracket Sequences</a></p>
 <h3 id="multiset"><a href="#multiset" class="headerlink" title="multiset"></a>multiset</h3><p><strong>删除元素：</strong></p>
 <ul>
 <li>$erase(x)$ 函数：删除集合中所有 $x$ 的值；<ul>
@@ -2956,6 +2981,7 @@ cout &lt;&lt; pa[0] &lt;&lt; &quot; &quot; &lt;&lt; pa[1];</code></pre>
 <p><mark>推荐题单：</mark></p>
 <p>**$bitset$ 优化常数： ** <a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/contest/problem?cid=1095&pid=1007">foreverlasting and fried-chicken</a></p>
 <p><strong>$div3\ E$ （正解并不是 $bitset$，但可以卡过去，算是可以练习下 $bitset$ 叭）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1955/problem/E">E. Long Inversions</a></p>
+<p><strong>$2024$ 西安邀请赛金牌题：</strong>待补充链接（马上会上洛谷）</p>
 <p><mark>foreverlasting and fried-chicken 代码如下：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
