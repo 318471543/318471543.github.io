@@ -1260,7 +1260,7 @@ int main()
 <h3 id="括号序列类型题目"><a href="#括号序列类型题目" class="headerlink" title="括号序列类型题目"></a>括号序列类型题目</h3><blockquote>
 <p>这次 $cf\ div2$ 出 $C$ 比较快，有机会看到 $D$ 题，然后是一个经典的括号序列的题目，自己对这个理解就是前缀和的左括号都是大于等于右括号的，浅看别人说的就是看成+1&#x2F;-1，就转成前缀和大于等于 $0$ 的情况，我感觉这种理解就非常具体！还是得多了解一下这种题目，于是开了这个栏目。</p>
 </blockquote>
-<p>$div2\ D$：<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1976/problem/D">D. Invertible Bracket Sequences</a></p>
+<p><strong>$tag:$思维证明 + 静态区间查询：</strong>$div2\ D$：<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1976/problem/D">D. Invertible Bracket Sequences</a></p>
 <h2 id="码量者的题单"><a href="#码量者的题单" class="headerlink" title="码量者的题单"></a>码量者的题单</h2><h3 id="方格类题单"><a href="#方格类题单" class="headerlink" title="方格类题单"></a>方格类题单</h3><p><strong>简单入门题：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57363/E">Puzzle: Square Jam</a></p>
 <p><strong>三个比较类似的网格类型的题（网格共性：找特殊的位置，比如对角线、四个角落）：</strong></p>
 <ul>
@@ -3083,6 +3083,13 @@ int main()
 <ul>
 <li>很容易想到 $O(N^2)$ 的 $dp$，但数据范围是：$10^5$，很明显最多是 $NlogN$。当时觉得时间复杂度不对，不能是 $dp$，但不是 $dp$ 的话又根本贪不了，只能是 $dp$ 最能解释一切。但实际上枚举的范围有限，最多往前枚举 $N^{\frac{1}{4}}$，因此最终时间复杂度为：$O(N^{\frac{5}{4}})$！太神奇了！</li>
 <li>彻底打开了往 $dp$ 去想的大门，时间复杂度只是暂时的，分析清楚才能更好的优化！</li>
+</ul>
+</li>
+<li><p>$div2\ D$ 经典括号序列：<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1976/problem/D">D. Invertible Bracket Sequences</a></p>
+<ul>
+<li>暴力复杂度：$O(N^2logN)$ 或 $O(N^2)$。但正解需要复杂度为：$O(NlogN)$，怎么优化？</li>
+<li>做法：前缀和 + 双指针 + 静态区间查询（$st$ 表）；</li>
+<li>经典优化容器：$map&lt;int, vector<int>&gt; mp;$</li>
 </ul>
 </li>
 </ul>
@@ -6269,6 +6276,37 @@ int main()
         &#125;
     &#125;
     cout &lt;&lt; dp[n][10][n];
+    return 0;
+&#125;</code></pre>
+
+<p><strong>2022年国赛第2个填空题：</strong></p>
+<p>其实就是算每个指针指向的角度就行，但是问题就是指针的角度怎么算，感觉很看常识，从网上找的都是那种很简单的除法，我感觉每个指针的移动都是大指针依赖小指针（按权值依赖），以下是我的代码：</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    for (int s &#x3D; 0; s &lt;&#x3D; 6; s++)
+    &#123;
+        for (int f &#x3D; 0; f &lt; 60; f++)
+        &#123;
+            for (int m &#x3D; 0; m &lt; 60; m++)
+            &#123;
+                double mp &#x3D; m &#x2F; 60. * 360;
+                double fp &#x3D; f &#x2F; 60. * 360 + m &#x2F; (60 * 60.) * 360;
+                double sp &#x3D; s &#x2F; 12. * 360 + f &#x2F; (60 * 12.) * 360 + m &#x2F; (60 * 60 * 12.) * 360;
+                double A &#x3D; fabs(fp - sp), B &#x3D; fabs(fp - mp);
+                A &#x3D; min(A, 360 - A), B &#x3D; min(B, 360 - B);
+                if (fabs(A - 2 * B) &lt; 1e-9)
+                &#123;
+                    cout &lt;&lt; s &lt;&lt; &quot; &quot; &lt;&lt; f &lt;&lt; &quot; &quot; &lt;&lt; m &lt;&lt; &quot;\n&quot;;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
     return 0;
 &#125;</code></pre>
 
