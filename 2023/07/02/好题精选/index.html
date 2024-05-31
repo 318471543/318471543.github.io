@@ -1257,8 +1257,10 @@ int main()
     return 0;
 &#125;</code></pre>
 
-
-
+<h3 id="括号序列类型题目"><a href="#括号序列类型题目" class="headerlink" title="括号序列类型题目"></a>括号序列类型题目</h3><blockquote>
+<p>这次 $cf\ div2$ 出 $C$ 比较快，有机会看到 $D$ 题，然后是一个经典的括号序列的题目，自己对这个理解就是前缀和的左括号都是大于等于右括号的，浅看别人说的就是看成+1&#x2F;-1，就转成前缀和大于等于 $0$ 的情况，我感觉这种理解就非常具体！还是得多了解一下这种题目，于是开了这个栏目。</p>
+</blockquote>
+<p>$div2\ D$：<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1976/problem/D">D. Invertible Bracket Sequences</a></p>
 <h2 id="码量者的题单"><a href="#码量者的题单" class="headerlink" title="码量者的题单"></a>码量者的题单</h2><h3 id="方格类题单"><a href="#方格类题单" class="headerlink" title="方格类题单"></a>方格类题单</h3><p><strong>简单入门题：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57363/E">Puzzle: Square Jam</a></p>
 <p><strong>三个比较类似的网格类型的题（网格共性：找特殊的位置，比如对角线、四个角落）：</strong></p>
 <ul>
@@ -3075,6 +3077,12 @@ int main()
 <li><p>武汉邀请赛银牌题：<a target="_blank" rel="noopener" href="https://codeforces.com/gym/105143/problem/D">D. ICPC</a></p>
 <ul>
 <li>只会 $O(N^3)$ 的 $dp$，但正解需要严格 $O(N^2)$，怎么搞？</li>
+</ul>
+</li>
+<li><p>郑州邀请赛铜牌题：<a target="_blank" rel="noopener" href="https://codeforces.com/gym/105158">L Toxel 与 PCPC II</a></p>
+<ul>
+<li>很容易想到 $O(N^2)$ 的 $dp$，但数据范围是：$10^5$，很明显最多是 $NlogN$。当时觉得时间复杂度不对，不能是 $dp$，但不是 $dp$ 的话又根本贪不了，只能是 $dp$ 最能解释一切。但实际上枚举的范围有限，最多往前枚举 $N^{\frac{1}{4}}$，因此最终时间复杂度为：$O(N^{\frac{5}{4}})$！太神奇了！</li>
+<li>彻底打开了往 $dp$ 去想的大门，时间复杂度只是暂时的，分析清楚才能更好的优化！</li>
 </ul>
 </li>
 </ul>
@@ -6143,91 +6151,128 @@ int main()
 	return 0;
 &#125;</code></pre>
 
-<h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><h4 id="排列"><a href="#排列" class="headerlink" title="排列"></a>排列</h4><p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/844/">排列数字</a></p>
-<p><mark>手写全排列：</mark></p>
-<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
-
-using namespace std;
-
-const int N &#x3D; 20;
-
-int n;
-int st[N];
-vector&lt;int&gt; v;
-void dfs(int cnt&#x2F;*当前已经选了多少个数*&#x2F;)
-&#123;
-    if(cnt &#x3D;&#x3D; n)
-    &#123;
-        for(auto x : v) cout &lt;&lt; x &lt;&lt; &quot; &quot;;
-        cout &lt;&lt; &quot;\n&quot;;
-        return ;
-    &#125;
-
-    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
-    &#123;
-        if(st[i])   continue;&#x2F;&#x2F;st数组:保证之前选过的数字不能再选了
-        st[i] &#x3D; true;
-        v.push_back(i);
-        dfs(cnt + 1);
-        st[i] &#x3D; false;
-        v.pop_back();
-    &#125;
-&#125;
-
-int main()
-&#123;
-    cin.tie(nullptr)-&gt;sync_with_stdio(false);
-
-    cin &gt;&gt; n;
-    dfs(0);
-    return 0;
-&#125;</code></pre>
-
-<p><mark>调用函数实现：</mark></p>
-<blockquote>
-<p>首先，请记住：next_permutation() 函数！</p>
-<p>iota函数()：前两个参数是范围，第三个参数是初值是多少，之后每个元素都从初值递增1。</p>
+<h3 id="填空题"><a href="#填空题" class="headerlink" title="填空题"></a>填空题</h3><blockquote>
+<p>分析大一、大二这两年的国赛真题，其实印象并不怎么深刻了，唯一深刻的只有选择题了。。。</p>
+<p>大一一个选择题也没做出来，拿了国三；</p>
+<p>大二做出了一个选择题，拿了国二；</p>
+<p>大三？？？</p>
+<p>最后“一次”了，真是紧张又激动。</p>
 </blockquote>
+<p>填空题的水平确实挺捉不着头脑的，下面给出几个不错的填空题：</p>
+<p><strong>2024年b组省赛第2个填空题：</strong></p>
+<p>公式推导：</p>
+<p>$x % 2w  &#x3D; 0$；</p>
+<p>$y%2h&#x3D;0$；</p>
+<p>$x &#x3D; 15t, y &#x3D; 17t &#x3D;&gt; 17x &#x3D; 15y$</p>
+<p>三个公式，枚举 $x$ 或者 $y$ 都行，然后判断是否满足关系即可，考场没想出来，其实很简单。代码如下：</p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
 using namespace std;
 
-int n;
+using ll &#x3D; long long;
 
 int main()
 &#123;
     cin.tie(nullptr)-&gt;sync_with_stdio(false);
 
-    cin &gt;&gt; n;
-    vector&lt;int&gt; a(n + 1);
-    iota(a.begin(),a.end(),0);
-    do
+    ll w &#x3D; 343720, h &#x3D; 233333;
+    ll x &#x3D; 2 * w;
+    auto check &#x3D; [&amp;]() -&gt; bool
     &#123;
-        for(int i &#x3D; 1;i &lt; a.size();i++) cout &lt;&lt; a[i] &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; a.size() - 1];
-    &#125; while (next_permutation(a.begin() + 1,a.end()));
+        return x % 15 &#x3D;&#x3D; 0 &amp;&amp; x &#x2F; 15 * 17 % (2 * h) &#x3D;&#x3D; 0;
+    &#125;;
+    while (!check())
+    &#123;
+        x +&#x3D; 2 * w;
+    &#125;
+    ll y &#x3D; x &#x2F; 15 * 17;
+    cout &lt;&lt; x &lt;&lt; &quot; &quot; &lt;&lt; y &lt;&lt; &quot;\n&quot;;
+
+    cout &lt;&lt; fixed &lt;&lt; setprecision(2) &lt;&lt; sqrt(x * x + y * y); &#x2F;&#x2F; 1100325199.77
     
     return 0;
 &#125;</code></pre>
 
-<h4 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h4><blockquote>
-<p>与排列所不同的是：需要按照顺序组合，即多加一个参数cur：表示当前要从第几个数开始，有了这种顺序后，就可以不用st数组判重了。</p>
-</blockquote>
-<pre class="language-c++" data-language="c++"><code class="language-c++">void dfs(int cur&#x2F;*当前是第几个数*&#x2F;,int cnt&#x2F;*当前已经选了多少个数*&#x2F;)
-&#123;
-    if(cnt &#x3D;&#x3D; select)&#x2F;&#x2F;从n个数中选select个
-    &#123;
-        for(auto x : v) cout &lt;&lt; x &lt;&lt; &quot; &quot;;
-        cout &lt;&lt; &quot;\n&quot;;
-        return ;
-    &#125;
+<p><strong>2022年蓝桥杯国赛第1个填空题（dp）：</strong></p>
+<p>我写的比较暴力，是一种1分钟内能跑出的$dp$。如下：</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
-    for(int i &#x3D; cur;i &lt;&#x3D; n;i++)
+using namespace std;
+
+using ll &#x3D; long long;
+
+ll dp[11][2025][2025];
+
+&#x2F;**
+ * dp[i][j][k]: 前i位: 前缀和为j且最后一个正整数是k的方案数
+ * 答案为: dp[10][2022][1 ~ 2022]
+ * 转移: dp[i][j][k] +&#x3D; dp[i - 1][j - k][1 ~ k - 1]
+*&#x2F;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+    int n &#x3D; 2022;
+    dp[0][0][0] &#x3D; 1;
+    for (int i &#x3D; 1; i &lt;&#x3D; 10; i++)
     &#123;
-        v.push_back(i);
-        dfs(i + 1,cnt + 1);
-        v.pop_back();
+        for (int j &#x3D; 1; j &lt; n; j++) &#x2F;&#x2F; 枚举当前位是什么
+        &#123;
+            for (int k &#x3D; j; k &lt;&#x3D; n; k++) &#x2F;&#x2F; 枚举前缀和是什么
+            &#123;
+                for (int last &#x3D; 0; last &lt; j; last++)
+                &#123;
+                    dp[i][k][j] +&#x3D; dp[i - 1][k - j][last];
+                    &#x2F;&#x2F; if (dp[i][k][j]) cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; k &lt;&lt; &quot; &quot; &lt;&lt; j &lt;&lt; &quot;\n&quot;;
+                &#125;
+            &#125;
+        &#125;
     &#125;
-&#125;&#x2F;&#x2F;如果用dfs(1,0)调用：表示数组元素从1开始,当前已经选了0个数。</code></pre>
+    ll res &#x3D; 0;
+    for (int i &#x3D; 1; i &lt; n; i++)
+        res +&#x3D; dp[10][n][i];
+    cout &lt;&lt; res;
+    return 0;
+&#125;</code></pre>
+
+<p>但上面的做法是比较dp的做法，由于最近好久每做过类似背包的题目了，刚刚去网上看到有背包的写法，时间复杂度是对的（我上面只是投机取巧）。写法如下：</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+using ll &#x3D; long long;
+
+ll dp[2023][11][2023];
+
+&#x2F;**
+ * 问题转换：每个数字看成为体积为i的物品。
+ * 求：前i个物品，选出j个，体积恰好为2022的方案数。
+ * dp[i][j][k]:
+ * 不选: dp[i][j][k] &#x3D; dp[i - 1][j][k]
+ * 选: dp[i][j][k] &#x3D; dp[i - 1][j - 1][k - i]
+*&#x2F;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+    for (int i &#x3D; 0; i &lt;&#x3D; 2022; i++)
+        dp[i][0][0] &#x3D; 1;
+    int n &#x3D; 2022;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        for (int j &#x3D; 1; j &lt;&#x3D; 10; j++)
+        &#123;
+            for (int k &#x3D; 1; k &lt;&#x3D; n; k++)
+            &#123;
+                dp[i][j][k] &#x3D; (dp[i - 1][j][k] + (k &gt;&#x3D; i ? dp[i - 1][j - 1][k - i] : 0));
+            &#125;
+        &#125;
+    &#125;
+    cout &lt;&lt; dp[n][10][n];
+    return 0;
+&#125;</code></pre>
+
+
 
 <h2 id="天梯赛-OR-CAIP（原RoboCom）"><a href="#天梯赛-OR-CAIP（原RoboCom）" class="headerlink" title="天梯赛 OR CAIP（原RoboCom）"></a>天梯赛 OR CAIP（原RoboCom）</h2><blockquote>
 <p>常用小技巧：</p>
