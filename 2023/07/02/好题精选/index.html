@@ -3006,7 +3006,10 @@ int main()
 <p><strong>坑点：</strong><mark>经典爆 int </mark> 。虽然题目中的 $a_i$ 都是 $[-10^{9},10^9]$，但当数据为仅 2 个数：-$10^{9}$ 和 $10^9$ 时，需要再创建另一个数保证公差为 $2×10^9$ （题目要求），那么那个数就需要是 $-3 × 10^9$，就会爆掉，进而答案也会出错。 </p>
 <p><mark>Codeforces Round 933 (Div. 3) F. Rudolf and Imbalance：<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1941/problem/F">F. Rudolf and Imbalance</a></mark></p>
 <p><strong>坑点：</strong> <mark>以为是三分，实际并不满足该条件（属于自己知识上的误区）。</mark> 该场景中，在三分的过程中，遇到了两个点 $m1$，$m2$ 对应权值相等的情况，导致并不满足三分的条件了，不知道区间该往哪边缩，因此导致了错误发生。</p>
-<h2 id="优化好题（层层优化，一层优化但是典）"><a href="#优化好题（层层优化，一层优化但是典）" class="headerlink" title="优化好题（层层优化，一层优化但是典）"></a>优化好题（层层优化，一层优化但是典）</h2><ol>
+<h2 id="优化好题（层层优化，一层优化但是典）"><a href="#优化好题（层层优化，一层优化但是典）" class="headerlink" title="优化好题（层层优化，一层优化但是典）"></a>优化好题（层层优化，一层优化但是典）</h2><blockquote>
+<p>突然感觉收藏在这里的题基本都是蓝桥杯真题qwq。。。</p>
+</blockquote>
+<ol>
 <li><strong>$2022$ 蓝桥杯省赛真题（层层优化）：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/4408/">统计子矩阵</a></li>
 </ol>
 <ul>
@@ -3093,6 +3096,13 @@ int main()
 </ul>
 </li>
 </ul>
+<ol start="6">
+<li><strong>疑似记搜？</strong><a target="_blank" rel="noopener" href="https://www.dotcpp.com/oj/problem3296.html">蓝桥杯2024年第十五届决赛真题-跳石头</a><ul>
+<li>解法1（貌似很有道理的 $bfs$）：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1FN8FevEjV/?spm_id_from=333.1007.top_right_bar_window_history.content.click">蓝桥杯2024年第十五届决赛真题-跳石头</a></li>
+<li>解法2（天秀的 $bitset$）：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/701107909">2024第十五届蓝桥杯 C&#x2F;C++B组决赛个人题解</a></li>
+</ul>
+</li>
+</ol>
 <hr>
 <p><mark>统计子矩阵代码：</mark></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
@@ -3987,10 +3997,21 @@ int main()
 
 
 <h2 id="盘点一些被卡很长时间的题目究竟是何原因？"><a href="#盘点一些被卡很长时间的题目究竟是何原因？" class="headerlink" title="盘点一些被卡很长时间的题目究竟是何原因？"></a>盘点一些被卡很长时间的题目究竟是何原因？</h2><ul>
-<li><strong>小思维 + 公式推导：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1968/problem/F">F. Equal XOR Segments</a><ul>
+<li><p><strong>小思维 + 公式推导：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1968/problem/F">F. Equal XOR Segments</a></p>
+<ul>
 <li>赛时没想到，赛后补题还是不知道该怎么解决。其实赛时就想到了那个小思维，说实话也不难想。因为是赛后看了题解的提示，所以开始准备奔着正解去想。但不知道一段区间怎么分成 $2$ 个异或和相等的部分，因此认为自己是卡在了实现的上面。</li>
 <li>最后不得不看题解了，真的承认自己想不出来。看完后很震惊。</li>
 <li>思维不是很大，因此能想到，但因为需要公式推导，<strong>没有去推导导致没有发现性质<mark>（核心原因）</mark>。</strong>但为什么不想着去推导呢？也是因为一直在抽象的去想，真的很难想到！！！而公式一列出来，才能发现性质！</li>
+</ul>
+</li>
+<li><p><strong>数学公式：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1995/problem/B1">B1. Bouquet (Easy Version)</a></p>
+<ul>
+<li>其实就是个 $div2\ B$ 题的水平。但当时 $vp$ 的时候一直wa，之后过了几天才补。</li>
+<li>这题让我处于“想的太简单”和“想的又太难”这种境地，导致渐渐迷失这道题问的本质。最后补的写法是自己比较与众不同的吧，算是枚举后的 $O(1)$ 写法，可以说是分类讨论了，但只要思路明确，分类讨论也不难。</li>
+<li>其实就是 $ax+by&lt;&#x3D;m$ 的最大值的问题。$a,b,x,y$ 已知，且 $b &#x3D; a + 1$，问满足条件的左等式最大是多少？<ul>
+<li>想难了就是感觉像扩展欧几里得，想简单了就会去提取公因式，但缺少点条件导致需要分类讨论。实际上大部分人的做法就是将讨论转为枚举，因为时间复杂度允许枚举，故可行且易做。</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -5091,7 +5112,14 @@ int main()
 <p>因RAICOM省赛出现一道我最怕的题目，有关无向图找环，然后感觉挺不会这类型的题的，结果现场写了1个小时。。。确实掌握的很差，虽然正解并不是这个，但这类问题还是需要总结下。</p>
 </blockquote>
 <p><strong>Acwing周赛题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/5148/">5145. 同色环</a></p>
-<p><strong>$2024\ RAICOM$ 省赛：待出链接</strong></p>
+<p><strong>$2024\ RAICOM$ 省赛（一道好题，思路新颖（对自己） + 知识点基础 + 对自己而言也是一种心理阴影）：</strong><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/1813039306479005696/exam/problems/type/7?problemSetProblemId=1813039385617129475&page=0">RC-u4 章鱼图的判断</a></p>
+<ul>
+<li>提供思路：拓扑排序，做完一遍后，剩下的都是环上的点，谁赞成，谁反对？这样就能计算答案了。至于如何判断满不满足条件，有2个方法：<ul>
+<li>并查集，判断连通块里面是不是有 $n$ 个点，$n$ 条边；</li>
+<li>从某个点遍历，连通块内的点数和度数之间的关系：一个边贡献2个度，从上面可知：n个点n个边，因此度数是点数的2倍，特判点数需要大于2即可。</li>
+</ul>
+</li>
+</ul>
 <p><strong>其他类似题目：</strong></p>
 <ul>
 <li>给定一个无向图，可能有多个连通块，请输出一个简单环：满足该环内边权最小的值整体最小。输出最小的边权值和路径。<ul>

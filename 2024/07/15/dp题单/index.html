@@ -489,19 +489,217 @@
 <p>动态规划题目已经多次让我在关键比赛&#x2F;时刻沉默了，真的受不了了，因为 dp 一出不会太难，那么有不会太典，处于一个“差不多”的水平，因此必须得多做！接下来进行整理这类型的题目，并附带标签。</p>
 <p>最后想说的一点就是：dp 的算法标签（是什么类型的算法）已经不重要了，重要的是它是 dp，比赛常出，就得会！</p>
 </blockquote>
-<h2 id="题单："><a href="#题单：" class="headerlink" title="题单："></a>题单：</h2><ul>
-<li><p><input disabled="" type="checkbox"> 
-<strong>百度之星第一场第二题（过了可能有个铜奖了）：</strong> <a target="_blank" rel="noopener" href="https://www.matiji.net/exam/brushquestion/4/4498/F16DA07A4D99E21DFFEF46BD18FF68AD">BD202404110串</a></p>
-</li>
-<li><p><input disabled="" type="checkbox"> 
-<strong>RAICOM2024 省赛最后一题：</strong> <a href="">待出链接</a></p>
-</li>
-<li><p><input checked="" disabled="" type="checkbox"> 
-<strong>蓝桥杯国赛（感觉这个 $dp$ 过了就是国一了）：</strong><a target="_blank" rel="noopener" href="https://www.dotcpp.com/oj/problem3293.html">蓝桥杯2024年第十五届决赛真题-数位翻转</a></p>
-</li>
+<h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>在这里放的题并不是偏难或者说难的那种，而是有好多人都能做出来，自己必须也得做出来的题目。</p>
+<p><strong>准备加个 $tag$：</strong></p>
+<p>实现难度：低&#x2F;中&#x2F;高</p>
+<ul>
+<li>低：即使没写出来，赛后也可以自己很快补出来；</li>
+<li>中：赛时没写出来，但思来想去（不看题解代码）又很难实现出来，自己的码力不行；</li>
+<li>高：待定（一般可能遇不到高的了，毕竟遇到了也补不了了估计）</li>
 </ul>
-<h2 id="讲解-代码："><a href="#讲解-代码：" class="headerlink" title="讲解&amp;代码："></a>讲解&amp;代码：</h2><p><mark>蓝桥杯2024年第十五届决赛真题-数位翻转</mark></p>
-<p>首先，百分百 $dp$。</p>
+<h2 id="题单："><a href="#题单：" class="headerlink" title="题单："></a>题单：</h2><ul>
+<li><input checked="" disabled="" type="checkbox"> <strong>百度之星第一场第二题（过了可能有个铜奖了，实现难度：中）：</strong> <a target="_blank" rel="noopener" href="https://www.matiji.net/exam/brushquestion/4/4498/F16DA07A4D99E21DFFEF46BD18FF68AD">BD202404110串</a></li>
+<li><input checked="" disabled="" type="checkbox"> <strong>RAICOM2024 省赛最后一题（实现难度：低）：</strong> <a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/1813039306479005696/exam/problems/type/7?problemSetProblemId=1813039385617129476&page=0">RC-u5 工作安排</a></li>
+<li><input checked="" disabled="" type="checkbox"> <strong>蓝桥杯国赛（感觉这个 $dp$ 过了就是国一了；实现难度：低）：</strong><a target="_blank" rel="noopener" href="https://www.dotcpp.com/oj/problem3293.html">蓝桥杯2024年第十五届决赛真题-数位翻转</a></li>
+<li><input checked="" disabled="" type="checkbox"> <strong>$div2\ D$（过了就能冲击蓝名了；实现难度：中）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1990/problem/D">D. Grid Puzzle</a></li>
+</ul>
+<h2 id="讲解-代码："><a href="#讲解-代码：" class="headerlink" title="讲解&amp;代码："></a>讲解&amp;代码：</h2><h3 id="BD202404110串"><a href="#BD202404110串" class="headerlink" title="BD202404110串"></a>BD202404110串</h3><p>纠结的内心：赛后补题，如果相邻转移的话，上一位和当前位与 $110$ 没太多关系，牵扯不进来，而如果是用 $11$ 看看能不能转移到 $10$ 之类的转移，枚举 $3$ 位数的话又感觉确实有道理，但问题是每 $3$ 位枚举的话，转移的跨越几个位的，那之前位的结果（即 $dp$ 值）怎么求呢？</p>
+<p>我趣，说实话，吐个槽，怎么感觉实现起来比 <code>D. Grid Puzzle</code> 还恶心啊。</p>
+<p>第一次尝试：写完代码后，发现每次枚举当前位变或不变，有点问题，前面都没有枚举不是很有问题吗？？</p>
+<p>第二次尝试前的猜想：其实主要是在想怎么枚举，想到了一个上一位也枚举一下，计算下状态，然后由上一状态转移到当前状态的贡献？虽然感觉比上一次尝试有点道理，但是既然枚举了上一位，咋不继续再枚举一位，即为什么枚举上一位就够了，或者这个对的吗？</p>
+<p>下面是<strong>真题解：</strong></p>
+<p>到了2024.7.31晚上，觉得无聊，想来补题了。先是再看了一遍题解视频，这一次感觉比第一次更有感觉了，于是开始在草稿纸上写了转移方程。当然，我可以解决之前提出的一些奇怪的问题了。</p>
+<p>因为我们必须明确改了多少位，因此当前位就是改了还是没改。</p>
+<p>没改就是：$f[i][j] &#x3D; f[i - 1][j]$</p>
+<p>改了就是：$f[i][j] &#x3D; f[i - 1][j - 1]$</p>
+<p>而且无论改没改，我们都是已知这一位是什么的，那么讨论第三维度：</p>
+<p>$f[i][j][] &#x3D; f[i - 1][j][]$</p>
+<p>$f[i][j][] &#x3D; f[i - 1][j - 1][]$</p>
+<p>其实也就差第三维，但这一位可以强制赋值状态，即最后一维表示的是状态，不是数字0&#x2F;1，而是状态0&#x2F;1&#x2F;2（即最后是0表示状态0，最后是01或1就是状态1，最后是11就是状态2）：</p>
+<p>所谓强制赋值状态，就是：如果最后一位是0，显然就是状态0，由上一维哪些状态转移过来呢，就是自动机了；</p>
+<p>如果最后一位是1，可能是状态1或2，对每个可能的状态根据自动机对应转移即可。</p>
+<p>最后由于卡了空间，我直接转成2维了，习惯这种方法了。</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+using ll &#x3D; long long;
+
+constexpr int mod &#x3D; 998244353;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n, m;
+    cin &gt;&gt; n &gt;&gt; m;
+
+    string s;
+    cin &gt;&gt; s;
+    s &#x3D; &quot; &quot; + s;
+
+    vector&lt;vector&lt;vector&lt;ll&gt;&gt;&gt; f(2, vector&lt;vector&lt;ll&gt;&gt;(m + 1, vector&lt;ll&gt;(3)));
+    f[0 &amp; 1][0][0] &#x3D; 1;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        for (int j &#x3D; 0; j &lt;&#x3D; m; j++)
+        &#123;
+            &#x2F;&#x2F; 不改
+            int cur &#x3D; s[i] - &#39;0&#39;;
+            if (!cur)
+            &#123;
+                f[i &amp; 1][j][0] &#x3D; (f[i - 1 &amp; 1][j][0] + f[i - 1 &amp; 1][j][1]) % mod;
+            &#125;
+            else
+            &#123;
+                f[i &amp; 1][j][1] &#x3D; f[i - 1 &amp; 1][j][0];
+                f[i &amp; 1][j][2] &#x3D; (f[i - 1 &amp; 1][j][1] + f[i - 1 &amp; 1][j][2]) % mod;
+            &#125;
+
+            &#x2F;&#x2F; 修改
+            if (cur)
+            &#123;
+                if (j)
+                    f[i &amp; 1][j][0] &#x3D; (f[i - 1 &amp; 1][j - 1][0] + f[i - 1 &amp; 1][j - 1][1]) % mod;
+                else
+                    f[i &amp; 1][j][0] &#x3D; 0;
+            &#125;
+            else
+            &#123;
+                if (j)  
+                &#123;
+                    f[i &amp; 1][j][1] &#x3D; f[i - 1 &amp; 1][j - 1][0];
+                    f[i &amp; 1][j][2] &#x3D; (f[i - 1 &amp; 1][j - 1][1] + f[i - 1 &amp; 1][j - 1][2]) % mod;
+                &#125;
+                else
+                &#123;
+                    f[i &amp; 1][j][1] &#x3D; 0;
+                    f[i &amp; 1][j][2] &#x3D; 0;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+
+    ll res &#x3D; 0;
+    for (int i &#x3D; 0; i &lt;&#x3D; m; i++)
+        res &#x3D; (res + f[n &amp; 1][i][0] + f[n &amp; 1][i][1] + f[n &amp; 1][i][2]) % mod;
+
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+
+
+<h3 id="RC-u5-工作安排"><a href="#RC-u5-工作安排" class="headerlink" title="RC-u5 工作安排"></a>RC-u5 工作安排</h3><p>实测赛后补题：17分钟，拿了22分（已经基本正确了）</p>
+<p>可以证明，确实花的时间不会很多，想好怎么定义 $dp$，列出转移方程，真的很快就能做出来。</p>
+<p>但坦白说不懂为什么需要排序，最后一个测试点8分，就是排序的分，不知道怎么解释诶。</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; #include&lt;bits&#x2F;stdc++.h&gt;
+
+&#x2F;&#x2F; using namespace std;
+
+&#x2F;&#x2F; struct Node
+&#x2F;&#x2F; &#123;
+&#x2F;&#x2F;     int t, d, p;
+&#x2F;&#x2F; &#125;;
+
+&#x2F;&#x2F; void solve()
+&#x2F;&#x2F; &#123;
+&#x2F;&#x2F;     int n;
+&#x2F;&#x2F;     cin &gt;&gt; n;
+
+&#x2F;&#x2F;     vector&lt;Node&gt; v(n + 1);
+&#x2F;&#x2F;     for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+&#x2F;&#x2F;     &#123;
+&#x2F;&#x2F;         cin &gt;&gt; v[i].t &gt;&gt; v[i].d &gt;&gt; v[i].p;
+&#x2F;&#x2F;     &#125;
+
+&#x2F;&#x2F;     vector&lt;vector&lt;int&gt;&gt; dp(n + 1, vector&lt;int&gt;(5010 + 1));
+&#x2F;&#x2F;     for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+&#x2F;&#x2F;     &#123;
+&#x2F;&#x2F;         for (int j &#x3D; 1; j &lt;&#x3D; 5000; j++)
+&#x2F;&#x2F;         &#123;
+&#x2F;&#x2F;             &#x2F;&#x2F; 不选
+&#x2F;&#x2F;             dp[i][j] &#x3D; max(dp[i][j - 1], dp[i - 1][j]);
+&#x2F;&#x2F;             &#x2F;&#x2F; 选
+&#x2F;&#x2F;             if (j - v[i].t &gt;&#x3D; 0 &amp;&amp; v[i].d &gt;&#x3D; j)
+&#x2F;&#x2F;                 dp[i][j] &#x3D; max(dp[i][j], dp[i - 1][j - v[i].t] + v[i].p);
+&#x2F;&#x2F;             &#x2F;&#x2F; if (dp[i][j])   cout &lt;&lt; dp[i][j];
+&#x2F;&#x2F;         &#125;
+&#x2F;&#x2F;     &#125;
+
+&#x2F;&#x2F;     cout &lt;&lt; dp[n][5000] &lt;&lt; &quot;\n&quot;;
+&#x2F;&#x2F; &#125;
+
+&#x2F;&#x2F; int main()
+&#x2F;&#x2F; &#123;
+&#x2F;&#x2F;     cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+&#x2F;&#x2F;     int t;
+&#x2F;&#x2F;     cin &gt;&gt; t;
+
+&#x2F;&#x2F;     while (t--)
+&#x2F;&#x2F;     &#123;
+&#x2F;&#x2F;         solve();
+&#x2F;&#x2F;     &#125;
+    
+&#x2F;&#x2F;     return 0;
+&#x2F;&#x2F; &#125;
+#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+struct Node
+&#123;
+    int t, d, p;
+&#125;;
+
+void solve()
+&#123;
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;Node&gt; v(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        cin &gt;&gt; v[i].t &gt;&gt; v[i].d &gt;&gt; v[i].p;
+    &#125;
+    sort(v.begin() + 1, v.end(), [&amp;](Node a, Node b) -&gt; bool&#123;
+        return a.d &lt; b.d;
+    &#125;);
+    vector&lt;vector&lt;int&gt;&gt; dp(2, vector&lt;int&gt;(5010 + 1));
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        for (int j &#x3D; 1; j &lt;&#x3D; 5000; j++)
+        &#123;
+            &#x2F;&#x2F; 不选
+            dp[i &amp; 1][j] &#x3D; max(dp[i &amp; 1][j - 1], dp[i - 1 &amp; 1][j]);
+            &#x2F;&#x2F; 选
+            if (j - v[i].t &gt;&#x3D; 0 &amp;&amp; v[i].d &gt;&#x3D; j)
+                dp[i &amp; 1][j] &#x3D; max(dp[i &amp; 1][j], dp[i - 1 &amp; 1][j - v[i].t] + v[i].p);
+        &#125;
+    &#125;
+
+    cout &lt;&lt; dp[n &amp; 1][5000] &lt;&lt; &quot;\n&quot;;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int t;
+    cin &gt;&gt; t;
+
+    while (t--)
+    &#123;
+        solve();
+    &#125;
+    
+    return 0;
+&#125;</code></pre>
+
+
+
+<h3 id="蓝桥杯2024年第十五届决赛真题-数位翻转"><a href="#蓝桥杯2024年第十五届决赛真题-数位翻转" class="headerlink" title="蓝桥杯2024年第十五届决赛真题-数位翻转"></a>蓝桥杯2024年第十五届决赛真题-数位翻转</h3><p>首先，百分百 $dp$。</p>
 <p><del>可能有点像什么区间dp，或者是搞个前缀和以及翻转的前缀和之类的性质来解决（纯是猜测）。</del></p>
 <p>最后的结果也证实了我的猜测都是错的！</p>
 <p>猜测并不是不允许，但是一切要从实际出发，不能以猜测为”根“来思考。</p>
@@ -605,6 +803,95 @@ int main()
     ll res &#x3D; 0;
     for (int i &#x3D; 0; i &lt;&#x3D; m; i++)    res &#x3D; max(&#123;res, dp[n][i][0], dp[n][i][1]&#125;);
     cout &lt;&lt; res;
+    return 0;
+&#125;</code></pre>
+
+
+
+<h3 id="D-Grid-Puzzle"><a href="#D-Grid-Puzzle" class="headerlink" title="D. Grid Puzzle"></a>D. Grid Puzzle</h3><blockquote>
+<p>解题步骤：性质-&gt; $dp$ -&gt; 微调 $dp$ 定义-&gt;解决。</p>
+</blockquote>
+<p>赛后补题了16分钟，不知道怎么转移，就转移的方式很难（等会细说我的奇怪做法）。cf现场的时候其实能看出来是dp的，但写不出来就是得多练。</p>
+<p>奇怪做法：涂每行的前四个格子有3个操作，转换成二进制就是3个位，但往下面转移的需要知道上面空缺的且后面涂完的方案，这个感觉卡死了，根本求不出来吧，因此，感觉自己的dp定义出错了。。。</p>
+<p>大致看了题解了解的思路后，知道怎么定义了，但感觉转移讨论有点复杂，但是不能被这个一直扰乱思绪而不去实现，应该先把转移方程写出来，列出转移式子之后实现一下，再考虑讨论的情况（特殊情况）。</p>
+<p><strong>上面可能说了很多废话（可以忽略），下面进行总结：</strong></p>
+<ul>
+<li>虽然是中等码力的题目，转移有点混乱又可能需要分类讨论；</li>
+<li>但是必须要先明确好 $dp$ 的定义才能继续往后写，这是一切的基础；</li>
+<li>定义好 $dp$ 后，接下来是分类讨论，为防止混乱下面是一种思路（因为有特殊情况，但不能跟转移的公式混淆）：<ol>
+<li>先根据定义的内容，写出转移方程；</li>
+<li>根据写好的代码去调试样例，找到问题所在；</li>
+<li>如果遇到 $dp$ 定义的可能有些欠缺，可以反过来稍微修改（下面的代码就是经过了修改）。</li>
+</ol>
+</li>
+</ul>
+<p><strong>总结完后，再说些下面具体代码的一个巧妙的修改：</strong></p>
+<ul>
+<li>$dp[i][1]$：当前行涂一行；</li>
+<li>$dp[i][2]$：当前行涂1,2列；</li>
+<li>$dp[i][3]$：当前行涂3,4列。</li>
+</ul>
+<p>首先是明确必须得涂，但是会遇到一些问题，这里懂的都懂就不细说了。</p>
+<p>而解决这个问题最好的方法，就是修改 $dp[i][1]$ 的定义，因为他们都是明确涂的就是这个东西，不过可以很丝滑的改成”涂完前 $i$ 行且不往下有被涂过的“。这样首先可以保证仍然跟后面 $2$ 个定义是有区分的，且不重不漏；其次可以解决当前如果不需要涂，就可以不涂的情况。因此修改完毕。</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+void solve()
+&#123;
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;int&gt; a(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; a[i];
+
+    vector&lt;vector&lt;int&gt;&gt; dp(n + 1, vector&lt;int&gt;(4, n));
+    &#x2F;**
+     * 定义3个dp值，彼此不交：
+     * 0：涂一行
+     * 1：涂1,2
+     * 2：涂3,4
+     * 依据条件：每行最多只涂2*2,1次
+     * 条件是什么？什么叫依据条件？条件凭什么成立？
+     *&#x2F;
+    &#x2F;**
+     * 更明确的：
+     * dp[i][1]:当前行涂完，并且不影响下一行
+     * dp[i][2]:当前行涂完，并且下一行的1,2列已经涂完
+     * dp[i][3]:当前行涂完，并且下一行的3,4列已经涂完
+     *&#x2F;
+    dp[0][1] &#x3D; 0;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        &#x2F;&#x2F; dp[i][1]
+        dp[i][1] &#x3D; min(&#123;dp[i - 1][1] + (a[i] &gt;&#x3D; 1), dp[i - 1][2] + (a[i] &gt;&#x3D; 2), dp[i - 1][3] + (a[i] &gt;&#x3D; 1)&#125;);
+        if (a[i] &lt;&#x3D; 2)  dp[i][1] &#x3D; min(dp[i][1], dp[i - 1][2]); &#x2F;&#x2F; 有很强的寓意：可以让当前行不填，依托上一行
+        &#x2F;&#x2F; dp[i][2]
+        if (a[i] &lt;&#x3D; 2)  dp[i][2] &#x3D; min(&#123;dp[i][2], dp[i - 1][1] + 1, dp[i - 1][2] + 1&#125;);
+        if (a[i] &lt;&#x3D; 4)  dp[i][2] &#x3D; min(&#123;dp[i][2], dp[i - 1][3] + 1&#125;);
+        &#x2F;&#x2F; dp[i][3]
+        if (a[i] &lt;&#x3D; 4)  
+        &#123;
+            dp[i][3] &#x3D; min(dp[i][3], dp[i - 1][2] + 1);
+            if (!a[i])  dp[i][3] &#x3D; min(&#123;dp[i][3], dp[i - 1][1] + 1, dp[i - 1][3] + 1&#125;);
+        &#125;
+        &#x2F;&#x2F; cout &lt;&lt; i &lt;&lt; &quot;: &quot; &lt;&lt; dp[i][1] &lt;&lt; &quot; &quot; &lt;&lt; dp[i][2] &lt;&lt; &quot; &quot; &lt;&lt; dp[i][3] &lt;&lt; &quot;\n&quot;;
+    &#125;
+    cout &lt;&lt; min(&#123;dp[n][1], dp[n][2], dp[n][3]&#125;) &lt;&lt; &quot;\n&quot;;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int t;
+    cin &gt;&gt; t;
+
+    while (t--)
+    &#123;
+        solve();
+    &#125;
+    
     return 0;
 &#125;</code></pre>
 
