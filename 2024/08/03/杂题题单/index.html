@@ -498,9 +498,9 @@
 <hr>
 <p>很遗憾，决赛的时候这题几乎没得分，不然应该有国一了。。。</p>
 <p>下面是测的情况：</p>
-<p><img src="/images/19.png"></p>
+<p><img src="/images/19.png" alt=""></p>
 <p>当时记得是造样例了，但是没有 $hack$ 掉。。。</p>
-<p>思路其实很简单，就是计算：$\sum_{i&#x3D;1}^{n}\sum_{j&#x3D;l}^rC_{d}^{j}$</p>
+<p>思路其实很简单，就是计算：$\sum<em>{i=1}^{n}\sum</em>{j=l}^rC_{d}^{j}$</p>
 <p>而且我还用 $map$ 优化，复杂度是稳定能过的。但我找到一个 $hack$ 样例：</p>
 <p>3<br>1 2<br>2 3<br>1 2</p>
 <p>这样会在点数为2的时候多次计算导致出错。</p>
@@ -508,7 +508,7 @@
 <p>虽然如此，但必须得搞明白为啥需要特判。</p>
 <p>在点数为2的情况下：我们计算是以每个点为中心来算的，但是点数为2，既可以你为中心，又可以我为中心。所以这里会多次计算。而对于点数为1，我认为应该没有问题，我去再试试。</p>
 <p>点数为1的可以不用特判，没问题的，只用特判点数为2就行了。我趣，太亏了。</p>
-<p><img src="/images/20.png"></p>
+<p><img src="/images/20.png" alt=""></p>
 <p><strong>AC代码（代码1）：</strong></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -593,7 +593,6 @@ int main()
     cout &lt;&lt; res;
     return 0;
 &#125;</code></pre>
-
 <p><strong>理清思路后的代码：</strong></p>
 <pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
@@ -679,7 +678,128 @@ int main()
     cout &lt;&lt; res;
     return 0;
 &#125;</code></pre>
+<h2 id="盘点那些读的很费劲的题目"><a href="#盘点那些读的很费劲的题目" class="headerlink" title="盘点那些读的很费劲的题目"></a>盘点那些读的很费劲的题目</h2><ul>
+<li><strong>2023 睿抗国赛第2题（暴力枚举）：</strong><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/1693095794755289088/exam/problems/type/7?problemSetProblemId=1693095890628689921&amp;page=0">RC-u2 桌游猜谜</a><ul>
+<li>题目太长了，赛后曾2次补题，第一次还是没理解题意，看人家代码也没看懂。第二次终于理解了，但是最后被一句话给混乱了一大会，而且第二次的补题花了1小时（补题且1小时，现实how？）</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><mark>”RC-u2 桌游猜谜“解析：</mark></p>
+<p>其实，没理解题意的点主要有2：</p>
+<ul>
+<li>题目描述了一个卡牌的规则，但是它提到了他“考虑了一个简化的问题”，而我当时对这个词没有添加敏感，导致搞复杂了；</li>
+<li>回答“是”与“不是”的时候给的是排除的方案数，自己理解上花了些时间。</li>
+</ul>
+<p>且在实际实现的过程中，他说“可以根据回答排除一些自己卡牌上的数字的不可能的情况”，但他没说是建立在自己卡牌在别人没出现过的情况。因此我算了这个，算的多了。但这个问题我解决的很快，因为已经知道最终答案的公式了，相除就是那个min，就能发现自己算多了，这也是<strong>快速debug的一个小技巧</strong>。</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
 
+using namespace std;
+
+void solve()
+&#123;
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;vector&lt;int&gt;&gt; pai(n + 1, vector&lt;int&gt;(7));
+    vector&lt;vector&lt;int&gt;&gt; st(6 + 1, vector&lt;int&gt;(9));
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        for (int j &#x3D; 1; j &lt;&#x3D; 6; j++)
+        &#123;
+            cin &gt;&gt; pai[i][j];
+            st[j][pai[i][j]] &#x3D; 1;
+        &#125;
+    &#125;
+
+    int mx &#x3D; -1;
+    int ans1 &#x3D; 0, ans2 &#x3D; 0;
+    auto cal &#x3D; [&amp;](int fi, int se, int th, int l, int r)
+    &#123;
+        int res1 &#x3D; 0, res2 &#x3D; 0;&#x2F;&#x2F; 排除&#x2F;可能
+        for (int i &#x3D; 1; i &lt;&#x3D; 8; i++)
+        &#123;
+            for (int j &#x3D; 1; j &lt;&#x3D; 8; j++)
+            &#123;
+                for (int k &#x3D; 1; k &lt;&#x3D; 8; k++)
+                &#123;
+                    &#x2F;&#x2F;如果都没出现过，并且在[l,r]范围里,则res2++,否则res1++
+                    int sum &#x3D; i + j + k;
+                    if (!st[fi][i] &amp;&amp; !st[se][j] &amp;&amp; !st[th][k])
+                    &#123;
+                        if (sum &gt;&#x3D; l &amp;&amp; sum &lt;&#x3D; r)   res2++;
+                        else    res1++;
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+
+        if (min(res1, res2) &gt; mx)
+        &#123;
+            mx &#x3D; min(res1, res2);
+            ans1 &#x3D; res1, ans2 &#x3D; res2;
+        &#125;
+    &#125;;
+
+    &#x2F;&#x2F; 从6个中选3个,卡住了，不会写了
+    vector&lt;int&gt; v(4);
+    function&lt;void(int, int)&gt; dfs &#x3D; [&amp;](int cur, int cnt) -&gt; void
+    &#123;
+        if (cnt &#x3D;&#x3D; 3)
+        &#123;
+            &#x2F;&#x2F; cout &lt;&lt; v[1] &lt;&lt; &quot; &quot; &lt;&lt; v[2] &lt;&lt; &quot; &quot; &lt;&lt; v[3] &lt;&lt; &quot;\n&quot;;
+            for (int l &#x3D; 3; l &lt;&#x3D; 24; l++)
+            &#123;
+                for (int r &#x3D; l; r &lt;&#x3D; 24; r++)
+                &#123;
+                    cal(v[1], v[2], v[3], l, r);
+                &#125;
+            &#125;
+
+            return;
+        &#125;
+        for (int i &#x3D; cur; i &lt;&#x3D; 6; i++)
+        &#123;
+            v[cnt + 1] &#x3D; i;
+            dfs(i + 1, cnt + 1);
+        &#125;
+    &#125;;
+
+    dfs(1, 0);
+    cout &lt;&lt; max(ans1, ans2) * (8 - n) * (8 - n) * (8 - n) &lt;&lt; &quot;\n&quot;;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int t;
+    cin &gt;&gt; t;
+
+    while (t--)
+    &#123;
+        solve();
+    &#125;
+    
+    return 0;
+&#125;
+&#x2F;**
+ * 思路第一，敲代码都是次要的。思路正确，敲代码会很快的。
+ * 这题好像就是简化的，只问第一次询问
+ * 因此，过程就是:
+ * 1、先枚举选哪3个颜色，再枚举区间，然后去判断该区间能过滤的方案数情况min(x,y)
+ * 2、然后就是想想怎么去求min(x,y)
+ *    a. 按照题意，也是枚举所有的情况，看看这个情况是在方案里面还是不在方案里面
+ * 3、最后看看求出来之后该怎么计算答案
+ *    a. 取出min(x, y)中属于可能的方案中的一个，然后剩余三个颜色，一共8个数字，就是：(8-n)^3
+ *    b. 其实感觉可能有对称的关系，就是在区间[]答案最优的时候,既有min(x,y)也有min(y,x)，但我暂时证明不出来，不过没事特判就行了
+ * 最终，我上面的思路中第三点的b是错误的
+ * 其实，那句话对我来说还挺绕的，如果区间已经确定好了：
+ * 回答是：说明可能的选法是是的集合；
+ * 回答不是：说明可能的选法是不是的集合里面。
+ * 因此这两种可能性要取一个最大值。
+ * 并且mx要尽可能小，-1可以，如果是0的话会出错。
+ *&#x2F;</code></pre>
 
                 
             </div>
