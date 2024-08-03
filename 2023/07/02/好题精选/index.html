@@ -4008,6 +4008,109 @@ int main()
 </ul>
 </li>
 </ul>
+<h2 id="易错题单"><a href="#易错题单" class="headerlink" title="易错题单"></a>易错题单</h2><blockquote>
+<p>这里放一些比较简单（不难）的题目，容易想到思路但是很容易出错的题目。</p>
+</blockquote>
+<p><mark>题单：</mark></p>
+<p><strong>湖北省省赛铜牌题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/105139/problem/L">L. LCMs</a></p>
+<p><strong>2024蓝桥杯国赛真题：</strong><a target="_blank" rel="noopener" href="https://www.dotcpp.com/oj/problem3292.html">蓝桥杯2024年第十五届决赛真题-最小字符串</a></p>
+<hr>
+<p><strong>给出<mark>最小字符串</mark>解析：</strong></p>
+<p><strong>前言：</strong>下面的代码是比较乱的（有点丑），末尾注释处也给出了思路迭代的过程，但其实都是错误的。思路没有理清，没有看出本题的实质问题。这是错误的一方面，其次一直卡在断言上，原因是两层 $for$ 循环可能相隔的不是很近，就都写成了 $i$，直到找到了智慧样例才发现自己是哪地方出了问题。</p>
+<p><strong>正解：</strong>能插入的位置，一定是当当前字符比自身严格大的时候。大于等于都是错的。就这些，没了，注意写法就行，写丑了就过不了qwq</p>
+<p>这里也给出一份别人写的优美的代码：<a target="_blank" rel="noopener" href="https://blog.dotcpp.com/a/105199">map存储，指针遍历，简洁优雅</a></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n, m;
+    cin &gt;&gt; n &gt;&gt; m;
+
+    string a, b;
+    cin &gt;&gt; a &gt;&gt; b;
+
+    map&lt;char, int&gt; mp;
+    for (auto c : b)
+        mp[c]++;
+
+    vector&lt;int&gt; pos(26, -1);
+    bool ok &#x3D; false;
+    for (auto [c, cnt] : mp)
+    &#123;
+        &#x2F;&#x2F; cout &lt;&lt; a &lt;&lt; &quot; &quot; &lt;&lt; pos[0] &lt;&lt; &quot;\n&quot;;
+        string news;
+        bool flag &#x3D; false;
+        for (int i &#x3D; 0; i &lt; a.size(); i++)
+        &#123;
+            if (c &lt; a[i])
+            &#123;
+                flag &#x3D; true;
+                &#x2F;&#x2F; cout &lt;&lt; c &lt;&lt; &quot; &quot; &lt;&lt; i &lt;&lt; &quot;\n&quot;;
+                for (int j &#x3D; 0; j &lt; 26; j++)
+                &#123;
+                    if (pos[j] !&#x3D; -1 &amp;&amp; pos[j] &gt;&#x3D; i)
+                    &#123;
+                        pos[j] ++;
+                        &#x2F;&#x2F; cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; pos[i] &lt;&lt; &quot; &quot; &lt;&lt; &quot;??\n&quot;;
+                    &#125;
+                &#125;
+                pos[c - &#39;a&#39;] &#x3D; i;
+                news &#x3D; a.substr(0, i) + c + a.substr(i);
+                break;
+            &#125;
+        &#125;
+        if (!flag)
+        &#123;
+            pos[c - &#39;a&#39;] &#x3D; a.size();
+            news &#x3D; a + c;
+        &#125;
+        a &#x3D; news;
+        &#x2F;&#x2F; cout &lt;&lt; pos[0] &lt;&lt; &quot;\n&quot;;
+    &#125;
+    &#x2F;&#x2F; cout &lt;&lt; a &lt;&lt; &quot; &quot; &lt;&lt; pos[0] &lt;&lt; &quot; &quot; &lt;&lt; pos[1] &lt;&lt; &quot;\n&quot;;
+    &#x2F;&#x2F; return 0;
+    int len &#x3D; n + mp.size();
+    vector&lt;int&gt; st(len + 1, -1);
+    for (int i &#x3D; 0; i &lt; 26; i++)
+    &#123;
+        if (pos[i] !&#x3D; -1)   
+        &#123;
+            if (st[pos[i]] !&#x3D; -1)
+                assert(0);
+            st[pos[i]] &#x3D; i;
+        &#125;
+    &#125;
+    &#x2F;&#x2F; cout &lt;&lt; st[4] &lt;&lt; &quot;\n&quot;;
+    &#x2F;&#x2F; assert(a.size() &#x3D;&#x3D; len);
+    string res;
+    &#x2F;&#x2F; cout &lt;&lt; a &lt;&lt; &quot;\n&quot;;
+    for (int i &#x3D; 0; i &lt;&#x3D; len; i++)
+    &#123;
+        if (st[i] !&#x3D; -1)
+        &#123;
+            char c &#x3D; char(st[i] + &#39;a&#39;);
+            res +&#x3D; string(mp[c] - 1, c);
+            if (i !&#x3D; len)   res +&#x3D; a[i];
+        &#125;
+        else if(i !&#x3D; len)    res +&#x3D; a[i];
+    &#125;
+    &#x2F;&#x2F; assert(res.size() &#x3D;&#x3D; n + m);
+    cout &lt;&lt; res;
+    return 0;
+&#125;
+&#x2F;**
+ * 先是放最前面第一个&lt;&#x3D;的位置 不对
+ * 然后是从后往前放，第一个能放的就行 不对
+ * 特判最小的情况，其余的从后面开始放 还是不对
+ * 比较着放，从头放和从尾放比较谁更合适？
+ *&#x2F;</code></pre>
+
+
+
 <h2 id="妙妙题"><a href="#妙妙题" class="headerlink" title="妙妙题"></a>妙妙题</h2><p><strong>1、</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4290">P4290 [HAOI2008] 玩具取名</a></p>
 <ul>
 <li><p><strong>题意：</strong> 有 $4$ 种字母：”WING”，其中每一种字母，可以由这四种的任意两种替换。最初只有一个字母，通过一些变换后，得到一个较长的字符串，问这个字符串最初可能是由哪些字母不断替换得来？</p>
