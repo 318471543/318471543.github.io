@@ -1,0 +1,4051 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="动态规划, 重生带我走">
+    <meta name="description" content="动态规划——一生之敌！
+背包九讲01背包
+有 N 个物品和一个容量为 V 的背包，问将哪些物品放入背包可使价值最大？
+数据范围：
+0 &amp;lt; N,V $\le$ 1000
+0 &amp;lt; $v_i,w_i$ $\le$ 1000
+
+二维数组">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>动态规划 | 重生带我走</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">重生带我走</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">重生带我走</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">动态规划</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+                                <span class="chip bg-color">动态规划</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-10-08
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>动态规划——一生之敌！</p>
+<h2 id="背包九讲"><a href="#背包九讲" class="headerlink" title="背包九讲"></a>背包九讲</h2><h3 id="01背包"><a href="#01背包" class="headerlink" title="01背包"></a>01背包</h3><blockquote>
+<p>有 N 个物品和一个容量为 V 的背包，问将哪些物品放入背包可使价值最大？</p>
+<p>数据范围：</p>
+<p>0 &lt; N,V $\le$ 1000</p>
+<p>0 &lt; $v_i,w_i$ $\le$ 1000</p>
+</blockquote>
+<p><mark>二维数组（朴素版）：</mark></p>
+<blockquote>
+<p>状态f[i] [j] 定义为：前 i 个物品，背包容量 j 下的最优解（最大价值）。</p>
+<p>有 N 件物品，则需要 N 次决策，每一次对第 i 件物品的决策，状态f[i] [j]不断由之前的状态更新而来。</p>
+<p>1、当前背包容量不够（j &lt; v[i]），没得选，因此前 i 个物品最优解即为前 i−1个物品最优解：</p>
+<p>对应代码：<mark>f[i] [j] &#x3D; f[i -1] [j]</mark>。</p>
+<p>2、当前背包容量够，可以选，因此需要决策选与不选第 i 个物品：</p>
+<p>选：<mark>f[i] [j] &#x3D; f[i - 1] [j - v[i]] + w[i]</mark>。<br>不选：<mark>f[i] [j] &#x3D; f[i - 1] [j]</mark> 。</p>
+<p>我们的决策是如何取到最大价值，因此以上两种情况取 max() 。</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+const int N &#x3D; 1010;
+int n,m;
+int v[N],w[N];&#x2F;&#x2F;v表示体积，w表示价值
+int f[N][N];&#x2F;&#x2F;f表示状态
+int main()
+&#123;
+    cin &gt;&gt; n &gt;&gt; m;&#x2F;&#x2F;物品个数、背包容量
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; v[i] &gt;&gt; w[i];&#x2F;&#x2F;输入每个物品的体积、价值
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)&#x2F;&#x2F;f[0][0~m]表示考虑0件物品，总体积不超过0~m，故最大价值为0，全局变量以默认初始化，因此从1开始
+        for(int j &#x3D; 0;j &lt;&#x3D; m;j++)
+        &#123;
+            f[i][j] &#x3D; f[i-1][j];
+            if(j &gt;&#x3D; v[i])   f[i][j] &#x3D; max(f[i][j],f[i-1][j-v[i]] + w[i]);
+        &#125;
+    cout &lt;&lt; f[n][m] &lt;&lt; endl;
+    return 0;
+&#125;</code></pre>
+
+<p><mark>一维数组（优化版）：</mark></p>
+<blockquote>
+<p>状态f[j]定义：N 件物品，背包容量j下的最优解。</p>
+<p>注意枚举背包容量j必须从m开始。</p>
+<p><mark>为什么一维情况下枚举背包容量需要逆序？</mark>在二维情况下，状态f[i] [j]是由上一轮i - 1的状态得来的，f[i] [j]与f[i - 1] [j]是独立的。而优化到一维后，如果我们还是正序，则有f[较小体积]更新到f[较大体积]，则有可能本应该用第i-1轮的状态却用的是第i轮的状态（因为体积小的状态已经被更新了，当体积大的需要用到体积小的去更新时，用到的是第i轮，而非第i - 1轮）。</p>
+<p>例如，一维状态第i轮对体积为 3 的物品进行决策，则f[7]由f[4]更新而来，这里的f[4]正确应该是f[i - 1] [4]，但从小到大枚举j这里的f[4]在第i轮计算却变成了f[i] [4]。当逆序枚举背包容量j时，我们求f[7]同样由f[4]更新，但由于是逆序，这里的f[4]还没有在第i轮计算，所以此时实际计算的f[4]仍然是f[i - 1] [4]。</p>
+<p>故状态转移方程为：<mark>f[j] &#x3D; max(f[j], f[j - v[i]] + w[i]</mark> 。</p>
+</blockquote>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;bits/stdc++.h></span></span>
+
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token keyword">int</span> N <span class="token operator">=</span> <span class="token number">1010</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> n<span class="token punctuation">,</span>m<span class="token punctuation">;</span>
+<span class="token keyword">int</span> v<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span>w<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token comment">//v表示体积，w表示价值</span>
+<span class="token keyword">int</span> f<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token comment">//一维数组</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    cin <span class="token operator">>></span> n <span class="token operator">>></span> m<span class="token punctuation">;</span><span class="token comment">//物品个数、背包容量</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span>   cin <span class="token operator">>></span> v<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">>></span> w<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token comment">//输入每个物品的体积、价值</span>
+    
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> m<span class="token punctuation">;</span>j <span class="token operator">>=</span> v<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>j<span class="token operator">--</span><span class="token punctuation">)</span><span class="token comment">//逆序更新</span>
+        <span class="token punctuation">&#123;</span>
+            f<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">max</span><span class="token punctuation">(</span>f<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span>f<span class="token punctuation">[</span>j<span class="token operator">-</span>v<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">+</span> w<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    cout <span class="token operator">&lt;&lt;</span> f<span class="token punctuation">[</span>m<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2/">01背包问题</a></p>
+<p><strong>改版题（特殊的状态设定）：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104493/problem/A">A. Gym Plates</a></p>
+<p><mark>改版题分析：</mark></p>
+<blockquote>
+<p>即类似背包，每个物品选或不选，状态可以理解成三进制下（每个数字最多为2，最少为0）。</p>
+</blockquote>
+<p>下面是我的代码，最开始用的 $map$ 存的 $0$~$9$ 每个数出现的次数，但是超时了，最后改成 $vector$ 过了。</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+void solve()
+&#123;
+	int n;
+	cin &gt;&gt; n;
+
+	vector&lt;ll&gt; a(n + 1);
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)	cin &gt;&gt; a[i];
+
+	vector&lt;vector&lt;int&gt;&gt; v(n + 1, vector&lt;int&gt;(10));
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+	&#123;
+		ll t &#x3D; a[i];
+		while (t)
+		&#123;
+			v[i][t % 10] ++;
+			t &#x2F;&#x3D; 10;
+		&#125;
+	&#125;
+
+	int m &#x3D; 1;
+	for (int i &#x3D; 1; i &lt;&#x3D; 10; i++)	m *&#x3D; 3;
+
+	&#x2F;&#x2F; 第二维为状态,3^10
+	vector&lt;vector&lt;ll&gt;&gt; dp(n + 1, vector&lt;ll&gt;(m + 1, 0));
+
+	auto get &#x3D; [&amp;](int x) -&gt; vector&lt;int&gt;
+	&#123;
+		vector&lt;int&gt; res(10);
+		string s;
+		while (x)
+		&#123;
+			s.push_back(x % 3 + &#39;0&#39;);
+			x &#x2F;&#x3D; 3;
+		&#125;
+		while (s.size() &lt; 10)
+		&#123;
+			s.push_back(&#39;0&#39;);
+		&#125;
+		for (int i &#x3D; 0; i &lt; 10; i++)
+		&#123;
+			res[i] &#x3D; s[i] - &#39;0&#39;;
+		&#125;
+		return res;
+	&#125;;
+
+	auto fget &#x3D; [&amp;](vector&lt;int&gt; v) -&gt; int
+	&#123;
+		int res &#x3D; 0;
+		for (int i &#x3D; 9; i &gt;&#x3D; 0; i--)
+			res &#x3D; res * 3 + v[i];
+		return res;
+	&#125;;
+
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+	&#123;
+		for (int j &#x3D; 0; j &lt; m; j++)
+		&#123;
+			auto t &#x3D; get(j);
+			dp[i][j] &#x3D; dp[i - 1][j];
+
+			bool ok &#x3D; true;
+			for (int k &#x3D; 0; k &lt; 10; k++)
+			&#123;
+				t[k] -&#x3D; v[i][k];
+				if (t[k] &lt; 0)	
+				&#123;
+					ok &#x3D; false;
+					break;
+				&#125;
+			&#125;
+			if (!ok)	continue;
+			auto last &#x3D; fget(t);
+			dp[i][j] &#x3D; max(dp[i][j], dp[i - 1][last] + a[i]);
+		&#125;
+	&#125;
+
+	ll res &#x3D; 0;
+	for (int i &#x3D; 0; i &lt; m; i++)	res &#x3D; max(res, dp[n][i]);
+	cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+&#125;
+
+int main()
+&#123;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+	int t;
+	cin &gt;&gt; t;
+
+	while (t--)
+	&#123;
+		solve();
+	&#125;
+	
+	return 0;
+&#125;</code></pre>
+
+<p>参考了 $jiangly$ 后，进行了适当的优化，将时间从 $500ms$ -&gt; $62ms$，代码如下：</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+void solve()
+&#123;
+	int n;
+	cin &gt;&gt; n;
+
+	vector&lt;ll&gt; a(n + 1);
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)	cin &gt;&gt; a[i];
+
+	vector&lt;int&gt; pw(11);
+	pw[0] &#x3D; 1;
+	for (int i &#x3D; 1; i &lt;&#x3D; 10; i++)	pw[i] &#x3D; pw[i - 1] * 3;
+
+	vector&lt;ll&gt; dp(pw[10]);
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+	&#123;
+		auto f &#x3D; dp;
+		vector&lt;int&gt; cnt(11);
+		auto t &#x3D; a[i];
+		while (t)
+		&#123;
+			cnt[t % 10] ++;
+			t &#x2F;&#x3D; 10;
+		&#125;
+		
+		function&lt;void(int, int, int)&gt; dfs &#x3D; [&amp;](int x, int last, int cur) -&gt; void
+		&#123;
+			if (x &#x3D;&#x3D; 10)
+			&#123;
+				f[cur] &#x3D; max(f[cur], dp[last] + a[i]);
+				return;
+			&#125;
+			for (int i &#x3D; 0; i + cnt[x] &lt;&#x3D; 2; i++)
+				dfs(x + 1, last + i * pw[x], cur + (i + cnt[x]) * pw[x]);
+		&#125;;
+
+		dfs(0, 0, 0);
+		swap(dp, f);
+	&#125;
+
+	cout &lt;&lt; dp.back() &lt;&lt; &quot;\n&quot;;
+&#125;
+
+int main()
+&#123;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+	int t;
+	cin &gt;&gt; t;
+
+	while (t--)
+	&#123;
+		solve();
+	&#125;
+	
+	return 0;
+&#125;</code></pre>
+
+
+
+<h3 id="完全背包"><a href="#完全背包" class="headerlink" title="完全背包"></a>完全背包</h3><blockquote>
+<p>有 n 种物品和一个容量为 v 的背包，每个物品有无限个，问将哪些物品放入背包可使价值最大？</p>
+<p>数据范围：</p>
+<p>0 &lt; N,V $\le$ 1000</p>
+<p>0 &lt; $v_i,w_i$ $\le$ 1000</p>
+</blockquote>
+<p><mark>二维数组（朴素版）：</mark></p>
+<blockquote>
+<p>与01背包的代码几乎完全一样，只不过枚举体积的顺序是从小到大开始！</p>
+<p>公式推导过程：</p>
+<p>f[i] [j] &#x3D; max(f[i - 1] [j],<mark>f[i - 1] [j - v] + w,f[i - 1] [j - 2v] + 2w,f[i - 1] [j - 3v] + 3w</mark>…)</p>
+<p>然后突然有了一个<strong>“神奇”的表达式</strong>，f[i] [j - v]如下：</p>
+<p>f[i] [j - v] &#x3D; max(<mark>f[i - 1] [j - v],f[i - 1] [j - 2v] + w,f[i - 1] [j - 3v] + 2w</mark>,…)</p>
+<p>不难看出，标亮的式子中：上面比下面多加了一个w。</p>
+<p>因此：f[i] [j] &#x3D; max(f[i - 1] [j],f[i] [j - v] + w)。</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+
+using namespace std;
+
+const int N &#x3D; 1010;
+int n,m;
+int f[N][N];
+int v[N],w[N];
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+    cin &gt;&gt; n &gt;&gt; m;
+
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; v[i] &gt;&gt; w[i];
+
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+    &#123;
+        for(int j &#x3D; 0;j &lt;&#x3D; m;j++)
+        &#123;
+            f[i][j] &#x3D; f[i - 1][j];
+            if(j &gt;&#x3D; v[i])   f[i][j] &#x3D; max(f[i][j],f[i][j - v[i]] + w[i]);
+        &#125;
+    &#125;
+
+    cout &lt;&lt; f[n][m] &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+<p><mark>一维数组（优化版）：</mark></p>
+<blockquote>
+<p><strong>如果与01背包进行对比：</strong><br>f[i] [j] &#x3D; max(f[i - 1] [j],f<mark>[i - 1]</mark> [j - v] + w)	01背包</p>
+<p>f[i] [j] &#x3D; max(f[i - 1] [j],f<mark>[i]</mark> [j - v] + w)				完全背包</p>
+<p>可以发现，完全背包需要用到当前的状态，即从小到大枚举。</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1010;
+int n,m;
+int f[N],v[N],w[N];
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+    cin &gt;&gt; n &gt;&gt; m;
+
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; v[i] &gt;&gt; w[i];
+
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+        for(int j &#x3D; v[i];j &lt;&#x3D; m;j++)&#x2F;&#x2F;体积从小到大枚举
+        &#123;
+            f[j] &#x3D; max(f[j],f[j - v[i]] + w[i]);
+        &#125;
+        
+    cout &lt;&lt; f[m];
+    return 0;
+&#125;</code></pre>
+
+<h3 id="多重背包"><a href="#多重背包" class="headerlink" title="多重背包"></a>多重背包</h3><h4 id="多重背包I"><a href="#多重背包I" class="headerlink" title="多重背包I"></a>多重背包I</h4><blockquote>
+<p>有 N 种物品和一个容量为 V 的背包，每种物品最多 s 件，问将哪些物品放入背包可使价值最大？</p>
+<p>数据范围：</p>
+<p>0 &lt; N,V $\le$ 100</p>
+<p>0 &lt; $v_i,w_i,s_i$ $\le$ 100</p>
+</blockquote>
+<p><mark>朴素版：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+const int N &#x3D; 110;
+int n,m;
+int v[N],w[N],s[N];
+int f[N][N];
+int main()
+&#123;
+    cin &gt;&gt; n &gt;&gt; m;
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; v[i] &gt;&gt; w[i] &gt;&gt; s[i];
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+        for(int j &#x3D; 0;j &lt;&#x3D; m;j++)
+            for(int k &#x3D; 0;k &lt;&#x3D; s[i] &amp;&amp; k * v[i] &lt;&#x3D; j;k++)
+                f[i][j] &#x3D; max(f[i][j],f[i-1][j-v[i]*k] + w[i] * k);
+    cout &lt;&lt; f[n][m] &lt;&lt; endl;
+    return 0;
+&#125;</code></pre>
+
+
+
+<h4 id="多重背包II"><a href="#多重背包II" class="headerlink" title="多重背包II"></a>多重背包II</h4><blockquote>
+<p>有 N 种物品和一个容量为 V 的背包，每种物品最多 s 件，问将哪些物品放入背包可使价值最大？</p>
+<p>数据范围：</p>
+<p>0 &lt; N $\le$ 1000</p>
+<p>0 &lt; V $\le$ 2000</p>
+<p>0 &lt; $v_i,w_i,s_i$ $\le$ 2000</p>
+</blockquote>
+<p><mark>多重背包的二进制优化：</mark></p>
+<blockquote>
+<p>利用二进制优化，时间复杂度可以从 O(N * M * S) 降到O(N * logS * M ),从4∗10^9^降到了2∗10^7^。</p>
+<p>思想：将每种物品拆分成1,2,4,8,16,32…，即分成1,2,4，…，2^k^,s这些个物品，其中s小于2^k+1^。这样可以利用01背包的思想，拼凑出任意数量的解（包括最优解），然后调用01背包模板即可。</p>
+<p>举例：如果某种物品数量s &#x3D; 200，则可拆分成：1,2,4,8,16,32,64,73（73 &lt; 128）。</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+const int N &#x3D; 12010,M &#x3D; 2010;&#x2F;&#x2F;一共有1000个物品，每个物品最多拆分成log2000个物品，故是N的由来
+int n,m;
+int v[N],w[N];
+int f[M];
+int main()
+&#123;
+    cin &gt;&gt; n &gt;&gt; m;
+    int cnt &#x3D; 0;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        int a,b,s;
+        cin &gt;&gt; a &gt;&gt; b &gt;&gt; s;
+        int k &#x3D; 1;
+        while (k &lt;&#x3D; s)
+        &#123;
+            cnt++;
+            v[cnt] &#x3D; a * k;
+            w[cnt] &#x3D; b * k;
+            s -&#x3D; k;
+            k *&#x3D; 2;
+        &#125;
+        if(s &gt; 0)
+        &#123;
+            cnt++;
+            v[cnt] &#x3D; a * s;
+            w[cnt] &#x3D; b * s;
+        &#125;
+    &#125;
+    n &#x3D; cnt;&#x2F;&#x2F;每个数选与不选都能拼凑出任意的数字，这就是2进制的妙用
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)&#x2F;&#x2F;二进制方式转换成01背包问题
+        for(int j &#x3D; m;j &gt;&#x3D; v[i];j--)
+            f[j] &#x3D; max(f[j],f[j-v[i]] + w[i]);
+    cout &lt;&lt; f[m] &lt;&lt; endl;
+    return 0;
+&#125;</code></pre>
+
+
+
+<h4 id="多重背包III"><a href="#多重背包III" class="headerlink" title="多重背包III"></a>多重背包III</h4><blockquote>
+<p>有 N 种物品和一个容量为 V 的背包，每种物品最多 s 件，问将哪些物品放入背包可使价值最大？</p>
+<p>数据范围：</p>
+<p>0 &lt; N $\le$ 1000</p>
+<p>0 &lt; V $\le$ 20000</p>
+<p>0 &lt; $v_i,w_i,s_i$ $\le$ 20000</p>
+</blockquote>
+<p><mark>多重背包的单调队列优化：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 2e4 + 10;
+int n,m;
+int f[N],g[N],q[N];
+&#x2F;&#x2F;f[i][j] &#x3D; max(f[i - 1][j - v] + w,......),其中优化成一维后,
+int main()&#x2F;&#x2F;我们需要是上一次的[j-v],而我们当前层的[j-v]已经被更新过了(去掉一维的情况下)
+&#123;&#x2F;&#x2F;那么我们就需要再来一个数组(g)来存一下上一层的情况
+    cin &gt;&gt; n &gt;&gt; m;
+    for(int i &#x3D; 0;i &lt; n;i++)
+    &#123;
+        int v,w,s;&#x2F;&#x2F;体积，价值，数量
+        cin &gt;&gt; v &gt;&gt; w &gt;&gt; s;
+        memcpy(g,f,sizeof(f));
+        for(int j &#x3D; 0;j &lt; v;j++)&#x2F;&#x2F;枚举下余数
+        &#123;
+            int hh &#x3D; 0,tt &#x3D; -1;
+            for(int k &#x3D; j;k &lt;&#x3D; m;k +&#x3D; v)
+            &#123;&#x2F;&#x2F;队首是最大的数
+                if(hh &lt;&#x3D; tt &amp;&amp; q[hh] &lt; k - s * v)   hh++;&#x2F;&#x2F;判断是否超过了s个物品
+                if(hh &lt;&#x3D; tt)    f[k] &#x3D; max(f[k],g[q[hh]] + (k - q[hh]) &#x2F; v * w);
+                while(hh &lt;&#x3D; tt &amp;&amp; g[q[tt]] - (q[tt] - j) &#x2F; v * w &lt;&#x3D; g[k] - (k - j) &#x2F; v * w) tt--;&#x2F;&#x2F;(等差数列)动态计算
+                q[++tt] &#x3D; k;
+            &#125;
+        &#125;
+    &#125;
+
+    cout &lt;&lt; f[m];
+    return 0;
+&#125;</code></pre>
+
+
+
+<h3 id="混合背包"><a href="#混合背包" class="headerlink" title="混合背包"></a>混合背包</h3><blockquote>
+<p>有 N 种物品和一个容量是 V 的背包，问将哪些物品放入背包可使价值最大？</p>
+<p>物品一共有三类：</p>
+<ul>
+<li>第一类物品只能用1次（01背包）</li>
+<li>第二类物品可以用无限次（完全背包）</li>
+<li>第三类物品最多只能用 s 次（多重背包）</li>
+</ul>
+<p>数据范围：</p>
+<p>0 &lt; N,V $\le$ 1000<br>0 &lt; v<sub>i</sub>,w<sub>i</sub>  $\le$ 1000<br>−1 $\le$ s<sub>i</sub> $\le$ 1000</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1010;
+int n,m;
+int f[N];
+
+int main()
+&#123;
+    cin &gt;&gt; n &gt;&gt; m;
+
+    for(int i &#x3D; 0;i &lt; n;i++)
+    &#123;
+        int v,w,s;
+        cin &gt;&gt; v &gt;&gt; w &gt;&gt; s;
+        if(!s)&#x2F;&#x2F;完全背包
+        &#123;
+            for(int j &#x3D; v;j &lt;&#x3D; m;j++)   
+                f[j] &#x3D; max(f[j],f[j - v] + w);
+        &#125;
+        else
+        &#123;
+            if(s &#x3D;&#x3D; -1) s &#x3D; 1;&#x2F;&#x2F;说明当前为0,1背包
+            for(int k &#x3D; 1;k &lt;&#x3D; s;k *&#x3D; 2)
+            &#123;
+                for(int j &#x3D; m;j &gt;&#x3D; k * v;j--)
+                &#123;
+                    f[j] &#x3D; max(f[j],f[j - k * v] + k * w);
+                &#125;
+                s -&#x3D; k;
+            &#125;
+            if(s)
+            &#123;
+                for(int j &#x3D; m;j &gt;&#x3D; s * v;j--)
+                    f[j] &#x3D; max(f[j],f[j - s * v] + s * w);
+            &#125;
+        &#125;
+    &#125;
+    cout &lt;&lt; f[m] &lt;&lt; endl;
+    return 0;
+&#125;</code></pre>
+
+
+
+<h3 id="分组背包"><a href="#分组背包" class="headerlink" title="分组背包"></a>分组背包</h3><blockquote>
+<p>有 N 组物品和一个容量是 V 的背包，每组物品有若干个，同一组内的物品最多只能选一个。问将哪些物品放入背包可使价值最大？</p>
+<p><strong>数据范围</strong></p>
+<p>0 &lt; N,V $\le$ 100<br>0 &lt; S<sub>i</sub> $\le$ 100<br>0 &lt; v<sub>ij</sub>,w<sub>ij</sub> $\le$ 100</p>
+</blockquote>
+<p><mark>思路：</mark></p>
+<p>细节：需要先循环体积，再循环决策。</p>
+<p>体积优化成一维之后，要保证代码和优化之前是等价的，交换顺序之后就不等价了。</p>
+<p>假设对第i组里的物品k，把所有体积遍历了一次，然后选择了这件物品，这个时候f[i] [j]已经包含了第i组中一个物品，也就是k；接下来还是这一组，第k+1个物品，又枚举所有体积，并且你也选择了这一个物品，即</p>
+<p>f[i] [j]&#x3D;max(f[i-1] [j],f[i-1] [j-v[i] [k+1]]+w[i] [k+1])中后者更大，更新之后f变成了后者<br>这就意味着在第i组中同时选择了k和k+1两个物品<br>而如果固定体积，遍历物品，就不会有这个问题，因为每次遍历都只能选中一件物品；<br>这本质上还是在优化成一维数组之后数组的更新过程中需要注意的问题，就像y总说的要保证等价。</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+const int N &#x3D; 110;
+int n,m;
+int v[N][N],w[N][N],s[N];
+int f[N];
+int main()
+&#123;
+    cin &gt;&gt; n &gt;&gt; m;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        cin &gt;&gt; s[i];
+        for(int j &#x3D; 0;j &lt; s[i];j++)
+            cin &gt;&gt; v[i][j] &gt;&gt; w[i][j];
+    &#125;
+    for(int i &#x3D; 1; i &lt;&#x3D; n;i++)
+        for(int j &#x3D; m;j &gt;&#x3D; 0;j--)&#x2F;&#x2F;需要从上一状态转移，故从大到小，不太好确定最小值就用了大于等于0，毕竟下面有个if支撑
+            for(int k &#x3D; 0;k &lt; s[i];k++)
+                    if(v[i][k] &lt;&#x3D; j)    f[j] &#x3D; max(f[j],f[j - v[i][k]] + w[i][k]);
+    cout &lt;&lt; f[m] &lt;&lt; endl;
+    return 0;
+&#125;</code></pre>
+
+
+
+<h3 id="二维费用的背包问题"><a href="#二维费用的背包问题" class="headerlink" title="二维费用的背包问题"></a>二维费用的背包问题</h3><blockquote>
+<p>有 N 件物品和一个容量是 V 的背包，背包能承受的最大重量是 M。每件物品只能用一次。体积是 v<sub>i</sub>，重量是 m<sub>i</sub>，价值是 w<sub>i</sub>。求解将哪些物品装入背包，可使物品总体积不超过背包容量，总重量不超过背包可承受的最大重量，且价值总和最大。</p>
+<p>数据范围：</p>
+<p>0 &lt; N $\le$ 1000<br>0 &lt; V,M $\le$ 100<br>0 &lt; v<sub>i</sub>,m<sub>i</sub> $\le$ 100<br>0 &lt; w<sub>i</sub> $\le$ 1000</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 110;
+int n,V,M;
+int f[N][N];
+
+int main()
+&#123;
+    cin &gt;&gt; n &gt;&gt; V &gt;&gt; M;
+    for(int i &#x3D; 0;i &lt; n;i++)
+    &#123;
+        int v,m,w;
+        cin &gt;&gt; v &gt;&gt; m &gt;&gt; w;
+        for(int j &#x3D; V;j &gt;&#x3D; v;j--)
+        &#123;
+            for(int k &#x3D; M;k &gt;&#x3D; m;k--)
+            &#123;
+                f[j][k] &#x3D; max(f[j][k],f[j - v][k - m] + w);
+            &#125;
+        &#125;
+    &#125;
+    cout &lt;&lt; f[V][M];
+    return 0;
+&#125;</code></pre>
+
+
+
+<h3 id="有依赖的背包问题"><a href="#有依赖的背包问题" class="headerlink" title="有依赖的背包问题"></a>有依赖的背包问题</h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 110;
+int n,m;
+int v[N],w[N];
+int h[N],e[N],ne[N],idx;
+int f[N][N];&#x2F;&#x2F;以i为根节点且体积不超过j的总价值是多少
+
+void add(int a,int b)
+&#123;
+    e[idx] &#x3D; b,ne[idx] &#x3D; h[a],h[a] &#x3D; idx++;
+&#125;
+
+void dfs(int u)
+&#123;
+    for(int i &#x3D; h[u];i !&#x3D; -1;i &#x3D; ne[i])&#x2F;&#x2F;循环物品组
+    &#123;
+        int son &#x3D; e[i];
+        dfs(e[i]);
+
+        &#x2F;&#x2F;分组背包
+        for(int j &#x3D; m - v[u];j &gt;&#x3D; 0;j--)&#x2F;&#x2F;循环体积(因为u是该树的根节点,所以必选,预留出u的空间)
+            for(int k &#x3D; 0;k &lt;&#x3D; j;k++)&#x2F;&#x2F;循环决策
+                f[u][j] &#x3D; max(f[u][j],f[u][j - k] + f[son][k]);
+    &#125;
+
+    &#x2F;&#x2F;将物品u加进去
+    for(int i &#x3D; m;i &gt;&#x3D; v[u];i--)    f[u][i] &#x3D; f[u][i - v[u]] + w[u];
+    for(int i &#x3D; 0;i &lt; v[u];i++) f[u][i] &#x3D; 0;&#x2F;&#x2F;如果无法容纳物品u,那他的价值为0
+&#125;
+
+int main()
+&#123;
+    cin &gt;&gt; n &gt;&gt; m;
+
+    memset(h,-1,sizeof(h));
+    int root;
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+    &#123;
+        int p;
+        cin &gt;&gt; v[i] &gt;&gt; w[i] &gt;&gt; p;
+        if(p &#x3D;&#x3D; -1) root &#x3D; i;
+        else    add(p,i);
+    &#125;
+
+    dfs(root);
+
+    cout &lt;&lt; f[root][m] &lt;&lt; endl;
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p>模板题：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/10/">有依赖的背包问题</a></p>
+<h3 id="背包问题求方案数"><a href="#背包问题求方案数" class="headerlink" title="背包问题求方案数"></a>背包问题求方案数</h3><blockquote>
+<p>有 $n$ 个物品，容量为 $m$，每个物品有体积和价值，问最大化价值的方案数有多少种？</p>
+<p>数据范围：</p>
+<p>0 &lt; $N,V$ $\le$ 1000<br>0 &lt; $v_i,w_i$ $\le$ 1000</p>
+</blockquote>
+<p>$f[j]$ 定义为：体积恰好为 $j$ 的最大价值（因为如果是不超过 $j$ 的话，在求方案数时可能得做个容斥原理，毕竟麻烦，摘自 $y$ 总语录）；</p>
+<p>$g[j]$：求方案数。</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1010,mod &#x3D; 1e9 + 7;
+int n,m;
+int f[N],g[N];
+
+int main()
+&#123;
+    cin &gt;&gt; n &gt;&gt; m;
+    memset(f,-0x3f,sizeof(f));
+    f[0] &#x3D; 0;
+    g[0] &#x3D; 1;
+
+    for(int i &#x3D; 0;i &lt; n;i++)
+    &#123;
+        int v,w;
+        cin &gt;&gt; v &gt;&gt; w;
+        for(int j &#x3D; m;j &gt;&#x3D; v;j--)
+        &#123;
+            int maxv &#x3D; max(f[j],f[j - v] + w);
+            int cnt &#x3D; 0;
+            if(maxv &#x3D;&#x3D; f[j])    cnt +&#x3D; g[j];
+            if(maxv &#x3D;&#x3D; f[j - v] + w)    cnt +&#x3D; g[j - v];
+            g[j] &#x3D; cnt % mod;
+            f[j] &#x3D; maxv;
+        &#125;
+    &#125;
+
+    int res &#x3D; 0;&#x2F;&#x2F;因为定义的是体积恰好是j，所以需要循环一遍！
+    for(int i &#x3D; 0;i &lt;&#x3D; m;i++)   res &#x3D; max(res,f[i]);
+    int cnt &#x3D; 0;
+
+    for(int i &#x3D; 0;i &lt;&#x3D; m;i++)
+        if(res &#x3D;&#x3D; f[i])
+            cnt &#x3D; (cnt + g[i]) % mod;
+
+    cout &lt;&lt; cnt &lt;&lt; endl;
+    return 0;
+&#125;</code></pre>
+
+
+
+<h3 id="背包问题求具体方案"><a href="#背包问题求具体方案" class="headerlink" title="背包问题求具体方案"></a>背包问题求具体方案</h3><p><strong>题目描述：</strong></p>
+<p>有 N 件物品和一个容量是 V 的背包。每件物品只能使用一次。</p>
+<p>第 i 件物品的体积是 v<sub>i</sub>，价值是 w<sub>i</sub>。</p>
+<p>求解将哪些物品装入背包，可使这些物品的总体积不超过背包容量，且总价值最大。</p>
+<p>输出 <strong>字典序最小的方案</strong>。这里的字典序是指：所选物品的编号所构成的序列。物品的编号范围是 1…N。</p>
+<p><strong>输入格式</strong></p>
+<p>第一行两个整数N，V，用空格隔开，分别表示物品数量和背包容积。</p>
+<p>接下来有 N 行，每行两个整数 v<sub>i</sub>,w<sub>i</sub>，用空格隔开，分别表示第 i 件物品的体积和价值。</p>
+<p><strong>输出格式</strong></p>
+<p>输出一行，包含若干个用空格隔开的整数，表示最优解中所选物品的编号序列，且该编号序列的字典序最小。</p>
+<p>物品编号范围是 1…N。</p>
+<p><strong>数据范围</strong></p>
+<p>0 &lt; N,V ≤ 1000<br>0 &lt; v<sub>i</sub>,w<sub>i</sub> ≤ 1000</p>
+<p><strong>输入样例：</strong></p>
+<pre class="language-none"><code class="language-none">4 5
+1 2
+2 4
+3 4
+4 6</code></pre>
+
+<p><strong>输出样例：</strong></p>
+<pre class="language-none"><code class="language-none">1 4</code></pre>
+
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1010;
+int n,m;
+int v[N],w[N];
+int f[N][N];
+
+int main()
+&#123;
+    cin &gt;&gt; n &gt;&gt; m;
+
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; v[i] &gt;&gt; w[i];
+
+    for(int i &#x3D; n ;i &gt;&#x3D; 1;i--)
+    &#123;
+        for(int j &#x3D; 0;j &lt;&#x3D; m;j++)
+        &#123;
+            f[i][j] &#x3D; f[i + 1][j];
+            if(j &gt;&#x3D; v[i])   f[i][j] &#x3D; max(f[i][j],f[i + 1][j - v[i]] + w[i]);
+        &#125;
+    &#125;
+    &#x2F;&#x2F;f[1][m]为最大价值
+   
+    int j &#x3D; m;
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+        if(j &gt;&#x3D; v[i] &amp;&amp; f[i][j] &#x3D;&#x3D; f[i + 1][j - v[i]] + w[i])
+        &#123;
+            cout &lt;&lt; i &lt;&lt; &quot; &quot;;
+            j -&#x3D; v[i];
+        &#125;
+    return 0;
+&#125;</code></pre>
+
+<h2 id="线性DP"><a href="#线性DP" class="headerlink" title="线性DP"></a>线性DP</h2><h3 id="最长上升子序列I"><a href="#最长上升子序列I" class="headerlink" title="最长上升子序列I"></a>最长上升子序列I</h3><blockquote>
+<p><strong>问题描述：</strong>给定一个长度为 $N$ 的数列，求数值严格单调递增的子序列的长度最长是多少？</p>
+<p><strong>数据范围：</strong> $1 \le N \le 1000$</p>
+<p><strong>状态转移：</strong> 定义 $f[i]$ 为以 $i$ 结尾的最长子序列长度，那么上一个状态就是枚举是从哪一个位置转移过来的。</p>
+<p><strong>时间复杂度：</strong>$O(n^2)$</p>
+</blockquote>
+<p><mark>模板题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+	int n;
+	cin &gt;&gt; n;
+
+	vector&lt;int&gt; a(n + 1);
+	for(int i &#x3D; 1; i &lt;&#x3D; n; i++)	cin &gt;&gt; a[i];
+
+	vector&lt;int&gt; f(n + 1, 1);
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+	&#123;
+		for (int j &#x3D; 1; j &lt; i; j++)
+		&#123;
+			if (a[i] &gt; a[j])	f[i] &#x3D; max(f[i], f[j] + 1);
+		&#125;
+	&#125;
+
+	cout &lt;&lt; *max_element(f.begin(), f.end()) &lt;&lt; &quot;\n&quot;;
+	return 0;
+&#125;</code></pre>
+
+<h3 id="最长上升子序列II"><a href="#最长上升子序列II" class="headerlink" title="最长上升子序列II"></a>最长上升子序列II</h3><blockquote>
+<p><strong>问题描述：</strong>给定一个长度为 $N$ 的数列，求数值严格单调递增的子序列的长度最长是多少？</p>
+<p><strong>数据范围：</strong> $1 \le N \le 10^5$</p>
+<p><strong>思路：</strong> 其实跟 $dp$ 没什么关系了，就是对于当前数，将其插入到小于这个数的最大位置的后面即可。</p>
+<p><strong>时间复杂度：</strong>$O(nlogn)$</p>
+</blockquote>
+<p><mark>模板题（拦截导弹）代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    vector&lt;int&gt; a&#123;0&#125;;
+    int x;
+    while (cin &gt;&gt; x)
+    &#123;
+        a.push_back(x);
+    &#125;
+
+    int n &#x3D; a.size() - 1;
+
+	auto solve_dec &#x3D; [&amp;]() -&gt; void
+    &#123;
+        vector&lt;int&gt; q(n + 1);
+        int len &#x3D; 0;
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        &#123;
+            int l &#x3D; 0, r &#x3D; len;
+            while (l &lt; r)
+            &#123;
+                int mid &#x3D; l + r + 1 &gt;&gt; 1;
+                if (q[mid] &gt;&#x3D; a[i])	l &#x3D; mid;
+                else	r &#x3D; mid - 1;
+            &#125;
+            q[l + 1] &#x3D; a[i];
+            len &#x3D; max(l + 1, len);
+        &#125;
+
+        cout &lt;&lt; len &lt;&lt; &quot;\n&quot;;
+    &#125;;
+
+    auto solve_inc &#x3D; [&amp;]() -&gt; void
+    &#123;
+        vector&lt;int&gt; q(n + 1);
+        int len &#x3D; 0;
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        &#123;
+            int l &#x3D; 0, r &#x3D; len;
+            while (l &lt; r)
+            &#123;
+                int mid &#x3D; l + r + 1 &gt;&gt; 1;
+                if (q[mid] &lt; a[i])	l &#x3D; mid;
+                else	r &#x3D; mid - 1;
+            &#125;
+            q[l + 1] &#x3D; a[i];
+            len &#x3D; max(l + 1, len);
+        &#125;
+
+        cout &lt;&lt; len &lt;&lt; &quot;\n&quot;;
+    &#125;;
+
+    solve_dec(), solve_inc();
+	return 0;
+&#125;</code></pre>
+
+<h3 id="最短编辑距离"><a href="#最短编辑距离" class="headerlink" title="最短编辑距离"></a>最短编辑距离</h3><blockquote>
+<p><strong>问题描述：</strong>将字符串 $A$ 经过 插入、删除、替换，变成字符串 $B$ 的最小操作次数是多少？</p>
+<p><strong>数据范围：</strong>$1 \le |s| \le 1000$</p>
+<p><strong>状态转移：</strong> 定义 $f[i][j]$：将 $A$ 的前 $i$个字母变成 $B$ 的前 $j$ 个字母的最小操作次数</p>
+<ul>
+<li>删除：$f[i][j] &#x3D; f[i - 1][j] + 1$</li>
+<li>插入：$f[i][j] &#x3D; f[i][j - 1] + 1$</li>
+<li>替换：$f[i][j] &#x3D; f[i - 1][j - 1] + a[i] !&#x3D; b[j]$</li>
+</ul>
+<p><strong>时间复杂度：</strong>$O(n^2)$</p>
+</blockquote>
+<p><mark>模板题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+    
+    int n,m;
+    string a,b;
+    cin &gt;&gt; n &gt;&gt; a &gt;&gt; m &gt;&gt; b;
+    a &#x3D; &quot; &quot; + a,b &#x3D; &quot; &quot; + b;
+
+    vector f(n + 1,vector&lt;int&gt;(m + 1));
+    &#x2F;&#x2F; 预处理
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   f[i][0] &#x3D; i;
+    for(int i &#x3D; 1;i &lt;&#x3D; m;i++)   f[0][i] &#x3D; i;
+    
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+        for(int j &#x3D; 1;j &lt;&#x3D; m;j++)
+        &#123;
+            f[i][j] &#x3D; min(f[i - 1][j],f[i][j - 1]) + 1;
+            f[i][j] &#x3D; min(f[i][j],f[i - 1][j - 1] + (a[i] !&#x3D; b[j]));
+        &#125;
+
+    cout &lt;&lt; f[n][m] &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125; </code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/897/">最长上升子序列</a> <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/898/">最长上升子序列 II</a>  <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/899/">最长公共子序列</a>  <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/904/">最短编辑距离</a></p>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1849/problem/D">D. Array Painting</a> </p>
+<p><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57356/K">Box</a></p>
+<p><strong>一道似乎被众人堪称典的题目：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1881/problem/E">E. Block Sequence</a></p>
+<p><strong>2023年C++B组蓝桥杯省赛：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/4961/">4958. 接龙数列</a></p>
+<h2 id="区间DP"><a href="#区间DP" class="headerlink" title="区间DP"></a>区间DP</h2><p><mark>区间DP模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">for (int l &#x3D; n; l &gt;&#x3D; 1; l--)
+&#123;
+    for (int r &#x3D; l; r &lt;&#x3D; n; r++)
+    &#123;
+        if (l &#x3D;&#x3D; r)
+        &#123;
+
+        &#125;
+        else
+        &#123;
+            for (int k &#x3D; l; k + 1 &lt;&#x3D; r; k++)
+            &#123;
+
+            &#125;
+        &#125;
+    &#125;
+&#125;</code></pre>
+
+
+
+<blockquote>
+<p><strong>题意：</strong> 有N堆石子，每次只能合并相邻的两堆石子，代价为这两堆石子的质量之和，问最终合并为一堆后的代价最小是多少。</p>
+<p>区间合并：三重循环：</p>
+<p>1、枚举区间长度</p>
+<p>2、枚举左端点</p>
+<p>3、枚举当前区间的中间点（由区间长度和左端点可知右端点，故枚举该区间的中间点）</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;int&gt; a(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; a[i];
+
+    vector&lt;int&gt; sum(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    sum[i] &#x3D; sum[i - 1] + a[i];
+
+    vector&lt;vector&lt;int&gt;&gt; f(n + 1, vector&lt;int&gt;(n + 1, 1e9));
+
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    f[i][i] &#x3D; 0;
+    &#x2F;*
+    f[i][j]: 合并ij的最小代价
+    f[i][j] &#x3D; min(f[i][j], f[i][k] + f[k][j])
+    *&#x2F;
+
+    for (int l &#x3D; n; l &gt;&#x3D; 1; l--)
+    &#123;
+        for (int r &#x3D; l; r &lt;&#x3D; n; r++)
+        &#123;
+            for (int k &#x3D; l; k + 1 &lt;&#x3D; r; k++)
+            &#123;
+                f[l][r] &#x3D; min(f[l][r], f[l][k] + f[k + 1][r] + sum[r] - sum[l - 1]);
+                &#x2F;&#x2F; cout &lt;&lt; l &lt;&lt; &quot; &quot; &lt;&lt; k &lt;&lt; &quot; &quot; &lt;&lt; r &lt;&lt; &quot; &quot; &lt;&lt; f[l][r] &lt;&lt; &quot;\n&quot;;
+            &#125;
+        &#125;
+    &#125;
+
+
+    cout &lt;&lt; f[1][n] &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1775">P1775 石子合并（弱化版）</a></p>
+<p><strong>改编好题：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4290">P4290 [HAOI2008] 玩具取名</a></p>
+<h2 id="计数类DP"><a href="#计数类DP" class="headerlink" title="计数类DP"></a>计数类DP</h2><blockquote>
+<p><strong>问题描述：</strong>一个正整数 $n$ 可以表示成若干个正整数之和，形如：$n&#x3D;n_1+n_2+…+n_k$，其中 $n_1 \ge n_2 \ge …\ge n_k$。</p>
+<p><strong>数据范围：</strong> $1 \le n \le 1000$</p>
+</blockquote>
+<p><strong>解法一：</strong></p>
+<blockquote>
+<p>完全背包思想，前 $n$ 个数，每个数选任意个，组成数字 $j$ 的方案。</p>
+<p>故：$f[i][j] &#x3D; f[i - 1][j] + f[i][j - i]$</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+constexpr int mod &#x3D; 1e9 + 7;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;int&gt; f(n + 1);
+    f[0] &#x3D; 1;
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+        for(int j &#x3D; i;j &lt;&#x3D; n;j++)
+            f[j] &#x3D; (f[j] + f[j - i]) % mod;
+    cout &lt;&lt; f[n];
+    return 0;
+&#125;</code></pre>
+
+<p><strong>解法二：</strong></p>
+<blockquote>
+<p>定义$f[i][j]$：总和为 $i$ ，由 $j$ 个数组成的所有方案数。</p>
+<p>$f[i][j]$ 可以不重不漏的划分为两大类:</p>
+<p>1、最小值为1： $f[i - 1][j - 1]$</p>
+<p>2、最小值大于1：$f[i - j][j]$</p>
+<p>注：由于分成的两大类是不重不漏的，所以对应的最小值大于 $1$ 的情况是合理的。</p>
+<p>故：$f[i][j] &#x3D; f[i - 1][j - 1] + f[i - j][j]$。</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+constexpr int mod &#x3D; 1e9 + 7;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n;
+    cin &gt;&gt; n;
+
+    vector f(n + 1,vector&lt;int&gt;(n + 1));
+    f[0][0] &#x3D; 1;
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+        for(int j &#x3D; 1;j &lt;&#x3D; i;j++)
+            f[i][j] &#x3D; (f[i - 1][j - 1] + f[i - j][j]) % mod;
+
+    int res &#x3D; 0;
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   res &#x3D; (res + f[n][i]) % mod;
+
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题（完全背包）：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/902/">整数划分</a></p>
+<p><strong>蓝桥杯真题（01背包）：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/3420/">砝码称重</a></p>
+<p><strong>2022年蓝桥杯C++B组国赛：</strong><a target="_blank" rel="noopener" href="https://www.lanqiao.cn/problems/2186/learning/?first_category_id=1&page=1&sort=students_count&second_category_id=3&name=2022">2022</a></p>
+<p><strong>DP（类似背包优化） + 计数：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/909/problem/C">C. Python Indentation</a></p>
+<p><strong>洛谷DP基础题单（需要题意转化！）：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1077">P1077 [NOIP2012 普及组] 摆花</a></p>
+<p><mark>2022年蓝桥杯C++B组国赛 2022 讲解：</mark></p>
+<blockquote>
+<p>题意：将 $2022$ 拆分成 $10$ 个互不相同的正整数之和，问有几种拆分方法？</p>
+<p>思路：</p>
+<ul>
+<li>定义 $dp[i][j][k]$：前 $i$ 个数，用了 $j$ 个数，且总和为 $k$ 的方案数。</li>
+<li>集合划分：第 $i$ 个数选 &#x2F; 不选：</li>
+</ul>
+<ol>
+<li>选：$dp[i][j][k] &#x3D; dp[i - 1][j - 1][k - i]$</li>
+<li>不选：$dp[i][j][k] &#x3D; dp[i - 1][j][k]$</li>
+</ol>
+<ul>
+<li>答案即为：$dp[2022][10][2022]$。</li>
+</ul>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n &#x3D; 2022, m &#x3D; 10;
+    
+    vector&lt;vector&lt;vector&lt;ll&gt;&gt;&gt; f(n + 1, vector&lt;vector&lt;ll&gt;&gt;(m + 1, vector&lt;ll&gt;(n + 1)));
+    &#x2F;*
+    f[i][j][k]: 前 i 个数，选了 j 个数，总和为 k 的方案数。
+    集合划分：第 i 个数选与不选。
+    *&#x2F;
+    for (int i &#x3D; 0; i &lt;&#x3D; n; i++) &#x2F;&#x2F; 初始化，前 i 个数，选了 0 个数，总和为 0 的方案数为 1。
+        f[i][0][0] &#x3D; 1;
+
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        for (int j &#x3D; 1; j &lt;&#x3D; m; j++)
+            for (int k &#x3D; 1; k &lt;&#x3D; n; k++)
+            &#123;
+                if (i &gt;&#x3D; j)
+                &#123;
+                    f[i][j][k] &#x3D; f[i - 1][j][k];
+                    if (k &gt;&#x3D; i)
+                    &#123;
+                        f[i][j][k] +&#x3D; f[i - 1][j - 1][k - i];
+                    &#125;
+                &#125;
+            &#125;
+
+    cout &lt;&lt; f[n][m][n] &lt;&lt; &quot;\n&quot;;
+    
+    return 0;
+&#125;</code></pre>
+
+<p><strong>优化一维后：</strong></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n &#x3D; 2022, m &#x3D; 10;
+    
+    &#x2F;&#x2F; vector&lt;vector&lt;vector&lt;ll&gt;&gt;&gt; f(n + 1, vector&lt;vector&lt;ll&gt;&gt;(m + 1, vector&lt;ll&gt;(n + 1)));
+    vector&lt;vector&lt;ll&gt;&gt; f(m + 1, vector&lt;ll&gt;(n + 1));
+    &#x2F;*
+    f[i][j][k]: 前 i 个数，选了 j 个数，总和为 k 的方案数。
+    集合划分：第 i 个数选与不选。
+    *&#x2F;
+    f[0][0] &#x3D; 1;
+
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        for (int j &#x3D; m; j &gt;&#x3D; 1; j--)
+            for (int k &#x3D; 1; k &lt;&#x3D; n; k++)
+            &#123;
+                if (i &gt;&#x3D; j)
+                &#123;
+                    if (k &gt;&#x3D; i)
+                    &#123;
+                        f[j][k] +&#x3D; f[j - 1][k - i];
+                    &#125;
+                &#125;
+            &#125;
+
+    cout &lt;&lt; f[m][n] &lt;&lt; &quot;\n&quot;;
+    
+    return 0;
+&#125;</code></pre>
+
+<p><mark><strong>洛谷DP基础题单（需要题意转化！）：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1077">P1077 [NOIP2012 普及组] 摆花</a></mark></p>
+<p><strong>题目大意转化为公式：</strong> 给定 n 个数 $c_i$，其中 $0 \le c_i \le a_i$，问有多少种方案数使 $\sum{c_i} &#x3D; m$？</p>
+<p><strong>吐槽：</strong> 当时还没抽象出这层公式，然后一直感觉这个题意表达出来的意思有点熟悉。然后看了下题解，看到这个公式感觉了些亲切，但并没有什么进一步的打算。但当我看到了他定义了状态：f[i] [j]表示：前 i 个数总和为 j 的方案数。我瞬间感觉会了，啊这，用公式表达或许是真的容易理解啊！</p>
+<p>$f[i][j] &#x3D; \sum_{k&#x3D;0}^{a[i]}f[i - 1][j - k]$</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int mod &#x3D; 1e6 + 7;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n, m;
+    cin &gt;&gt; n &gt;&gt; m;
+
+    vector&lt;int&gt; a(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; a[i];
+
+    vector&lt;vector&lt;int&gt;&gt; f(n + 1, vector&lt;int&gt;(m + 1));
+    f[0][0] &#x3D; 1;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        for (int j &#x3D; 0; j &lt;&#x3D; m; j++)
+        &#123;
+            for (int k &#x3D; 0; k &lt;&#x3D; min(j, a[i]); k++)
+            &#123;
+                f[i][j] +&#x3D; f[i - 1][j - k];
+                f[i][j] %&#x3D; mod;
+            &#125;
+        &#125;
+    &#125;
+    cout &lt;&lt; f[n][m] &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+
+
+<h2 id="数位DP"><a href="#数位DP" class="headerlink" title="数位DP"></a>数位DP</h2><blockquote>
+<p>数位 DP 问题一般给定一个区间 [L,R]，问区间满足的条件的数有多少个。</p>
+<p>可以利用前缀和来求解答案：$∑_{i&#x3D;1}^Rans_i−∑_{i&#x3D;1}^{L−1}ans_i$</p>
+</blockquote>
+<p><mark>模板（伪代码）：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">int dfs(int pos, int pre, int lead, int limit) &#123;
+    if (!pos) &#123;
+        边界条件
+    &#125;
+    if (!limit &amp;&amp; !lead &amp;&amp; f[pos][pre] !&#x3D; -1) return f[pos][pre];
+    int res &#x3D; 0, up &#x3D; limit ? a[pos] : 无限制位;
+    for (int i &#x3D; 0; i &lt;&#x3D; up; i ++) &#123;
+        if (不合法条件) continue;
+        res +&#x3D; dfs(pos - 1, 未定参数, lead &amp;&amp; !i, limit &amp;&amp; i &#x3D;&#x3D; up);
+    &#125;
+    return limit ? res : (lead ? res : dp[pos][sum] &#x3D; res);
+&#125;
+int dp(int x) &#123;
+    memset(f, -1, sizeof f);
+    int len &#x3D; 0;
+    while (x) a[++ len] &#x3D; x % 进制, x &#x2F;&#x3D; 进制;
+    return dfs(len, 未定参数, 1, 1);
+&#125;
+int main() &#123;
+    cin &gt;&gt; l &gt;&gt; r;
+    cout &lt;&lt; dp(r) - dp(l - 1) &lt;&lt; endl;
+&#125;</code></pre>
+
+<blockquote>
+<p><mark>dp函数：</mark></p>
+<p>​			每次初始化f数组为-1，长度len &#x3D; 0。</p>
+<p>​			a$_i$：每个数位具体数字。</p>
+<p><mark>dfs函数：</mark></p>
+<p>​			变量res记录答案，初始化一般为0。</p>
+<p>​			变量up表示能枚举的最高位数。</p>
+<p>​			采用记忆化搜索的方式：if(!limit &amp;&amp; !lead &amp;&amp; f[pos] [pre] !&#x3D; -1)	return f[pos] [pre];&#x2F;&#x2F;只有无限制、无前导零才可以，不然都是未搜索完的情况。</p>
+<p>​			如果最后还有限制，那么返回res，否则返回f[pos] [pre]。</p>
+<p><mark>基本参数：</mark></p>
+<p>​				假设数字x位数为a$_1$..a$_n$</p>
+<p><mark>必填参数：</mark></p>
+<p>​				pos：表示数字的位数</p>
+<p>​				limit：可以填数的限制（无限制的话（limit &#x3D; 0）0 ~ 9随便填，否则只能填到a$i$）</p>
+<p><mark>可选参数：</mark></p>
+<p>​				pre：表示上一个数是多少</p>
+<p>​				lead：前导零是否存在，lead &#x3D; 1表示存在前导零，否则不存在。</p>
+<p>​				sum：搜索到当前所有数字之和。</p>
+<p>​				cnt：某个数字出现的次数。</p>
+</blockquote>
+<p><strong>学习参考：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/blog/content/7944/">数位DP(DFS做法)</a></p>
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/1087/">不要62</a>	<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2657">P2657 [SCOI2009] windy 数</a>	<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/1084/">数字游戏</a>	<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/1086/">数字游戏 II</a>	<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/1083/">度的数量</a>	<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/340/">计数问题</a></p>
+<ul>
+<li>前 $4$ 道比较模板；</li>
+<li>第 $5$ 题真正在用进制的思想；</li>
+<li>第 $6$ 题是需要建立在模板的基础上进行一定的运用的；</li>
+</ul>
+<p>$cf\ di2\ C$：<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1808/problem/C">C. Unlucky Numbers</a></p>
+<p><strong>数位DP + 二分：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1811/problem/E">E. Living Sequence</a></p>
+<hr>
+<p><mark>计数问题代码：</mark></p>
+<ul>
+<li>必须要明确 $dp[pos][sum]$：的含义！</li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 15;
+int a[N], f[N][N];
+
+&#x2F;&#x2F; dp[pos][sum]: 最后pos位是000 ~999（均pos个），pos前面有sum个num的个数。
+int dfs(int pos, int sum, int num, int lead, int limit)
+&#123;
+    if (!pos)	return sum;
+    if (!lead &amp;&amp; !limit &amp;&amp; f[pos][sum] !&#x3D; -1)   return f[pos][sum];
+
+    int res &#x3D; 0, up &#x3D; limit ? a[pos] : 9;
+    for (int i &#x3D; 0; i &lt;&#x3D; up; i++)
+    &#123;
+        int t &#x3D; 0;
+        if (i &#x3D;&#x3D; num)
+        &#123;
+            if (!num)   t &#x3D; sum + !lead;
+            else    t &#x3D; sum + 1;
+        &#125;
+        else    t &#x3D; sum;
+        
+        res +&#x3D; dfs(pos - 1, t, num, lead &amp;&amp; !i, limit &amp;&amp; i &#x3D;&#x3D; up);
+    &#125;
+    
+    return lead || limit ? res : f[pos][sum] &#x3D; res;
+&#125;
+
+int dp(int x, int num)
+&#123;
+    int len &#x3D; 0;
+    memset(f, -1, sizeof (f));
+    while (x)
+    &#123;
+        a[++len] &#x3D; x % 10;
+        x &#x2F;&#x3D; 10;
+    &#125;
+    return dfs(len, 0, num, 1, 1);
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int l, r;
+    while (cin &gt;&gt; l &gt;&gt; r, l || r)
+    &#123;
+        if (l &gt; r)  swap(l, r);
+        for (int i &#x3D; 0; i &lt;&#x3D; 9; i++)
+            cout &lt;&lt; dp(r, i) - dp(l - 1, i) &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; 9];
+    &#125;
+    
+    return 0;
+&#125;</code></pre>
+
+<p><mark>不要 $62$ 题目代码：</mark></p>
+<ul>
+<li>题意：问区间内不包含 $4$ 或者 $62$ 的数有多少？</li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n, m;
+    while (cin &gt;&gt; n &gt;&gt; m, n || m)
+    &#123;
+        vector&lt;int&gt; a(11);
+        vector&lt;vector&lt;int&gt;&gt; f(11, vector&lt;int&gt;(10));
+        function&lt;int(int, int, int)&gt; dfs &#x3D; [&amp;](int pos, int pre, int limit) -&gt; int
+        &#123;
+            if (!pos)   return 1;
+            if (!limit &amp;&amp; f[pos][pre] !&#x3D; -1) return f[pos][pre];
+
+            int up &#x3D; limit ? a[pos] : 9;
+            int res &#x3D; 0;
+            for (int i &#x3D; 0; i &lt;&#x3D; up; i++)
+            &#123;
+                if (i &#x3D;&#x3D; 4 || (i &#x3D;&#x3D; 2 &amp;&amp; pre &#x3D;&#x3D; 6)) continue;
+                res +&#x3D; dfs(pos - 1, i, limit &amp;&amp; i &#x3D;&#x3D; up);
+            &#125;
+            return limit ? res : f[pos][pre] &#x3D; res;
+        &#125;;
+
+        auto dp &#x3D; [&amp;](int x) -&gt; int
+        &#123;
+            int len &#x3D; 0;
+            for (int i &#x3D; 0; i &lt; 11; i++)
+                for (int j &#x3D; 0; j &lt; 10; j++)
+                    f[i][j] &#x3D; -1;
+            
+            while (x)
+            &#123;
+                a[++len] &#x3D; x % 10;
+                x &#x2F;&#x3D; 10;
+            &#125;
+            return dfs(len, 0, 1);
+        &#125;;
+
+        cout &lt;&lt; dp(m) - dp(n - 1) &lt;&lt; &quot;\n&quot;;
+    &#125;
+    
+    return 0;
+&#125;</code></pre>
+
+<p><mark>windy数代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 21;
+
+int a[N], f[N][N];
+
+int dfs(int pos, int pre, int lead, int limit)
+&#123;
+    if (!pos)   return 1;
+    if (!lead &amp;&amp; !limit &amp;&amp; f[pos][pre] !&#x3D; -1)   return f[pos][pre];
+
+    int up &#x3D; limit ? a[pos] : 9, res &#x3D; 0;
+    for (int i &#x3D; 0; i &lt;&#x3D; up; i++)
+    &#123;
+        if (abs(i - pre) &lt; 2)   continue;
+        if (lead &amp;&amp; !i) res +&#x3D; dfs(pos - 1, 20, lead &amp;&amp; !i, limit &amp;&amp; i &#x3D;&#x3D; up);
+        else    res +&#x3D; dfs(pos - 1, i, lead &amp;&amp; !i, limit &amp;&amp; i &#x3D;&#x3D; up);
+    &#125;
+    return limit || lead ? res : f[pos][pre] &#x3D; res;
+&#125;
+
+int dp(int x)
+&#123;
+    int len &#x3D; 0;
+    for (int i &#x3D; 0; i &lt; N; i++)
+        for (int j &#x3D; 0; j &lt; N; j++)
+            f[i][j] &#x3D; -1;
+    while (x)
+    &#123;
+        a[++len] &#x3D; x % 10;
+        x &#x2F;&#x3D; 10;
+    &#125;
+    return dfs(len, 20, 1, 1);
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int l, r;
+    cin &gt;&gt; l &gt;&gt; r;
+
+    cout &lt;&lt; dp(r) - dp(l - 1) &lt;&lt; &quot;\n&quot;;
+    
+    return 0;
+&#125;</code></pre>
+
+<p><mark>数字游戏代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 11;
+
+int a[N], f[N][N];
+
+int dfs(int pos, int pre, int lead, int limit)
+&#123;
+    if (!pos)   return 1;
+    if (!lead &amp;&amp; !limit &amp;&amp; f[pos][pre] !&#x3D; -1)   return f[pos][pre];
+
+    int up &#x3D; limit ? a[pos] : 9, res &#x3D; 0;
+    for (int i &#x3D; 0; i &lt;&#x3D; up; i++)
+    &#123;
+        if (i &lt; pre)   continue;
+        res +&#x3D; dfs(pos - 1, i, lead &amp;&amp; !i, limit &amp;&amp; i &#x3D;&#x3D; up);
+    &#125;
+    return limit || lead ? res : f[pos][pre] &#x3D; res;
+&#125;
+
+int dp(int x)
+&#123;
+    int len &#x3D; 0;
+    for (int i &#x3D; 0; i &lt; N; i++)
+        for (int j &#x3D; 0; j &lt; N; j++)
+            f[i][j] &#x3D; -1;
+    while (x)
+    &#123;
+        a[++len] &#x3D; x % 10;
+        x &#x2F;&#x3D; 10;
+    &#125;
+    return dfs(len, 0, 1, 1);
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int l, r;
+    while (cin &gt;&gt; l &gt;&gt; r)
+    &#123;
+        cout &lt;&lt; dp(r) - dp(l - 1) &lt;&lt; &quot;\n&quot;;
+    &#125;
+    
+    return 0;
+&#125;</code></pre>
+
+<p><mark>数字游戏 2 代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 11, M &#x3D; 100;
+
+int a[N], f[N][M], mod;
+
+int dfs(int pos, int sum, int limit)
+&#123;
+    if (!pos)   return sum % mod &#x3D;&#x3D; 0;
+    if (!limit &amp;&amp; f[pos][sum] !&#x3D; -1)   return f[pos][sum];
+
+    int up &#x3D; limit ? a[pos] : 9, res &#x3D; 0;
+    for (int i &#x3D; 0; i &lt;&#x3D; up; i++)
+    &#123;
+        res +&#x3D; dfs(pos - 1, (sum + i) % mod, limit &amp;&amp; i &#x3D;&#x3D; up);
+    &#125;
+    return limit ? res : f[pos][sum] &#x3D; res;
+&#125;
+
+int dp(int x)
+&#123;
+    int len &#x3D; 0;
+    for (int i &#x3D; 0; i &lt; N; i++)
+        for (int j &#x3D; 0; j &lt; M; j++)
+            f[i][j] &#x3D; -1;
+    while (x)
+    &#123;
+        a[++len] &#x3D; x % 10;
+        x &#x2F;&#x3D; 10;
+    &#125;
+    return dfs(len, 0, 1);
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int l, r;
+    while (cin &gt;&gt; l &gt;&gt; r &gt;&gt; mod)
+        cout &lt;&lt; dp(r) - dp(l - 1) &lt;&lt; &quot;\n&quot;;
+    
+    return 0;
+&#125;</code></pre>
+
+<p><mark>度的数量代码：</mark></p>
+<ul>
+<li>首先用进制转换；</li>
+<li>利用进制的思想，每个位最多是选（即 $1$ 的状态），不选为 $0$，最低位由于是下标 $1$ 的地方，选到的话就是 $B^0$，这正是当时我一直迷糊的地方，因此每个数选或不选，凑出 $k$ 个即可。</li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+constexpr int N &#x3D; 32, M &#x3D; 21;
+
+int a[N];
+int f[N][M];
+int l, r, k, b;
+int dfs(int pos, int cnt, int limit) &#123;
+    if (!pos)   return cnt &#x3D;&#x3D; k;
+    if (!limit &amp;&amp; f[pos][cnt] !&#x3D; -1)   return f[pos][cnt];
+
+    int up &#x3D; limit ? a[pos] : b - 1, res &#x3D; 0;
+    for (int i &#x3D; 0; i &lt;&#x3D; up; i++)
+    &#123;
+        if (i &gt; 1 || cnt + i &gt; k)    continue;
+        res +&#x3D; dfs(pos - 1, cnt + i, limit &amp;&amp; i &#x3D;&#x3D; up);
+    &#125;
+    return limit ? res : f[pos][cnt] &#x3D; res;
+&#125;
+
+int dp(int x) &#123;
+    int len &#x3D; 0;
+    for (int i &#x3D; 0; i &lt; N; i++)
+        for (int j &#x3D; 0; j &lt; M; j++)
+            f[i][j] &#x3D; -1;
+    while (x)
+    &#123;
+        a[++len] &#x3D; x % b;
+        x &#x2F;&#x3D; b;
+    &#125;
+    return dfs(len, 0, 1);
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    cin &gt;&gt; l &gt;&gt; r &gt;&gt; k &gt;&gt; b;
+
+    cout &lt;&lt; dp(r) - dp(l - 1) &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+
+
+<h2 id="树形DP"><a href="#树形DP" class="headerlink" title="树形DP"></a>树形DP</h2><p><mark>没有上司的舞会模板代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;int&gt; a(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; a[i];
+
+    vector&lt;vector&lt;int&gt;&gt; g(n + 1);
+    vector&lt;int&gt; fa(n + 1);
+    for (int i &#x3D; 1; i &lt; n; i++)
+    &#123;
+        int a, b;
+        cin &gt;&gt; a &gt;&gt; b;
+        g[b].push_back(a);
+        fa[a] &#x3D; b;
+    &#125;
+
+    int root &#x3D; 1;
+    while (fa[root])    root &#x3D; fa[root];
+
+    vector&lt;vector&lt;int&gt;&gt; f(n + 1, vector&lt;int&gt;(2));
+    function&lt;int(int, int)&gt; dfs &#x3D; [&amp;](int u, int fa) -&gt; int
+    &#123;
+        f[u][1] &#x3D; a[u];
+        for (auto v : g[u])
+        &#123;
+            dfs(v, u);
+            f[u][1] +&#x3D; f[v][0];
+            f[u][0] +&#x3D; max(f[v][0], f[v][1]);
+        &#125;
+        &#x2F;&#x2F; cout &lt;&lt; u &lt;&lt; &quot; &quot; &lt;&lt; f[u][0] &lt;&lt; &quot; &quot; &lt;&lt; f[u][1] &lt;&lt; &quot;\n&quot;;
+        return max(f[u][0], f[u][1]);
+    &#125;;
+
+    cout &lt;&lt; dfs(root, -1);
+
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<ul>
+<li><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/287/">没有上司的舞会</a></li>
+<li><strong>模板题的改版（这两题几乎一模一样，但由于权值不同，解法不同！）：</strong> <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2016">easy：P2016 战略游戏</a>   <a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=7276">hard：City Upgrading</a> 附hard版原题出处：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/1079/">皇宫看守</a></li>
+<li><strong>$2023$ 天梯赛 $L3-2$（比较看重思考的一道题目，对分析要求高一点，挺不错的题）：</strong><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/1649748772845703169?type=7&page=1">L3-035 完美树</a></li>
+<li>野生 $cf$ 题：<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1746/problem/D">D. Paths on the Tree</a></li>
+<li><strong>$2024$ 传智杯省赛（树形DP求方案数）：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/72647/E">小红的树上赋值方案（A组，B组）</a></li>
+<li><strong>$div2\ D$ 树形 $DP$ 求方案数题（这题是上分的必经之路）：</strong> <a target="_blank" rel="noopener" href="https://codeforces.com/contest/1929/problem/D">D. Sasha and a Walk in the City</a><ul>
+<li>题意很绕，转化为清晰的描述为：给定一棵树，计算不存在三点在一条线上（不仅是三点在仅连的线上！）的点集的数量。</li>
+</ul>
+</li>
+<li>$div4\ G$ 最后一题又是树形 $DP$ 题（本想着倒着开题，结果又被卡住了，其实并不难qwq）<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1926/problem/G">G. Vlad and Trouble at MIT</a></li>
+</ul>
+<hr>
+<p><mark>2023天梯赛 $L3-2$（比较看重思考的一道题目，对分析要求高一点，挺不错的题）：</mark></p>
+<p>最开始定义的状态是对的，但是在实现过程中有点麻烦，在调整的过程中，不料第二维变成了 $n$ 的状态转移量，空间爆炸，变成了暴力的 $dp$ 。。。</p>
+<p><mark>暴力过程：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;int&gt; color(n + 1), w(n + 1);
+    vector&lt;vector&lt;int&gt;&gt; g(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        cin &gt;&gt; color[i] &gt;&gt; w[i];
+        int cnt;
+        cin &gt;&gt; cnt;
+        while (cnt--)
+        &#123;
+            int x;
+            cin &gt;&gt; x;
+            g[x].push_back(i);
+            g[i].push_back(x);
+        &#125;
+    &#125;
+
+    vector&lt;vector&lt;ll&gt;&gt; dp(n + 1, vector&lt;ll&gt;(2 * n + 2, 1e9)); &#x2F;&#x2F; -1表示不合法
+    &#x2F;**
+     * dp[i][j]: 以i为根的子树为好的,且子树中黑色节点数比白色节点数多0&#x2F;1&#x2F;-1（2）的最小代价。
+     * 考虑转移：
+     * 当前子树颜色不改：这样的话，子树的情况有点多有点复杂
+     * 不过好像确实可以类似之前那个dp，依次枚举每个孩子？
+     * 好像真的确实可以这么做，这么好的题吗？
+     * 下午上完课回来debug试试
+     * 最后发现这样写只能拿17分，而且第二维必须改成差值为[-n, n]范围内的，还需要保证之前的孩子结点的遍历满足[-1,1]的情况qwq
+     * 那正解该怎么定义呢？难道跟我之前定义一样？应该不会吧。。因为感觉确实是有问题的。
+     * 担心的事情还是来了，dp定义的没问题我趣，但是不会转移。。。
+    *&#x2F;
+    function&lt;void(int, int)&gt; dfs &#x3D; [&amp;](int u, int fa) -&gt; void
+    &#123;
+        &#x2F;&#x2F; dp[u][color[u]] &#x3D; 0, dp[u][!color[u]] &#x3D; w[u];
+        if (color[u])   dp[u][1] &#x3D; 0, dp[u][n + 1] &#x3D; w[u];
+        else    dp[u][n + 1] &#x3D; 0, dp[u][1] &#x3D; w[u];
+        auto f &#x3D; dp[u];
+        for (auto v : g[u])
+        &#123;
+            if (v &#x3D;&#x3D; fa)    continue;
+            dfs(v, u);
+
+            vector&lt;bool&gt; vis(2 * n + 2);
+            for (int i &#x3D; -n; i &lt;&#x3D; n; i++) &#x2F;&#x2F; 枚举当前 u 的状态
+            &#123;
+                for (int j &#x3D; -1; j &lt;&#x3D; 1; j++) &#x2F;&#x2F; 枚举当前 v 的状态
+                &#123;
+                    int nt &#x3D; i + j;
+                    if (nt &lt; 0)   nt &#x3D; n - nt;
+                    int ni &#x3D; (i &lt; 0) ? n - i : i;
+                    int nj &#x3D; (j &lt; 0) ? n - j : j;
+                    &#x2F;&#x2F; if (nt &#x3D;&#x3D; 0)    cout &lt;&lt; &quot;0:&quot; &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; j &lt;&lt; &quot; &quot; &lt;&lt; dp[u][ni] &lt;&lt; &quot; &quot; &lt;&lt; dp[v][nj] &lt;&lt; &quot;\n&quot;;
+                    if (vis[nt])    f[nt] &#x3D; min(f[nt], dp[u][ni] + dp[v][nj]);
+                    else
+                    &#123;
+                        f[nt] &#x3D; dp[u][ni] + dp[v][nj];
+                        vis[nt] &#x3D; 1;
+                    &#125;
+                &#125;
+            &#125;
+            &#x2F;&#x2F; cout &lt;&lt; v &lt;&lt; &quot; &quot; &lt;&lt; f[0] &lt;&lt; &quot; &quot; &lt;&lt; f[1] &lt;&lt; &quot; &quot; &lt;&lt; f[n + 1] &lt;&lt; &quot;\n&quot;;
+            &#x2F;&#x2F; cout &lt;&lt; v &lt;&lt; &quot; &quot; &lt;&lt; f[0] &lt;&lt; &quot; &quot; &lt;&lt; f[1] &lt;&lt; &quot; &quot; &lt;&lt; f[2] &lt;&lt; &quot; &quot; &lt;&lt; f[4] &lt;&lt; &#39;\n&#39;;
+            dp[u] &#x3D; f;
+        &#125;
+        &#x2F;&#x2F; cout &lt;&lt; u &lt;&lt; &quot; &quot; &lt;&lt; dp[u][0] &lt;&lt; &quot; &quot; &lt;&lt; dp[u][1] &lt;&lt; &quot; &quot; &lt;&lt; dp[u][n + 1] &lt;&lt; &quot;\n&quot;;
+    &#125;;
+
+    dfs(1, -1);
+
+    cout &lt;&lt; min(&#123;dp[1][0], dp[1][1], dp[1][n + 1]&#125;) &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+<p>正解目前还在研究，刚刚看了下题解，没有一下子领悟他们的点，不过一些基本需要的信息明白了，之后有时间我再来补一下（因为明天就是天梯了qwq）。</p>
+<p>可能这篇写的可以（没仔细看）：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lamujiaolian/article/details/130354554?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522171352166116800197092419%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=171352166116800197092419&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_click~default-1-130354554-null-null.142%5Ev100%5Epc_search_result_base7&utm_term=L3-035%20%E5%AE%8C%E7%BE%8E%E6%A0%91&spm=1018.2226.3001.4187">2023 GPLT 天梯赛 L3-035 完美树 —— 树形DP，状态机，贪心</a></p>
+<p>就是个树形dp，不知道为啥博主给他加这么多标签qwq</p>
+<p><mark>$2024$ 传智杯省赛（树形DP求方案数）讲解：</mark></p>
+<ul>
+<li>定义 $dp$：$dp[u][i][j]:$ 以 $u$ 为根的子树，点 $u$ 赋值为 $i$，子树权值和模 $3$ 为 $j$ 的所有方案数。</li>
+<li>计算过程需要对子节点按顺序求解答案：<ul>
+<li>假设对于点 $u$ ，已经求完了 $v_1,v_2…,v_c$，对于加入了一个新的点 $v_{c + 1}$，贡献是：<ul>
+<li>$dp[u][i][j] \times (dp[v_{c+1}][1][k] + dp[v_{c+1}][2][k])$</li>
+</ul>
+</li>
+<li>其中的 $dp[u][i][j]$ 是所有按顺序排好的 $v_{c + 1}$ 前面的结点以及包含了点 $u$ 的方案。</li>
+<li>除此之外，还需要注意需要先用一个临时变量代替 $dp[u][i][j]$，因为 $dp[u][i][j]$ ，在新点枚举的时候可能会被改变，这样对答案的贡献是错误的。</li>
+</ul>
+</li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+const int mod &#x3D; 1e9 + 7;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n;
+    cin &gt;&gt; n;
+
+    string s;
+    cin &gt;&gt; s;
+
+    vector&lt;vector&lt;int&gt;&gt; g(n + 1);
+    for (int i &#x3D; 2; i &lt;&#x3D; n; i++)
+    &#123;
+        int p;
+        cin &gt;&gt; p;
+        g[p].push_back(i);
+    &#125;
+
+    vector&lt;vector&lt;vector&lt;int&gt;&gt;&gt; dp(n + 1, vector&lt;vector&lt;int&gt;&gt;(3, vector&lt;int&gt;(3)));
+    function&lt;void(int)&gt; dfs &#x3D; [&amp;](int u) 
+    &#123;
+        dp[u][1][1] &#x3D; dp[u][2][2] &#x3D; 1;
+        for (auto v : g[u])
+        &#123;
+            dfs(v);
+            for (int i : &#123;1, 2&#125;)
+            &#123;
+                vector&lt;int&gt; tmp(3);
+                for (int j &#x3D; 0; j &lt;&#x3D; 2; j++)
+                &#123;
+                    for (int k &#x3D; 0; k &lt;&#x3D; 2; k++)
+                    &#123;
+                        (tmp[(j + k) % 3] +&#x3D; (ll)dp[u][i][j] * (dp[v][1][k] + dp[v][2][k]) % mod) %&#x3D; mod;
+                    &#125;
+                &#125;
+                dp[u][i] &#x3D; tmp;
+            &#125;
+        &#125;
+
+        if (s[u - 1] &#x3D;&#x3D; &#39;R&#39;)
+        &#123;
+            for (int i &#x3D; 1; i &lt;&#x3D; 2; i++)
+                for (int j &#x3D; 1; j &lt;&#x3D; 2; j++)
+                    dp[u][i][j] &#x3D; 0;
+        &#125;
+
+    &#125;;
+
+    dfs(1);
+
+    ll res &#x3D; 0;
+    for (int i : &#123;1, 2&#125;)
+        for (int j &#x3D; 0; j &lt;&#x3D; 2; j++)
+            (res +&#x3D; dp[1][i][j]) %&#x3D; mod;
+
+    cout &lt;&lt; res;
+    return 0;
+&#125;</code></pre>
+
+<p><mark>D. Sasha and a Walk in the City 讲解：</mark></p>
+<p>吐槽：这题真是太难读懂了，题意理解了半天才明白（赛后也是先理解了一个错误的题意然后发现老是dp有问题qwq）</p>
+<p>定义：$dp[i][0&#x2F;1&#x2F;2]$：以 $i$ 为根的子树，从 $i$ 开始的简单路径有 0 &#x2F; 1 &#x2F; 2 个危险路口的方案数。</p>
+<ul>
+<li>$dp[u][0]$：显然为 $1$。</li>
+<li>$dp[u][1] &#x3D; dp[u][1] * (dp[v][0] + dp[v][1])$。即每个子树里面选 $1$ 个或 $1$ 个也不选（即只选择了 $u$ 点！）<ul>
+<li>这个乘法原则还利用了一个很棒的小技巧：有多个集合，每个集合有一定数量的数，每个集合最多只能拿 $1$ 个数，当然也可以不拿。问所有组合的非空集的数有多少种情况？答案为：$(a_i+1)(a_{i+1}+1)…(a_n+1) - 1$。因为每个集合有 $a_i$ 个数，由于可以不选，故共有 $a_i + 1$ 的选法，最后减去所有集合都不选，即空集的情况，故减 $1$。而该题中，所有孩子结点都不选，但自己本身根节点选了，因此也是符合要求的，故没有减 $1$。</li>
+</ul>
+</li>
+<li>$dp[u][2] &#x3D; (dp[u][2] + (dp[v][1] + dp[v][2]))$ 。这里是加法，因为从该点到其中一个子树的路径如果为 $2$，那么其他子树就不能有危险结点！（因为已经有 $2$ 个连起来的危险路口了，再来一个一定不满足要求！）</li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+const int mod &#x3D; 998244353;
+
+void solve()
+&#123;
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;vector&lt;int&gt;&gt; g(n + 1);
+    for (int i &#x3D; 1; i &lt; n; i++)
+    &#123;
+        int a, b;
+        cin &gt;&gt; a &gt;&gt; b;
+        g[a].push_back(b);
+        g[b].push_back(a);
+    &#125;
+
+    vector&lt;vector&lt;ll&gt;&gt; dp(n + 1, vector&lt;ll&gt;(3));
+
+    function&lt;void(int, int)&gt; dfs &#x3D; [&amp;](int u, int fa) -&gt; void
+    &#123;
+        dp[u][0] &#x3D; dp[u][1] &#x3D; 1;
+        for (auto v : g[u])
+        &#123;
+            if (v &#x3D;&#x3D; fa)    continue;
+            dfs(v, u);
+            dp[u][1] &#x3D; dp[u][1] * (dp[v][0] + dp[v][1]) % mod;
+            dp[u][2] &#x3D; (dp[u][2] + (dp[v][1] + dp[v][2])) % mod;
+        &#125;
+    &#125;;
+
+    dfs(1, -1);
+    cout &lt;&lt; (dp[1][0] + dp[1][1] + dp[1][2]) % mod &lt;&lt; &quot;\n&quot;;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int t;
+    cin &gt;&gt; t;
+
+    while (t--)
+    &#123;
+        solve();
+    &#125;
+    
+    return 0;
+&#125;</code></pre>
+
+
+
+<h3 id="换根DP"><a href="#换根DP" class="headerlink" title="换根DP"></a>换根DP</h3><blockquote>
+<p><strong>题意：</strong>给定一个 $n$ 个点的树，请求出一个结点，使得以这个结点为根时，所有结点的深度之和最大。</p>
+<p><strong>思路：</strong>两遍 $dfs$ 。</p>
+<p>第一遍 $dfs$ 用来预处理，处理每个子树的大小和每个点的深度；</p>
+<p>第二遍 $dfs$ 考虑状态转移，即体现 “换根“ 的地方。令 $f_u$ 为以 $u$ 为根时，所有结点的深度之和。</p>
+<p>$f_v \leftarrow f_u$  可以体现为换根，即以 $u$ 为根转移到以 $v$ 为根。显然在换根的转移过程中，以 $v$ 为根或以 $u$ 为根会导致其子树中的结点的深度产生改变。具体表现为：</p>
+<ul>
+<li>所有在 $u$ 的子树上的结点深度都减少了 $1$，那么总深度和就减少了 $s_v$；</li>
+<li>所有不在 $v$ 的子树上的结点深度都增加了 $1$，那么总深度和就增加了 $n - s_v$；</li>
+</ul>
+<p>因此，可以推出状态转移方程：$f_v &#x3D; f_u - s_v + n - s_v &#x3D; f_u + n - 2 × s_v$ 。</p>
+</blockquote>
+<p><mark>模板题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+int main()
+&#123;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+	int n;
+	cin &gt;&gt; n;
+
+	vector&lt;vector&lt;int&gt;&gt; adj(n + 1);
+	for (int i &#x3D; 1; i &lt; n; i++)
+	&#123;
+		int u, v;
+		cin &gt;&gt; u &gt;&gt; v;
+		adj[u].push_back(v);
+		adj[v].push_back(u);
+	&#125;
+
+	vector&lt;int&gt; sz(n + 1), depth(n + 1);
+	function&lt;int(int, int)&gt; dfs1 &#x3D; [&amp;](int u, int fa) -&gt; int
+	&#123;
+		sz[u] &#x3D; 1;
+		for (auto v : adj[u])
+		&#123;
+			if (v &#x3D;&#x3D; fa)	continue;
+			depth[v] &#x3D; depth[u] + 1;
+			sz[u] +&#x3D; dfs1(v, u);
+		&#125;
+		return sz[u];
+	&#125;;
+
+	dfs1(1, -1);
+
+	vector&lt;ll&gt; f(n + 1);
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)	f[1] +&#x3D; depth[i];
+	function&lt;void(int, int)&gt; dfs2 &#x3D; [&amp;](int u, int fa) -&gt; void
+	&#123;
+		for (auto v : adj[u])
+		&#123;
+			if (v &#x3D;&#x3D; fa)	continue;
+			f[v] &#x3D; f[u] - sz[v] + n - sz[v];
+			dfs2(v, u);
+		&#125;
+	&#125;;
+
+	dfs2(1, -1);
+
+	ll res &#x3D; 0, mx &#x3D; 0;
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+	&#123;
+		if (f[i] &gt; mx)
+		&#123;
+			res &#x3D; i;
+			mx &#x3D; f[i];
+		&#125;
+	&#125;
+	
+	cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+	return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3478">P3478 [POI2008] STA-Station</a></p>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104493/problem/C">C. Tree Permutation</a></p>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1882/problem/D">D. Tree XOR</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2986">P2986 [USACO10MAR] Great Cow Gathering G</a></p>
+<p><strong>挺不错的题（$LCA$ + 换根 $DP$ + 推公式）：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/77448/L">qfl_zzz的树上距离</a></p>
+<h2 id="期望DP"><a href="#期望DP" class="headerlink" title="期望DP"></a>期望DP</h2><p><strong>推荐题目：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/33186/I">Chiitoitsu</a></p>
+<h2 id="状态压缩DP"><a href="#状态压缩DP" class="headerlink" title="状态压缩DP"></a>状态压缩DP</h2><blockquote>
+<p>最近开始认真学状压 $dp$ 了，很奇妙的是：最近做的题总是能遇到这种类似的 $dp$，之前是真的做不到过，所以真的好神奇啊，那么我们就来好好总结一番叭！</p>
+</blockquote>
+<p><mark>推荐题单：</mark></p>
+<p><strong>经典哈密顿路径问题（或类似问题：每个点都只有一次）：</strong></p>
+<ul>
+<li>2024年传智杯决赛：<a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/78721/E">小苯的矩阵染色（A组，B组）</a></li>
+<li>初学时的模板题：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/93/">最短Hamilton路径</a></li>
+<li>$div4\ G$：<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1950/problem/G">G. Shuffling Songs</a></li>
+<li>$cf\ 2200$ 分 $dp$ 题，环的问题：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF11D"> Simple Task</a></li>
+</ul>
+<p>上面三题几乎一样的做法！（环的问题也可类似处理）</p>
+<blockquote>
+<p>$dp[state][i]$：以 $i$ 结尾状态为 $state$ 的情况。枚举当前点，枚举上个点，枚举状态即可。</p>
+</blockquote>
+<p><strong>棋盘方案数：</strong></p>
+<ul>
+<li>入门模板题：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/293/">蒙德里安的梦想</a>	</li>
+<li>小国王问题，也是入门模板题：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1896">P1896 [SCOI2005] 互不侵犯</a></li>
+<li>$2022$ 蓝桥杯省赛真题：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/4409/">积木画</a></li>
+</ul>
+<hr>
+<p><mark>小苯的矩阵染色（A组，B组）思路：</mark></p>
+<blockquote>
+<ul>
+<li>对网格进行建图；</li>
+<li>状压 $dp$：$dp[state][i]$：以 $i$ 结尾状态为 $state$ 的合法性；</li>
+<li>对于当前状态 $state$，枚举当前是以什么结尾，然后枚举上一位是什么结尾（即 $1$ 的位置）</li>
+<li>然后转移即可，时间复杂度：$O(N^22^N)$，其中 $N$ 可能达到 $20$。</li>
+</ul>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n, m, st, ed;
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; st &gt;&gt; ed;
+
+    vector&lt;vector&lt;int&gt;&gt; g(21, vector&lt;int&gt;(21));
+    vector&lt;vector&lt;char&gt;&gt; c(n + 1, vector&lt;char&gt;(m + 1));
+    vector&lt;vector&lt;int&gt;&gt; id(n + 1, vector&lt;int&gt;(m + 1));
+    int idx &#x3D; 0;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        for (int j &#x3D; 1; j &lt;&#x3D; m; j++)
+        &#123;
+            cin &gt;&gt; c[i][j];
+            if (c[i][j] &#x3D;&#x3D; &#39;.&#39;)
+                 id[i][j] &#x3D; idx++;
+        &#125;
+
+    int dx[] &#x3D; &#123;-1, 0, 1, 0&#125;, dy[] &#x3D; &#123;0, 1, 0, -1&#125;; 
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        for (int j &#x3D; 1; j &lt;&#x3D; m; j++)
+        &#123;
+            for (int k &#x3D; 0; k &lt; 4; k++)
+            &#123;
+                int nx &#x3D; i + dx[k], ny &#x3D; j + dy[k];
+                if (nx &lt; 0 || nx &gt; n || ny &lt; 0 || ny &gt; m)   continue;
+                if (c[i][j] &#x3D;&#x3D; &#39;.&#39; &amp;&amp; c[nx][ny] &#x3D;&#x3D; &#39;.&#39;)
+                    g[id[i][j]][id[nx][ny]] &#x3D; 1;
+            &#125;
+        &#125;
+    &#125;
+
+    vector&lt;vector&lt;int&gt;&gt; dp(1 &lt;&lt; idx, vector&lt;int&gt;(idx));
+    dp[1 &lt;&lt; id[st][ed]][id[st][ed]] &#x3D; 1;
+
+    for (int i &#x3D; 0; i &lt; 1 &lt;&lt; idx; i++)
+    &#123;
+        for (int j &#x3D; 0; j &lt; idx; j++)
+        &#123;
+            if (i &gt;&gt; j &amp; 1)
+            &#123;
+                for (int k &#x3D; 0; k &lt; idx; k++)
+                &#123;
+                    if (j &#x3D;&#x3D; k) continue;
+                    if (i &gt;&gt; k &amp; 1)
+                    &#123;
+                        dp[i][j] |&#x3D; dp[i ^ (1 &lt;&lt; j)][k] &amp; g[j][k];
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+
+    bool ok &#x3D; false;
+    for (int i &#x3D; 0; i &lt; idx; i++)
+        if (dp[(1 &lt;&lt; idx) - 1][i])
+        &#123;
+            ok &#x3D; true;
+            break;
+        &#125;
+
+    cout &lt;&lt; (ok ? &quot;YES\n&quot; : &quot;NO\n&quot;);
+    return 0;
+&#125;</code></pre>
+
+<p><mark>最短Hamilton路径代码（做法跟上一个几乎一模一样）：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;vector&lt;int&gt;&gt; g(n, vector&lt;int&gt;(n));
+    for (int i &#x3D; 0; i &lt; n; i++)
+        for (int j &#x3D; 0; j &lt; n; j++)
+        &#123;
+            cin &gt;&gt; g[i][j];
+        &#125;
+
+    vector&lt;vector&lt;int&gt;&gt; dp(1 &lt;&lt; n, vector&lt;int&gt;(n, 1e9));
+    dp[1][0] &#x3D; 0;
+
+    for (int i &#x3D; 0; i &lt; 1 &lt;&lt; n; i++)
+    &#123;
+        for (int j &#x3D; 0; j &lt; n; j++)
+        &#123;
+            if (i &gt;&gt; j &amp; 1)
+            &#123;
+                for (int k &#x3D; 0; k &lt; n; k++)
+                &#123;
+                    if (j &#x3D;&#x3D; k) continue;
+                    if (i &gt;&gt; k &amp; 1)
+                    &#123;
+                        dp[i][j] &#x3D; min(dp[i][j], dp[i ^ (1 &lt;&lt; j)][k] + g[j][k]);
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+
+    cout &lt;&lt; dp[(1 &lt;&lt; n) - 1][n - 1];
+    return 0;
+&#125;</code></pre>
+
+<p><mark>蒙德里安的梦想讲解：</mark></p>
+<ul>
+<li><p>可以横放也可以竖放，将所有横放的全部摆好后，剩余只有竖放的，只有这一种情况；</p>
+</li>
+<li><p>定义 $f[i][j]$：排好了前 $i - 1$ 列，且第 $i$ 列的状态为 $j$ 的所有方案；</p>
+</li>
+<li><p>状态转移：$f[i][j] &#x3D; f[i - 1][k]$；</p>
+<ul>
+<li>伸出到 $i - 1$ 列的状态为 $k$ ，且伸到第 $i$ 列的状态为 $j$，状态合法，需要满足两个条件：<ul>
+<li>不相交：即 $j &amp; k &#x3D;0$；</li>
+<li>允许放置竖块：即二进制连续 $0$ 的个数为偶数个。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+const int N &#x3D; 12, M &#x3D; 1 &lt;&lt; N;
+bool st[M];
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n, m;
+    while (cin &gt;&gt; n &gt;&gt; m, n || m)
+    &#123;
+        memset(st, 0, sizeof(st));
+        for (int i &#x3D; 0; i &lt; 1 &lt;&lt; n; i++)
+        &#123;
+            bool is_valid &#x3D; true;
+            int cnt &#x3D; 0;
+            for (int j &#x3D; 0; j &lt; n; j++)
+            &#123;
+                if (i &gt;&gt; j &amp; 1)
+                &#123;
+                    if (cnt &amp; 1)
+                    &#123;
+                        is_valid &#x3D; false;
+                        break;
+                    &#125;
+                    cnt &#x3D; 0;
+                &#125;
+                else    cnt++;
+            &#125;
+            if (cnt &amp; 1)    is_valid &#x3D; false;
+            st[i] &#x3D; is_valid;
+        &#125;
+
+        vector&lt;vector&lt;int&gt;&gt; state(1 &lt;&lt; n + 1);
+        for (int i &#x3D; 0; i &lt; 1 &lt;&lt; n; i++)
+            for (int j &#x3D; 0; j &lt; 1 &lt;&lt; n; j++)
+                if ((i &amp; j) &#x3D;&#x3D; 0 &amp;&amp; st[i | j])
+                    state[i].push_back(j);
+
+        vector&lt;vector&lt;ll&gt;&gt; f(m + 2, vector&lt;ll&gt;(1 &lt;&lt; n));
+        f[0][0] &#x3D; 1;
+        for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
+        &#123;
+            for (int j &#x3D; 0; j &lt; 1 &lt;&lt; n; j++)
+            &#123;
+                for (auto k : state[j])
+                &#123;
+                    f[i][k] +&#x3D; f[i - 1][j];
+                &#125;
+            &#125;
+        &#125;
+        cout &lt;&lt; f[m][0] &lt;&lt; &quot;\n&quot;;
+    &#125;
+    
+    return 0;
+&#125;</code></pre>
+
+<p><mark>积木画：</mark></p>
+<ul>
+<li>其实思想跟蒙德里安的梦想差不多；</li>
+<li>虽然看着需要用线性的做法，但实际原因是因为状态非常少（$2^2 &#x3D; 4$）。</li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int mod &#x3D; 1e9 + 7;
+
+int f[2][4];
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n;
+    cin &gt;&gt; n;
+
+    &#x2F;**
+     * f[i][j]: 前 i - 1 列已经摆好，且第 i 列的状态为 j 的方案数。
+    *&#x2F;
+    f[0][3] &#x3D; 1;
+    for (int i &#x3D; 1; i &lt;&#x3D; n + 1; i++)
+    &#123;
+        for (int j &#x3D; 0; j &lt; 4; j++)
+        &#123;
+            if (j &#x3D;&#x3D; 0)
+            &#123;
+                f[i &amp; 1][0] +&#x3D; f[i - 1 &amp; 1][j];
+                f[i &amp; 1][1] +&#x3D; f[i - 1 &amp; 1][j];
+                f[i &amp; 1][2] +&#x3D; f[i - 1 &amp; 1][j];
+                f[i &amp; 1][3] +&#x3D; f[i - 1 &amp; 1][j];
+            &#125;
+            else if (j &#x3D;&#x3D; 1)
+            &#123;
+                f[i &amp; 1][2] +&#x3D; f[i - 1 &amp; 1][j];
+                f[i &amp; 1][3] +&#x3D; f[i - 1 &amp; 1][j];
+            &#125;
+            else if (j &#x3D;&#x3D; 2)
+            &#123;
+                f[i &amp; 1][1] +&#x3D; f[i - 1 &amp; 1][j];
+                f[i &amp; 1][3] +&#x3D; f[i - 1 &amp; 1][j];
+            &#125;
+            else
+            &#123;
+                f[i &amp; 1][0] +&#x3D; f[i - 1 &amp; 1][j];
+            &#125;
+            for (int j &#x3D; 0; j &lt; 4; j++)
+                f[i &amp; 1][j] %&#x3D; mod;
+        &#125;
+        for (int j &#x3D; 0; j &lt; 4; j++)
+            f[i + 1 &amp; 1][j] &#x3D; 0;
+    &#125;
+
+    cout &lt;&lt; f[n + 1 &amp; 1][0] &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+
+
+<h2 id="决策单调性优化DP"><a href="#决策单调性优化DP" class="headerlink" title="决策单调性优化DP"></a>决策单调性优化DP</h2><blockquote>
+<p><strong>分治函数：</strong></p>
+<p>$solve(int\ l,  int\ r, int\ ql, int\ qr)$</p>
+<ul>
+<li>$l, r$：待求区间</li>
+<li>$ql,qr$：决策区间</li>
+</ul>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n, k;
+    cin &gt;&gt; n &gt;&gt; k;
+
+    vector&lt;int&gt; a(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; a[i];
+
+    vector&lt;vector&lt;ll&gt;&gt; f(k + 1, vector&lt;ll&gt;(n + 1));
+
+    for (int i &#x3D; 0; i &lt;&#x3D; k; i++)
+        for (int j &#x3D; 0; j &lt;&#x3D; n; j++)
+            f[i][j] &#x3D; 1e18;
+
+    f[0][0] &#x3D; 0;
+
+    ll res &#x3D; 0;
+    int l &#x3D; 1, r &#x3D; 0;
+    vector&lt;int&gt; cnt(n + 1);
+    auto modify &#x3D; [&amp;](int L, int R) -&gt; void
+    &#123;
+        while (r &lt; R)   res +&#x3D; cnt[a[++r]]++;
+        while (l &gt; L)   res +&#x3D; cnt[a[--l]]++;
+        while (r &gt; R)   res -&#x3D; --cnt[a[r--]];
+        while (l &lt; L)   res -&#x3D; --cnt[a[l++]];
+    &#125;;
+    function&lt;void(int, int, int, int ,int)&gt; solve &#x3D; [&amp;](int k, int l, int r, int ql, int qr) -&gt; void
+    &#123;
+        if (l &gt; r)  return ;
+        int mid &#x3D; l + r &gt;&gt; 1, qm;
+        ll mn &#x3D; 1e18;
+
+        for (int i &#x3D; ql; i &lt;&#x3D; qr; i++)
+        &#123;
+            modify(i, mid);
+            if (f[k - 1][i - 1] + res &lt; mn)
+            &#123;
+                mn &#x3D; f[k - 1][i - 1] + res;
+                qm &#x3D; i;
+            &#125;
+        &#125;
+        f[k][mid] &#x3D; mn;
+        solve(k, l, mid - 1, ql, qm);
+        solve(k, mid + 1, r, qm, qr);
+    &#125;;
+
+    for (int i &#x3D; 1; i &lt;&#x3D; k; i++)
+        solve(i, 1, n, 1, n);
+
+    cout &lt;&lt; f[k][n] &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/868/problem/F">F. Yet Another Minimization Problem</a></p>
+<h2 id="记忆化搜索"><a href="#记忆化搜索" class="headerlink" title="记忆化搜索"></a>记忆化搜索</h2><p><mark>模板题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 310;
+
+int n,m;
+int f[N][N];
+int g[N][N];
+
+int dx[] &#x3D; &#123;-1,0,1,0&#125;,dy[] &#x3D; &#123;0,1,0,-1&#125;;
+
+int dp(int x,int y)
+&#123;
+    if(f[x][y] !&#x3D; -1)   return f[x][y];
+
+    int&amp; v &#x3D; f[x][y];
+    
+    v &#x3D; 1;
+    for(int i &#x3D; 0;i &lt; 4;i++)
+    &#123;
+        int nx &#x3D; x + dx[i];
+        int ny &#x3D; y + dy[i];
+        if(nx &lt; 1 || nx &gt; n || ny &lt; 1 || ny &gt; m || g[x][y] &lt;&#x3D; g[nx][ny])    continue;
+        v &#x3D; max(dp(nx,ny) + 1,v);
+    &#125;
+    return v;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    cin &gt;&gt; n &gt;&gt; m;
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+        for(int j &#x3D; 1;j &lt;&#x3D; m;j++)
+            cin &gt;&gt; g[i][j];
+
+    memset(f,-1,sizeof(f));
+
+    int res &#x3D; 0;
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+        for(int j &#x3D; 1;j &lt;&#x3D; m;j++)
+            res &#x3D; max(res,dp(i,j));
+
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/903/">滑雪</a></p>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1851/problem/E">E. Nastya and Potions</a></p>
+<h2 id="DP题单"><a href="#DP题单" class="headerlink" title="DP题单"></a>DP题单</h2><p><strong>类似状态机模型的DP：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57356/K">Box</a></p>
+<p><strong>DP + 树状数组优化：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1637">三元上升子序列</a></p>
+<p><strong>非同寻常的DP定义：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1875/problem/D">D. Jellyfish and Mex</a></p>
+<p><strong>不太好想但又可以想到的DP定义：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/1625/C">C. Road Optimization</a></p>
+<p><strong>第十四届蓝桥杯国赛：试题 A:子 2023</strong></p>
+<p><strong>每个数在 $[1,7]$，相邻两个数的差不超过 $k, k \in [0,6]$，求最小修改次数：</strong> <a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/69408/G">mobiusp 正在创作乐曲</a></p>
+<p><strong>线段树优化DP：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1439">P1439 【模板】最长公共子序列</a></p>
+<p><strong>难想到的dp定义，“以i为左端点，答案数组是右端点”，合并数字：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3147">P3147 [USACO16OPEN] 262144 P</a></p>
+<p><strong>DP难题（目前敢做的最难的一道题叭，将尽可能细的讲解，用到的知识点：DP + 矩阵快速幂 + 优化）：</strong> <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6772">P6772 [NOI2020] 美食家</a></p>
+<hr>
+<p><mark><strong>讲解区：</strong></mark></p>
+<h3 id="类似状态机模型的DP：Box"><a href="#类似状态机模型的DP：Box" class="headerlink" title="类似状态机模型的DP：Box"></a><strong>类似状态机模型的DP：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/57356/K">Box</a></h3><h3 id="DP-树状数组优化：三元上升子序列"><a href="#DP-树状数组优化：三元上升子序列" class="headerlink" title="DP + 树状数组优化：三元上升子序列"></a><strong>DP + 树状数组优化：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1637">三元上升子序列</a></h3><blockquote>
+<p><strong>状态定义：</strong>f[i] [j]：以 $a[j]$ 为结尾的长度为 $i$ 的上升子序列的个数</p>
+<p><strong>状态转移：</strong>$f[i][j]&#x3D; \sum_{k&lt;j,a[k]&lt;a[j]}f[i-1][k]$</p>
+<p><strong>具体来说：</strong>在外层循环 $i$，建立一个树状数组，以 $a[k]$ 为下标存储 $f[i - 1][k]$ 的值。当内层循环到 $j$ 时，$f[i][j] +&#x3D; ask(a[j] - 1)$，然后在转移到下一个 $j$ 之前 $add(a[j], f[i - 1][j])$ 。$j$ 从小到大循环保证了 $k &lt; j$，查询 $f[i - 1][j - 1]$ 的前缀和保证了 $a[k] &lt; a[j]$。</p>
+<p><strong>时间复杂度：</strong>$O(NMlogN)$</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+constexpr int N &#x3D; 3e4 + 10;
+
+int n;
+int a[N], tr[N];
+
+int lowbit(int x)
+&#123;
+    return x &amp; -x;
+&#125;
+
+void add(int x, int v)
+&#123;
+    for (int i &#x3D; x; i &lt;&#x3D; n; i +&#x3D; lowbit(i))
+        tr[i] +&#x3D; v;
+&#125;
+
+int sum(int x)
+&#123;
+    int res &#x3D; 0;
+    for (int i &#x3D; x; i; i -&#x3D; lowbit(i))
+        res +&#x3D; tr[i];
+    return res;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    cin &gt;&gt; n;
+    vector&lt;int&gt; v;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; a[i], v.push_back(a[i]);
+
+    sort(v.begin(), v.end());
+    v.erase(unique(v.begin(), v.end()), v.end());
+
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        a[i] &#x3D; lower_bound(v.begin(), v.end(), a[i]) - v.begin() + 1;
+    
+    vector&lt;vector&lt;ll&gt;&gt; f(4, vector&lt;ll&gt;(n + 1));
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    
+        f[1][i] &#x3D; 1;
+    
+    for (int i &#x3D; 2; i &lt;&#x3D; 3; i++)
+    &#123;
+        memset(tr, 0, sizeof(tr));
+        for (int j &#x3D; 1; j &lt;&#x3D; n; j++)
+        &#123;
+            f[i][j] +&#x3D; sum(a[j] - 1);
+            add(a[j], f[i - 1][j]);
+        &#125;
+    &#125;
+
+    ll res &#x3D; 0;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        res +&#x3D; f[3][i];
+
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+<h3 id="非同寻常的DP定义：D-Jellyfish-and-Mex"><a href="#非同寻常的DP定义：D-Jellyfish-and-Mex" class="headerlink" title="非同寻常的DP定义：D. Jellyfish and Mex"></a><strong>非同寻常的DP定义：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1875/problem/D">D. Jellyfish and Mex</a></h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
+
+#define IOS ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr)
+#define cf(_) int _;cin &gt;&gt; _;while(_--)
+
+mt19937 mrand(random_device&#123;&#125;());
+int rnd(int x) &#123; return mrand() % x;&#125;
+ll gcd(ll a,ll b)&#123;return b ? gcd(b,a % b) : a;&#125;
+
+int main()
+&#123;
+    IOS;
+    cf(_)
+    &#123;
+        int n;
+        cin &gt;&gt; n;
+
+        vector&lt;int&gt; a(n + 1);
+        map&lt;int, int&gt; mp;
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; a[i], mp[a[i]]++;
+        
+        n &#x3D; 0;
+        while (mp[n])    n ++;
+
+        vector&lt;ll&gt; f(n + 1, 1e18);
+        f[n] &#x3D; 0;
+        for (int i &#x3D; n; i &gt;&#x3D; 0; i--)
+        &#123;
+            for (int j &#x3D; i + 1; j &lt;&#x3D; n; j++)
+            &#123;
+                f[i] &#x3D; min(f[i], f[j] + j * (mp[i] - 1) + i);
+            &#125;
+        &#125;
+        
+        cout &lt;&lt; f[0] &lt;&lt; &quot;\n&quot;;
+    &#125;
+    return 0;
+&#125;</code></pre>
+
+<h3 id="不太好想但又可以想到的DP定义：C-Road-Optimization"><a href="#不太好想但又可以想到的DP定义：C-Road-Optimization" class="headerlink" title="不太好想但又可以想到的DP定义：C. Road Optimization"></a><strong>不太好想但又可以想到的DP定义：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/1625/C">C. Road Optimization</a></h3><blockquote>
+<p><strong>定义：</strong>$f[i][j]$：前 $i$ 个标志，第 $i$ 个标志未被移除，且已经移除了 $j$ 个标志的答案集合。</p>
+<p><strong>转移：</strong>枚举前一个位置 $k$ ：$f[i][j] &#x3D; f[k][j - (i - 1 - k)] + (i - 1 - k) * v[k]$，其中 $(i - 1 - k)$ 是从 $k$ 到 $i$ 位置内，所有的移除个数。</p>
+<p><strong>时间复杂度：</strong>$O(n^3)$</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+void solve()
+&#123;
+    int n, m, k;
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; k;
+
+    vector&lt;int&gt; d(n + 2);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; d[i];
+    d[n + 1] &#x3D; m;
+
+    vector&lt;ll&gt; v(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; v[i];
+
+    vector&lt;vector&lt;ll&gt;&gt; f(n + 2, vector&lt;ll&gt;(n + 1, 1e18));
+    f[1][0] &#x3D; 0;
+    for (int i &#x3D; 2; i &lt;&#x3D; n + 1; i++)
+    &#123;
+        for (int j &#x3D; 0; j &lt;&#x3D; k; j++)
+        &#123;
+            for (int z &#x3D; 1;z &lt;&#x3D; i - 1; z++)
+            &#123;
+                int t &#x3D; i - 1 - z;
+                ll w &#x3D; v[z] * (d[i] - d[z]);
+                if (t &gt; j)  continue;
+                f[i][j] &#x3D; min(f[i][j], f[z][j - t] + w);
+            &#125;
+        &#125;
+    &#125;
+
+    ll res &#x3D; 1e18;
+    for (int i &#x3D; 0; i &lt;&#x3D; k; i++)
+        res &#x3D; min(res, f[n + 1][i]);
+
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    solve();
+    
+    return 0;
+&#125;</code></pre>
+
+<h3 id="第十四届蓝桥杯国赛：试题-A-子-2023"><a href="#第十四届蓝桥杯国赛：试题-A-子-2023" class="headerlink" title="第十四届蓝桥杯国赛：试题 A:子 2023"></a>第十四届蓝桥杯国赛：试题 A:子 2023</h3><p><strong>题意：</strong>给点数字串，问有多少 $2023$ 的子序列？</p>
+<p><strong>思路：</strong></p>
+<blockquote>
+<p>当遇到字符 ‘2’ 的时候字符串 “2” 的数量+1，字符串 “202” 的数量加上字符串 “20” 的数量<br>当遇到字符 ‘0’ 的时候字符串 “20” 的数量加上字符串 “2” 的数量<br>当遇到字符 ‘3’ 的时候字符串 “2023” 的数量加上字符串 “202” 的数量</p>
+</blockquote>
+<p>非常妙的想法，但是我却想不出来qwq。。。</p>
+<p><strong>代码：</strong></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    string s;
+    for (int i &#x3D; 1; i &lt;&#x3D; 2023; i++)
+    &#123;
+        s +&#x3D; to_string(i);
+    &#125;
+
+    vector&lt;ll&gt; f(5); &#x2F;&#x2F; 2, 20, 202, 2023
+    
+    for (int i &#x3D; 0; i &lt; s.size(); i++)
+    &#123;
+        if (s[i] &#x3D;&#x3D; &#39;2&#39;)    f[0] ++, f[2] +&#x3D; f[1];
+        else if (s[i] &#x3D;&#x3D; &#39;0&#39;)   f[1] +&#x3D; f[0];
+        else if (s[i] &#x3D;&#x3D; &#39;3&#39;) f[3] +&#x3D; f[2];
+    &#125;
+
+    cout &lt;&lt; f[3] &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+<h3 id="每个数在-1-7-，相邻两个数的差不超过-k-k-in-0-6-，求最小修改次数-mobiusp-正在创作乐曲"><a href="#每个数在-1-7-，相邻两个数的差不超过-k-k-in-0-6-，求最小修改次数-mobiusp-正在创作乐曲" class="headerlink" title="每个数在 $[1,7]$，相邻两个数的差不超过 $k, k \in [0,6]$，求最小修改次数 mobiusp 正在创作乐曲"></a>每个数在 $[1,7]$，相邻两个数的差不超过 $k, k \in [0,6]$，求最小修改次数 <a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/69408/G">mobiusp 正在创作乐曲</a></h3><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n, m;
+    cin &gt;&gt; n &gt;&gt; m;
+
+    vector&lt;int&gt; a(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; a[i];
+
+    vector&lt;vector&lt;int&gt;&gt; dp(n + 1, vector&lt;int&gt;(8, 1e9 + 7));
+    for (int i &#x3D; 1; i &lt;&#x3D; 7; i++)    dp[0][i] &#x3D; 0;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        for (int j &#x3D; 1; j &lt;&#x3D; 7; j++)
+        &#123;
+            for (int k &#x3D; 1; k &lt;&#x3D; 7; k++)
+            &#123;
+                if (abs(j - k) &lt;&#x3D; m)
+                &#123;
+                    dp[i][j] &#x3D; min(dp[i][j], dp[i - 1][k] + (j !&#x3D; a[i]));
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+
+    int res &#x3D; 1e9;
+    for (int i &#x3D; 1; i &lt;&#x3D; 7; i++)    
+    &#123;
+        res &#x3D; min(res, dp[n][i]);
+    &#125;
+
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+<h3 id="线段树优化DP"><a href="#线段树优化DP" class="headerlink" title="线段树优化DP"></a>线段树优化DP</h3><p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1439">P1439 【模板】最长公共子序列</a></p>
+<p><strong>题意：</strong> 给定 $2$ 个长度为 $n(n \le 10^5)$ 且均是全排列的数组，问最长公共子序列长度是多少？</p>
+<p><strong>思路：</strong></p>
+<p>自己写出来的！</p>
+<p>由于是全排列，每个数位置都不同，通过观察发现，依次枚举 $a$ 数组，对于该数在 $b$ 数组中的位置可以发现，如果左边有出现过的数，那么加上这个数，最长公共子序列是会增加的。因此，我们每次需要查看左边最大的数是多少，然后在当前位置的最长公共子序列就会+1，即单点修改，区间查询最大值操作，故用线段树。</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1e5 + 10;
+
+struct Node
+&#123;
+    int l, r;
+    int mx;
+&#125;tr[N &lt;&lt; 2];
+
+void pushup(int u)
+&#123;
+    tr[u].mx &#x3D; max(tr[u &lt;&lt; 1].mx, tr[u &lt;&lt; 1 | 1].mx);
+&#125;
+
+void build(int u, int l, int r)
+&#123;
+    tr[u] &#x3D; &#123;l, r&#125;;
+    if (l &#x3D;&#x3D; r) return ;
+    int mid &#x3D; l + r &gt;&gt; 1;
+    build(u &lt;&lt; 1, l, mid), build(u &lt;&lt; 1 | 1, mid + 1, r);
+&#125;
+
+void modify(int u, int pos, int v)
+&#123;
+    if (tr[u].l &#x3D;&#x3D; tr[u].r &amp;&amp; tr[u].l &#x3D;&#x3D; pos)
+    &#123;
+        tr[u].mx &#x3D; v;
+        return;
+    &#125;
+    int mid &#x3D; tr[u].l + tr[u].r &gt;&gt; 1;
+    if (pos &lt;&#x3D; mid) modify(u &lt;&lt; 1, pos, v);
+    else    modify(u &lt;&lt; 1 | 1, pos, v);
+    pushup(u);
+&#125;
+
+int query(int u, int l, int r)
+&#123;
+    if (l &lt;&#x3D; tr[u].l &amp;&amp; r &gt;&#x3D; tr[u].r)   return tr[u].mx;
+    int mid &#x3D; tr[u].l + tr[u].r &gt;&gt; 1;
+    int res &#x3D; 0;
+    if (l &lt;&#x3D; mid)   res &#x3D; max(res, query(u &lt;&lt; 1, l, r));
+    if (r &gt; mid)    res &#x3D; max(res, query(u &lt;&lt; 1 | 1, l, r));
+    return res;
+&#125;
+
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;int&gt; a(n + 1);
+    vector&lt;int&gt; b(n + 1);
+
+    vector&lt;int&gt; pos(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; a[i];
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; b[i], pos[b[i]] &#x3D; i;
+
+    build(1, 1, n);
+
+    vector&lt;int&gt; f(n + 1);
+    int res &#x3D; 0;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        f[pos[a[i]]] &#x3D; query(1, 1, pos[a[i]]) + 1;
+        modify(1, pos[a[i]], f[pos[a[i]]]);
+        res &#x3D; max(res, f[pos[a[i]]]);
+    &#125;
+
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+<h3 id="难想到的dp定义，“以i为左端点，答案数组是右端点”，合并数字"><a href="#难想到的dp定义，“以i为左端点，答案数组是右端点”，合并数字" class="headerlink" title="难想到的dp定义，“以i为左端点，答案数组是右端点”，合并数字"></a>难想到的dp定义，“以i为左端点，答案数组是右端点”，合并数字</h3><p><strong>题目：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3147">P3147 [USACO16OPEN] 262144 P</a></p>
+<p><strong>题意：</strong>给定数组，相邻两个数字相同可以合并为一个大一的数，问最终最大数字是多少？</p>
+<p><strong>数据范围：</strong> $n \le 2e5, a_i &lt;&#x3D; 40$</p>
+<p><strong>思路：</strong></p>
+<ul>
+<li>最大数字不会超过60；</li>
+<li>定义 $f[i][j]$：以 $i$ 为左端点，合成 $j$ 的右端点在哪</li>
+<li>则：$f[i][j] &#x3D; f[f[i][j - 1] + 1][j - 1]$</li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;int&gt; a(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; a[i];
+
+    vector&lt;vector&lt;int&gt;&gt; f(n + 1, vector&lt;int&gt;(61));
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        f[i][a[i]] &#x3D; i;
+    &#x2F;*
+    f[i][j]: 以i为起点，凑出j的右端点
+    f[i][j + 1] &#x3D; f[f[i][j] + 1][j]
+    枚举起点!
+    *&#x2F;
+    int mx &#x3D; 0;
+    for (int j &#x3D; 1; j &lt;&#x3D; 60; j++)
+    &#123;
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        &#123;         
+            if (!f[i][j - 1] || f[i][j - 1] &#x3D;&#x3D; n || !f[f[i][j - 1] + 1][j - 1])  continue;
+            f[i][j] &#x3D; f[f[i][j - 1] + 1][j - 1];
+            mx &#x3D; max(mx, j);
+        &#125;
+    &#125;
+
+
+    cout &lt;&lt; mx &lt;&lt; &#39;\n&#39;;
+    return 0;
+&#125;</code></pre>
+
+<h3 id="DP难题（目前敢做的最难的一道题叭，将尽可能细的讲解，用到的知识点：DP-矩阵快速幂-优化）："><a href="#DP难题（目前敢做的最难的一道题叭，将尽可能细的讲解，用到的知识点：DP-矩阵快速幂-优化）：" class="headerlink" title="DP难题（目前敢做的最难的一道题叭，将尽可能细的讲解，用到的知识点：DP + 矩阵快速幂 + 优化）："></a>DP难题（目前敢做的最难的一道题叭，将尽可能细的讲解，用到的知识点：DP + 矩阵快速幂 + 优化）：</h3><p><strong>题意：</strong> $n$ 个点 $m$ 条边，点上有正权值，通过一条边需要一定的时间，在特定时间，某个点（城市）会举办美食节，会额外获取正权值收益。从 $1$ 号点出发，在第 $T$ 天正好回到 $1$ 号点。中途不能停留，问能获得的最大权值是多少？</p>
+<p><strong>数据范围：</strong></p>
+<p>$1 \leq n \leq 50$，$n \leq m \leq 501$，$0 \leq k \leq 200$，$1 \leq t_i \leq T \leq 10^9$。</p>
+<p>$1 \leq w_i \leq 5$，$1 \leq c_i \leq 52501$，$1 \leq u_i, v_i, x_i \leq n$，$1 \leq y_i \leq 10^9$。</p>
+<p>在 $T$ 较小的时候，可以用<mark>暴力DP</mark>简单骗取 $40$ 分：</p>
+<p><strong>暴力DP思路：</strong></p>
+<p>定义： $f[i][u]:$ 第 $i$ 天到达点 $u$ 的最大权值。</p>
+<p>转移：$f[i + w][v] &#x3D; f[i][u] + a[v] + val(是否有该天美食节的贡献)$</p>
+<p>注意到这是一个图类的 $dp$，但由于有环，递归 $dp$ 的话没处理成功，找了好久，终于找到一个有暴力写法的题解！他是用枚举来替代递归 $dp$ 的，看完后觉得确实是这样，竟然还能这样，折磨牛！</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int, int&gt; pii;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n, m, T, k;
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; T &gt;&gt; k;
+
+    vector&lt;vector&lt;pii&gt;&gt; g(n + 1);
+
+    vector&lt;int&gt; happy(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; happy[i];
+    for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
+    &#123;
+        int a, b, c;
+        cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+        g[a].push_back(&#123;b, c&#125;);
+    &#125;
+
+    map&lt;int, pii&gt; mp;
+    for (int i &#x3D; 1; i &lt;&#x3D; k; i++)    
+    &#123;
+        int t, x, y;
+        cin &gt;&gt; t &gt;&gt; x &gt;&gt; y;
+        mp[t] &#x3D; &#123;x, y&#125;;
+    &#125;
+
+    vector&lt;vector&lt;ll&gt;&gt; f(T + 1, vector&lt;ll&gt;(n + 1, -1e18));
+    f[0][1] &#x3D; happy[1];
+
+    for (int i &#x3D; 0; i &lt;&#x3D; T; i++)
+    &#123;
+        for (int u &#x3D; 1; u &lt;&#x3D; n; u++)
+        &#123;
+            if (f[i][u] &lt; 0)    continue;
+            for (auto [v, w] : g[u])
+            &#123;
+                if (i + w &gt; T)  continue;
+                f[i + w][v] &#x3D; max(f[i + w][v], f[i][u] + happy[v] + (mp.count(i + w) &amp;&amp; mp[i + w].first &#x3D;&#x3D; v ? mp[i + w].second : 0));
+            &#125;
+        &#125;
+    &#125;
+
+    if (f[T][1] &lt;&#x3D; 0) cout &lt;&lt; -1;
+    else    cout &lt;&lt; f[T][1];
+    return 0;
+&#125;</code></pre>
+
+<p><strong>正解思路：</strong></p>
+<p>准备好头脑爆炸了吗？感觉得分多步讲解，已经开始瑟瑟发抖了qwq</p>
+<p>科二挂了，不想学了。。。</p>
+<p>过了两天，不太难受了，又来补题了。。。</p>
+<hr>
+<p>对于这么大的时间 $T$，我们可以猜到使用矩阵快速幂来优化。</p>
+<p>即将答案变成：$dp[T] &#x3D; dp[0] * G^T$ 的形式。</p>
+<p>其中 $G$ 是边之间的关系，没有边的话咋初始化为 $-INF$，否则为边权。 $dp[0]$ 是初始的情况，为 $1$ 行 $5 * n$ 的向量（至于为什么是 $5*n$ 下面会提到）。</p>
+<p>由于边权最大为 $5$，而矩阵转移都是从 $dp[i - 1]$ 转移到 $dp[i]$ 的形式，因此达到矩阵的要求，我们进行拆边，将长度为 $5$ 的边拆成多个点相连，即：$(u, v, w &#x3D; 5) &#x3D; u \rightarrow u2\rightarrow u3\rightarrow u4\rightarrow u5\rightarrow v$，这样一条边会多出成 $4$ 个点，最终可能会高达 $n + 4m$ 个点，但 $m &#x3D; 500, n &#x3D; 50$，如果拆边，会有 $2000$ 多个点，矩阵乘法的复杂度是 $O(n^3)$ ，可能会直接导致这样一个简单运算就超时了，因此拆边不划算，下面考虑拆点。</p>
+<p>拆点：将 $(u\rightarrow v,w&#x3D;5)$ 拆成：$(u\rightarrow u2,w&#x3D;0), (u2-&gt;u3,w&#x3D;0),(u3\rightarrow u4,w&#x3D;0),(u4\rightarrow u5,w&#x3D;0),(u5 \rightarrow v,w&#x3D;c[v])$，刚好经过 $k$ 条边，达到从 $dp[i]$ 转移到 $dp[i + w]$ 的效果。</p>
+<p>对于美食节的影响，由于当天只有一个城市会举办美食节，因此从小到大排序，然后依次转移即可。</p>
+<p>时间复杂度：$O(k(5n)^3logT)$</p>
+<p>只能通过部分样例，得了45分（当然这只是没有加上其他特判和暴力的情况下得的分），<strong>代码如下：</strong></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+const int N &#x3D; 55 * 5;
+const ll INF &#x3D; 1e18;
+
+struct Matrix
+&#123;
+    int n;
+    ll a[N][N];
+    Matrix() &#123;
+        n &#x3D; 0;
+        for (int i &#x3D; 0; i &lt; N; i++)
+            for (int j &#x3D; 0; j &lt; N; j++)
+                a[i][j] &#x3D; -INF;
+    &#125;
+    Matrix operator* (const Matrix&amp; m) &#123;
+        Matrix c;
+        c.n &#x3D; m.n;
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++) &#123;
+            for (int j &#x3D; 1; j &lt;&#x3D; n; j++) &#123;
+                for (int k &#x3D; 1; k &lt;&#x3D; n; k++) &#123;
+                    if (a[i][k] &#x3D;&#x3D; -INF || m.a[k][j] &#x3D;&#x3D; -INF)   continue;
+                    c.a[i][j] &#x3D; max(c.a[i][j], a[i][k] + m.a[k][j]);
+                &#125;
+            &#125;
+        &#125;
+        return c;
+    &#125;
+&#125;;
+
+struct Festival
+&#123;
+    int t, u, w;
+    bool operator&lt; (const Festival&amp; f) const &#123;
+        return t &lt; f.t;
+    &#125;
+&#125;;
+
+Matrix trans, res;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n, m, T, k;
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; T &gt;&gt; k;
+
+    vector&lt;int&gt; happy(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; happy[i];
+
+    
+    trans.n &#x3D; n * 5;
+    vector&lt;vector&lt;int&gt;&gt; id(n + 1, vector&lt;int&gt;(6));
+    int idx &#x3D; 0;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        for (int j &#x3D; 1; j &lt;&#x3D; 5; j++)
+            id[i][j] &#x3D; ++idx;
+        for (int j &#x3D; 1; j &lt; 5; j++)
+            trans.a[id[i][j]][id[i][j + 1]] &#x3D; 0;
+    &#125;
+
+    for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
+    &#123;
+        int u, v, w;
+        cin &gt;&gt; u &gt;&gt; v &gt;&gt; w;
+        trans.a[id[u][w]][id[v][1]] &#x3D; happy[v];
+    &#125;
+
+    vector&lt;Festival&gt; day(k + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; k; i++)
+        cin &gt;&gt; day[i].t &gt;&gt; day[i].u &gt;&gt; day[i].w;
+    
+    sort(day.begin() + 1, day.end());
+
+    res.n &#x3D; n * 5;
+    res.a[1][id[1][1]] &#x3D; happy[1];
+
+    auto fpow &#x3D; [&amp;](Matrix a, int b) -&gt; Matrix
+    &#123;
+        while (b)
+        &#123;
+            if (b &amp; 1)  res &#x3D; res * a;
+            a &#x3D; a * a;
+            b &gt;&gt;&#x3D; 1;
+        &#125;
+        return res;
+    &#125;;
+
+    int last &#x3D; 0;
+    for (int i &#x3D; 1; i &lt;&#x3D; k; i++)
+    &#123;
+        res &#x3D; fpow(trans, day[i].t - last);
+        if (res.a[1][id[day[i].u][1]] !&#x3D; -INF) &#123;
+            res.a[1][id[day[i].u][1]] +&#x3D; day[i].w;
+        &#125;
+        last &#x3D; day[i].t;
+    &#125;
+
+    if (last !&#x3D; T) &#123;
+        res &#x3D; fpow(trans, T - last);
+    &#125;
+
+    if (res.a[1][id[1][1]] &#x3D;&#x3D; -INF)   cout &lt;&lt; -1 &lt;&lt; &quot;\n&quot;;
+    else    cout &lt;&lt; res.a[1][id[1][1]] &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+<p>考虑到，每次乘的转移矩阵是一样的，可以提前将幂次（$G^{2^0},G^{2^1},\cdots G^{2^{29}}$）预处理好，这部分的时间复杂度为：$O((5n)^3logT)$。由于答案矩阵是 $1$ 行 $5n$ 的矩阵向量，因此优化了一维，最终总时间复杂度变成了：$O((5n)^3logT + k(5n)^2logT)$，最终 $AC$ 代码如下：</p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+const int N &#x3D; 55 * 5;
+const ll INF &#x3D; 1e18;
+
+struct Matrix
+&#123;
+    int n;
+    ll a[N][N];
+    Matrix() &#123;
+        n &#x3D; 0;
+        for (int i &#x3D; 0; i &lt; N; i++)
+            for (int j &#x3D; 0; j &lt; N; j++)
+                a[i][j] &#x3D; -INF;
+    &#125;
+    Matrix operator* (const Matrix&amp; m) &#123;
+        Matrix c;
+        c.n &#x3D; m.n;
+        for (int i &#x3D; 1; i &lt;&#x3D; n; i++) &#123;
+            for (int j &#x3D; 1; j &lt;&#x3D; n; j++) &#123;
+                for (int k &#x3D; 1; k &lt;&#x3D; n; k++) &#123;
+                    if (a[i][k] &#x3D;&#x3D; -INF || m.a[k][j] &#x3D;&#x3D; -INF)   continue;
+                    c.a[i][j] &#x3D; max(c.a[i][j], a[i][k] + m.a[k][j]);
+                &#125;
+            &#125;
+        &#125;
+        return c;
+    &#125;
+&#125;;
+
+struct Festival
+&#123;
+    int t, u, w;
+    bool operator&lt; (const Festival&amp; f) const &#123;
+        return t &lt; f.t;
+    &#125;
+&#125;;
+
+Matrix trans, res;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n, m, T, k;
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; T &gt;&gt; k;
+
+    vector&lt;int&gt; happy(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; happy[i];
+
+    
+    trans.n &#x3D; n * 5;
+    vector&lt;vector&lt;int&gt;&gt; id(n + 1, vector&lt;int&gt;(6));
+    int idx &#x3D; 0;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        for (int j &#x3D; 1; j &lt;&#x3D; 5; j++)
+            id[i][j] &#x3D; ++idx;
+        for (int j &#x3D; 1; j &lt; 5; j++)
+            trans.a[id[i][j]][id[i][j + 1]] &#x3D; 0;
+    &#125;
+
+    for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
+    &#123;
+        int u, v, w;
+        cin &gt;&gt; u &gt;&gt; v &gt;&gt; w;
+        trans.a[id[u][w]][id[v][1]] &#x3D; happy[v];
+    &#125;
+
+    vector&lt;Festival&gt; day(k + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; k; i++)
+        cin &gt;&gt; day[i].t &gt;&gt; day[i].u &gt;&gt; day[i].w;
+    
+    sort(day.begin() + 1, day.end());
+
+    res.n &#x3D; n * 5;
+    res.a[1][id[1][1]] &#x3D; happy[1];
+
+    vector&lt;Matrix&gt; pre_trans(30);
+    pre_trans[0] &#x3D; trans;
+    for (int i &#x3D; 1; i &lt; 30; i++)
+        pre_trans[i] &#x3D; pre_trans[i - 1] * pre_trans[i - 1];
+
+    auto fpow &#x3D; [&amp;](Matrix&amp; A, int b) -&gt; void
+    &#123;
+        for (int i &#x3D; 0; i &lt;&#x3D; 30; i++)
+        &#123;
+            if (!(b &gt;&gt; i &amp; 1))  continue;
+            Matrix t;
+            t.n &#x3D; A.n;
+            for (int j &#x3D; 1; j &lt;&#x3D; A.n; j++)
+            &#123;
+                for (int k &#x3D; 1; k &lt;&#x3D; A.n; k++)
+                &#123;
+                    if (A.a[1][k] &#x3D;&#x3D; -INF || pre_trans[i].a[k][j] &#x3D;&#x3D; -INF)  continue;
+                    t.a[1][j] &#x3D; max(t.a[1][j], A.a[1][k] + pre_trans[i].a[k][j]);
+                &#125;
+            &#125;
+            A &#x3D; t;
+        &#125;
+    &#125;;
+
+    int last &#x3D; 0;
+    for (int i &#x3D; 1; i &lt;&#x3D; k; i++)
+    &#123;
+        fpow(res, day[i].t - last);
+        if (res.a[1][id[day[i].u][1]] !&#x3D; -INF) &#123;
+            res.a[1][id[day[i].u][1]] +&#x3D; day[i].w;
+        &#125;
+        last &#x3D; day[i].t;
+    &#125;
+
+    if (last !&#x3D; T) &#123;
+        fpow(res, T - last);
+    &#125;
+
+    if (res.a[1][id[1][1]] &#x3D;&#x3D; -INF)   cout &lt;&lt; -1 &lt;&lt; &quot;\n&quot;;
+    else    cout &lt;&lt; res.a[1][id[1][1]] &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">重生带我走</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://318471543.github.io/2024/10/08/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">https://318471543.github.io/2024/10/08/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">重生带我走</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+                                    <span class="chip bg-color">动态规划</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2024/10/08/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="博客搭建记">
+                        
+                        <span class="card-title">博客搭建记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-10-08
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            重生带我走
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%8D%9A%E5%AE%A2%E7%AC%AC%E4%B8%80%E5%A4%A9/">
+                        <span class="chip bg-color">博客第一天</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/10/08/dp%E9%A2%98%E5%8D%95/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="dp题单">
+                        
+                        <span class="card-title">dp题单</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-10-08
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            重生带我走
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/dp%E9%A2%98%E5%8D%95/">
+                        <span class="chip bg-color">dp题单</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2024</span>
+            
+            <a href="/about" target="_blank">重生带我走</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/318471543" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:318471543@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=318471543" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 318471543" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5545924159" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5545924159" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/shen-mu-yi-35" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/shen-mu-yi-35" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

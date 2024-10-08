@@ -1,0 +1,4532 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="图论, 重生带我走">
+    <meta name="description" content="搜索排列模板题：排列数字
+手写全排列：
+#include&amp;lt;bits&amp;#x2F;stdc++.h&amp;gt;
+
+using namespace std;
+
+const int N &amp;#x3D; 20;
+
+int n;
+int st[N];
+">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>图论 | 重生带我走</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">重生带我走</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">重生带我走</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">图论</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                <span class="chip bg-color">图论</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-10-08
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h2><h3 id="排列"><a href="#排列" class="headerlink" title="排列"></a>排列</h3><p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/844/">排列数字</a></p>
+<p><mark>手写全排列：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 20;
+
+int n;
+int st[N];
+vector&lt;int&gt; v;
+void dfs(int cnt&#x2F;*当前已经选了多少个数*&#x2F;)
+&#123;
+    if(cnt &#x3D;&#x3D; n)
+    &#123;
+        for(auto x : v) cout &lt;&lt; x &lt;&lt; &quot; &quot;;
+        cout &lt;&lt; &quot;\n&quot;;
+        return ;
+    &#125;
+
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+    &#123;
+        if(st[i])   continue;&#x2F;&#x2F;st数组:保证之前选过的数字不能再选了
+        st[i] &#x3D; true;
+        v.push_back(i);
+        dfs(cnt + 1);
+        st[i] &#x3D; false;
+        v.pop_back();
+    &#125;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    cin &gt;&gt; n;
+    dfs(0);
+    return 0;
+&#125;</code></pre>
+
+<p><mark>调用函数实现：</mark></p>
+<blockquote>
+<p>首先，请记住：next_permutation() 函数！</p>
+<p>iota函数()：前两个参数是范围，第三个参数是初值是多少，之后每个元素都从初值递增1。</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int n;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    cin &gt;&gt; n;
+    vector&lt;int&gt; a(n + 1);
+    iota(a.begin(),a.end(),0);
+    do
+    &#123;
+        for(int i &#x3D; 1;i &lt; a.size();i++) cout &lt;&lt; a[i] &lt;&lt; &quot; \n&quot;[i &#x3D;&#x3D; a.size() - 1];
+    &#125; while (next_permutation(a.begin() + 1,a.end()));
+    
+    return 0;
+&#125;</code></pre>
+
+<h3 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h3><blockquote>
+<p>与排列所不同的是：需要按照顺序组合，即多加一个参数cur：表示当前要从第几个数开始，有了这种顺序后，就可以不用st数组判重了。</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">void dfs(int cur&#x2F;*当前是第几个数*&#x2F;,int cnt&#x2F;*当前已经选了多少个数*&#x2F;)
+&#123;
+    if(cnt &#x3D;&#x3D; select)&#x2F;&#x2F;从n个数中选select个
+    &#123;
+        for(auto x : v) cout &lt;&lt; x &lt;&lt; &quot; &quot;;
+        cout &lt;&lt; &quot;\n&quot;;
+        return ;
+    &#125;
+
+    for(int i &#x3D; cur;i &lt;&#x3D; n;i++)
+    &#123;
+        v.push_back(i);
+        dfs(i + 1,cnt + 1);
+        v.pop_back();
+    &#125;
+&#125;&#x2F;&#x2F;如果用dfs(1,0)调用：表示数组元素从1开始,当前已经选了0个数。</code></pre>
+
+<h3 id="模拟退火"><a href="#模拟退火" class="headerlink" title="模拟退火"></a>模拟退火</h3><p><mark>模板题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+#define x first 
+#define y second
+
+typedef pair&lt;double,double&gt; pdd;
+const int N &#x3D; 110;
+
+int n;
+pdd q[N];
+double ans &#x3D; 1e8;
+
+double rand(double l,double r)
+&#123;
+    return (double)rand() &#x2F; RAND_MAX * (r - l) + l;
+&#125;
+
+double get_dist(pdd a,pdd b)
+&#123;
+    double dx &#x3D; a.x - b.x;
+    double dy &#x3D; a.y - b.y;
+    return sqrt(dx * dx + dy * dy);
+&#125;
+
+double calc(pdd p)
+&#123;
+    double res &#x3D; 0;
+    for(int i &#x3D; 0;i &lt; n;i++)
+        res +&#x3D; get_dist(p,q[i]);
+    ans &#x3D; min(ans,res);
+    return res;
+&#125;
+
+void simulate_anneal()
+&#123;
+    pdd cur(rand(0,10000),rand(0,10000));&#x2F;&#x2F;随机一个初始点
+    for(double t &#x3D; 1e4;t &gt; 1e-4;t *&#x3D; 0.9)
+    &#123;
+        pdd np(rand(cur.x - t,cur.x + t),rand(cur.y - t,cur.y + t));&#x2F;&#x2F;在当前点周围随机一个点
+        double dt &#x3D; calc(np) - calc(cur);
+        if(exp(-dt &#x2F; t) &gt; rand(0,1))    cur &#x3D; np;
+    &#125;
+&#125;
+
+int main()
+&#123;
+    scanf(&quot;%d&quot;,&amp;n);
+    for(int i &#x3D; 0;i &lt; n;i++)    scanf(&quot;%lf%lf&quot;,&amp;q[i].x,&amp;q[i].y);
+    for(int i &#x3D; 0;i &lt; 100;i++)  simulate_anneal();
+
+    printf(&quot;%.0lf\n&quot;,ans);
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/3170/">星星还是树</a></p>
+<h2 id="树"><a href="#树" class="headerlink" title="树"></a>树</h2><h3 id="给定中、后序遍历，求层次序"><a href="#给定中、后序遍历，求层次序" class="headerlink" title="给定中、后序遍历，求层次序"></a>给定中、后序遍历，求层次序</h3><p><strong>题目链接：</strong><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/994805069361299456"><strong>L2-006 树的遍历</strong></a></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 35;
+
+struct Tree
+&#123;
+    int l,r;
+&#125;tr[N];
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;int&gt; pos(n + 1),mid(n + 1);
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; pos[i];
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; mid[i];
+
+    auto get &#x3D; [&amp;](int l,int r,int k) -&gt; int
+    &#123;
+        for(int i &#x3D; l;i &lt;&#x3D; r;i++)
+            if(mid[i] &#x3D;&#x3D; k) return i;
+        return -1;
+    &#125;;
+    &#x2F;&#x2F;参数:后序遍历区间、中序遍历区间     返回值:根
+    function&lt;int(int,int,int,int)&gt; build &#x3D; [&amp;](int pl,int pr,int ml,int mr) -&gt; int
+    &#123;
+        int root &#x3D; pos[pr];&#x2F;&#x2F;根
+        int idx &#x3D; get(ml,mr,root);&#x2F;&#x2F;根在中序的下标
+        &#x2F;&#x2F;如果有左、右孩子
+        if(ml &lt; idx)    tr[root].l &#x3D; build(pl,pl + idx - ml - 1,ml,idx - 1);
+        if(idx &lt; mr)    tr[root].r &#x3D; build(pl + idx - ml,pr - 1,idx + 1,mr);
+        return root;
+    &#125;;
+    &#x2F;&#x2F;输出层次遍历
+    auto bfs &#x3D; [&amp;]() -&gt; void
+    &#123;
+        int root &#x3D; pos[n];
+        queue&lt;int&gt; q;
+        q.push(root);
+        vector&lt;int&gt; res;
+        while (!q.empty())
+        &#123;
+            auto t &#x3D; q.front();
+            res.push_back(t);
+            q.pop();
+
+            if(tr[t].l) q.push(tr[t].l);
+            if(tr[t].r) q.push(tr[t].r);
+        &#125;
+        for(int i &#x3D; 0;i &lt; res.size();i++)
+            cout &lt;&lt; res[i] &lt;&lt; &quot; \n&quot;[i + 1 &#x3D;&#x3D; res.size()];
+    &#125;;
+
+    build(1,n,1,n);
+    bfs();
+
+    return 0;
+&#125;</code></pre>
+
+<h3 id="给定中、前序遍历，求层次序"><a href="#给定中、前序遍历，求层次序" class="headerlink" title="给定中、前序遍历，求层次序"></a>给定中、前序遍历，求层次序</h3><p><strong>题目链接：</strong><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/994805046380707840/exam/problems/994805065406070784"><strong>L2-011 玩转二叉树</strong></a></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 35;
+
+struct Node
+&#123;
+    int l,r;
+&#125;tr[N];
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;int&gt; pre(n + 1),mid(n + 1);
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; mid[i];
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cin &gt;&gt; pre[i];
+
+    auto get &#x3D; [&amp;](int l,int r,int k) -&gt; int
+    &#123;
+        for(int i &#x3D; l;i &lt;&#x3D; r;i++)
+            if(mid[i] &#x3D;&#x3D; k) return i;
+        return -1;
+    &#125;;
+
+    function&lt;int(int,int,int,int)&gt; build &#x3D; [&amp;](int pl,int pr,int ml,int mr) -&gt; int
+    &#123;
+        int root &#x3D; pre[pl];
+        int k &#x3D; get(ml,mr,root);
+        if(ml &lt; k)  tr[root].l &#x3D; build(pl + 1,pl + k - ml - 1,ml,k - 1);
+        if(mr &gt; k)  tr[root].r &#x3D; build(pl + k - ml + 1,pr,k + 1,mr);
+        return root;
+    &#125;;
+
+    build(1,n,1,n);
+
+    function&lt;void(int u)&gt; dfs &#x3D; [&amp;](int u) -&gt; void
+    &#123;
+        if(tr[u].l) dfs(tr[u].l);
+        if(tr[u].r) dfs(tr[u].r);
+        swap(tr[u].l,tr[u].r);
+    &#125;;
+
+    dfs(pre[1]);
+
+    auto bfs &#x3D; [&amp;]() -&gt; void
+    &#123;
+        queue&lt;int&gt; q;
+        q.push(pre[1]);
+        vector&lt;int&gt; res;
+        while (!q.empty())
+        &#123;
+            auto t &#x3D; q.front();
+            q.pop();
+            res.push_back(t);
+            if(tr[t].l) q.push(tr[t].l);
+            if(tr[t].r) q.push(tr[t].r);
+        &#125;
+        for(int i &#x3D; 0;i &lt; res.size();i++)
+            cout &lt;&lt; res[i] &lt;&lt; &quot; \n&quot;[i + 1 &#x3D;&#x3D; res.size()];
+    &#125;;
+
+    bfs();
+    &#x2F;&#x2F; for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; tr[i].l &lt;&lt; &quot; &quot; &lt;&lt; tr[i].r &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+<h3 id="树的直径"><a href="#树的直径" class="headerlink" title="树的直径"></a>树的直径</h3><blockquote>
+<p><strong>方法：</strong></p>
+<ol>
+<li>从树的任一点 $u$ 开始搜索，找到距离 $u$ 最远的点 $v$；</li>
+<li>以 $v$ 为根再次搜索找距离 $v$ 最远的点 $x$，则 $dist[v][x]$ 即为树的直径。</li>
+</ol>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
+
+#define IOS ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr)
+#define cf(_) int _;cin &gt;&gt; _;while(_--)
+
+mt19937 mrand(random_device&#123;&#125;());
+int rnd(int x) &#123; return mrand() % x;&#125;
+ll gcd(ll a,ll b)&#123;return b ? gcd(b,a % b) : a;&#125;
+
+void solve()
+&#123;
+    int n, k;
+    cin &gt;&gt; n &gt;&gt; k;
+
+    map&lt;int, int&gt; mp;
+    vector&lt;int&gt; marked(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; k; i++)
+        cin &gt;&gt; marked[i], mp[marked[i]] &#x3D; 1;
+
+    vector&lt;vector&lt;int&gt;&gt; g(n + 1);
+    for (int i &#x3D; 1; i &lt; n; i++)
+    &#123;
+        int a, b;
+        cin &gt;&gt; a &gt;&gt; b;
+        g[a].push_back(b);
+        g[b].push_back(a);
+    &#125;
+
+    if (k &#x3D;&#x3D; 1) return cout &lt;&lt; 0 &lt;&lt; &quot;\n&quot;, void();
+
+    int root &#x3D; -1, mx &#x3D; 0;
+    vector&lt;int&gt; dep(n + 1);
+    function&lt;void(int, int)&gt; dfs &#x3D; [&amp;](int u, int fa) -&gt; void
+    &#123;
+        for (auto v : g[u])
+        &#123;
+            if (v &#x3D;&#x3D; fa)    continue;
+            dep[v] &#x3D; dep[u] + 1;
+            if (mp.count(v))
+            &#123;
+                if (mx &lt; dep[v])
+                &#123;
+                    mx &#x3D; dep[v];
+                    root &#x3D; v;
+                &#125;
+            &#125;
+            dfs(v, u);
+        &#125;
+    &#125;;
+
+    dfs(marked[1], -1);
+
+    int res &#x3D; 0;
+    auto bfs &#x3D; [&amp;](int root) -&gt; void
+    &#123;
+        queue&lt;int&gt; q;
+        q.push(root);
+        vector&lt;int&gt; dist(n + 1, 1e9);
+        dist[root] &#x3D; 0;
+        while (!q.empty())
+        &#123;
+            auto u &#x3D; q.front();
+            q.pop();
+            
+            for (auto v : g[u])
+            &#123;
+                if (dist[v] &gt; dist[u] + 1)
+                &#123;
+                    dist[v] &#x3D; dist[u] + 1;
+                    if (mp.count(v))
+                    &#123;
+                        res &#x3D; max(res, dist[v]);
+                    &#125;
+                    q.push(v);
+                &#125;
+            &#125;
+        &#125;
+        
+    &#125;;
+
+    bfs(root);
+
+    cout &lt;&lt; (res + 1) &#x2F; 2 &lt;&lt; &quot;\n&quot;;
+&#125;
+
+int main()
+&#123;
+    IOS;
+   
+    int t;
+    cin &gt;&gt; t;
+
+    while (t--)
+    &#123;
+        solve();
+    &#125;
+    
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>典题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1881/problem/F">F. Minimum Maximum Distance</a></p>
+<h3 id="dfs-序"><a href="#dfs-序" class="headerlink" title="$dfs$ 序"></a>$dfs$ 序</h3><p><mark>推荐题单：</mark></p>
+<p><strong>$dfs$ 序 + 前缀和：</strong><a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/77448/E">数星星</a></p>
+<ul>
+<li>吐槽：以为是启发式合并，虽然时间复杂度是$O(NlogN)$，但感觉 $2e6$ 还是能过的，但还是超时 $qwq$。最后竟然是这么 $O(N)$ 的做法，但消耗的时间竟然还是好大啊。</li>
+<li>思路：<ul>
+<li>通过处理 $dfs$，每个点都有一个区间 $[l, r]$。记录一个变量 $last[i]$，表示是 $i$ 颜色的上一个点的 $dfs$ 是多少，那么只需要判断区间 $[l,r]$ 内是否存在一个位置其 $last[i] \ge l$。又由于 $last[color[l]] &lt; l$，因此求 $[l,r]$ 区间可以变成求 $[1,r]$ 区间。</li>
+<li>我们再预处理出一个 $mx$ 数组，表示这个区间内的最大的 $last$，如果 $mx[r] &lt; l$ 就说明该点合法。</li>
+</ul>
+</li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n;
+    cin &gt;&gt; n;
+
+    vector&lt;int&gt; color(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)    cin &gt;&gt; color[i];
+
+    vector&lt;vector&lt;int&gt;&gt; g(n + 1);
+    for (int i &#x3D; 2; i &lt;&#x3D; n; i++)
+    &#123;
+        int p;
+        cin &gt;&gt; p;
+        g[p].push_back(i);
+    &#125;
+
+    int idx &#x3D; 0, res &#x3D; 0, mx &#x3D; 0;
+    vector&lt;int&gt; last(n + 1);
+    function&lt;void(int)&gt; dfs &#x3D; [&amp;](int u) -&gt; void
+    &#123;
+        int l &#x3D; ++idx;
+        mx &#x3D; max(last[color[u]], mx);
+        last[color[u]] &#x3D; l;
+        for (auto v : g[u])
+        &#123;
+            dfs(v);
+        &#125;
+        if (mx &lt; l) res++;
+    &#125;;  
+
+    dfs(1);
+
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+
+
+<h2 id="最短路"><a href="#最短路" class="headerlink" title="最短路"></a>最短路</h2><h3 id="Dijkstra"><a href="#Dijkstra" class="headerlink" title="Dijkstra"></a>Dijkstra</h3><h4 id="朴素版Dijkstra"><a href="#朴素版Dijkstra" class="headerlink" title="朴素版Dijkstra"></a>朴素版Dijkstra</h4><p>适用于<strong>稠密图</strong>（$m ≈ n^2$)，用邻接矩阵存储。时间复杂度：$O(n^2)$</p>
+<p><mark>代码模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 510;
+
+int n,m;
+int g[N][N];&#x2F;&#x2F;邻接矩阵
+int dist[N];&#x2F;&#x2F;存储从1号点到每个点的距离，距离的英文:distance
+bool st[N];&#x2F;&#x2F;表示每个点的最短路是不是已经确定了
+
+int dijkstra()
+&#123;
+    memset(dist,0x3f,sizeof(dist));&#x2F;&#x2F;先把所有距离初始化为正无穷
+    dist[1] &#x3D; 0;&#x2F;&#x2F;把一号点的距离初始化为0
+    for(int i &#x3D; 0;i &lt; n;i++)&#x2F;&#x2F;n次迭代，每次寻找不在st[]中的距离最近的点t
+    &#123;&#x2F;&#x2F;t为找到还没有确定最短路距离的所有点中，距离当前的点最短的点。
+        int t &#x3D; -1;&#x2F;&#x2F;表示还没确定
+        for (int j &#x3D; 1; j &lt;&#x3D; n; j++)
+            if(!st[j]&amp;&amp;(t&#x3D;&#x3D;-1||dist[j] &lt; dist[t]))  t &#x3D; j;&#x2F;&#x2F;如果当前这个点还没有确定最短路的话并且这是第一个找到的点或后面的点比前一个点的距离小
+        st[t] &#x3D; true;
+        for(int j &#x3D; 1;j &lt;&#x3D; n;j++)&#x2F;&#x2F;用t来更新其他点的距离
+            dist[j] &#x3D; min(dist[j],dist[t]+g[t][j]);&#x2F;&#x2F;从“目前这个点到1号点的距离”与“t点到1号点的距离加上t点到该点的权值”中取最小值
+    &#125;
+    if(dist[n]&#x3D;&#x3D;0x3f3f3f3f) return -1;&#x2F;&#x2F;路径不存在
+    return dist[n];
+&#125;
+
+int main()
+&#123;
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);&#x2F;&#x2F;读入点数和边数
+    memset(g,0x3f,sizeof(g));
+    while (m--)&#x2F;&#x2F;读入m条边
+    &#123;
+        int a,b,c;
+        scanf(&quot;%d%d%d&quot;,&amp;a,&amp;b,&amp;c);&#x2F;&#x2F;对于自环，只要权值不是负数就行
+        g[a][b] &#x3D; min(g[a][b],c);&#x2F;&#x2F;处理重边(保留长度最短的边)
+    &#125;
+    printf(&quot;%d\n&quot;,dijkstra());
+&#125;</code></pre>
+
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/851/">Dijkstra求最短路 I</a></p>
+<h4 id="堆优化版Dijkstra"><a href="#堆优化版Dijkstra" class="headerlink" title="堆优化版Dijkstra"></a>堆优化版Dijkstra</h4><blockquote>
+<p>适用于<strong>稀疏图</strong>（$m ≈ n$），用邻接表存储。</p>
+<p><strong>时间复杂度：</strong>$O(mlog(n))$</p>
+</blockquote>
+<p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">vector&lt;vector&lt;pii&gt;&gt; g(n + 1);&#x2F;&#x2F;存储方式
+auto dijkstra &#x3D; [&amp;](int st) -&gt; vector&lt;int&gt;&#x2F;&#x2F;返回从st点到其他点的最短距离
+&#123;
+    priority_queue&lt;pii,vector&lt;pii&gt;,greater&lt;pii&gt;&gt; heap;
+    heap.push(&#123;0,st&#125;);
+    vector&lt;bool&gt; vis(n + 1);
+    vector&lt;int&gt; dist(n + 1,0x3f3f3f3f);
+    dist[st] &#x3D; 0;
+    while (heap.size())
+    &#123;
+        auto t &#x3D; heap.top();
+        heap.pop();
+        int u &#x3D; t.second;
+        if(vis[u])    continue;
+        vis[u] &#x3D; true;
+
+        for(auto [v,w] : g[u])
+        &#123;
+            if(dist[v] &gt; dist[u] + w)
+            &#123;
+                dist[v] &#x3D; dist[u] + w;
+                heap.push(&#123;dist[v],v&#125;);
+            &#125;
+        &#125;
+    &#125;
+    return dist;
+&#125;;</code></pre>
+
+<p><mark>模板题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int,int&gt; pii;
+
+#define IOS ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr)
+#define cf(_) int _;cin &gt;&gt; _;while(_--)
+
+mt19937 mrand(random_device&#123;&#125;());
+int rnd(int x) &#123; return mrand() % x;&#125;
+ll gcd(ll a,ll b)&#123;return b ? gcd(b,a % b) : a;&#125;
+ll fpow(ll a,ll b,ll mod)&#123;ll res &#x3D; 1;a %&#x3D; mod;assert(b &gt;&#x3D; 0);while(b)&#123;if(b &amp; 1)res &#x3D; res * a % mod;a &#x3D; a * a % mod;b &gt;&gt;&#x3D; 1;&#125;return res;&#125;
+
+int main()
+&#123;
+    IOS;
+    int n,m;
+    cin &gt;&gt; n &gt;&gt; m;
+
+    vector&lt;vector&lt;pii&gt;&gt; g(n + 1);
+    while (m--)
+    &#123;
+        int a,b,w;
+        cin &gt;&gt; a &gt;&gt; b &gt;&gt; w;
+        g[a].push_back(&#123;b,w&#125;);
+    &#125;
+    
+    auto dijkstra &#x3D; [&amp;](int st) -&gt; vector&lt;int&gt;&#x2F;&#x2F;返回从st点到其他点的最短距离
+    &#123;
+        priority_queue&lt;pii,vector&lt;pii&gt;,greater&lt;pii&gt;&gt; heap;
+        heap.push(&#123;0,st&#125;);
+        vector&lt;bool&gt; vis(n + 1);
+        vector&lt;int&gt; dist(n + 1,0x3f3f3f3f);
+        dist[st] &#x3D; 0;
+        while (heap.size())
+        &#123;
+            auto t &#x3D; heap.top();
+            heap.pop();
+            int u &#x3D; t.second;
+            if(vis[u])    continue;
+            vis[u] &#x3D; true;
+    
+            for(auto [v,w] : g[u])
+            &#123;
+                if(dist[v] &gt; dist[u] + w)
+                &#123;
+                    dist[v] &#x3D; dist[u] + w;
+                    heap.push(&#123;dist[v],v&#125;);
+                &#125;
+            &#125;
+        &#125;
+        return dist;
+    &#125;;
+
+    auto dist &#x3D; dijkstra(1);
+
+    if(dist[n] &#x3D;&#x3D; 0x3f3f3f3f)   cout &lt;&lt; -1 &lt;&lt; &quot;\n&quot;;
+    else    cout &lt;&lt; dist[n];
+    return 0;
+&#125;</code></pre>
+
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/852/">Dijkstra求最短路 II</a></p>
+<h3 id="bellman-ford"><a href="#bellman-ford" class="headerlink" title="bellman-ford"></a>bellman-ford</h3><p><mark>代码模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 510,M &#x3D; 10010;
+
+int n,m,k;
+int dist[N],backup[N];&#x2F;&#x2F;backup:备份的意思
+
+struct Edge
+&#123;
+    int a,b,w;&#x2F;&#x2F;a,b表示边的起点和终点,w表示权重
+&#125;edges[M];
+
+void bellman_ford()
+&#123;
+    memset(dist,0x3f,sizeof(dist));
+    dist[1] &#x3D; 0;
+    for (int i &#x3D; 0; i &lt; k; i++)
+    &#123;
+        memcpy(backup,dist,sizeof(dist));&#x2F;&#x2F;每次用备份的结果，防止出现串联
+        for (int j &#x3D; 0; j &lt; m; j++)
+        &#123;
+            auto e &#x3D; edges[j];
+            dist[e.b] &#x3D; min(dist[e.b],backup[e.a] + e.w);
+        &#125;
+    &#125;
+&#125;
+
+int main()
+&#123;
+    scanf(&quot;%d%d%d&quot;,&amp;n,&amp;m,&amp;k);
+    for(int i &#x3D; 0;i &lt; m;i++)
+    &#123;
+        int a,b,w;
+        scanf(&quot;%d%d%d&quot;,&amp;a,&amp;b,&amp;w);
+        edges[i] &#x3D; &#123;a,b,w&#125;;
+    &#125;
+    bellman_ford();&#x2F;&#x2F;有点小坑，就是答案有可能就是-1等情况，故需要判断距离与无穷大&#x2F;2的关系
+    if(dist[n] &gt; 0x3f3f3f3f &#x2F; 2)   puts(&quot;impossible&quot;);
+    else    printf(&quot;%d\n&quot;,dist[n]);
+    return 0;
+&#125;</code></pre>
+
+
+
+<h3 id="spfa"><a href="#spfa" class="headerlink" title="$spfa$"></a>$spfa$</h3><blockquote>
+<p><strong>时间复杂度：</strong>一般：$O(M)$，最坏：$O(NM)$</p>
+</blockquote>
+<p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; g(n + 1);&#x2F;&#x2F;存图
+auto spfa &#x3D; [&amp;](int st) -&gt; vector&lt;int&gt;
+&#123;
+    vector&lt;int&gt; dist(n + 1,0x3f3f3f3f);
+    vector&lt;bool&gt; vis(n + 1);
+    queue&lt;int&gt; q;
+    q.push(st),dist[st] &#x3D; 0,vis[st] &#x3D; true;
+
+    while (!q.empty())
+    &#123;
+        auto u &#x3D; q.front();
+        q.pop();
+        vis[u] &#x3D; false;
+        for(auto [v,w] : g[u])
+        &#123;
+            if(dist[v] &gt; dist[u] + w)
+            &#123;
+                dist[v] &#x3D; dist[u] + w;
+                if(!vis[v])
+                &#123;
+                    q.push(v);
+                    vis[v] &#x3D; true;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+    return dist;
+&#125;;</code></pre>
+
+<p><mark>模板题代码（spfa求最短路）：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n,m;
+    cin &gt;&gt; n &gt;&gt; m;
+
+    vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; g(n + 1);
+
+    while (m--)
+    &#123;
+        int a,b,c;
+        cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+        g[a].push_back(&#123;b,c&#125;);
+    &#125;
+    
+    auto spfa &#x3D; [&amp;](int st) -&gt; vector&lt;int&gt;
+    &#123;
+        vector&lt;int&gt; dist(n + 1,0x3f3f3f3f);
+        vector&lt;bool&gt; vis(n + 1);
+        queue&lt;int&gt; q;
+        q.push(st),dist[st] &#x3D; 0,vis[st] &#x3D; true;
+
+        while (!q.empty())
+        &#123;
+            auto u &#x3D; q.front();
+            q.pop();
+            vis[u] &#x3D; false;
+            for(auto [v,w] : g[u])
+            &#123;
+                if(dist[v] &gt; dist[u] + w)
+                &#123;
+                    dist[v] &#x3D; dist[u] + w;
+                    if(!vis[v])
+                    &#123;
+                        q.push(v);
+                        vis[v] &#x3D; true;
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+        return dist;
+    &#125;;
+
+    auto dist &#x3D; spfa(1);
+    if(dist[n] &gt; 0x3f3f3f3f &#x2F; 2)    cout &lt;&lt; &quot;impossible\n&quot;;
+    else    cout &lt;&lt; dist[n];  
+    return 0;
+&#125;</code></pre>
+
+<p><mark>模板题代码（spfa判断负环）：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+using namespace std;
+const int N &#x3D; 1e4+10;
+int n,m;
+int h[N],w[N],e[N],ne[N],idx;
+int dist[N],cnt[N];
+bool st[N];
+void add(int a,int b,int c)
+&#123;
+    e[idx] &#x3D; b,w[idx] &#x3D; c,ne[idx] &#x3D; h[a],h[a] &#x3D; idx++;
+&#125;
+int spfa()
+&#123;
+    queue&lt;int&gt;q;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        st[i] &#x3D; true;
+        q.push(i);
+    &#125;
+    while (q.size())
+    &#123;
+        int t &#x3D; q.front();
+        q.pop();
+        st[t] &#x3D; false;
+        for (int i &#x3D; h[t]; i !&#x3D; -1; i&#x3D; ne[i])
+        &#123;
+            int j &#x3D; e[i];
+            if(dist[j] &gt; dist[t] + w[i])
+            &#123;
+                dist[j] &#x3D; dist[t] + w[i];
+                cnt[j] &#x3D; cnt[t] + 1; 
+                if(cnt[j] &gt;&#x3D; n) return true;
+                if(!st[j])
+                &#123;
+                    q.push(j);
+                    st[j] &#x3D; true;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+    return false;
+&#125;
+int main()
+&#123;
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    memset(h,-1,sizeof(h));
+    while (m--)
+    &#123;
+        int a,b,c;
+        scanf(&quot;%d%d%d&quot;,&amp;a,&amp;b,&amp;c);
+        add(a,b,c);
+    &#125;
+    if(spfa())  puts(&quot;Yes&quot;);
+    else    puts(&quot;No&quot;);
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/853/">spfa求最短路</a>   <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/854/">spfa判断负环</a></p>
+<h3 id="Floyd"><a href="#Floyd" class="headerlink" title="Floyd"></a>Floyd</h3><blockquote>
+<p>集合表示：$f[k][i][j]$：表示考虑经过前 $k$ 个点，从 $i$ 到 $j$ 的距离。</p>
+<p>状态转移：</p>
+<ul>
+<li>$f[k - 1][i][j]$：表示不经过点 $k$ ，从点 $i$ 到点 $j$ 的距离；</li>
+<li>$f[k - 1][i][k] + f[k - 1][k][j]$ ：表示经过 $k$ 点，从点 $i$ 到点 $j$ 的距离；</li>
+</ul>
+<p>故状态转移方程：$dist[i][j] &#x3D; min(dist[i][j],dist[i][k] + dist[k][j])$</p>
+<p><strong>时间复杂度：</strong>$O(n^3)$</p>
+</blockquote>
+<p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">vector&lt;vector&lt;int&gt;&gt; dist(n + 1,vector&lt;int&gt;(n + 1,0x3f3f3f3f));
+auto floyd &#x3D; [&amp;]() -&gt; void
+&#123;
+	for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   dist[i][i] &#x3D; 0;
+
+	for(int k &#x3D; 1;k &lt;&#x3D; n;k++)
+   		for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+        	for(int j &#x3D; 1;j &lt;&#x3D; n;j++)
+            	dist[i][j] &#x3D; min(dist[i][j],dist[i][k] + dist[k][j]);
+&#125;;</code></pre>
+
+<p><mark>模板题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n,m,q;
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; q;
+
+    vector&lt;vector&lt;int&gt;&gt; dist(n + 1,vector&lt;int&gt;(n + 1,0x3f3f3f3f));
+    while (m--)
+    &#123;
+        int a,b,c;
+        cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+        dist[a][b] &#x3D; min(dist[a][b],c);
+    &#125;
+    
+    auto floyd &#x3D; [&amp;]() -&gt; void
+    &#123;
+        for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   dist[i][i] &#x3D; 0;
+
+        for(int k &#x3D; 1;k &lt;&#x3D; n;k++)
+            for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+                for(int j &#x3D; 1;j &lt;&#x3D; n;j++)
+                    dist[i][j] &#x3D; min(dist[i][j],dist[i][k] + dist[k][j]);
+    &#125;;
+
+    floyd();
+    while (q--)
+    &#123;
+        int a,b;
+        cin &gt;&gt; a &gt;&gt; b;
+        if(dist[a][b] &gt; 0x3f3f3f3f &#x2F; 2) cout &lt;&lt; &quot;impossible\n&quot;;
+        else    cout &lt;&lt; dist[a][b] &lt;&lt; &quot;\n&quot;;
+    &#125;
+    
+    return 0;
+&#125;</code></pre>
+
+<h2 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h2><h3 id="Prim"><a href="#Prim" class="headerlink" title="Prim"></a>Prim</h3><blockquote>
+<p><strong>时间复杂度：</strong>$O(n^2)$</p>
+</blockquote>
+<p><mark>模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 510,INF &#x3D; 0x3f3f3f3f;
+
+int n,m;
+int g[N][N];
+int dist[N];
+bool st[N];
+
+int prim()
+&#123;
+    memset(dist,0x3f,sizeof(dist));
+    int res &#x3D; 0;
+    for (int i &#x3D; 0; i &lt; n; i++)
+    &#123;
+        int t &#x3D; -1;
+        for (int j &#x3D; 1; j &lt;&#x3D; n; j++)
+            if(!st[j]&amp;&amp;(t&#x3D;&#x3D;-1||dist[t] &gt; dist[j]))
+                t &#x3D; j;
+        if(i &amp;&amp; dist[t] &#x3D;&#x3D; INF) return INF;&#x2F;&#x2F;说明是一个孤立的点，就不存在生成树
+        if(i)   res +&#x3D; dist[t];&#x2F;&#x2F;将距离集合最近的点加入集合
+        st[t] &#x3D; true;
+        for(int j &#x3D; 1;j &lt;&#x3D; n;j++)   dist[j] &#x3D; min(dist[j],g[t][j]);&#x2F;&#x2F;先累加，再更新，可以防止自环被加进来(自环是不可以加到集合中的)
+    &#125;
+    return  res;
+&#125;
+
+int main()
+&#123;
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    
+    memset(g,0x3f,sizeof(g));
+    while (m--)
+    &#123;
+        int a,b,c;
+        scanf(&quot;%d%d%d&quot;,&amp;a,&amp;b,&amp;c);
+        g[a][b] &#x3D; g[b][a] &#x3D; min(g[a][b],c);
+    &#125;
+
+    int t &#x3D; prim();
+    if(t&#x3D;&#x3D;INF)  puts(&quot;impossible&quot;);
+    else    printf(&quot;%d\n&quot;,t);
+    return 0;
+&#125;</code></pre>
+
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/860/">Prim算法求最小生成树</a></p>
+<h3 id="Kruskal"><a href="#Kruskal" class="headerlink" title="Kruskal"></a>Kruskal</h3><blockquote>
+<p><strong>时间复杂度：</strong>$O(mlogm)$</p>
+</blockquote>
+<p><mark>代码模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 2e5+10;
+
+int n,m;
+int p[N];
+
+struct Edge
+&#123;
+    int a,b,w;
+    bool operator&lt; (const Edge &amp; W) const
+    &#123;
+        return w &lt; W.w;
+    &#125;
+&#125;edges[N];
+
+int find(int x)
+&#123;
+    if(p[x] !&#x3D; x)   p[x] &#x3D; find(p[x]);
+    return p[x];
+&#125;
+
+void Kruskal()
+&#123;
+    for (int i &#x3D; 0; i &lt; m; i++)
+    &#123;
+        int a,b,w;
+        scanf(&quot;%d%d%d&quot;,&amp;a,&amp;b,&amp;w);
+        edges[i] &#x3D; &#123;a,b,w&#125;;
+    &#125;
+    sort(edges,edges + m);
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)   p[i] &#x3D; i;
+    int res &#x3D; 0,cnt &#x3D; 0;
+    for (int i &#x3D; 0; i &lt; m; i++)
+    &#123;
+        auto e &#x3D; edges[i];
+        int a &#x3D; find(e.a),b &#x3D; find(e.b);
+        if(a !&#x3D; b)
+        &#123;
+            p[a] &#x3D; b;
+            res +&#x3D; e.w;
+            cnt++;
+        &#125;
+    &#125;
+    if(cnt &lt; n - 1) puts(&quot;NO&quot;);
+    else    printf(&quot;%d\n&quot;,res);
+&#125;
+
+int main()
+&#123;
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    Kruskal();
+    return 0;
+&#125;</code></pre>
+
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/861/">Kruskal算法求最小生成树</a></p>
+<h4 id="Kruskal-重构树"><a href="#Kruskal-重构树" class="headerlink" title="Kruskal 重构树"></a>Kruskal 重构树</h4><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+struct Edges
+&#123;
+    int a,b,w;
+    bool operator&lt; (const Edges &amp;E) const
+    &#123;
+        return w &gt; E.w;
+    &#125;
+&#125;;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n,m;
+    cin &gt;&gt; n &gt;&gt; m;
+
+    vector&lt;Edges&gt; e(m + 1);
+    for(int i &#x3D; 1;i &lt;&#x3D; m;i++)   
+    &#123;
+        cin &gt;&gt; e[i].a &gt;&gt; e[i].b &gt;&gt; e[i].w;
+    &#125;
+
+    vector&lt;int&gt; p(n + m + 1);
+    iota(p.begin(),p.end(),0);
+
+    function&lt;int(int)&gt; find &#x3D; [&amp;](int x) -&gt; int
+    &#123;
+        return x &#x3D;&#x3D; p[x] ? x : p[x] &#x3D; find(p[x]);
+    &#125;;
+
+    vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; g(n + m + 1);
+    vector&lt;int&gt; cost(n + m + 1);
+    int tot &#x3D; n;
+    auto Kruskal &#x3D; [&amp;]() -&gt; void
+    &#123;    
+        sort(e.begin() + 1,e.end());
+        for(int i &#x3D; 1;i &lt;&#x3D; m;i++)
+        &#123;
+            int a &#x3D; find(e[i].a),b &#x3D; find(e[i].b),w &#x3D; e[i].w;
+            if(a !&#x3D; b)
+            &#123;
+                cost[++tot] &#x3D; w;
+                p[a] &#x3D; p[b] &#x3D; tot;
+                g[a].emplace_back(tot,w);
+                g[tot].emplace_back(a,w);
+                g[b].emplace_back(tot,w);
+                g[tot].emplace_back(b,w);
+            &#125;
+        &#125;
+    &#125;;
+
+    Kruskal();
+    vector&lt;int&gt; depth(tot + 1);
+    vector&lt;vector&lt;int&gt;&gt; fa(tot + 1,vector&lt;int&gt;(16));
+    function&lt;void(int,int)&gt; dfs &#x3D; [&amp;](int u,int dep) -&gt; void
+    &#123;
+        depth[u] &#x3D; dep;
+        for(auto [v,w] : g[u])
+        &#123;
+            if(depth[v])  continue;
+            fa[v][0] &#x3D; u;
+            dfs(v,dep + 1);
+        &#125;
+    &#125;;
+
+    for(int i &#x3D; tot;i &gt;&#x3D; 1;i--)
+        if(!depth[i])
+            dfs(i,1);
+
+    for(int i &#x3D; 1;i &lt;&#x3D; 15; i++)
+        for(int j &#x3D; 1;j &lt;&#x3D; tot; j++)
+            fa[j][i] &#x3D; fa[fa[j][i - 1]][i - 1];
+
+    auto lca &#x3D; [&amp;](int a,int b) -&gt; int
+    &#123;
+        if(find(a) !&#x3D; find(b))  return -1;
+        if(depth[a] &lt; depth[b]) swap(a,b);
+
+        for(int i &#x3D; 15;i &gt;&#x3D; 0;i--)
+            if(depth[fa[a][i]] &gt;&#x3D; depth[b])  
+                a &#x3D; fa[a][i];
+        if(a &#x3D;&#x3D; b)  return cost[a];
+        for(int i &#x3D; 15;i &gt;&#x3D; 0;i--)
+            if(fa[a][i] !&#x3D; fa[b][i])
+            &#123;
+                a &#x3D; fa[a][i];
+                b &#x3D; fa[b][i];
+            &#125;
+        return cost[fa[a][0]];
+    &#125;;
+
+    int q;
+    cin &gt;&gt; q;
+    while (q--)
+    &#123;
+        int a,b;
+        cin &gt;&gt; a &gt;&gt; b;
+
+        cout &lt;&lt; lca(a,b) &lt;&lt; &quot;\n&quot;;
+    &#125;
+    
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1967">货车运输</a></p>
+<h2 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h2><blockquote>
+<p><mark>应用：</mark></p>
+<p>​	拓扑排序可以判断图中是否有环，还可以用来判断图是否是一条链。</p>
+<p><mark>手算流程：</mark></p>
+<p>一个有向图，如果图中有入度为 0 的点，就把这个点删掉，同时也删掉这个点所连的边。</p>
+<p>一直进行上面出处理，如果所有点都能被删掉，则这个图可以进行拓扑排序。</p>
+<p><mark>算法流程：</mark></p>
+<p>首先记录各个点的入度</p>
+<p>然后将入度为 0 的点放入队列</p>
+<p>将队列里的点依次出队列，然后找出所有出队列这个点发出的边，删除边，同事边的另一侧的点的入度 -1。</p>
+<p>如果所有点都进过队列，则可以拓扑排序，输出所有顶点。否则输出-1，代表不可以进行拓扑排序。</p>
+</blockquote>
+<p><mark>模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+&#x2F;&#x2F;一个有向无环图一定至少存在一个入度为0的点
+using namespace std;&#x2F;&#x2F;有向图才会有拓扑序列
+
+const int N &#x3D; 1e5+10;&#x2F;&#x2F;新概念: 入度、出度
+
+int n,m;&#x2F;&#x2F;一个有向无环图一定存在拓扑序，而题目仅是说有向图，注意区分
+int h[N],e[N],ne[N],idx;
+int q[N],d[N];&#x2F;&#x2F;q[]是队列,d[]存的是点的入度
+&#x2F;&#x2F;数组模拟队列的好处:即使hh变化，也只是下标，数组中的元素依旧在，故输出拓扑序
+void add(int a,int b)
+&#123;
+    e[idx] &#x3D; b,ne[idx] &#x3D; h[a],h[a] &#x3D; idx++;
+&#125;
+
+bool topsort()
+&#123;
+    int hh &#x3D; 0,tt &#x3D; -1;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        if(!d[i])
+            q[++tt] &#x3D; i;
+    while (hh &lt;&#x3D; tt)
+    &#123;
+        int t &#x3D; q[hh++];
+        for (int i &#x3D; h[t]; i !&#x3D; -1; i &#x3D; ne[i])
+        &#123;
+            int j &#x3D; e[i];
+            d[j]--;&#x2F;&#x2F;入度减减
+            if(d[j]&#x3D;&#x3D;0) q[++tt] &#x3D; j;
+        &#125;
+    &#125;
+    return tt &#x3D;&#x3D; n - 1;&#x2F;&#x2F;tt初始为-1，队列加入了n个点后，tt变成n-1，故存在拓扑序
+&#125;
+
+int main()
+&#123;
+    cin &gt;&gt; n &gt;&gt; m;
+    memset(h,-1,sizeof h);
+    for (int i &#x3D; 0; i &lt; m; i++)
+    &#123;
+        int a,b;
+        cin &gt;&gt; a &gt;&gt; b;
+        add(a,b);
+        d[b]++;
+    &#125;
+    if(topsort())
+    &#123;
+        for(int i &#x3D; 0;i &lt; n;i++)    printf(&quot;%d &quot;,q[i]);
+        puts(&quot;&quot;);
+    &#125;
+    else    puts(&quot;-1&quot;);
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/850/">有向图的拓扑序列</a></p>
+<p><strong>$RAICOM$ 国赛第四题：</strong> <a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/1693095794755289088/exam/problems/1693095890628689923?type=7&page=0">RC-u4 拆积木</a></p>
+<p><strong>2023 南京 $ICPC$ 拓扑题：</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104821/problem/F">F. Equivalent Rewriting</a></p>
+<h2 id="二分图"><a href="#二分图" class="headerlink" title="二分图"></a>二分图</h2><blockquote>
+<p>将所有点分成两个集合，使得所有边只出现在集合之间，就是二分图。</p>
+</blockquote>
+<p>下图即为一个二分图：</p>
+<p><img src="/images/1.png" alt="二分图"></p>
+<h3 id="染色法判定二分图"><a href="#染色法判定二分图" class="headerlink" title="染色法判定二分图"></a>染色法判定二分图</h3><blockquote>
+<p><strong>算法流程：</strong></p>
+<ul>
+<li><p>染色可以使用数字 $1$ 和 $2$ 区分不同颜色，用 $0$ 表示未染色。</p>
+</li>
+<li><p>遍历所有点，每次将未染色的点进行 $dfs$, 数字 $1$ 和 $2$ 可以用 $3 - c$ 快速交替（小技巧）！</p>
+</li>
+<li><p>最后，染色失败相当于存在相邻的 $2$ 个点染了相同的颜色。</p>
+</li>
+</ul>
+<p><strong>时间复杂度：</strong>$O(N+M)$</p>
+</blockquote>
+<p><mark>模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1e5 + 10,M &#x3D; 2 * N;
+
+int n,m;
+int h[N],e[M],ne[M],idx;
+int color[N];
+
+void add(int a,int b)
+&#123;
+	e[idx] &#x3D; b,ne[idx] &#x3D; h[a],h[a] &#x3D; idx++;
+&#125;
+
+bool dfs(int u,int c)
+&#123;
+    color[u] &#x3D; c;
+	for(int i &#x3D; h[u]; ~i;i &#x3D; ne[i])
+	&#123;
+		int j &#x3D; e[i];
+		if(!color[j])	
+        &#123;
+            if(!dfs(j,3 - c))   return false;
+        &#125;
+        else if(color[j] &#x3D;&#x3D; c)  return false;
+	&#125;
+    return true;
+&#125;
+
+int main()
+&#123;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+	cin &gt;&gt; n &gt;&gt; m;
+
+	memset(h,-1,sizeof(h));
+	while (m--)
+	&#123;
+		int a,b;
+		cin &gt;&gt; a &gt;&gt; b;
+		add(a,b),add(b,a);
+	&#125;
+
+    bool ok &#x3D; true;
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+        if(!color[i])
+        &#123;
+            if(!dfs(i,1))
+            &#123;
+                ok &#x3D; false;
+                break;
+            &#125;
+        &#125;
+    cout &lt;&lt; (ok ? &quot;Yes&quot; : &quot;No&quot;) &lt;&lt; &quot;\n&quot;;
+	return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/862/">染色法判定二分图</a></p>
+<h3 id="二分图的最大匹配"><a href="#二分图的最大匹配" class="headerlink" title="二分图的最大匹配"></a>二分图的最大匹配</h3><p><strong>基本定义：</strong></p>
+<p>匹配：在图论中，一个「匹配」是一个边的集合，其中任意两条边都没有公共顶点。</p>
+<p>最大匹配：一个图所有匹配中，所含匹配边数最多的匹配，称为这个图的最大匹配。</p>
+<blockquote>
+<p><mark>匈牙利算法：</mark>主要用来解决两个问题：求二分图的<strong>最大匹配数</strong>和<strong>最小点覆盖数</strong>。</p>
+<p><strong>柯尼希定理：二分图最小点覆盖的点数 &#x3D; 最大匹配数。</strong></p>
+<p><strong>时间复杂度：</strong>$O(nm)$</p>
+</blockquote>
+<p><strong>数组含义：</strong></p>
+<p>$n1$：左部分点集；</p>
+<p>$n2$：右部分点集；</p>
+<p>$match[i]$：右部分的点 $i$ 对应的左部分点 $j$ ；</p>
+<p>$st[i]$：预定数组，即预定的右点集。</p>
+<p><mark>模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 510,M &#x3D; 1e5 + 10;
+
+int n1,n2,m;
+int h[N],e[M],ne[M],idx;
+int match[N];
+bool st[N];
+
+void add(int a,int b)
+&#123;
+    e[idx] &#x3D; b,ne[idx] &#x3D; h[a],h[a] &#x3D; idx++;
+&#125;
+
+bool find(int x)
+&#123;
+    for(int i &#x3D; h[x]; ~i;i &#x3D; ne[i])
+    &#123;
+        int j &#x3D; e[i];
+        if(!st[j])
+        &#123;
+            st[j] &#x3D; true;
+            if(match[j] &#x3D;&#x3D; 0 || find(match[j]))
+            &#123;
+                match[j] &#x3D; x;
+                return true;
+            &#125;
+        &#125;
+    &#125;
+    return false;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    cin &gt;&gt; n1 &gt;&gt; n2 &gt;&gt; m;
+
+    memset(h,-1,sizeof(h));
+    while (m--)
+    &#123;
+        int a,b;
+        cin &gt;&gt; a &gt;&gt; b;
+        add(a,b);
+    &#125;
+
+    int res &#x3D; 0;
+    for(int i &#x3D; 1;i &lt;&#x3D; n1;i++)
+    &#123;
+        memset(st,0,sizeof(st));
+        if(find(i)) res++;
+    &#125;
+    
+    cout &lt;&lt; res &lt;&lt; &quot;\n&quot;;
+
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/863/">二分图的最大匹配</a></p>
+<h2 id="Tarjan"><a href="#Tarjan" class="headerlink" title="Tarjan"></a>Tarjan</h2><h3 id="有向图的强连通分量"><a href="#有向图的强连通分量" class="headerlink" title="有向图的强连通分量"></a>有向图的强连通分量</h3><p><strong>基本定义：</strong></p>
+<p>对于一个有向图，<strong>连通分量</strong>：对于分量中任意两点 $u$ 、$v$，必然可以从 $u$ 走到  $v$，且从 $v$ 走到 $u$ 。</p>
+<p><strong>强连通分量</strong>：极大连通分量。</p>
+<blockquote>
+<p><strong>主要功能：</strong>通过缩点的方式，将任意有向图转换成有向无环图（$DAG$），又称拓扑图。</p>
+<p><strong>注意：</strong>做完 $tarjan$ 算法之后,拓扑序一定是按照强连通分量节点编号递减的顺序，因此不需要再做一遍拓扑排序。</p>
+</blockquote>
+<p>定义两个时间戳概念；</p>
+<ul>
+<li>$dfn[u]$ 表示：遍历到 $u$ 的时间戳；</li>
+<li>$low[u]$ 表示：从u开始走，所能遍历到的最小时间戳是什么；</li>
+</ul>
+<p>因此，$u$ 是其所在的强连通分量的最高点，等价于 $dfn[u] &#x3D;&#x3D; low[u]$。</p>
+<p><mark>模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">int low[N],dfn[N],timestamp;
+int stk[N],top;
+bool in_stk[N];
+int id[N],scc_cnt,sz[N];
+
+void tarjan(int u)
+&#123;
+    dfn[u] &#x3D; low[u] &#x3D; ++timestamp;
+    stk[++top] &#x3D; u,in_stk[u] &#x3D; true;
+    for(int i &#x3D; h[u]; ~i;i &#x3D; ne[i])
+    &#123;
+        int j &#x3D; e[i];
+        if(!dfn[j])
+        &#123;
+            tarjan(j);
+            low[u] &#x3D; min(low[u],low[j]);
+        &#125;
+        else if(in_stk[j])  low[u] &#x3D; min(low[u],dfn[j]);
+    &#125;
+
+    if(dfn[u] &#x3D;&#x3D; low[u])
+    &#123;
+        ++scc_cnt;
+        int y;
+        do
+        &#123;
+            y &#x3D; stk[top--];
+            in_stk[y] &#x3D; false;
+            id[y] &#x3D; scc_cnt;
+            sz[scc_cnt]++;
+        &#125; while (y !&#x3D; u);
+    &#125;
+&#125;</code></pre>
+
+<p><mark>模板题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1e4 + 10,M &#x3D; 5e4 + 10;
+
+int n,m;
+int h[N],e[M],ne[M],idx;
+int low[N],dfn[N],timestamp;
+int stk[N],top;
+bool in_stk[N];
+int id[N],scc_cnt,sz[N];
+int dout[N];
+
+void add(int a,int b)
+&#123;
+    e[idx] &#x3D; b,ne[idx] &#x3D; h[a],h[a] &#x3D; idx++;
+&#125;
+
+void tarjan(int u)
+&#123;
+    dfn[u] &#x3D; low[u] &#x3D; ++timestamp;
+    stk[++top] &#x3D; u,in_stk[u] &#x3D; true;
+    for(int i &#x3D; h[u]; ~i;i &#x3D; ne[i])
+    &#123;
+        int j &#x3D; e[i];
+        if(!dfn[j])
+        &#123;
+            tarjan(j);
+            low[u] &#x3D; min(low[u],low[j]);
+        &#125;
+        else if(in_stk[j])  low[u] &#x3D; min(low[u],dfn[j]);
+    &#125;
+
+    if(dfn[u] &#x3D;&#x3D; low[u])
+    &#123;
+        ++scc_cnt;
+        int y;
+        do
+        &#123;
+            y &#x3D; stk[top--];
+            in_stk[y] &#x3D; false;
+            id[y] &#x3D; scc_cnt;
+            sz[scc_cnt]++;
+        &#125; while (y !&#x3D; u);
+    &#125;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n,m;
+    cin &gt;&gt; n &gt;&gt; m;
+
+    memset(h,-1,sizeof(h));
+
+    while (m--)
+    &#123;
+        int a,b;
+        cin &gt;&gt; a &gt;&gt; b;
+        add(a,b);
+    &#125;
+
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+        if(!dfn[i])
+            tarjan(i);
+
+    for(int i &#x3D; 1;i &lt;&#x3D; n;i++)
+    &#123;
+        for(int j &#x3D; h[i]; ~j;j &#x3D; ne[j])
+        &#123;
+            int k &#x3D; e[j];
+            int a &#x3D; id[i],b &#x3D; id[k];
+            if(a !&#x3D; b)
+            &#123;
+                dout[a]++;
+            &#125;
+        &#125;
+    &#125;
+
+    int zero &#x3D; 0,sum &#x3D; 0;
+
+    for(int i &#x3D; 1;i &lt;&#x3D; scc_cnt;i++)
+        if(!dout[i])
+        &#123;
+            zero++;
+            sum &#x3D; sz[i];
+            if(zero &gt; 1)
+            &#123;
+                sum &#x3D; 0;
+                break;
+            &#125;
+        &#125;
+    
+    cout &lt;&lt; sum &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1176/">受欢迎的牛</a></p>
+<p><strong>$tarjan + dp$：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1177/">最大半连通子图</a>，其中 $dp$ 问题类似于<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/11/">背包问题求方案数</a></p>
+<h3 id="无向图的双连通分量（感觉有点罕见qwq）"><a href="#无向图的双连通分量（感觉有点罕见qwq）" class="headerlink" title="无向图的双连通分量（感觉有点罕见qwq）"></a>无向图的双连通分量（感觉有点罕见qwq）</h3><p><strong>基本定义：</strong></p>
+<ul>
+<li><p>边双连通分量 $(e-DCC)$</p>
+<ul>
+<li><p>极大的不包含<strong>桥</strong>（桥：去掉一条边，会使其变得不连通）的连通块，被称为边双连通分量。那么在一个边双连通分量中，不管删除哪条边，该区域仍然连通。</p>
+<p><img src="/images/11.png" alt="11"></p>
+</li>
+</ul>
+</li>
+<li><p>点双连通分量 $(v-DCC)$</p>
+<ul>
+<li><p>极大的不包含<strong>割点</strong>的连通块，被称为点双连通分量。</p>
+<p><img src="/images/12.png" alt="12"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="边双连通分量"><a href="#边双连通分量" class="headerlink" title="边双连通分量"></a>边双连通分量</h4><blockquote>
+<p><strong>边双连通分量：</strong></p>
+<p>1、如何找到桥？<br>桥 $\Longleftrightarrow $ $dfn[x] &lt; low[y]$</p>
+<p><strong>结论：</strong></p>
+<p>1、对于有向图，最少加多少条边可以使其变成强连通分量呢？</p>
+<p>答案为：$max(p,q)$ 。其中 $p,q$ 分别表示出度为 $0$ 和入度为 $0$ 的连通块数。</p>
+<p>2、对于无向图，最小加多少条边可以使其变成边双连通分量呢？</p>
+<p>答案为：**$\lfloor \frac{cnt + 1}{2} \rfloor$**，其中 $cnt$ 是缩完点后，度数为 $1$ 的点的个数。 </p>
+</blockquote>
+<p><mark>模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">int dfn[N],low[N],timestamp;
+int id[N],dcc_cnt;
+int stk[N],top;
+bool is_bridge[N];
+
+void tarjan(int u,int from)
+&#123;
+    dfn[u] &#x3D; low[u] &#x3D; ++timestamp;
+    stk[++top] &#x3D; u;
+    for(int i &#x3D; h[u]; ~i;i &#x3D; ne[i])
+    &#123;
+        int j &#x3D; e[i];
+        if(!dfn[j])
+        &#123;
+            tarjan(j,i);
+            low[u] &#x3D; min(low[u],low[j]);
+            if(low[j] &gt; dfn[u]) 
+            &#123;
+                is_bridge[i] &#x3D; is_bridge[i ^ 1] &#x3D; true;
+            &#125;
+        &#125;
+        else if(i !&#x3D; (from ^ 1))  low[u] &#x3D; min(low[u],dfn[j]);
+    &#125;
+
+    if(dfn[u] &#x3D;&#x3D; low[u])
+    &#123;
+        ++dcc_cnt;
+        int y;
+        do
+        &#123;
+            y &#x3D; stk[top--];
+            id[y] &#x3D; dcc_cnt;
+        &#125; while (y !&#x3D; u);
+        
+    &#125;
+&#125;</code></pre>
+
+<p><mark>模板题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+
+using namespace std;
+
+const int N &#x3D; 5e3 + 10,M &#x3D; 2e4 + 10;
+
+int n,m;
+int h[N],e[M],ne[M],idx;
+int dfn[N],low[N],timestamp;
+int id[N],dcc_cnt;
+int stk[N],top;
+bool is_bridge[N];
+int d[N];
+
+void add(int a,int b)
+&#123;
+    e[idx] &#x3D; b,ne[idx] &#x3D; h[a],h[a] &#x3D; idx++;
+&#125;
+
+void tarjan(int u,int from)
+&#123;
+    dfn[u] &#x3D; low[u] &#x3D; ++timestamp;
+    stk[++top] &#x3D; u;
+    for(int i &#x3D; h[u]; ~i;i &#x3D; ne[i])
+    &#123;
+        int j &#x3D; e[i];
+        if(!dfn[j])
+        &#123;
+            tarjan(j,i);
+            low[u] &#x3D; min(low[u],low[j]);
+            if(low[j] &gt; dfn[u]) 
+            &#123;
+                is_bridge[i] &#x3D; is_bridge[i ^ 1] &#x3D; true;
+            &#125;
+        &#125;
+        else if(i !&#x3D; (from ^ 1))  low[u] &#x3D; min(low[u],dfn[j]);
+    &#125;
+
+    if(dfn[u] &#x3D;&#x3D; low[u])
+    &#123;
+        ++dcc_cnt;
+        int y;
+        do
+        &#123;
+            y &#x3D; stk[top--];
+            id[y] &#x3D; dcc_cnt;
+        &#125; while (y !&#x3D; u);
+        
+    &#125;
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    cin &gt;&gt; n &gt;&gt; m;
+
+    memset(h,-1,sizeof(h));
+    while (m--)
+    &#123;
+        int a,b;
+        cin &gt;&gt; a &gt;&gt; b;
+        add(a,b),add(b,a);
+    &#125;
+    
+    tarjan(1,-1);
+
+    for(int i &#x3D; 0;i &lt; idx;i++)
+    &#123;
+        if(is_bridge[i])
+            d[id[e[i]]]++;
+    &#125;
+
+    int cnt &#x3D; 0;
+    for(int i &#x3D; 1;i &lt;&#x3D; dcc_cnt;i++)
+        if(d[i] &#x3D;&#x3D; 1)   
+            cnt++;
+
+    cout &lt;&lt; (cnt + 1) &#x2F; 2 &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/397/">冗余路径</a></p>
+<h4 id="点双连通分量"><a href="#点双连通分量" class="headerlink" title="点双连通分量"></a>点双连通分量</h4><blockquote>
+<p><strong>点双连通分量：</strong><br>1、如何求割点？</p>
+<p>$low[y] \ge dfn[x]$</p>
+<ul>
+<li>如果 $x$ 不是根节点，那么 $x$ 是割点。</li>
+<li>如果 $x$ 是根节点</li>
+<li>至少有两个子节点 $y_i$，满足：$low[y_i] \ge dfn[x]$，则 $x$ 是割点。</li>
+</ul>
+<p>2、如何求点双连通分量？</p>
+<ol>
+<li>统计连通块个数 $cnt$；</li>
+<li>枚举从哪个块中删除哪个点 $v$，使其分成了 $s$ 个块，则当前答案为 $s + cnt - 1$；</li>
+<li>枚举取个最大值即可。</li>
+</ol>
+</blockquote>
+<p><mark>模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">void tarjan(int u)
+&#123;
+    dfn[u] &#x3D; low[u] &#x3D; ++timestamp;
+    stk[++top] &#x3D; u;
+	
+    if(u &#x3D;&#x3D; root &amp;&amp; h[u] &#x3D;&#x3D; -1)&#x2F;&#x2F;孤立点
+    &#123;
+        ++dcc_cnt;
+        dcc[dcc_cnt].push_back(u);
+        return ;
+    &#125;
+
+    int cnt &#x3D; 0;
+    for(int i &#x3D; h[u]; ~i;i &#x3D; ne[i])
+    &#123;
+        int j &#x3D; e[i];
+        if(!dfn[j])
+        &#123;
+            tarjan(j);
+            low[u] &#x3D; min(low[u],low[j]);
+            if(low[j] &gt;&#x3D; dfn[u])
+            &#123;
+                cnt++;
+                ++dcc_cnt;
+                if(root !&#x3D; u || cnt &gt; 1)    cut[u] &#x3D; true;
+                int y;
+                do
+                &#123;
+                    y &#x3D; stk[top--];
+                    dcc[dcc_cnt].push_back(y);
+                &#125; while (y !&#x3D; j);
+                dcc[dcc_cnt].push_back(u);
+            &#125;
+        &#125;
+        else    low[u] &#x3D; min(low[u],dfn[j]);
+    &#125;
+&#125;</code></pre>
+
+<p><mark>模板题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1e4 + 10,M &#x3D; 3e4 + 10;
+
+int n,m;
+int h[N],e[M],ne[M],idx;
+int dfn[N],low[N],timestamp;
+int root,ans;
+
+void add(int a,int b)
+&#123;
+    e[idx] &#x3D; b,ne[idx] &#x3D; h[a],h[a] &#x3D; idx++;
+&#125;
+
+void tarjan(int u)
+&#123;
+    dfn[u] &#x3D; low[u] &#x3D; ++ timestamp;
+    int cnt &#x3D; 0;&#x2F;&#x2F;当前块内可以分出的子树个数
+
+    for(int i &#x3D; h[u]; ~i;i &#x3D; ne[i])
+    &#123;
+        int j &#x3D; e[i];
+        if(!dfn[j])
+        &#123;
+            tarjan(j);
+            low[u] &#x3D; min(low[u],low[j]);
+            if(low[j] &gt;&#x3D; dfn[u])    cnt++;
+        &#125;
+        else    low[u] &#x3D; min(low[u],dfn[j]);
+    &#125;
+
+    if(u !&#x3D; root &amp;&amp; cnt)    cnt++;
+    ans &#x3D; max(ans,cnt);
+&#125;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    while(cin &gt;&gt; n &gt;&gt; m,n || m)
+    &#123;
+        memset(dfn,0,sizeof(dfn));
+        memset(h,-1,sizeof(h));
+        idx &#x3D; ans &#x3D; timestamp &#x3D; 0;
+
+        while (m--)
+        &#123;
+            int a,b;
+            cin &gt;&gt; a &gt;&gt; b;
+            add(a,b),add(b,a);
+        &#125;
+
+        int cnt &#x3D; 0;
+        for (root &#x3D; 0; root&lt; n; root++)
+            if(!dfn[root])
+            &#123;
+                tarjan(root);
+                cnt++;
+            &#125;
+        
+        cout &lt;&lt; (ans + cnt - 1) &lt;&lt; &quot;\n&quot;;
+    &#125;
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1185/">电力</a></p>
+<p><strong>按点双连通分量缩点：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/398/">矿场搭建</a></p>
+<h2 id="最近公共祖先-LCA"><a href="#最近公共祖先-LCA" class="headerlink" title="最近公共祖先(LCA)"></a>最近公共祖先(LCA)</h2><blockquote>
+<p><strong>应用：</strong></p>
+<ol>
+<li>获取两个点之间的路径与距离，距离：<code>dist[a][b] = depth[a] + depth[b] - 2 × depth[p] </code></li>
+<li>在 $(a,b)$ 路径上的每条边加上一个权值 $c$，树上差分：</li>
+</ol>
+<ul>
+<li>边权树上差分：<code>d[a] += c, d[b] += c, d[p] -= 2c</code></li>
+<li>点权树上差分：<code>d[a] += c, d[b] += c, d[p] -= c, d[fa[p]] -= c</code></li>
+</ul>
+</blockquote>
+<p><mark>封装模板：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">vector&lt;vector&lt;int&gt;&gt; g(n + 1); &#x2F;&#x2F; 存图方式
+vector&lt;vector&lt;int&gt;&gt; fa(n + 1, vector&lt;int&gt;(16));
+vector&lt;int&gt; depth(n + 1, 0x3f3f3f3f);
+auto bfs &#x3D; [&amp;](int root) -&gt; void &#x2F;&#x2F; 初始化
+&#123;
+    queue&lt;int&gt; q;
+    q.push(root);   
+    depth[0] &#x3D; 0, depth[root] &#x3D; 1;
+    while (!q.empty())
+    &#123;
+        auto u &#x3D; q.front();
+        q.pop();
+        for (auto v : g[u])
+        &#123;
+            if (depth[v] &gt; depth[u] + 1)
+            &#123;
+                q.push(v);
+                depth[v] &#x3D; depth[u] + 1;
+                fa[v][0] &#x3D; u;
+                for (int k &#x3D; 1; k &lt;&#x3D; 15; k++)
+                    fa[v][k] &#x3D; fa[fa[v][k - 1]][k - 1];
+            &#125;
+        &#125;
+    &#125;
+&#125;;
+
+auto lca &#x3D; [&amp;](int a, int b) -&gt; int
+&#123;
+    if (depth[a] &lt; depth[b])  swap(a, b);
+
+    for (int k &#x3D; 15; k &gt;&#x3D; 0; k--)
+        if(depth[fa[a][k]] &gt;&#x3D; depth[b])
+            a &#x3D; fa[a][k];
+
+    if (a &#x3D;&#x3D; b) return a;
+
+    for (int k &#x3D; 15; k &gt;&#x3D; 0; k--)
+        if (fa[a][k] !&#x3D; fa[b][k])
+            a &#x3D; fa[a][k], b &#x3D; fa[b][k];
+    return fa[a][0];
+&#125;;</code></pre>
+
+<p><mark>模板题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 4e4 + 10,M &#x3D; 2 * N;
+int n,m;
+int h[N],e[M],ne[M],idx;
+int depth[N],fa[N][16];&#x2F;&#x2F;fa[i][j]:表示从i开始,向上走2^j步所能走到的节点。0 &lt;&#x3D; j &lt;&#x3D; logn
+int q[N];
+
+void add(int a,int b)
+&#123;
+    e[idx] &#x3D; b,ne[idx] &#x3D; h[a],h[a] &#x3D; idx++;
+&#125;
+
+void bfs(int root)
+&#123;
+    memset(depth,0x3f,sizeof(depth));
+    depth[0] &#x3D; 0,depth[root] &#x3D; 1;&#x2F;&#x2F;哨兵:0号点的深度是0,根节点的深度是1
+    int hh &#x3D; 0,tt &#x3D; 0;
+    q[0] &#x3D; root;
+    while (hh &lt;&#x3D; tt)
+    &#123;
+        int t &#x3D; q[hh++];
+        for(int i &#x3D; h[t]; ~i;i &#x3D; ne[i])
+        &#123;
+            int j &#x3D; e[i];
+            if(depth[j] &gt; depth[t] + 1)
+            &#123;
+                depth[j] &#x3D; depth[t] + 1;
+                q[++tt] &#x3D; j;
+                fa[j][0] &#x3D; t;
+                for(int k &#x3D; 1;k &lt;&#x3D; 15;k++)
+                    fa[j][k] &#x3D; fa[fa[j][k - 1]][k - 1];&#x2F;&#x2F;递推式求出
+            &#125;
+        &#125;
+    &#125;
+&#125;
+
+int lca(int a,int b)
+&#123;
+    if(depth[a] &lt; depth[b]) swap(a,b);
+    for(int k &#x3D; 15;k &gt;&#x3D; 0;k--)&#x2F;&#x2F;先跳到同一层
+        if(depth[fa[a][k]] &gt;&#x3D; depth[b])&#x2F;&#x2F;从a开始跳2的k次方步后的深度小于b的深度,则继续跳
+            a &#x3D; fa[a][k];
+    if(a &#x3D;&#x3D; b)  return a;
+    for(int k &#x3D; 15;k &gt;&#x3D; 0;k--)&#x2F;&#x2F;同时往上跳
+        if(fa[a][k] !&#x3D; fa[b][k])&#x2F;&#x2F;说明还没跳到最近公共祖先上
+        &#123;
+            a &#x3D; fa[a][k];
+            b &#x3D; fa[b][k];
+        &#125;
+    return fa[a][0];
+&#125;
+
+int main()
+&#123;
+    scanf(&quot;%d&quot;,&amp;n);
+    int root &#x3D; 0;
+    memset(h,-1,sizeof(h));
+
+    for(int i &#x3D; 0;i &lt; n;i++)
+    &#123;
+        int a,b;
+        scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+        if(b &#x3D;&#x3D; -1) root &#x3D; a;
+        else    add(a,b),add(b,a);
+    &#125;
+
+    bfs(root);
+
+    scanf(&quot;%d&quot;,&amp;m);
+    while (m--)
+    &#123;
+        int a,b;
+        scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+        int p &#x3D; lca(a,b);
+        if(p &#x3D;&#x3D; a)  puts(&quot;1&quot;);
+        else if(p &#x3D;&#x3D; b) puts(&quot;2&quot;);
+        else    puts(&quot;0&quot;);
+    &#125;
+    
+    return 0;
+&#125;
+&#x2F;*
+倍增：
+fa[i][j]:表示从i开始,向上走2^j步所能走到的节点。0 &lt;&#x3D; j &lt;&#x3D; logn
+depth[i]:表示深度
+步骤：
+1、先将两个点跳到同一层
+2、让两个点同时往上跳,一直跳到他们的最近公共祖先的下一层
+*&#x2F;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1174/">祖孙询问</a></p>
+<h3 id="树上差分"><a href="#树上差分" class="headerlink" title="树上差分"></a>树上差分</h3><blockquote>
+<p>在 $(a,b)$ 路径上每条<strong>边</strong>加上权值 $c$：$d[a] +&#x3D; c, b[b] +&#x3D; c, d[p] -&#x3D; 2c$，其中 $p &#x3D; lca(a,b)$；</p>
+<p>这样，每个点的权值表示，<strong>这个点与父节点之间的边的权值是多少！</strong></p>
+<p>更一般的，有点权和边权之分：</p>
+<ul>
+<li>边权树上差分：<code>d[a] += c, d[b] += c, d[p] -= 2c</code></li>
+<li>点权树上差分：<code>d[a] += c, d[b] += c, d[p] -= c, d[fa[p]] -= c</code></li>
+</ul>
+<p><strong>学习博客参考：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/blog/content/16630/">树上前缀和以及树上差分</a></p>
+</blockquote>
+<p><mark>模板题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1e5 + 10,M &#x3D; 2 * N;
+
+int n,m;
+int h[N],e[M],ne[M],idx;
+int depth[N],fa[N][17];
+int q[N];
+int d[N];
+int ans;
+
+void add(int a,int b)
+&#123;
+    e[idx] &#x3D; b,ne[idx] &#x3D; h[a],h[a] &#x3D; idx++;
+&#125;
+
+void bfs()
+&#123;
+    memset(depth,0x3f,sizeof(depth));
+    depth[0] &#x3D; 0,depth[1] &#x3D; 1;
+    q[0] &#x3D; 1;
+    int hh &#x3D; 0,tt &#x3D; 0;
+    while(hh &lt;&#x3D; tt)
+    &#123;
+        int t &#x3D; q[hh++];
+        for(int i &#x3D; h[t]; ~i; i &#x3D; ne[i])
+        &#123;
+            int j &#x3D; e[i];
+            if(depth[j] &gt; depth[t] + 1)
+            &#123;
+                q[++tt] &#x3D; j;
+                depth[j] &#x3D; depth[t] + 1;
+                fa[j][0] &#x3D; t;
+                for(int k &#x3D; 1;k &lt;&#x3D; 16;k++)
+                &#123;
+                    fa[j][k] &#x3D; fa[fa[j][k - 1]][k - 1];
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+
+int lca(int a,int b)
+&#123;
+    if(depth[a] &lt; depth[b]) swap(a,b);
+    for(int k &#x3D; 16;k &gt;&#x3D; 0;k--)
+    &#123;
+        if(depth[fa[a][k]] &gt;&#x3D; depth[b])
+        &#123;
+            a &#x3D; fa[a][k];
+        &#125;
+    &#125;
+    if(a &#x3D;&#x3D; b)  return a;
+    for(int k &#x3D; 16;k &gt;&#x3D; 0;k--)
+    &#123;
+        if(fa[a][k] !&#x3D; fa[b][k])
+        &#123;
+            a &#x3D; fa[a][k];
+            b &#x3D; fa[b][k];
+        &#125;
+    &#125;
+    return fa[a][0];
+&#125;
+
+int dfs(int u,int father)
+&#123;
+    int res &#x3D; d[u];
+    
+    for(int i &#x3D; h[u] ;~i;i &#x3D; ne[i])
+    &#123;    
+       int j &#x3D; e[i];
+       if(j &#x3D;&#x3D; father)  continue;
+       int t &#x3D; dfs(j,u);
+
+        if(t &#x3D;&#x3D; 0)  ans +&#x3D; m;
+        else if(t &#x3D;&#x3D; 1) ans +&#x3D; 1;
+        res +&#x3D; t;
+    &#125;
+    return res;
+&#125;
+
+int main()
+&#123;
+    cin &gt;&gt; n &gt;&gt; m;
+    memset(h,-1,sizeof(h));
+    for(int i &#x3D; 0;i &lt; n - 1;i++)
+    &#123;
+        int a,b;
+        cin &gt;&gt; a &gt;&gt; b;
+        add(a,b),add(b,a);
+    &#125;
+    bfs();
+    for(int i &#x3D; 0;i &lt; m;i++)
+    &#123;
+        int a,b;
+        cin &gt;&gt; a &gt;&gt; b;
+        int p &#x3D; lca(a,b);
+        d[a]++,d[b]++,d[p] -&#x3D; 2;
+    &#125;
+
+    dfs(1,-1);
+    cout &lt;&lt; ans &lt;&lt; endl;
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/354/">闇の連鎖</a></p>
+<p><strong>$2023$ 蓝桥杯 $b$ 组省赛最后一题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/4966/">砍树</a></p>
+<h2 id="网络流"><a href="#网络流" class="headerlink" title="网络流"></a>网络流</h2><h3 id="EK-算法求最大流"><a href="#EK-算法求最大流" class="headerlink" title="$EK$ 算法求最大流"></a>$EK$ 算法求最大流</h3><blockquote>
+<p><strong>时间复杂度：</strong>$O(nm^2)$</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 1010,M &#x3D; 20010,INF &#x3D; 1e8;
+&#x2F;&#x2F;因为要建反向边，边数M要开两倍！
+int n,m,S,T;
+int h[N],e[M],f[M],ne[M],idx;&#x2F;&#x2F;f[]:存容量
+int q[N],d[N],pre[N];&#x2F;&#x2F;d[]:从起点走到某个点的所有容量的最小值
+bool st[N];
+
+void add(int a,int b,int c)
+&#123;
+    e[idx] &#x3D; b,f[idx] &#x3D; c,ne[idx] &#x3D; h[a],h[a] &#x3D; idx++;
+    e[idx] &#x3D; a,f[idx] &#x3D; 0,ne[idx] &#x3D; h[b],h[b] &#x3D; idx++;&#x2F;&#x2F;建反向边
+&#125;
+
+bool bfs()
+&#123;&#x2F;&#x2F;bfs找增广路径
+    int hh &#x3D; 0,tt &#x3D; 0;
+    memset(st,0,sizeof(st));
+    q[0] &#x3D; S,st[S] &#x3D; true,d[S] &#x3D; INF;
+    while (hh &lt;&#x3D; tt)
+    &#123;
+        int t &#x3D; q[hh++];
+        for(int i &#x3D; h[t];~i;i &#x3D; ne[i])
+        &#123;
+            int ver &#x3D; e[i];
+            if(!st[ver] &amp;&amp; f[i])
+            &#123;
+                st[ver] &#x3D; true;
+                d[ver] &#x3D; min(d[t],f[i]);
+                pre[ver] &#x3D; i;
+                if(ver &#x3D;&#x3D; T)    return true;
+                q[++tt] &#x3D; ver;
+            &#125;
+        &#125;
+    &#125;
+    return false;&#x2F;&#x2F;没有找到增广路径
+&#125;
+
+int EK()
+&#123;
+    int r &#x3D; 0;
+    while (bfs())
+    &#123;
+        r +&#x3D; d[T];
+        for(int i &#x3D; T; i !&#x3D; S;i &#x3D; e[pre[i] ^ 1])
+            f[pre[i]] -&#x3D; d[T],f[pre[i] ^ 1] +&#x3D; d[T];&#x2F;&#x2F;正向边减去，反向边增加
+    &#125;
+    return r;
+&#125;
+
+int main()
+&#123;
+    scanf(&quot;%d%d%d%d&quot;,&amp;n,&amp;m,&amp;S,&amp;T);
+    memset(h,-1,sizeof(h));
+    while (m--)
+    &#123;
+        int a,b,c;
+        scanf(&quot;%d%d%d&quot;,&amp;a,&amp;b,&amp;c);
+        add(a,b,c);
+    &#125;
+    printf(&quot;%d\n&quot;,EK());
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2173/">EK求最大流</a></p>
+<h3 id="Dinic-算法求最大流"><a href="#Dinic-算法求最大流" class="headerlink" title="$Dinic$ 算法求最大流"></a>$Dinic$ 算法求最大流</h3><blockquote>
+<p><strong>调用方式：</strong>创建即要确定四个参数：（总点数、总边数、源点、汇点）</p>
+<p><strong>时间复杂度：</strong>$O(n^2m)$</p>
+</blockquote>
+<p><mark>封装模板：</mark></p>
+<blockquote>
+<p><strong>使用指南：</strong></p>
+<p>1、用构造函数确定四个参数：（总点数、总边数、源点、汇点）</p>
+<p>2、调用：$g.dinic()$</p>
+<p>3、<strong>注意：</strong>需要提前计算好总边数！</p>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;
+struct FlowGraph
+&#123;
+	int n, m, s, t, idx;
+	vector&lt;T&gt; f;
+	vector&lt;int&gt; h, e, ne, d, cur;
+
+	FlowGraph(int _n, int _m, int _s, int _t): n(_n), m(_m), s(_s), t(_t), idx(0) &#123;
+		d.resize(n + 1), cur.resize(n + 1), h.resize(n + 1, -1);
+		e.resize(2 * m + 1), ne.resize(2 * m + 1), f.resize(2 * m + 1);
+	&#125;
+
+	void addedge(int a, int b, T c) &#123;
+		e[idx] &#x3D; b, f[idx] &#x3D; c, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
+		e[idx] &#x3D; a, f[idx] &#x3D; 0, ne[idx] &#x3D; h[b], h[b] &#x3D; idx++;
+	&#125;
+
+	bool bfs() &#123;
+		queue&lt;int&gt; q;
+		q.push(s);
+		d.assign(n + 1, 0);
+		d[s] &#x3D; 1, cur[s] &#x3D; h[s];
+		while (!q.empty()) &#123;
+			int u &#x3D; q.front();
+			q.pop();
+			for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i]) &#123;
+				int j &#x3D; e[i];
+				if (f[i] &amp;&amp; !d[j]) &#123;
+					d[j] &#x3D; d[u] + 1;
+					cur[j] &#x3D; h[j];
+					if (j &#x3D;&#x3D; t)	return true;
+					q.push(j);
+				&#125;
+			&#125;
+	   &#125;
+	   return false;
+	&#125;
+
+	T dfs(int u, T limit) &#123;
+		if (u &#x3D;&#x3D; t)	return limit;
+		T flow &#x3D; 0;
+		for (int i &#x3D; cur[u]; ~i &amp;&amp; flow &lt; limit; i &#x3D; ne[i]) &#123;
+			cur[u] &#x3D; i;
+			int j &#x3D; e[i];
+			if (d[j] &#x3D;&#x3D; d[u] + 1 &amp;&amp; f[i]) &#123;
+				T k &#x3D; dfs(j, min(f[i], limit - flow));
+				if (!k)	d[j] &#x3D; -1;
+				f[i] -&#x3D; k, f[i ^ 1] +&#x3D; k, flow +&#x3D; k;
+			&#125;
+		&#125;
+		return flow;
+	&#125;
+
+	T dinic() &#123;
+	T flow &#x3D; 0;
+		while (bfs())	flow +&#x3D; dfs(s, numeric_limits&lt;T&gt;::max());
+		return flow;
+	&#125;
+&#125;;</code></pre>
+
+<p><mark>模板题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+template&lt;typename T&gt;
+struct FlowGraph
+&#123;
+	int n, m, s, t, idx;
+	vector&lt;T&gt; f;
+	vector&lt;int&gt; h, e, ne, d, cur;
+
+	FlowGraph(int _n, int _m, int _s, int _t): n(_n), m(_m), s(_s), t(_t), idx(0) &#123;
+		d.resize(n + 1), cur.resize(n + 1), h.resize(n + 1, -1);
+		e.resize(2 * m + 1), ne.resize(2 * m + 1), f.resize(2 * m + 1);
+	&#125;
+
+	void addedge(int a, int b, T c) &#123;
+		e[idx] &#x3D; b, f[idx] &#x3D; c, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
+		e[idx] &#x3D; a, f[idx] &#x3D; 0, ne[idx] &#x3D; h[b], h[b] &#x3D; idx++;
+	&#125;
+
+	bool bfs() &#123;
+		queue&lt;int&gt; q;
+		q.push(s);
+		d.assign(n + 1, 0);
+		d[s] &#x3D; 1, cur[s] &#x3D; h[s];
+		while (!q.empty()) &#123;
+			int u &#x3D; q.front();
+			q.pop();
+			for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i]) &#123;
+				int j &#x3D; e[i];
+				if (f[i] &amp;&amp; !d[j]) &#123;
+					d[j] &#x3D; d[u] + 1;
+					cur[j] &#x3D; h[j];
+					if (j &#x3D;&#x3D; t)	return true;
+					q.push(j);
+				&#125;
+			&#125;
+	   &#125;
+	   return false;
+	&#125;
+
+	T dfs(int u, T limit) &#123;
+		if (u &#x3D;&#x3D; t)	return limit;
+		T flow &#x3D; 0;
+		for (int i &#x3D; cur[u]; ~i &amp;&amp; flow &lt; limit; i &#x3D; ne[i]) &#123;
+			cur[u] &#x3D; i;
+			int j &#x3D; e[i];
+			if (d[j] &#x3D;&#x3D; d[u] + 1 &amp;&amp; f[i]) &#123;
+				T k &#x3D; dfs(j, min(f[i], limit - flow));
+				if (!k)	d[j] &#x3D; -1;
+				f[i] -&#x3D; k, f[i ^ 1] +&#x3D; k, flow +&#x3D; k;
+			&#125;
+		&#125;
+		return flow;
+	&#125;
+
+	T dinic() &#123;
+	T flow &#x3D; 0;
+		while (bfs())	flow +&#x3D; dfs(s, numeric_limits&lt;T&gt;::max());
+		return flow;
+	&#125;
+&#125;;
+
+int main()
+&#123;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+	int n, m, s, t;
+	cin &gt;&gt; n &gt;&gt; m &gt;&gt; s &gt;&gt; t;
+	FlowGraph&lt;ll&gt; g(n, m, s, t);
+	for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
+	&#123;
+		int u, v, w;
+		cin &gt;&gt; u &gt;&gt; v &gt;&gt; w;
+		g.addedge(u, v, w);
+	&#125;
+
+	cout &lt;&lt; g.dinic();
+	return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2174/">Dinic&#x2F;ISAP求最大流</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/2183/">试题库问题</a></p>
+<p><strong>二分 + 网络流：</strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3425">POI2005 KOS-Dicing</a></p>
+<p><mark>试题库代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+template&lt;typename T&gt;
+struct FlowGraph
+&#123;
+	int n, m, s, t, idx;
+	vector&lt;T&gt; f;
+	vector&lt;int&gt; h, e, ne, d, cur;
+
+	FlowGraph(int _n, int _m, int _s, int _t): n(_n), m(_m), s(_s), t(_t), idx(0) &#123;
+		d.resize(n + 1), cur.resize(n + 1), h.resize(n + 1, -1);
+		e.resize(2 * m + 1), ne.resize(2 * m + 1), f.resize(2 * m + 1);
+	&#125;
+
+	void addedge(int a, int b, T c) &#123;
+		e[idx] &#x3D; b, f[idx] &#x3D; c, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
+		e[idx] &#x3D; a, f[idx] &#x3D; 0, ne[idx] &#x3D; h[b], h[b] &#x3D; idx++;
+	&#125;
+
+	bool bfs() &#123;
+		queue&lt;int&gt; q;
+		q.push(s);
+		d.assign(n + 1, 0);
+		d[s] &#x3D; 1, cur[s] &#x3D; h[s];
+		while (!q.empty()) &#123;
+			int u &#x3D; q.front();
+			q.pop();
+			for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i]) &#123;
+				int j &#x3D; e[i];
+				if (f[i] &amp;&amp; !d[j]) &#123;
+					d[j] &#x3D; d[u] + 1;
+					cur[j] &#x3D; h[j];
+					if (j &#x3D;&#x3D; t)	return true;
+					q.push(j);
+				&#125;
+			&#125;
+	   &#125;
+	   return false;
+	&#125;
+
+	T dfs(int u, T limit) &#123;
+		if (u &#x3D;&#x3D; t)	return limit;
+		T flow &#x3D; 0;
+		for (int i &#x3D; cur[u]; ~i &amp;&amp; flow &lt; limit; i &#x3D; ne[i]) &#123;
+			cur[u] &#x3D; i;
+			int j &#x3D; e[i];
+			if (d[j] &#x3D;&#x3D; d[u] + 1 &amp;&amp; f[i]) &#123;
+				T k &#x3D; dfs(j, min(f[i], limit - flow));
+				if (!k)	d[j] &#x3D; -1;
+				f[i] -&#x3D; k, f[i ^ 1] +&#x3D; k, flow +&#x3D; k;
+			&#125;
+		&#125;
+		return flow;
+	&#125;
+
+	T dinic() &#123;
+	T flow &#x3D; 0;
+		while (bfs())	flow +&#x3D; dfs(s, numeric_limits&lt;T&gt;::max());
+		return flow;
+	&#125;
+&#125;;
+
+int main()
+&#123;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+	int k, n;
+	cin &gt;&gt; k &gt;&gt; n;
+
+	int s &#x3D; n + k + 1, t &#x3D; n + k + 2;
+	FlowGraph&lt;ll&gt; g(n + k + 2, n + k + n * k, s, t);
+
+	int tot &#x3D; 0;
+	for (int i &#x3D; 1; i &lt;&#x3D; k; i++)
+	&#123;
+		int x;
+		cin &gt;&gt; x;
+		g.addedge(s, i, x);
+		tot +&#x3D; x;
+	&#125;
+
+	vector&lt;array&lt;int, 3&gt;&gt; edges;
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+	&#123;
+		g.addedge(i + k, t, 1);
+		int cnt;
+		cin &gt;&gt; cnt;
+		for (int j &#x3D; 1; j &lt;&#x3D; cnt; j++)
+		&#123;
+			int x;
+			cin &gt;&gt; x;
+			edges.push_back(&#123;x, i, g.idx&#125;);
+			g.addedge(x, i + k, 1);
+		&#125;
+	&#125;
+
+	if (tot !&#x3D; g.dinic())	cout &lt;&lt; &quot;No Solution!\n&quot;;
+	else
+	&#123;
+		vector&lt;vector&lt;int&gt;&gt; problems(k + 1);
+		for (auto [u, v, id] : edges)
+		&#123;
+			if (!g.f[id])
+			&#123;
+				problems[u].push_back(v);
+			&#125;
+		&#125;
+		for (int i &#x3D; 1; i &lt;&#x3D; k; i++)
+		&#123;
+			cout &lt;&lt; i &lt;&lt; &quot;: &quot;;
+			for (auto x : problems[i])
+				cout &lt;&lt; x &lt;&lt; &quot; &quot;;
+			cout &lt;&lt; &quot;\n&quot;;
+		&#125;
+	&#125;
+	return 0;
+&#125;</code></pre>
+
+<p><mark>POI2005 KOS-Dicing 代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+template&lt;typename T&gt;
+struct FlowGraph
+&#123;
+	int n, m, s, t, idx;
+	vector&lt;T&gt; f;
+	vector&lt;int&gt; h, e, ne, d, cur;
+
+	FlowGraph(int _n, int _m, int _s, int _t): n(_n), m(_m), s(_s), t(_t), idx(0) &#123;
+		d.resize(n + 1), cur.resize(n + 1), h.resize(n + 1, -1);
+		e.resize(2 * m + 1), ne.resize(2 * m + 1), f.resize(2 * m + 1);
+	&#125;
+
+	void addedge(int a, int b, T c) &#123;
+		e[idx] &#x3D; b, f[idx] &#x3D; c, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
+		e[idx] &#x3D; a, f[idx] &#x3D; 0, ne[idx] &#x3D; h[b], h[b] &#x3D; idx++;
+	&#125;
+
+	bool bfs() &#123;
+		queue&lt;int&gt; q;
+		q.push(s);
+		d.assign(n + 1, 0);
+		d[s] &#x3D; 1, cur[s] &#x3D; h[s];
+		while (!q.empty()) &#123;
+			int u &#x3D; q.front();
+			q.pop();
+			for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i]) &#123;
+				int j &#x3D; e[i];
+				if (f[i] &amp;&amp; !d[j]) &#123;
+					d[j] &#x3D; d[u] + 1;
+					cur[j] &#x3D; h[j];
+					if (j &#x3D;&#x3D; t)	return true;
+					q.push(j);
+				&#125;
+			&#125;
+	   &#125;
+	   return false;
+	&#125;
+
+	T dfs(int u, T limit) &#123;
+		if (u &#x3D;&#x3D; t)	return limit;
+		T flow &#x3D; 0;
+		for (int i &#x3D; cur[u]; ~i &amp;&amp; flow &lt; limit; i &#x3D; ne[i]) &#123;
+			cur[u] &#x3D; i;
+			int j &#x3D; e[i];
+			if (d[j] &#x3D;&#x3D; d[u] + 1 &amp;&amp; f[i]) &#123;
+				T k &#x3D; dfs(j, min(f[i], limit - flow));
+				if (!k)	d[j] &#x3D; -1;
+				f[i] -&#x3D; k, f[i ^ 1] +&#x3D; k, flow +&#x3D; k;
+			&#125;
+		&#125;
+		return flow;
+	&#125;
+
+	T dinic() &#123;
+	T flow &#x3D; 0;
+		while (bfs())	flow +&#x3D; dfs(s, numeric_limits&lt;T&gt;::max());
+		return flow;
+	&#125;
+&#125;;
+
+int main()
+&#123;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+	int n, m;
+	cin &gt;&gt; n &gt;&gt; m;
+
+	vector&lt;pair&lt;int, int&gt;&gt; edges(m + 1);
+	for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
+		cin &gt;&gt; edges[i].first &gt;&gt; edges[i].second;
+
+	int l &#x3D; 0, r &#x3D; m;
+
+	auto check &#x3D; [&amp;](int mid) -&gt; bool
+	&#123;
+		int s &#x3D; n + m + 1, t &#x3D; n + m + 2;
+		FlowGraph&lt;ll&gt; g(t, 3 * m + n, s, t);
+		for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
+		&#123;
+			g.addedge(s, i, 1);
+			int u &#x3D; edges[i].first, v &#x3D; edges[i].second;
+			g.addedge(i, m + u, 1);
+			g.addedge(i, m + v, 1);
+		&#125;
+		for (int i &#x3D; 1; i &lt;&#x3D; n; i++)	g.addedge(m + i, t, mid);
+
+		return g.dinic() &#x3D;&#x3D; m;
+	&#125;;
+	while (l &lt; r)
+	&#123;
+		int mid &#x3D; l + r &gt;&gt; 1;
+		if (check(mid))	r &#x3D; mid;
+		else	l &#x3D; mid + 1;
+	&#125;
+	cout &lt;&lt; l &lt;&lt; &quot;\n&quot;;
+
+	int s &#x3D; n + m + 1, t &#x3D; n + m + 2;
+	FlowGraph&lt;ll&gt; g(t, 3 * m + n, s, t);
+	vector&lt;array&lt;int, 3&gt;&gt; used;
+	for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
+	&#123;
+		g.addedge(s, i, 1);
+		int u &#x3D; edges[i].first, v &#x3D; edges[i].second;
+		used.push_back(&#123;i, m + u, g.idx&#125;);
+		g.addedge(i, m + u, 1);
+		used.push_back(&#123;i, m + v, g.idx&#125;);
+		g.addedge(i, m + v, 1);
+	&#125;
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)	g.addedge(m + i, t, l);
+	
+	g.dinic();
+	for (int i &#x3D; 0; i &lt; used.size(); i +&#x3D; 2)
+	&#123;
+		auto [u, v, id] &#x3D; used[i];
+		if (!g.f[id])	cout &lt;&lt; 1 &lt;&lt; &#39;\n&#39;;
+		else	cout &lt;&lt; 0 &lt;&lt; &#39;\n&#39;;
+	&#125;
+	return 0;
+&#125;</code></pre>
+
+
+
+<h4 id="二分图匹配"><a href="#二分图匹配" class="headerlink" title="二分图匹配"></a>二分图匹配</h4><pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+template&lt;typename T&gt;
+struct FlowGraph
+&#123;
+	int n, m, s, t, idx;
+	vector&lt;T&gt; f;
+	vector&lt;int&gt; h, e, ne, d, cur;
+
+	FlowGraph(int _n, int _m, int _s, int _t): n(_n), m(_m), s(_s), t(_t), idx(0) &#123;
+		d.resize(n + 1), cur.resize(n + 1), h.resize(n + 1, -1);
+		e.resize(2 * m + 1), ne.resize(2 * m + 1), f.resize(2 * m + 1);
+	&#125;
+
+	void addedge(int a, int b, T c) &#123;
+		e[idx] &#x3D; b, f[idx] &#x3D; c, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
+		e[idx] &#x3D; a, f[idx] &#x3D; 0, ne[idx] &#x3D; h[b], h[b] &#x3D; idx++;
+	&#125;
+
+	bool bfs() &#123;
+		queue&lt;int&gt; q;
+		q.push(s);
+		d.assign(n + 1, 0);
+		d[s] &#x3D; 1, cur[s] &#x3D; h[s];
+		while (!q.empty()) &#123;
+			int u &#x3D; q.front();
+			q.pop();
+			for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i]) &#123;
+				int j &#x3D; e[i];
+				if (f[i] &amp;&amp; !d[j]) &#123;
+					d[j] &#x3D; d[u] + 1;
+					cur[j] &#x3D; h[j];
+					if (j &#x3D;&#x3D; t)	return true;
+					q.push(j);
+				&#125;
+			&#125;
+	   &#125;
+	   return false;
+	&#125;
+
+	T dfs(int u, T limit) &#123;
+		if (u &#x3D;&#x3D; t)	return limit;
+		T flow &#x3D; 0;
+		for (int i &#x3D; cur[u]; ~i &amp;&amp; flow &lt; limit; i &#x3D; ne[i]) &#123;
+			cur[u] &#x3D; i;
+			int j &#x3D; e[i];
+			if (d[j] &#x3D;&#x3D; d[u] + 1 &amp;&amp; f[i]) &#123;
+				T k &#x3D; dfs(j, min(f[i], limit - flow));
+				if (!k)	d[j] &#x3D; -1;
+				f[i] -&#x3D; k, f[i ^ 1] +&#x3D; k, flow +&#x3D; k;
+			&#125;
+		&#125;
+		return flow;
+	&#125;
+
+	T dinic() &#123;
+	T flow &#x3D; 0;
+		while (bfs())	flow +&#x3D; dfs(s, numeric_limits&lt;T&gt;::max());
+		return flow;
+	&#125;
+&#125;;
+
+int main()
+&#123;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+	int n, m;
+	cin &gt;&gt; n &gt;&gt; m;
+
+	int s &#x3D; n + m + 1, t &#x3D; n + m + 2;
+	FlowGraph&lt;ll&gt; g(t, n + m + n * m * n, s, t);
+
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+		g.addedge(s, i, 1);
+	
+	for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
+		g.addedge(i + n, t, 1);
+
+	int a, b;
+	vector&lt;array&lt;int, 3&gt;&gt; v;
+	while (cin &gt;&gt; a &gt;&gt; b, a !&#x3D; -1)
+	&#123;
+		v.push_back(&#123;a, b, g.idx&#125;);
+		g.addedge(a, n + b, 1);
+	&#125;
+
+	int tot &#x3D; g.dinic();
+
+	cout &lt;&lt; tot &lt;&lt; &quot;\n&quot;;
+	for (auto [x, y, id] : v)
+	&#123;
+		if (!g.f[id])	cout &lt;&lt; x &lt;&lt; &quot; &quot; &lt;&lt; y &lt;&lt; &#39;\n&#39;;
+	&#125;
+	return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/2177/">飞行员配对方案问题</a></p>
+<h3 id="费用流"><a href="#费用流" class="headerlink" title="费用流"></a>费用流</h3><p><mark>封装模板：</mark></p>
+<blockquote>
+<p><strong>一、使用指南：</strong></p>
+<p>1、用之前需先进行初始化：参数（总点数，源点，汇点）</p>
+<p>2、调用：$g.EK()$ </p>
+<p>3、<strong>注意：</strong>点数和边数需要开的空间大小需提前确定好！</p>
+<p><strong>二、操作描述：</strong></p>
+<ul>
+<li><p>最小费用的边权是正数，即 $g.addedge(id[i][j] * 2 - 1, id[i][j] * 2, 1, a[i][j]);$</p>
+</li>
+<li><p>最大费用的边权是<strong>负数</strong>，即 $g.addedge(id[i][j] * 2 - 1, id[i][j] * 2, 1, -a[i][j]);$</p>
+</li>
+</ul>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">const int N &#x3D; 5e3 + 10, M &#x3D; 1e5 + 10;
+template&lt;typename T&gt;
+struct MinCostGraph &#123;
+    int n, s, t, idx;
+    T flow, cost;
+    bool st[N];
+    T d[N], incf[N], f[M &lt;&lt; 1], w[M &lt;&lt; 1];
+    int h[N], e[M &lt;&lt; 1], ne[M &lt;&lt; 1], pre[M &lt;&lt; 1];
+
+    void init(int _n, int _s, int _t) &#123;
+        n &#x3D; _n, s &#x3D; _s, t &#x3D; _t, idx &#x3D; 0;
+        for (int i &#x3D; 0; i &lt;&#x3D; n; i++)    h[i] &#x3D; -1;
+    &#125;
+
+    void addedge(int a, int b, T c, T d, T f2 &#x3D; 0) &#123;
+        e[idx] &#x3D; b, f[idx] &#x3D; c, w[idx] &#x3D; d, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
+        e[idx] &#x3D; a, f[idx] &#x3D; f2, w[idx] &#x3D; -d, ne[idx] &#x3D; h[b], h[b] &#x3D; idx++;
+    &#125;
+
+    bool spfa() &#123;
+        T inf &#x3D; numeric_limits&lt;T&gt;::max() &#x2F; 2;
+        for (int i &#x3D; 0; i &lt;&#x3D; n; i++)
+            d[i] &#x3D; inf, incf[i] &#x3D; 0;
+
+        queue&lt;int&gt; q;
+        q.push(s), d[s] &#x3D; 0, incf[s] &#x3D; inf;
+        while (!q.empty()) &#123;
+            int u &#x3D; q.front();
+            q.pop();
+
+            st[u] &#x3D; false;
+
+            for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i]) &#123;
+                int j &#x3D; e[i];
+                if (f[i] &amp;&amp; d[j] &gt; d[u] + w[i]) &#123;
+                    d[j] &#x3D; d[u] + w[i];
+                    pre[j] &#x3D; i;
+                    incf[j] &#x3D; min(f[i], incf[u]);
+                    if (!st[j]) &#123;
+                        q.push(j);
+                        st[j] &#x3D; true;
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+
+        return incf[t] &gt; 0;
+    &#125;
+
+    pair&lt;T, T&gt; EK() &#123;
+        flow &#x3D; cost &#x3D; 0;
+        while (spfa()) &#123;
+            T tf &#x3D; incf[t];
+            flow +&#x3D; tf, cost +&#x3D; tf * d[t];
+            for (int i &#x3D; t; i !&#x3D; s; i &#x3D; e[pre[i] ^ 1]) &#123;
+                f[pre[i]] -&#x3D; tf;
+                f[pre[i] ^ 1] +&#x3D; tf;
+            &#125;
+        &#125;
+        return &#123;flow, cost&#125;;
+    &#125;
+&#125;;
+MinCostGraph&lt;ll&gt; g;</code></pre>
+
+<p><mark>模板题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+const int N &#x3D; 5e3 + 10, M &#x3D; 1e5 + 10;
+template&lt;typename T&gt;
+struct MinCostGraph &#123;
+    int n, s, t, idx;
+    T flow, cost;
+    bool st[N];
+    T d[N], incf[N], f[M &lt;&lt; 1], w[M &lt;&lt; 1];
+    int h[N], e[M &lt;&lt; 1], ne[M &lt;&lt; 1], pre[M &lt;&lt; 1];
+
+    void init(int _n, int _s, int _t) &#123;
+        n &#x3D; _n, s &#x3D; _s, t &#x3D; _t, idx &#x3D; 0;
+        for (int i &#x3D; 0; i &lt;&#x3D; n; i++)    h[i] &#x3D; -1;
+    &#125;
+
+    void addedge(int a, int b, T c, T d) &#123;
+        e[idx] &#x3D; b, f[idx] &#x3D; c, w[idx] &#x3D; d, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
+        e[idx] &#x3D; a, f[idx] &#x3D; 0, w[idx] &#x3D; -d, ne[idx] &#x3D; h[b], h[b] &#x3D; idx++;
+    &#125;
+
+    bool spfa() &#123;
+        T inf &#x3D; numeric_limits&lt;T&gt;::max() &#x2F; 2;
+        for (int i &#x3D; 0; i &lt;&#x3D; n; i++)
+            d[i] &#x3D; inf, incf[i] &#x3D; 0;
+
+        queue&lt;int&gt; q;
+        q.push(s), d[s] &#x3D; 0, incf[s] &#x3D; inf;
+        while (!q.empty()) &#123;
+            int u &#x3D; q.front();
+            q.pop();
+
+            st[u] &#x3D; false;
+
+            for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i]) &#123;
+                int j &#x3D; e[i];
+                if (f[i] &amp;&amp; d[j] &gt; d[u] + w[i]) &#123;
+                    d[j] &#x3D; d[u] + w[i];
+                    pre[j] &#x3D; i;
+                    incf[j] &#x3D; min(f[i], incf[u]);
+                        if (!st[j]) &#123;
+                        q.push(j);
+                        st[j] &#x3D; true;
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+
+        return incf[t] &gt; 0;
+    &#125;
+
+    pair&lt;T, T&gt; EK() &#123;
+        flow &#x3D; cost &#x3D; 0;
+        while (spfa()) &#123;
+            T tf &#x3D; incf[t];
+            flow +&#x3D; tf, cost +&#x3D; tf * d[t];
+            for (int i &#x3D; t; i !&#x3D; s; i &#x3D; e[pre[i] ^ 1]) &#123;
+                f[pre[i]] -&#x3D; tf;
+                f[pre[i] ^ 1] +&#x3D; tf;
+            &#125;
+        &#125;
+        return &#123;flow, cost&#125;;
+    &#125;
+&#125;;
+MinCostGraph&lt;ll&gt; g;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n, m, s, t;
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; s &gt;&gt; t;
+
+    g.init(n, s, t);
+
+    for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
+    &#123;
+        int a, b, c, d;
+        cin &gt;&gt; a &gt;&gt; b &gt;&gt; c &gt;&gt; d;
+        g.addedge(a, b, c, d);
+    &#125;
+
+    auto res &#x3D; g.EK();
+
+    cout &lt;&lt; res.first &lt;&lt; &quot; &quot;  &lt;&lt; res.second &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/2176/">费用流</a></p>
+<p><strong>模板题2（同时求最大费用最大流、最小费用最大流）：</strong> <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/2194/">运输问题</a></p>
+<p><mark>模板题2代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+const int N &#x3D; 210, M &#x3D; 5200 + 10;
+template&lt;typename T&gt;
+struct MinCostGraph &#123;
+	int n, s, t, idx;
+	T flow, cost;
+	bool st[N];
+	T d[N], incf[N], f[M &lt;&lt; 1], w[M &lt;&lt; 1];
+	int h[N], e[M &lt;&lt; 1], ne[M &lt;&lt; 1], pre[M &lt;&lt; 1];
+
+	void init(int _n, int _s, int _t) &#123;
+		n &#x3D; _n, s &#x3D; _s, t &#x3D; _t, idx &#x3D; 0;
+		for (int i &#x3D; 0; i &lt;&#x3D; n; i++)    h[i] &#x3D; -1;
+	&#125;
+
+	void addedge(int a, int b, T c, T d) &#123;
+		e[idx] &#x3D; b, f[idx] &#x3D; c, w[idx] &#x3D; d, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
+		e[idx] &#x3D; a, f[idx] &#x3D; 0, w[idx] &#x3D; -d, ne[idx] &#x3D; h[b], h[b] &#x3D; idx++;
+	&#125;
+
+	bool spfa() &#123;
+		T inf &#x3D; numeric_limits&lt;T&gt;::max() &#x2F; 2;
+		for (int i &#x3D; 0; i &lt;&#x3D; n; i++)
+			d[i] &#x3D; inf, incf[i] &#x3D; 0;
+
+		queue&lt;int&gt; q;
+		q.push(s), d[s] &#x3D; 0, incf[s] &#x3D; inf;
+		while (!q.empty()) &#123;
+			int u &#x3D; q.front();
+			q.pop();
+
+			st[u] &#x3D; false;
+
+			for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i]) &#123;
+				int j &#x3D; e[i];
+				if (f[i] &amp;&amp; d[j] &gt; d[u] + w[i]) &#123;
+					d[j] &#x3D; d[u] + w[i];
+					pre[j] &#x3D; i;
+					incf[j] &#x3D; min(f[i], incf[u]);
+						if (!st[j]) &#123;
+						q.push(j);
+						st[j] &#x3D; true;
+					&#125;
+				&#125;
+			&#125;
+		&#125;
+
+		return incf[t] &gt; 0;
+	&#125;
+
+	pair&lt;T, T&gt; EK() &#123;
+		flow &#x3D; cost &#x3D; 0;
+		while (spfa()) &#123;
+			T tf &#x3D; incf[t];
+			flow +&#x3D; tf, cost +&#x3D; tf * d[t];
+			for (int i &#x3D; t; i !&#x3D; s; i &#x3D; e[pre[i] ^ 1]) &#123;
+				f[pre[i]] -&#x3D; tf;
+				f[pre[i] ^ 1] +&#x3D; tf;
+			&#125;
+		&#125;
+		return &#123;flow, cost&#125;;
+	&#125;
+&#125;;
+MinCostGraph&lt;ll&gt; g1, g2;
+
+int main()
+&#123;
+	cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+	int n, m;
+	cin &gt;&gt; n &gt;&gt; m;
+
+	int s &#x3D; n + m + 1, t &#x3D; n + m + 2;
+	g1.init(t, s, t);
+	g2.init(t, s, t);
+	vector&lt;int&gt; a(n + 1);
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)	
+	&#123;
+		cin &gt;&gt; a[i];
+		g1.addedge(s, i, a[i], 0);
+		g2.addedge(s, i, a[i], 0);
+	&#125;
+
+	for (int i &#x3D; 1, x; i &lt;&#x3D; m; i++)
+	&#123;
+		cin &gt;&gt; x;
+		g1.addedge(i + n, t, x, 0);
+		g2.addedge(i + n, t, x, 0);
+	&#125;
+
+	for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+		for (int j &#x3D; 1, x; j &lt;&#x3D; m; j++)
+		&#123;
+			cin &gt;&gt; x;
+			g1.addedge(i, n + j, a[i], x);
+			g2.addedge(i, n + j, a[i], -x);
+		&#125;
+
+	auto res &#x3D; g1.EK(), ans &#x3D; g2.EK();
+	cout &lt;&lt; res.second &lt;&lt; &quot;\n&quot; &lt;&lt; -ans.second &lt;&lt; &quot;\n&quot;;
+	return 0;
+&#125;</code></pre>
+
+<h4 id="拆点技巧"><a href="#拆点技巧" class="headerlink" title="拆点技巧"></a>拆点技巧</h4><blockquote>
+<p><strong>步骤：</strong></p>
+<p>1、给每个点赋予一个编号 $id[i][j]$</p>
+<p>2、入点编号为：$id[i][j] × 2 - 1$，出点编号为：$id[i][j] × 2$</p>
+<p>3、源点编号：$s &#x3D; tot × 2 + 1$，汇点编号：$tot × 2 + 2$</p>
+</blockquote>
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题1：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/2193/">数字梯形问题</a>    <strong>模板题2：</strong> <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/384/">K取方格数</a></p>
+<p><strong>2023年中国大学生程序设计竞赛女生专场：（有细节喔）</strong><a target="_blank" rel="noopener" href="https://codeforces.com/gym/104725/problem/D">D. 金人旧巷市廛喧</a></p>
+<p><mark>模板题1代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+
+const int N &#x3D; 2010, M &#x3D; 5200 + 10;
+template&lt;typename T&gt;
+struct MinCostGraph &#123;
+	int n, s, t, idx;
+	T flow, cost;
+	bool st[N];
+	T d[N], incf[N], f[M &lt;&lt; 1], w[M &lt;&lt; 1];
+	int h[N], e[M &lt;&lt; 1], ne[M &lt;&lt; 1], pre[M &lt;&lt; 1];
+
+	void init(int _n, int _s, int _t) &#123;
+		n &#x3D; _n, s &#x3D; _s, t &#x3D; _t, idx &#x3D; 0;
+		for (int i &#x3D; 0; i &lt;&#x3D; n; i++)    h[i] &#x3D; -1;
+	&#125;
+
+	void addedge(int a, int b, T c, T d) &#123;
+		e[idx] &#x3D; b, f[idx] &#x3D; c, w[idx] &#x3D; d, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
+		e[idx] &#x3D; a, f[idx] &#x3D; 0, w[idx] &#x3D; -d, ne[idx] &#x3D; h[b], h[b] &#x3D; idx++;
+	&#125;
+
+	bool spfa() &#123;
+		T inf &#x3D; numeric_limits&lt;T&gt;::max() &#x2F; 2;
+		for (int i &#x3D; 0; i &lt;&#x3D; n; i++)
+			d[i] &#x3D; inf, incf[i] &#x3D; 0;
+
+		queue&lt;int&gt; q;
+		q.push(s), d[s] &#x3D; 0, incf[s] &#x3D; inf;
+		while (!q.empty()) &#123;
+			int u &#x3D; q.front();
+			q.pop();
+
+			st[u] &#x3D; false;
+
+			for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i]) &#123;
+				int j &#x3D; e[i];
+				if (f[i] &amp;&amp; d[j] &gt; d[u] + w[i]) &#123;
+					d[j] &#x3D; d[u] + w[i];
+					pre[j] &#x3D; i;
+					incf[j] &#x3D; min(f[i], incf[u]);
+						if (!st[j]) &#123;
+						q.push(j);
+						st[j] &#x3D; true;
+					&#125;
+				&#125;
+			&#125;
+		&#125;
+
+		return incf[t] &gt; 0;
+	&#125;
+
+	pair&lt;T, T&gt; EK() &#123;
+		flow &#x3D; cost &#x3D; 0;
+		while (spfa()) &#123;
+			T tf &#x3D; incf[t];
+			flow +&#x3D; tf, cost +&#x3D; tf * d[t];
+			for (int i &#x3D; t; i !&#x3D; s; i &#x3D; e[pre[i] ^ 1]) &#123;
+				f[pre[i]] -&#x3D; tf;
+				f[pre[i] ^ 1] +&#x3D; tf;
+			&#125;
+		&#125;
+		return &#123;flow, cost&#125;;
+	&#125;
+&#125;;
+MinCostGraph&lt;ll&gt; g1, g2, g3;
+
+int main()
+&#123;
+    int m, n;
+    cin &gt;&gt; m &gt;&gt; n;
+
+    vector&lt;vector&lt;int&gt;&gt; id(n + 1, vector&lt;int&gt;(m + n + 1));
+    int tot &#x3D; 0;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        for (int j &#x3D; 1; j &lt;&#x3D; m + i - 1; j++)
+        &#123;
+            id[i][j] &#x3D; ++tot;
+        &#125;
+    int s &#x3D; 2 * tot + 1, t &#x3D; 2 * tot + 2;
+    g1.init(t, s, t);
+    g2.init(t, s, t);
+    g3.init(t, s, t);
+
+    &#x2F;&#x2F; 源点向第一行连边
+    for (int i &#x3D; 1; i &lt;&#x3D; m; i++)
+    &#123;
+        g1.addedge(s, id[1][i] * 2 - 1, 1, 0);
+        g2.addedge(s, id[1][i] * 2 - 1, 1, 0);
+        g3.addedge(s, id[1][i] * 2 - 1, 1, 0);
+    &#125;
+
+    &#x2F;&#x2F; 拆点连边
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        for (int j &#x3D; 1, x; j &lt;&#x3D; m + i - 1; j++)
+        &#123;
+            cin &gt;&gt; x;
+            g1.addedge(id[i][j] * 2 - 1, id[i][j] * 2, 1, -x);
+            g2.addedge(id[i][j] * 2 - 1, id[i][j] * 2, m, -x);
+            g3.addedge(id[i][j] * 2 - 1, id[i][j] * 2, m, -x);
+        &#125;
+
+    &#x2F;&#x2F; 出点向下连两条边
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        for (int j &#x3D; 1; j &lt;&#x3D; m + i - 1; j++)
+        &#123;
+            if (i &#x3D;&#x3D; n)
+            &#123;
+                g1.addedge(id[i][j] * 2, t, 1, 0);
+                g2.addedge(id[i][j] * 2, t, m, 0);
+                g3.addedge(id[i][j] * 2, t, m, 0);
+            &#125;
+            else
+            &#123;
+                g1.addedge(id[i][j] * 2, id[i + 1][j] * 2 - 1, 1, 0);
+                g1.addedge(id[i][j] * 2, id[i + 1][j + 1] * 2 - 1, 1, 0);
+                g2.addedge(id[i][j] * 2, id[i + 1][j] * 2 - 1, 1, 0);
+                g2.addedge(id[i][j] * 2, id[i + 1][j + 1] * 2 - 1, 1, 0);
+                g3.addedge(id[i][j] * 2, id[i + 1][j] * 2 - 1, m, 0);
+                g3.addedge(id[i][j] * 2, id[i + 1][j + 1] * 2 - 1, m, 0);
+            &#125;
+        &#125;
+
+    auto res1 &#x3D; g1.EK(), res2 &#x3D; g2.EK(), res3 &#x3D; g3.EK();
+
+    cout &lt;&lt; -res1.second &lt;&lt; &quot;\n&quot; &lt;&lt; -res2.second &lt;&lt; &quot;\n&quot; &lt;&lt; -res3.second &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+<p><mark> 模板题2代码：</mark></p>
+<p><strong>题意：</strong> 给定 $n × n$ 的网格，问从 $(1,1)$ 走到 $(n,n)$，走 $k$ 条路径，每个格子上有权值，格子上的权值取一次后就变成 $0$ 了，问这 $k$ 次取得的最大权值和是多少？</p>
+<p><strong>思路：</strong></p>
+<ul>
+<li>由于有 $k$ 次，那么就需要满流 $(k)$，然后最大化权值，故费用流；</li>
+<li>网格问题，故拆点；</li>
+<li>每个格子只能取一次数，之后都变成 $0$，则这样处理：点内部连两条边，一条边容量是1，费用是该点权值（这里是<strong>负数</strong>）；另一条边容量是无穷，费用为0；</li>
+<li>为什么费用是负数，因为这里求的是最大费用（当时以为模板错了，$debug$ 了快 $2$ 个小时才发现！）</li>
+</ul>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 5e3 + 10, M &#x3D; 1e5 + 10;
+template&lt;typename T&gt;
+struct MinCostGraph &#123;
+    int n, s, t, idx;
+    T flow, cost;
+    bool st[N];
+    T d[N], incf[N], f[M &lt;&lt; 1], w[M &lt;&lt; 1];
+    int h[N], e[M &lt;&lt; 1], ne[M &lt;&lt; 1], pre[M &lt;&lt; 1];
+
+    void init(int _n, int _s, int _t) &#123;
+        n &#x3D; _n, s &#x3D; _s, t &#x3D; _t, idx &#x3D; 0;
+        for (int i &#x3D; 0; i &lt;&#x3D; n; i++)    h[i] &#x3D; -1;
+    &#125;
+
+    void addedge(int a, int b, T c, T d, T f2 &#x3D; 0) &#123;
+        e[idx] &#x3D; b, f[idx] &#x3D; c, w[idx] &#x3D; d, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
+        e[idx] &#x3D; a, f[idx] &#x3D; f2, w[idx] &#x3D; -d, ne[idx] &#x3D; h[b], h[b] &#x3D; idx++;
+    &#125;
+
+    bool spfa() &#123;
+        T inf &#x3D; numeric_limits&lt;T&gt;::max() &#x2F; 2;
+        for (int i &#x3D; 0; i &lt;&#x3D; n; i++)
+            d[i] &#x3D; inf, incf[i] &#x3D; 0;
+
+        queue&lt;int&gt; q;
+        q.push(s), d[s] &#x3D; 0, incf[s] &#x3D; inf;
+        while (!q.empty()) &#123;
+            int u &#x3D; q.front();
+            q.pop();
+
+            st[u] &#x3D; false;
+
+            for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i]) &#123;
+                int j &#x3D; e[i];
+                if (f[i] &amp;&amp; d[j] &gt; d[u] + w[i]) &#123;
+                    d[j] &#x3D; d[u] + w[i];
+                    pre[j] &#x3D; i;
+                    incf[j] &#x3D; min(f[i], incf[u]);
+                        if (!st[j]) &#123;
+                        q.push(j);
+                        st[j] &#x3D; true;
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+
+        return incf[t] &gt; 0;
+    &#125;
+
+    pair&lt;T, T&gt; EK() &#123;
+        flow &#x3D; cost &#x3D; 0;
+        while (spfa()) &#123;
+            T tf &#x3D; incf[t];
+            flow +&#x3D; tf, cost +&#x3D; tf * d[t];
+            for (int i &#x3D; t; i !&#x3D; s; i &#x3D; e[pre[i] ^ 1]) &#123;
+                f[pre[i]] -&#x3D; tf;
+                f[pre[i] ^ 1] +&#x3D; tf;
+            &#125;
+        &#125;
+        return &#123;flow, cost&#125;;
+    &#125;
+&#125;;
+MinCostGraph&lt;int&gt; g;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n, k;
+    cin &gt;&gt; n &gt;&gt; k;
+
+    vector&lt;vector&lt;int&gt;&gt; id(n + 1, vector&lt;int&gt;(n + 1));
+
+    vector&lt;vector&lt;int&gt;&gt; a(n + 1, vector&lt;int&gt;(n + 1));
+
+    int tot &#x3D; 0;
+
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        for (int j &#x3D; 1; j &lt;&#x3D; n; j++)
+        &#123;
+            cin &gt;&gt; a[i][j];
+            id[i][j] &#x3D; ++tot;
+        &#125;
+
+    int S &#x3D; 2 * tot + 1, T &#x3D; 2 * tot + 2;
+    g.init(T, S, T);
+    g.addedge(S, id[1][1] * 2 - 1, k, 0);
+    g.addedge(id[n][n] * 2, T, k, 0);
+
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        for (int j &#x3D; 1; j &lt;&#x3D; n; j++)
+        &#123;
+            &#x2F;&#x2F; 内部建边
+            g.addedge(id[i][j] * 2 - 1, id[i][j] * 2, 1e8, 0);
+            g.addedge(id[i][j] * 2 - 1, id[i][j] * 2, 1, -a[i][j]);
+            &#x2F;&#x2F; 外部建边
+            if (i + 1 &lt;&#x3D; n) g.addedge(id[i][j] * 2, id[i + 1][j] * 2 - 1, k, 0);
+            if (j + 1 &lt;&#x3D; n) g.addedge(id[i][j] * 2, id[i][j + 1] * 2 - 1, k, 0);
+        &#125;
+
+    auto res &#x3D; g.EK();
+
+    cout &lt;&lt; -res.second &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;</code></pre>
+
+<p><mark>D. 金人旧巷市廛喧 代码：</mark></p>
+<blockquote>
+<p>疑问有 $2$（已基本解决）：</p>
+<p>1、拆点必须是给定条件的权值，如果我随意赋值会死循环，why？</p>
+<ul>
+<li>显然，$spfa$ 可以处理负权的边，但不能处理负权回路！而死循环的原因正是出现了负权回路（通过手搓$2×2$ 地图数据，并加上 $spfa$ 判负环模板终于测试出来了负权回路）。</li>
+</ul>
+<p>2、$EK$ 函数循环里需要加上 $if(d[t] &gt;&#x3D; 0)	return$ ，不加的话会 $wa 43$ ，why？ </p>
+<ul>
+<li>该疑问已解决，因为一条物流初始价值为100，如果每次走一格扣一分，最终会变成负数，则不如之前取消这条物流，因此这个特判是根据题目而特殊定的。</li>
+</ul>
+</blockquote>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+typedef long long ll;
+typedef pair&lt;int, int&gt; pii;
+
+const int N &#x3D; 2010 + 10, M &#x3D; 5100 + 10;
+template&lt;typename T&gt;
+struct MinCostGraph &#123;
+    int n, s, t, idx;
+    T flow, cost;
+    bool st[N];
+    T d[N], incf[N], f[M &lt;&lt; 1], w[M &lt;&lt; 1];
+    int h[N], e[M &lt;&lt; 1], ne[M &lt;&lt; 1], pre[M &lt;&lt; 1];
+
+    void init(int _n, int _s, int _t) &#123;
+        n &#x3D; _n, s &#x3D; _s, t &#x3D; _t, idx &#x3D; 0;
+        for (int i &#x3D; 0; i &lt;&#x3D; n; i++)    h[i] &#x3D; -1;
+    &#125;
+
+    void addedge(int a, int b, T c, T d, T f2 &#x3D; 0) &#123;
+        e[idx] &#x3D; b, f[idx] &#x3D; c, w[idx] &#x3D; d, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
+        e[idx] &#x3D; a, f[idx] &#x3D; f2, w[idx] &#x3D; -d, ne[idx] &#x3D; h[b], h[b] &#x3D; idx++;
+    &#125;
+
+    bool spfa() &#123;
+        T inf &#x3D; numeric_limits&lt;T&gt;::max() &#x2F; 2;
+        for (int i &#x3D; 0; i &lt;&#x3D; n; i++)
+            d[i] &#x3D; inf, incf[i] &#x3D; 0;
+
+        queue&lt;int&gt; q;
+        q.push(s), d[s] &#x3D; 0, incf[s] &#x3D; inf;
+        while (!q.empty()) &#123;
+            int u &#x3D; q.front();
+            q.pop();
+
+            st[u] &#x3D; false;
+
+            for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i]) &#123;
+                int j &#x3D; e[i];
+                if (f[i] &amp;&amp; d[j] &gt; d[u] + w[i]) &#123;
+                    d[j] &#x3D; d[u] + w[i];
+                    pre[j] &#x3D; i;
+                    incf[j] &#x3D; min(f[i], incf[u]);
+                        if (!st[j]) &#123;
+                        q.push(j);
+                        st[j] &#x3D; true;
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+
+        return incf[t] &gt; 0;
+    &#125;
+
+    pair&lt;T, T&gt; EK() &#123;
+        flow &#x3D; cost &#x3D; 0;
+        while (spfa()) &#123;
+            T tf &#x3D; incf[t];
+            if (d[t] &gt;&#x3D; 0)  return &#123;flow, cost&#125;;
+            flow +&#x3D; tf, cost +&#x3D; tf * d[t];
+            for (int i &#x3D; t; i !&#x3D; s; i &#x3D; e[pre[i] ^ 1]) &#123;
+                f[pre[i]] -&#x3D; tf;
+                f[pre[i] ^ 1] +&#x3D; tf;
+            &#125;
+        &#125;
+        return &#123;flow, cost&#125;;
+    &#125;
+&#125;;
+MinCostGraph&lt;ll&gt; g;
+
+int main()
+&#123;
+    cin.tie(nullptr)-&gt;sync_with_stdio(false);
+
+    int n, m, k;
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; k;
+
+    vector&lt;vector&lt;int&gt;&gt; adj(n + 1, vector&lt;int&gt;(m + 1));
+    vector&lt;vector&lt;int&gt;&gt; id(n + 1, vector&lt;int&gt;(m + 1));
+    int tot &#x3D; 0;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        for (int j &#x3D; 1; j &lt;&#x3D; m; j++)
+        &#123;
+            cin &gt;&gt; adj[i][j];
+            id[i][j] &#x3D; ++tot;
+        &#125;
+    
+    int s &#x3D; 2 * tot + 1, t &#x3D; 2 * tot + 2;
+    g.init(t, s, t);
+
+    &#x2F;&#x2F; 源点连边
+    for (int i &#x3D; 1, x, y; i &lt;&#x3D; k; i++)
+    &#123;
+        cin &gt;&gt; x &gt;&gt; y;
+        g.addedge(s, id[x][y] * 2 - 1, 1, 0);
+    &#125;
+
+    &#x2F;&#x2F; 汇点连边
+    for (int i &#x3D; 1, x, y; i &lt;&#x3D; k; i++)
+    &#123;
+        cin &gt;&gt; x &gt;&gt; y;
+        g.addedge(id[x][y] * 2, t, 1, -100);
+    &#125;
+
+    &#x2F;&#x2F; 内部连边
+    int dx[] &#x3D; &#123;-1, 0, 1, 0&#125;, dy[] &#x3D; &#123;0, 1, 0, -1&#125;;
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+        for (int j &#x3D; 1; j &lt;&#x3D; m; j++)
+        &#123;
+            for (int k &#x3D; 0; k &lt; 4; k++)
+            &#123;
+                int nx &#x3D; i + dx[k], ny &#x3D; j + dy[k];
+                if (nx &lt; 1 || nx &gt; n || ny &lt; 1 || ny &gt; m)   continue;
+
+                g.addedge(id[i][j] * 2, id[nx][ny] * 2 - 1, 1, 0);
+            &#125;
+            &#x2F;&#x2F; 拆点
+            if (adj[i][j] &gt;&#x3D; 0)   
+            &#123;
+                g.addedge(id[i][j] * 2 - 1, id[i][j] * 2, 1, 1 - adj[i][j]);
+            &#125;
+        &#125;
+    auto res &#x3D; g.EK();
+    
+    cout &lt;&lt; -res.second;
+    return 0;
+&#125;</code></pre>
+
+
+
+<h2 id="2-SAT"><a href="#2-SAT" class="headerlink" title="2-SAT"></a>2-SAT</h2><blockquote>
+<p>**SAT: Satisfiability **</p>
+<p><strong>满足简要描述：</strong>给定 $m$ 个关系形如：$x_i ∪ x_j$ ，需要使这 $m$ 关系都为真，即：$(x_{i1} ∪ x_{j1}) ∩ (x_{i2} ∪ x_{j2}) ∩ \cdots (x_{in} ∪x_{jn}) &#x3D; 1$。</p>
+<p><strong>解法：</strong></p>
+<ul>
+<li>对于关系：$x_i ∪ x_j$ ，利用离散的角度等价于：$\neg x_i → x_j$ 和 $\neg x_j → x_i$，因此即可建两条边；</li>
+<li>如果存在 $x_i$ 既可为 $0$，又可为 $1$，即在同一个强连通块内，一定不合法；</li>
+<li>构造方式：<ul>
+<li>$tarjan$ 性质：我们求完强连通分量并缩点后，所有强连通分量的编号其实就是拓扑排序的逆序；</li>
+<li>构造方式：优先选择拓扑序靠后的，即对应缩点后编号小的，原因：<ul>
+<li>对于任意一个命题都存在一个与它等价的逆否命题，即我们建的有向图中所有的强连通分量一定都是成对出现的，等于是两个方案，我们只需要选其一即可，而这两个强连通分量在拓扑排序中一定会有一个先后顺序，因此对于：$a→b$，我们选 $a$ 的话一定要选 $b$，而如果选 $b$ 的话可以不一定选 $a$，因此我们可以这么构造（虽然不太确定这么说正不正确，但可以这么理解）。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p><mark>模板题代码：</mark></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 2e6 + 10;
+
+int h[N], e[N], ne[N], idx;
+int dfn[N], low[N], timestamp;
+int stk[N], top;
+int id[N], scc_cnt;
+bool in_stk[N];
+
+void add(int a, int b)
+&#123;
+    e[idx] &#x3D; b, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
+&#125;
+
+void tarjan(int u)
+&#123;
+    dfn[u] &#x3D; low[u] &#x3D; ++timestamp;
+    stk[++top] &#x3D; u, in_stk[u] &#x3D; true;
+    for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i])
+    &#123;
+        int v &#x3D; e[i];
+        if (!dfn[v])
+        &#123;
+            tarjan(v);
+            low[u] &#x3D; min(low[u], low[v]);
+        &#125;
+        else if (in_stk[v]) low[u] &#x3D; min(low[u], dfn[v]);
+    &#125;
+    if (dfn[u] &#x3D;&#x3D; low[u])
+    &#123;
+        int y;
+        ++scc_cnt;
+        do
+        &#123;
+            y &#x3D; stk[top--];
+            in_stk[y] &#x3D; false;
+            id[y] &#x3D; scc_cnt;
+        &#125; while (y !&#x3D; u);   
+    &#125;
+&#125;
+
+int main()
+&#123;
+    memset(h, -1, sizeof(h));
+
+    int n, m;
+    scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+
+    while (m--)
+    &#123;
+        int i, x, j, y;
+        scanf(&quot;%d%d%d%d&quot;, &amp;i, &amp;x, &amp;j, &amp;y);
+        i--, j--; &#x2F;&#x2F; 映射到[0, 2n - 1]
+        add(i * 2 + !x, j * 2 + y);
+        add(j * 2 + !y, i * 2 + x);
+    &#125;
+
+    for (int i &#x3D; 0; i &lt; 2 * n; i++)
+        if (!dfn[i])
+            tarjan(i);
+    
+    for (int i &#x3D; 0; i &lt; n; i++)
+        if (id[i * 2] &#x3D;&#x3D; id[i * 2 + 1])
+        &#123;
+            puts(&quot;IMPOSSIBLE&quot;);
+            return 0;
+        &#125;
+
+    puts(&quot;POSSIBLE&quot;);
+    for (int i &#x3D; 0; i &lt; n; i++)
+    &#123;
+        if (id[i * 2] &lt; id[i * 2 + 1])  printf(&quot;0 &quot;);
+        else    printf(&quot;1 &quot;);
+    &#125;
+    return 0;
+&#125;</code></pre>
+
+<p><mark>牧师约翰最忙碌的一天——题目讲解：</mark></p>
+<p><strong>解释相关细节：</strong>为什么要看重叠，而不是不重叠？</p>
+<ul>
+<li>如果重叠，则满足：$!(A∩B) &#x3D; 1$，等价于：$!A∪!B &#x3D; 1 \iff A → !B$；</li>
+<li>而如果不重叠，一个天然的条件就是：$A∩B &#x3D; 1$，但 $A∪B&#x3D;1$ 也成立，但这个成立只是我们需要的那种意义上的成立，而不是从公式上得到的。</li>
+</ul>
+<p>因此，只能根据重叠，得到那个表达式，从而转化为蕴含的关系！</p>
+<p><strong>代码如下：</strong></p>
+<pre class="language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
+
+using namespace std;
+
+const int N &#x3D; 2e3 + 10, M &#x3D; 8 * N * N + 10;
+
+int h[N], e[M], ne[M], idx;
+int dfn[N], low[N], timestamp, stk[N], top;
+bool in_stk[N];
+int id[N], scc_cnt;
+
+void add(int a, int b)
+&#123;
+    e[idx] &#x3D; b, ne[idx] &#x3D; h[a], h[a] &#x3D; idx++;
+&#125;
+
+void tarjan(int u)
+&#123;
+    dfn[u] &#x3D; low[u] &#x3D; ++timestamp;
+    stk[++top] &#x3D; u, in_stk[u] &#x3D; true;
+    for (int i &#x3D; h[u]; ~i; i &#x3D; ne[i])
+    &#123;
+        int j &#x3D; e[i];
+        if (!dfn[j])
+        &#123;
+            tarjan(j);
+            low[u] &#x3D; min(low[u], low[j]);
+        &#125;
+        else if (in_stk[j]) low[u] &#x3D; min(low[u], dfn[j]);
+    &#125;
+    if (dfn[u] &#x3D;&#x3D; low[u])
+    &#123;
+        int y;
+        scc_cnt++;
+        do
+        &#123;
+            y &#x3D; stk[top--];
+            in_stk[y] &#x3D; false;
+            id[y] &#x3D; scc_cnt;
+        &#125; while (y !&#x3D; u);
+
+    &#125;
+&#125;
+
+struct Node
+&#123;
+    int st, ed, d;
+&#125;;
+
+int main()
+&#123;
+    int n;
+    scanf(&quot;%d&quot;, &amp;n);
+
+    memset(h, -1, sizeof(h));
+
+    vector&lt;Node&gt; a(n + 1);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        int sth, stm, edh, edm, d;
+        scanf(&quot;%d:%d %d:%d %d&quot;, &amp;sth, &amp;stm, &amp;edh, &amp;edm, &amp;d);
+        a[i] &#x3D; &#123;sth * 60 + stm, edh * 60 + edm, d&#125;;
+    &#125;
+
+    auto is_overlap &#x3D; [&amp;](int a, int b, int c, int d) -&gt; bool
+    &#123;
+        return !(b &lt;&#x3D; c || d &lt;&#x3D; a);
+    &#125;;
+
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        for (int j &#x3D; i + 1; j &lt;&#x3D; n; j++)
+        &#123;
+            if (is_overlap(a[i].st, a[i].st + a[i].d, a[j].st, a[j].st + a[j].d))
+            &#123;
+                add(i, j + n);
+                add(j, i + n);
+
+            &#125;
+            if (is_overlap(a[i].st, a[i].st + a[i].d, a[j].ed - a[j].d, a[j].ed))
+            &#123;
+                add(i, j);
+                add(j + n, i + n);
+            &#125;
+            if (is_overlap(a[i].ed - a[i].d, a[i].ed, a[j].st, a[j].st + a[j].d))
+            &#123;
+                add(i + n, j + n);
+                add(j, i);
+            &#125;
+            if (is_overlap(a[i].ed - a[i].d, a[i].ed, a[j].ed - a[j].d, a[j].ed))
+            &#123;
+                add(i + n, j);
+                add(j + n, i);
+            &#125;
+        &#125;
+    &#125;
+
+    for (int i &#x3D; 1; i &lt;&#x3D; 2 * n; i++)
+        if (!dfn[i])
+            tarjan(i);
+
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        if (id[i] &#x3D;&#x3D; id[i + n])
+        &#123;
+            puts(&quot;NO&quot;);
+            return 0;
+        &#125;
+    &#125;
+
+    puts(&quot;YES&quot;);
+    for (int i &#x3D; 1; i &lt;&#x3D; n; i++)
+    &#123;
+        if (id[i] &lt; id[i + n])
+        &#123;
+            printf(&quot;%02d:%02d %02d:%02d\n&quot;, a[i].st &#x2F; 60, a[i].st % 60, (a[i].st + a[i].d) &#x2F; 60, (a[i].st + a[i].d) % 60);
+        &#125;
+        else
+        &#123;
+            printf(&quot;%02d:%02d %02d:%02d\n&quot;, (a[i].ed - a[i].d) &#x2F; 60, (a[i].ed - a[i].d) % 60, a[i].ed &#x2F; 60, a[i].ed % 60);
+        &#125;
+    &#125;
+    return 0;
+&#125;</code></pre>
+
+<p><mark>推荐题单：</mark></p>
+<p><strong>模板题：</strong> <a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/2404/">2-SAT 问题</a></p>
+<p><strong>应用题：</strong><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/373/">牧师约翰最忙碌的一天</a>	$NOI$ 级别难度：<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/1034/">游戏</a></p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">重生带我走</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://318471543.github.io/2024/10/08/%E5%9B%BE%E8%AE%BA/">https://318471543.github.io/2024/10/08/%E5%9B%BE%E8%AE%BA/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">重生带我走</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%9B%BE%E8%AE%BA/">
+                                    <span class="chip bg-color">图论</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2024/10/08/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="基础算法">
+                        
+                        <span class="card-title">基础算法</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-10-08
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            重生带我走
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">基础算法</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/10/08/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="博客搭建记">
+                        
+                        <span class="card-title">博客搭建记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-10-08
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            重生带我走
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%8D%9A%E5%AE%A2%E7%AC%AC%E4%B8%80%E5%A4%A9/">
+                        <span class="chip bg-color">博客第一天</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2024</span>
+            
+            <a href="/about" target="_blank">重生带我走</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/318471543" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:318471543@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=318471543" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 318471543" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/5545924159" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/5545924159" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+    <a href="https://www.zhihu.com/people/shen-mu-yi-35" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/shen-mu-yi-35" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
