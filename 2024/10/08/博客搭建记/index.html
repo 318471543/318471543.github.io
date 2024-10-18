@@ -507,6 +507,9 @@ hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</code></pre>
 <p>至此，基本差不多了，最麻烦的或许还是代码块问题，因为不太好找到有效的博客。</p>
 <p>折磨了一下午，最后解决方法很简单，在知乎写了个解决方案，这里给出链接：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/512393397/answer/4504028756">hexo-matery主题下代码块问题？</a></p>
 <p><strong>添加卡通人物参考博客：</strong><a target="_blank" rel="noopener" href="https://blog.csdn.net/mqdxiaoxiao/article/details/93793530?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522826A3936-93C9-40C9-8DE8-A3CEAF9DFA91%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&request_id=826A3936-93C9-40C9-8DE8-A3CEAF9DFA91&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~rank_v31_ecpm-1-93793530-null-null.142%5Ev100%5Epc_search_result_base6&utm_term=Hexot%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0live2d%E5%8D%A1%E9%80%9A%E4%BA%BA%E7%89%A9&spm=1018.2226.3001.4187">Hexo博客添加live2d卡通人物</a></p>
+<ul>
+<li><code>npm install live2d-widget-model-shizuku</code>，添加这个就行了。</li>
+</ul>
 <p><strong>可能遇到的问题：</strong></p>
 <ul>
 <li>出现很多$warning：LF\ will\ be\ replaced\ by\ CRLF$，解决方案博客：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44141284/article/details/139328894?ops_request_misc=%257B%2522request%255Fid%2522%253A%252294869689-1015-4265-B990-569B14F06FA1%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&request_id=94869689-1015-4265-B990-569B14F06FA1&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~rank_v31_ecpm-1-139328894-null-null.142%5Ev100%5Epc_search_result_base6&utm_term=%20warning:%20in%20the%20working%20copy%20of%20tags/%E9%AB%98%E8%B4%A8%E9%87%8F%E9%A2%98%E5%8D%95/index.html,%20LF%20will%20be%20replaced%20by%20CRLF%20the%20next%20time%20Git%20touches%20it%20%5Bmaster%207d51c63%5D%20Site%20updated:%202024-10-08%2015:48:14&spm=1018.2226.3001.4187">LF will be replaced by CRLF</a></li>
@@ -1146,6 +1149,6 @@ $(function () {
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":200,"height":400},"mobile":{"show":true},"react":{"opacity":0.8}});</script></body>
 
 </html>
